@@ -1,0 +1,8 @@
+= form_for(@vendor_setting, :url=>update_settings_tracking_events_path) do |f|
+  %p
+    %span.label
+      = f.label :auto_confirm_outcomes, 'Confirm auctions automatically based on tracking results:'
+    %span
+      = f.check_box :auto_confirm_outcomes
+  .actions
+    = f.submit "Save confirmation setting", :class=> "button"

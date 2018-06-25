@@ -1,0 +1,54 @@
+- content_for :sub_nav do
+  = render 'users/profile/sub_nav', :active_action=>'index', :active_controller=>'favorite_advertisers'
+
+= render 'users/shared/header_score'
+- content_for :main_column do
+  %section.default-content
+    = form_tag favorite_advertisers_path do
+      %br
+      %h3
+        Select your favorite merchant:
+      = select_tag :advertiser_id_with_class_name, options_from_collection_for_select(@list, :id_with_class_name, :name)
+      &nbsp;&nbsp;
+      = submit_tag 'Add', :class => 'orange-button'
+    %br
+    %br
+    = form_tag replace_favorite_advertisers_path do
+      %br
+      %h3
+        Replace favorite merchants:
+      = select_tag :fav_id, options_for_select(@favorite_advertisers.map{|ad| [ad.advertiser.name, ad.id]}), :prompt => "Select favorite merchant"
+      &nbsp;&nbsp;
+      and replace with
+      &nbsp;&nbsp;
+      = select_tag :replace_id, options_from_collection_for_select(@list, :id_with_class_name, :name), :prompt => "Different merchant"
+      &nbsp;&nbsp;
+      = submit_tag 'Replace', :class => 'orange-button'
+    %br
+    %br
+    %table.default-table
+      %tr
+        %th
+          %span.txt
+            %span Merchant
+        %th
+          %span.txt
+            %span Delete
+      - if @favorite_advertisers.blank?
+        %tr
+          %td.ctr{:colspan => 2}
+            %span.txt
+              %span No merchants selected.
+      - @favorite_advertisers.each do |favorite_advertiser|
+        %tr
+          %td
+            %span.txt
+              %span= favorite_advertiser.advertiser.name
+          %td
+            %span.txt
+              %span= button_to 'Delete', favorite_advertiser_path(favorite_advertiser), method: :delete, confirm: 'Are you sure?'
+
+%h2 My Favorite Merchants
+= render 'layouts/application/one_column'
+
+ 

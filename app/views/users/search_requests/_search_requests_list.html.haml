@@ -1,0 +1,48 @@
+- search_requests = instance_variable_get("@search_requests_#{type}")
+- single ||= nil
+- if single
+  .table-header.table-info
+    .pages-info= page_entries_info search_requests
+    .right
+      = paginate search_requests, :param_name=>"#{type}_page", :params=>params
+%table.sorting
+  %tr
+    %th{:class=>check_order(:search, type)}
+      %a{:href=>order_url(:search, type)}
+        %span Search Request
+    %th{:class=>check_order(:merchants_count, type)}
+      %a{:href=>order_url(:merchants_count, type)}
+        %span Merchants
+    %th{:class=>check_order(:ends_in, type)}
+      %a{:href=>order_url(:ends_in, type)}
+        %span= type != :in_progress ? 'Ended at' : 'Ends in'
+    %th
+      %span.txt
+        %span Action
+  - if search_requests.blank?
+    %tr
+      %td.ctr{:colspan=>7}
+        = "No #{type.to_s.humanize.downcase} search requests to show"
+  - search_requests.each do |search_request|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= search_request.search
+      %td.ctr
+        = search_request.merchants_count
+      %td
+        - if type != :in_progress
+          = format_datetime(search_request.end_time)
+        - else
+          = search_request.ends_in < 0 ? 0 : search_request.ends_in
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View Details', "/search_requests/#{search_request.id}"
+              - if search_request.has_active_service_merchants && search_request.intent_outcome.nil? && type != :finished
+                = link_to 'Reveal Outcomes', "/search_requests/#{search_request.id}/outcome"
+.table-footer.table-info
+  .pages-info= page_entries_info search_requests
+  .right
+    = paginate search_requests, :param_name=>"#{type}_page", :params=>params

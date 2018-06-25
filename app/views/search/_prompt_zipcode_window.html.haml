@@ -1,0 +1,19 @@
+.container-fluid
+  .row
+    %a.close-reveal-modal
+      %img{:alt => "close", :src => "assets/close-btn.png"}
+    .popup_window
+      %h3.zipcodePopTitle
+        For Local Merchants We need your Zipcode
+      %p
+        = form_tag(hp_mm_box_services_search_path, :class => "navbar-form m-ato ajax-spinner", remote: true) do
+          #zip-code-form-errors.text-center.text-danger
+          = hidden_field_tag :service_keyword, params[:service_keyword]
+          = hidden_field_tag :user_id, "#{current_user.id rescue nil}", :class => 'zip-user-id'
+          = text_field_tag :zip_code, '', :placeholder => "Zip code",  :autocomplete => "off", :class => "form-control pull-left", :style => "width: auto; padding: 7px 16px; font-size:16px;"
+          = submit_tag 'Submit', :class => "btn pull-left btn-primary-custom ajax-spinner", :style => "background-color:#ff6600; padding: 8px 24px; font-size:16px; " 
+          .clear
+          
+        %br
+        %h4.zipTxtCash.txt-center To get cash back for all calls placed and completed
+        %h5.zipTxtTrans.txt-center transactions don't forget to #{link_to 'register', new_user_registration_path} or #{link_to 'sign in', new_user_session_path}

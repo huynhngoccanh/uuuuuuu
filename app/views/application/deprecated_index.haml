@@ -1,0 +1,112 @@
+- content_for :title do
+  = "Home"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "video-js", :media => nil
+  = stylesheet_link_tag 'video-js-custom'
+
+- content_for :javascripts do
+  = javascript_include_tag "users/auctions/multiselect"
+  = javascript_include_tag "users/auctions/product_categories"
+  = javascript_include_tag "zclip"
+
+  :javascript
+    $('#muddle-me-button').click(function() {
+      $('#second-form-part').css('visibility','visible');
+    });
+
+    $('.affiliate-offer-link').on('click', function(e){
+      e.preventDefault();
+      var num = this.id.replace('affiliate-offer-link-','');
+      showDetailsBox($('#affiliate-offer-window-' + num));
+    });
+
+    $('#sample_product_auction').submit(function(){
+      $('#second-form-part').css('visibility','visible');
+    });
+
+    clientSideValidations.callbacks.form.pass = function(form, callback) {
+      $('#third-form-part').show();
+      $('.affiliate-offers-wrap').html("<div class='affiliate-offers-message'><div class='offers-spinner'></div>We're matching instant offers for you. Please wait few seconds.</div> ");
+      showLoader($('.offers-spinner'));
+    }
+
+    $("select#root_category option:first").attr('selected','selected');
+
+    $('a#see-video').click(function(e){
+      e.preventDefault();
+      showDetailsBox($('#video-window'));
+    });
+
+    $('#video-window .details-close-button').on('click', function(e){
+      $('#mm_consumer_video')[0].player.pause();
+    });
+
+
+- content_for :main_column do
+  %section#user-homepage
+    %a{:href=> $app_store_link, :class=> "ir", :id => "app-store-link"}
+      Available on the app store
+    %article#get-started
+      %header.clearfix
+        %a{:href => root_path}
+          %h2{:class=> "ir"} Muddle me - Take Control, Shop, Earn!
+        %a#see-video SEE HOW IT WORKS!
+      %div.intro
+        %p
+          Only you truly know when you’re ready to buy. MuddleMe returns the
+          value of that knowledge back to you. Top merchants pay us to show
+          you their best offers and we give you a 70% cut + cash back + coupons.
+          %span
+            Use MuddleMe to take control of your online worth. Try below!
+      %div.form-wrap
+        = simple_form_for(Auction.new, :url=>check_sample_offers_avant_path, :validate=>true, |
+          :html => { :id => "sample_product_auction", :class => "in-cols"}, :remote=>true) do |f|
+          #first-form-part
+            = f.input :product_auction, :as=>:hidden
+            .input
+              = f.label :name, "I want to buy:", :class => "big-label"
+              = f.text_field :name, :placeholder=>'(you can be as specific or as general as you like)', :class => 'big-input'
+              = button_tag "Go!", :type => "button", :id => "muddle-me-button"
+          #second-form-part{:style=> "visibility:hidden;"}
+            %section.bubble-box#share-the-savings
+              %h3 Share the savings!
+              #social-links
+                != facebook_like_button("http://#{HOSTNAME_CONFIG['hostname']}")
+                - text = "Check out this site: "
+                != twitter_tweet_button("http://#{HOSTNAME_CONFIG['hostname']}", text)
+            %hr
+            .inputs.clearfix
+              = inputs_grouped f, :product_category_id, 'Help us narrow your search:', |
+                'Use the three dropdown menus to&nbsp;provide a little more detail so we match the best offers. The fields will auto-populate as you move through the menu. ' do
+                .inpts-row.clearfix
+                  = select_tag "root_category", |
+                    options_from_collection_for_select(ProductCategory.roots.order('`order` ASC').to_a, "id", "name"), |
+                    :prompt => 'Select', :id => "root_category"
+                .inpts-row.clearfix
+                  = select_tag "first_level_category", |
+                    options_for_select([]), |
+                    :include_blank=> true, :id => "first_level_category"
+                .inpts-row.clearfix
+                  = sub_input_row f, :product_category_id, :collection=>[], :label=>false, :as => :select, :include_blank=> true, |
+                    :input_html=>{:id=>'second_level_category'}
+            .actions
+              = f.submit "OK, show me the money!", :id => "check-offers-button"
+          #third-form-part{:style=> "display: none;"}
+            %section.bubble-box-with-green-guy#wanna-earn
+              %h3 Wanna earn even more?
+              %p
+                %a{:href => new_user_registration_path} CREATE A FREE ACCOUNT
+                %br
+                add merchant bids
+                %br
+                to your searches!
+            %hr
+            .affiliate-offers-wrap
+      .actions.to-show{:style=> "display: none;"}
+        = link_to "", new_user_registration_path, :class => "sign-up-its-free ir"
+
+
+= render 'layouts/application/main_page'
+= render 'video_details'
+!= facebok_include_sdk

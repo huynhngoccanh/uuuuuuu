@@ -1,0 +1,8 @@
+%header#header-for-logged
+  %div.row
+    %div.column
+      %a{:href => root_path}
+        %h1#company-logo.ir Muddle Me
+    %div#navigation-area
+      = render :partial => 'layouts/vendors/account_bar_for_logged'
+      = render :partial => 'layouts/vendors/navigation_bar'

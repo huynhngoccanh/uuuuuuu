@@ -1,0 +1,26 @@
+development:
+  amazon_bucket_name: muddleme-dev
+  amazon_access_key: AKIAIA44H4SNOTOUG7EA
+  amazon_access_secret: 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
+  s3_host_name: "s3-us-west-2.amazonaws.com"
+  fb_access_token: "EAAQ2dszg6I0BAKf2fXrvIcaBqu95yfyL4ppYOjfWq7s61c6ZBcXyb8tQUuyXsuK02SEq8Nt1bopcceZCrnh2Jxq8mpEZC7BXWBpUwn0JsgV4NVf2WpdjYalWKFocUkZCANtr5S3ODIqw2FzOo6VapLHXxOWsqSVmCXk4G5kMKwZDZD"
+
+production:
+  amazon_bucket_name: muddleme-staging
+  amazon_access_key: AKIAIA44H4SNOTOUG7EA
+  amazon_access_secret: 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
+  s3_host_name: "s3-us-west-2.amazonaws.com"
+  fb_access_token: "EAAQ2dszg6I0BAKf2fXrvIcaBqu95yfyL4ppYOjfWq7s61c6ZBcXyb8tQUuyXsuK02SEq8Nt1bopcceZCrnh2Jxq8mpEZC7BXWBpUwn0JsgV4NVf2WpdjYalWKFocUkZCANtr5S3ODIqw2FzOo6VapLHXxOWsqSVmCXk4G5kMKwZDZD"
+
+test:
+  amazon_bucket_name: muddleme-test
+  amazon_access_key: AKIAIA44H4SNOTOUG7EA
+  amazon_access_secret: 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
+  s3_host_name: "s3-us-west-2.amazonaws.com"
+
+staging:
+  amazon_bucket_name: muddleme-staging
+  amazon_access_key: AKIAIA44H4SNOTOUG7EA
+  amazon_access_secret: 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
+  s3_host_name: "s3-us-west-2.amazonaws.com"
+  fb_access_token: "EAAQ2dszg6I0BAKf2fXrvIcaBqu95yfyL4ppYOjfWq7s61c6ZBcXyb8tQUuyXsuK02SEq8Nt1bopcceZCrnh2Jxq8mpEZC7BXWBpUwn0JsgV4NVf2WpdjYalWKFocUkZCANtr5S3ODIqw2FzOo6VapLHXxOWsqSVmCXk4G5kMKwZDZD"

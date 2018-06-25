@@ -1,0 +1,33 @@
+
+    - content_for :javascripts do
+          = javascript_include_tag "#{params[:controller]}/multiselect"
+
+        - content_for :javascripts do
+          :javascript
+            $(function () {
+              initFormToggler($('#edit-profile'), $('#cancel-edit-profile'), $('#customer-profile'), #{action_name == "update" ? 1 : 0})
+            });
+
+        - content_for :sub_nav do
+          = render 'sub_nav', :active_action=>'show', :active_controller=>'profile'
+
+        = render 'users/shared/header_score'
+        - content_for :main_column do
+          %section.default-content
+            %h3
+              PROFILE DETAILS
+              - tip = "This is your complete MuddleMe customer profile."
+              = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+              %a.orange-link#edit-profile edit
+            %hr
+            %article.narrowed.details-preview#customer-profile
+              = render 'form'
+
+
+        %h2 My Profile
+        = render 'layouts/application/one_column'
+
+
+
+
+        

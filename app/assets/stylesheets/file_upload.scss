@@ -1,0 +1,91 @@
+@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+@import "bootstrap/mixins";
+@import "bootstrap/_progress-bars";
+@import "bootstrap/_component-animations";
+
+.fileupload-progressbar {
+  margin-top: 10px;
+  height: 12px;
+}
+
+.fileupload-progressbar .bar {
+  background-image: none;
+  background-color: #bd4b24;
+}
+
+.fileupload-buttonbar  {
+  .files {
+    overflow: hidden;
+    margin-top: 10px;
+    text-align: center;
+    color: #797979;
+    
+    .preview {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      line-height: 48px;
+
+      button {
+        display: none;
+        position: absolute;
+        width: 19px;
+        height: 19px;
+        background: image-url("small-icons.png") no-repeat;
+        top: 17px;
+        left: 13px;
+        border: 0;
+      }
+    }
+
+    .template-upload,
+    .template-download {
+      float: left;
+      margin-right: 6px;
+      width: 53px;
+      height: 64px;
+      margin-bottom: 6px;
+    }
+
+    .template-upload {
+
+      .progress {
+        clear: both;
+        height: 6px;
+        margin-top: 6px;
+        margin-bottom: 0;
+
+        .bar {
+          height: 6px;
+          background-image: none;
+          background-color: #bd4b24;
+        }
+      }
+    }
+
+    .preview:hover button {
+      display: block;
+      opacity: 1;
+    }
+
+    .error {
+      color: #d21800;
+      font-size: 11px;
+      background-color: #FED6D5;
+      border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-o-border-radius:4px;
+      padding: 3px;
+      width: 48px - 6px;
+      height: 48px - 6px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .drop-msg {
+      display: none;
+    }
+    .dragnadrop .drop-msg {
+      display: block;
+    }
+  }
+}

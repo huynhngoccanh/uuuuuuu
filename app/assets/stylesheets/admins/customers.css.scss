@@ -1,0 +1,15 @@
+section#admin-customer {
+  article.half-col {
+    clear: none;
+    width: 450px;
+    padding-right: 44px;
+  }
+  article.half-col.last-child {
+    padding-right: 0;
+  }
+}
+
+article#admin-customer-earnings {
+  float: left;
+  width: 360px;
+}

@@ -1,0 +1,19 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/box_messages'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column{:style => 'margin-left:10px;'}
+      %h3 MESSAGES
+      %p
+        Here you can send messages to all Ubitru users.
+        %br
+        The message will be displayed in their MM Box.
+      = render 'form'
+
+%h2 Search box messages
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  :javascript
+    initTabsNav($('.left-tabs-nav ul'), '-form-wrap');

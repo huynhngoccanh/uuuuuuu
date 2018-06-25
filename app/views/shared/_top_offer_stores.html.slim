@@ -1,0 +1,20 @@
+- unless @all_top_deals.blank?
+  - @all_top_deals.each do |placement|
+    - merchant = placement.merchant
+    figure.service-box.col-4
+      = render partial: "shared/join_loyalty", locals: {merchant: merchant}
+      a.favorite-store.feature-img style=("min-height:240px;") data-animation="none" href="/merchants/#{merchant.slug}/coupons" target="_blank"
+        = image_tag(placement.image.url(:medium), :title => merchant.name, :class => "img-resize")
+      figcaption.sponsor
+        .brand-logo
+          a href="javascript:;"
+            = image_tag merchant.image.url(:medium), title: merchant.name, class: "ms-info-img logo"
+        / .desc  
+        /   h4= placement.header.first(22)
+        /   h4= placement.description
+        - if !merchant.coupons.blank?
+          .desc
+            h4= merchant.coupons.last.try(:description)
+            h4 
+              | Promo code : 
+              = merchant.coupons.last.try(:code)

@@ -1,0 +1,64 @@
+- for_vendor = for_vendor ||= nil
+- admin_preview = admin_preview ||= nil
+
+/ - if admin_preview
+/   - image_path = "emails/#{for_vendor ? 'vendor' : 'user'}_logo.png"
+/ - else
+/   - image_path = attachments["emails/#{for_vendor ? 'vendor' : 'user'}_logo.png"].url
+
+
+%table{ :width => "100%", :cellpadding => "0", :cellspacing => "0", :class => "backgroundTable", :bgcolor => '#FFFFFF', :style => "margin: 0, padding: 0" }
+  %tr
+    %td{ :valign => "top", :align => "center" }
+      %table{:width=>"600" ,:cellpadding => "0", :cellspacing => "0" }
+        %tr
+          %td{:height => '77', :width=>'100%', :bgcolor => '#333333'}
+            / %a{:href=>(logo_link ||=nil ? logo_link : root_url)}
+            /   = image_tag image_path,  :alt=>'MuddleMe', :title=>'MuddleMe', |
+            /     :style=>'border: none'
+        %tr
+          %td{:height=>'27', :bgcolor => '#e2e2e3'}!= '&nbsp;'
+        %tr
+          %td{:width=>'100%', :bgcolor => '#e2e2e3'}
+            %table{:width=>"100%" ,:cellpadding => "0", :cellspacing => "0" }
+              %tr
+                %td{:width=>'39', :bgcolor => '#e2e2e3'}!= '&nbsp;'
+                %td{:bgcolor => '#e2e2e3', :style => "font-size: 30px; color: #dc6d2c; line-height: 160%; font-family: helvetica;"}
+                  %table{:width=>"100%" ,:cellpadding => "0", :cellspacing => "0" }
+                    %tr
+                      %td{:width=>'100%', :bgcolor => '#e2e2e3', :style => "font-size: 30px; color: #{for_vendor ? '#83bf00' : '#dc6d2c'}; line-height: 160%; font-family: helvetica;"}
+                        = yield :hello_text
+                    %tr
+                      %td{:width=>'100%', :height=>'20', :bgcolor => '#e2e2e3'}
+                    %tr
+                      %td{:width=>'100%', :bgcolor => '#e2e2e3', :style => "font-size: 12px; color: #333333; line-height: 160%; font-family: helvetica;"}
+                        = yield :hello_sub_text
+        %tr
+          %td{:height=>'38', :bgcolor => '#e2e2e3'}!= '&nbsp;'
+        %tr
+          %td{:height=>'27', :bgcolor => '#fff'}!= '&nbsp;'
+        %tr
+          %td{:width=>'100%', :bgcolor => '#fff'}
+            %table{:width=>"100%" ,:cellpadding => "0", :cellspacing => "0" }
+              %tr
+                %td{:width=>'39', :bgcolor => '#fff'}!= '&nbsp;'
+                %td{:bgcolor => '#fff'}
+                  = yield :main_content
+        %tr
+          %td{:height=>'38', :bgcolor => '#fff'}!= '&nbsp;'
+        %tr
+          %td{:width=>'100%', :height=>'1', :bgcolor => '#fff', :style => "font-size: 1px;"}
+            %table{:width=>"100%" ,:cellpadding => "0", :cellspacing => "0" }
+              %tr
+                %td{:width=>'8', :height=>'1', :bgcolor => '#fff', :style => "font-size: 1px;"}!= '&nbsp;'
+                %td{:width=>'584', :height=>'1', :bgcolor => '#e5e5e5', :style => "font-size: 1px;"}!= '&nbsp;'
+                %td{:width=>'8', :height=>'1', :bgcolor => '#fff', :style => "font-size: 1px;"}!= '&nbsp;'
+        - unless no_footer ||=nil
+          %tr
+            %td{:width=>'100%', :height=>'47', :bgcolor => '#fff'}
+              %table{:width=>"100%" ,:cellpadding => "0", :cellspacing => "0" }
+                %tr
+                  %td{:width=>'39', :bgcolor => '#fff'}!= '&nbsp;'
+                  %td{:bgcolor => '#fff', :style => "font-size: 12px; color: #666666; line-height: 200%; font-family: helvetica;"}
+                    = "To customize which email notifications you get,"
+                    %a{:href=>(for_vendor ? edit_company_settings_url : edit_users_settings_url)}= "click here."

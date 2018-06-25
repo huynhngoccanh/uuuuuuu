@@ -1,0 +1,15 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section#finished_auctions_wrap.default-content.clearfix
+    = render 'auction_list', :type=>:finished, :single=>true
+
+= render 'users/shared/header_score'
+%h2 FINISHED AUCTIONS
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#finished_auctions_wrap');

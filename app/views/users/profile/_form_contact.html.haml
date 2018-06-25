@@ -1,0 +1,54 @@
+= simple_form_for current_user, :url=>{:action=>:update_contact_info}, |
+  :wrapper=>:standard, :validate => true, :html=>{:class=>'no-label clearfix'} do |f|
+
+  %div.line
+    %div.label First name:
+    %div.value.to-hide= current_user.first_name_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :first_name
+
+  %div.line
+    %div.label Last name:
+    %div.value.to-hide= current_user.last_name_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :last_name
+
+  %div.line
+    %div.label E-mail address:
+    %div.value.to-hide= current_user.email_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :email
+
+  %div.line
+    %div.label Address:
+    %div.value.to-hide= current_user.address_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :address
+
+  %div.line
+    %div.label City:
+    %div.value.to-hide= current_user.city_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :city
+
+  %div.line
+    %div.label Zip code:
+    %div.value.to-hide= current_user.zip_code_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :zip_code
+
+  %div.line
+    %div.label State:
+    %div.value.to-hide= current_user.state_abbreviation_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :state_abbreviation, :collection => [''] + STATE_ABBREVIATIONS, :prompt => "state..", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Phone number:
+    %div.value.to-hide= current_user.phone_was
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :phone
+
+  .actions{:style=>"display: none;"}
+    = f.button :submit, 'Save changes', :class => "fixed-width-button"
+    %a#cancel-edit-profile.fixed-width-button.gray-button Cancel Changes

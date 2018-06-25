@@ -1,0 +1,8 @@
+Hi <%= @user.first_name %>!
+
+<% if @email_content.hello_sub_text.blank? %>
+    Your auction #<%= @auction.number %> on Muddleme for <%= @auction.name %>
+    has been ended with no bids.
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user) %>
+<% end %>

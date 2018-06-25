@@ -1,0 +1,11 @@
+<% if @auction.loading_affiliate_offers %>
+  window.setTimeout(function(){
+    $.getScript('<%=  check_offers_auction_path(@auction) %>')
+  }, 4000)
+<% else %>
+  $('.affiliate-offers-wrap').html("<%= escape_javascript render('affiliate_offers') %>")
+  <% if !@auction.combined_affiliate_offers.blank? %>
+    $('.column.second, .columns-wrap').addClass('with-offers')
+    $('.column.second').before("<%= escape_javascript render('extra_offers_message') %>")
+  <% end %>
+<% end %>

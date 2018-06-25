@@ -1,0 +1,134 @@
+<div class="left_col scroll-view">
+  <div class="navbar nav_title" style="border: 0;">
+    <a href="/admins/home" class="site_title"><%= image_tag "ubitru/ubi-rounded-logo.png" %> <span>Ubitru Admin!</span></a>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <br />
+
+  <!-- sidebar menu -->
+  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+      <h3>General</h3>
+      <ul class="nav side-menu">
+        <li>
+          <a href="/admins/home"><i class="fa fa-home"></i> Home</a>
+        </li>
+        <li>
+          <a><i class="fa fa-cart-plus" aria-hidden="true"></i>Merchants<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+            <li><a href="/admins/merchants">Merchants</a></li>
+            <li><a href="/admins/avant_advertiser">Avant</a></li>
+            <li><a href="/admins/cj_advertiser">Commission Junction</a></li>
+            <li><a href="/admins/pj_advertiser">Pj</a></li>
+            <li><a href="/admins/ir_advertiser">Ir</a></li>
+            <li><a href="/admins/linkshare_advertiser">Linkshare</a></li>
+            </ul>
+
+        </li>
+
+        <li>
+          <a><i class="fa fa-tags" aria-hidden="true"></i>Categories <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <% Taxonomy.all.each do |taxonomy| %>
+              <li>
+                <%= link_to taxonomy.name, "/admin/categories/#{taxonomy.id}" %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <a href="/admins/coupons">Coupons</a>
+        </li>
+        
+        <li>
+          <a><i class="fa fa-user"></i>Customer<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+            <li><a href="/admin/customers">All Customers</a></li>
+            <li><a href="/admin/customers/customer_reffer"> Customer Reffered</a></li>
+            </ul>
+        </li>
+        <li>
+          <a href="/admin/payment_histories">Transaction</a>
+        </li>
+        <li>
+          <a href="/admins/service_request">Service Requests</a>
+        </li>
+        <li>
+          <a href="/admins/service_request/click">Clicks</a>
+        </li>
+        <li>
+          <a href="/admins/merchants/loyalty_programs_users">Loyalty Programs User</a>
+        </li>
+        
+        
+       <!--  <li>
+          <a href="/admin/purchase_histories">Purchase Histories</a>
+        </li>
+        <li>
+          <a href="/admins/loyalty_program_stores">Loyalty Program Store</a>
+        </li>
+        <li>
+          <a>Affiliates <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li>
+              <a href="/admin/affiliated_advertisers/affiliates_categories">Links Management</a>
+            </li>
+            <li>
+              <a href="/admin/custom_advertisers">Add Merchants</a>
+            </li>
+            <li>
+              <a href="/admin/stores">Affiliate Stores</a>
+            </li>
+            <li>
+              <a href="/admin/hp_stores?type=favorite_stores">HP Fav Stores</a>
+            </li>
+            <li>
+              <a href="/admin/hp_stores?type=browseable">HP Browseable Stores</a>
+            </li>
+            <li>
+              <a href="/admin/hp_stores?type=top_dealers">HP Top Dealers</a>
+            </li>
+            <li>
+              <a href="/admin/hp_store_product_categories?type=popular_stores">Popular Stores</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a>Categories <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li>
+              <a href="/admins/product_categories">Product Category</a>
+            </li>
+            <li>
+              <a href="/admins/store_categories">Store Category</a>
+            </li>
+            <li>
+              <a href="/admin/add_storecat_to_merchant">Add Merchant</a>
+            </li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+
+  </div>
+  <!-- /sidebar menu -->
+
+  <!-- /menu footer buttons -->
+  <div class="sidebar-footer hidden-small">
+    <a data-toggle="tooltip" data-placement="top" title="Settings">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+      <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Lock">
+      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Logout">
+      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- /menu footer buttons -->
+</div>

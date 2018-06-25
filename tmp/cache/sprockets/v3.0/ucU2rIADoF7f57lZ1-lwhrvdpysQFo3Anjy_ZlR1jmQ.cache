@@ -1,0 +1,17 @@
+I"²(function() {
+  $(document).ready(function() {
+    var clip, modalLocation;
+    $('.nav-btn').click(function() {
+      return $('.main-nav').slideToggle();
+    });
+    if ($('#top_deal').length > 0) {
+      if ($('#top_deal')[0].value.length > 0) {
+        modalLocation = $('#top_deal')[0].value;
+        $('#' + modalLocation).reveal();
+      }
+    }
+    return clip = new ZeroClipboard($(".my_clip_button"));
+  });
+
+}).call(this);
+:ET

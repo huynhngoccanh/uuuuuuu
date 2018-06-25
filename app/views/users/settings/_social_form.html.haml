@@ -1,0 +1,21 @@
+.column
+  %p
+    %span.label{:style=>'width: auto'}
+      Link your MuddleMe account with a social network:
+    %span{:style=>'line-height: 19px; padding-top: 1px'}
+      (This will boost your MuddleMe score so you can potentially earn more per search!)
+
+- cls = !current_user.facebook_uid.blank? ? 'active' : ''
+- href = !current_user.facebook_uid.blank? ? '#' : user_omniauth_authorize_path(:facebook)
+%a#facebook-status.social-status{:class=>cls, :href=>href}
+  .social-icon
+  .txt 
+    = current_user.facebook_uid.blank? ? 'connect' : 'connected' 
+    = "to Facebook"
+- cls = !current_user.twitter_uid.blank? ? 'active' : ''
+- href = !current_user.twitter_uid.blank? ? '#' : user_omniauth_authorize_path(:twitter)
+%a#twitter-status.social-status{:class=>cls, :href=>href}
+  .social-icon
+  .txt 
+    = current_user.twitter_uid.blank? ? 'connect' : 'connected' 
+    = "to Twitter"

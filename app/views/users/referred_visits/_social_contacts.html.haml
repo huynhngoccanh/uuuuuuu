@@ -1,0 +1,24 @@
+%article#social-contacts.details-preview
+  %h6
+    %strong Invite friends via Facebook and Twitter:
+    %br
+    %br
+  - default_text = "Hey guys, check out Ubitru.com. They provide, coupons, loyalty and cash back in one convenient place. They pay cash too!"
+  %div.input
+    = label_tag 'email_username', "Social-text"
+    = text_area_tag 'social_text', default_text
+  %div.actions.clearfix
+    .field02
+      %a{:id => "post-to-facebook", |
+      :href=>"http://www.facebook.com/sharer.php?u=#{referral_url}&t=#{default_text}", |
+      :"data-href"=>"http://www.facebook.com/sharer.php?u=#{CGI::escape(CGI::escape(referral_url))}&t=_text_"}
+        %span.ir#facebook-small
+        %i.fa.fa-facebook-square
+        %span.txt Post to Facebook
+    .field02
+      %a{:id=> "post-to-twitter", |
+      :href=>"http://twitter.com/home?status=#{default_text + " " + referral_url}", |
+      :"data-href"=>"http://twitter.com/home?status=_text_ " + referral_url}
+        %span.ir#twitter-small
+        %i.fa.fa-twitter-square
+        %span.txt Post to Twitter

@@ -1,0 +1,70 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>(@auction.product_auction? ? 'product' : 'service')
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column
+      %article#auction-details-preview.details-preview
+        %h3 AUCTION DETAILS PREVIEW
+        %hr
+        = render 'auction_attributes'
+
+      %article#auction-confirm-address
+        %h3 CONFIRM ADDRESS
+        %hr
+        = simple_form_for @auction.auction_address || AuctionAddress.new, :url=>{:action=>:create}, |
+          :wrapper=>:standard, :validate => true, :html=>{:class=>'no-label clearfix'} do |f|
+          .column.width300
+            %div.input.radio_buttons
+              %span.radio
+                = radio_button_tag :use_default_address, 'yes', !@auction.auction_address, :id=>:use_default_address_yes
+                = label_tag :use_default_address_yes, 'My default address'
+              %span.radio
+                = radio_button_tag :use_default_address, 'no', !!@auction.auction_address, :id=>:use_default_address_no
+                = label_tag :use_default_address_no, 'Provide diffrent address'
+            .inputs
+              = no_label_input f, :first_name
+              = no_label_input f, :last_name
+              = no_label_input f, :address
+              = no_label_input f, :city
+              = no_label_input f, :zip_code
+          .column
+            .actions
+              = f.button :submit, 'Initiate Auction', :class => "fixed-width-button", :disable_with=>"Initializing..."
+              = link_to 'Edit Auction', {:action=>@auction.product_auction? ? 'product' : 'service'}, :class => 'gray-button fixed-width-button' 
+              = f.button :submit, 'Cancel Auction', :name=>:cancel, :class => "gray-button fixed-width-button"
+
+    .column
+      %article#auction-images
+        %h3
+          AUCTION IMAGES
+          %span (click images to enlarge)
+        %hr
+        = render 'auction_images'
+      %article#personal-info.offwhite-box.details-preview
+        %h3
+          .padlock-icon
+          Your personal contact information is never shared...
+          %br
+          %span
+            = '...until '
+            %em you
+            sell to the highest bidder!
+        %p
+          %span.label Name:
+          %span= "#{current_user.first_name} #{current_user.last_name}"
+        %p
+          %span.label Email:
+          %span= current_user.email
+        %p
+          %span.label Address:
+          %span= current_user.address
+        %p
+          %span.label Phone number:
+          %span= current_user.phone
+
+        
+
+= render 'users/shared/header_score'
+%h2 Review and confirm your auction
+= render 'layouts/application/one_column'

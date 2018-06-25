@@ -1,0 +1,39 @@
+- model_class = IrAdvertiser
+div ng-controller="IrAdvertiserController"
+
+  div class="page-header"
+    h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+  form
+    .row
+      .col-md-4
+        .input-group
+          .input-group-addon: i.fa.fa-search
+          input.form-control type="text" ng-model="filter.query"
+      / .col-md-4
+        label.checkbox-inline
+          input type="checkbox" ng-model="filter.trending_stores"
+          | Trending Stores
+        label.checkbox-inline
+          input type="checkbox" ng-model="filter.top_deals"
+          | Top Deals
+      .col-md-4    
+        = link_to t('.new', :default => t("helpers.links.new")), new_admins_merchant_path, :class => 'btn btn-primary'
+      
+  table class="table table-striped merchants-table"
+    thead
+      tr
+        th= model_class.human_attribute_name(:id)
+        th= model_class.human_attribute_name(:name)
+        th=t '.actions', :default => t("helpers.actions")
+    tbody
+      tr ng-show="!fetched"
+        td colspan="8" align="center": i.fa.fa-spinner.fa-spin
+      tr.ng-hide ng-repeat="advertiser in advertisers | filter: filter.query" ng-show="fetched"
+        td
+          a href="/admin/ir_advertiser/{{advertiser.id}}"= "{{advertiser.id}}"
+        td= "{{advertiser.name}}"
+       
+        td
+          a href="/admins/ir_advertiser/{{advertiser.id}}/edit" Edit
+
+

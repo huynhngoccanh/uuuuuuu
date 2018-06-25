@@ -1,0 +1,14 @@
+%h3 Enter their information and let us track them down and ask them to join!
+%br
+%h5
+  %b If they join, you get paid for every job they do.
+%br
+= form_tag('/user_service_providers', :method => "post", :id => "new_service_provider_form", :remote => true, :class => "navbar-form") do
+  #favorite-merchant-errors.text-danger.text-center
+  #sp-processing-message
+  %p= text_field_tag :merchant_name, {}, :placeholder => "Merchant Name", :class => "form-control"
+  %p= text_field_tag :email, {}, :placeholder => "Merchant Email", :class => "form-control"
+  %p= text_field_tag :phone, {}, :placeholder => "Merchant Phone Number", :class => "form-control"
+  %p= text_field_tag :merchant_address, {}, :placeholder => "Merchant Address", :class => "form-control"
+  %p.col-md-4.center-block
+    = submit_tag 'Submit', :id => "submitBtn", :class => "btn btn-primary-custom center-block"

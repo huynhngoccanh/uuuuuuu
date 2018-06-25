@@ -1,0 +1,5 @@
+= simple_form_for @vendor_outcome, :as=>:vendor_outcome, :validate=>true, :url => update_outcome_auction_path(@auction), :wrapper=>:standard do |f|
+  = f.input :accepted, :as=>:radio_buttons, :wrapper_html=> {:id=>"accepted_wrap"}
+  = f.input :comment
+  .actions
+    = f.button :submit, 'Submit outcome report', :class => "fixed-width-button orange-button"

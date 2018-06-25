@@ -1,0 +1,13 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/hp_stores'
+- content_for :main_column do
+  %section.default-content
+    %p
+      = render "add_merchant_form"
+    %p
+      = render "replace_merchant_form"
+    %p
+      = render "store_type_merchants_info"
+
+%h2= stores_page_name(params[:type])
+= render 'layouts/application/one_column'

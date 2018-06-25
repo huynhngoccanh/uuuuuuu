@@ -1,0 +1,36 @@
+.home-main-section
+  #enable-ie-header
+    Enabling
+    %span
+      Muddleme
+    for Internet Explorer
+    #enable-ie-header-logo
+  #enable-ie-download-text
+    Download didn't start?
+    = link_to 'Retry', 'http://muddleme.com/mm-ie-extension'
+  #enable-ie-block
+    %table
+      %tr
+        %td
+          #enable-ie-step1
+        %td
+          #enable-ie-step2
+        %td
+          #enable-ie-step3
+      %tr
+        %td RUN THE INSTALLER
+        %td ENABLE MUDDLEME
+        %td RESTART INTERNET EXPLORER
+      %tr
+        %td
+          #enable-ie-step1-image
+        %td
+          #enable-ie-step2-image
+        %td
+          #enable-ie-step3-image
+  %script
+    :plain
+      window.addEventListener('load', onloaded, false );
+      function onloaded() {
+        window.location = "http://muddleme.com/mm-ie-extension";
+      };

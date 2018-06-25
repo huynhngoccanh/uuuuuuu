@@ -1,0 +1,84 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/finance'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .clearfix
+      .column
+        %article.narrowed.details-preview#customer-profile
+          %h3 REPORT DETAILS
+          %hr
+          %div.line
+            %div.label Customer:
+            %div.value= @intent.user.full_name
+
+          %div.line
+            %div.label Search intent:
+            %div.value= @intent.search
+
+          %div.line
+            %div.label Report Date:
+            %div.value= @report.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p')
+
+          %div.line
+            %div.label Customer comment:
+            %div.value= @report.comment
+
+          %div.line
+            %div.label Merchant selected in report:
+            %div.value
+              = @selected_merchant.company_name
+              &nbsp;&nbsp;
+              = "(#{@selected_merchant.type_humanized})"
+
+          %div.line
+            %div.label Requested to release:
+            %div.value= (@selected_merchant.type == 'Search::SoleoMerchant' || @selected_merchant.type == 'Search::LocalMerchant') ? number_to_currency(@selected_merchant.user_money) : 'N/A'
+        %article.narrowed.details-preview#customer-profile
+          %h3 MERCHANTS
+          %hr
+          = form_tag "/admin/outcome_reports/release/#{@report.id}" do
+            %table.default-table
+              %tr
+                %th
+                  %span.txt
+                    %span
+                      Merchant
+                %th
+                  %span.txt
+                    %span
+                      Source
+                %th
+                  %span.txt
+                    %span
+                      Clicked
+                %th
+                  %span.txt
+                    %span
+                      Pending Earnings
+                %th
+                  %span.txt
+                    %span
+                      Select for release
+              - @merchants.each do |merchant|
+                %tr{:class=>cycle(nil,'odd')}
+                  %td= merchant.company_name
+                  %td= merchant.type_humanized
+                  %td= merchant.active ? 'Yes' : ''
+                  %td= (merchant.type == 'Search::SoleoMerchant' || merchant.type == 'Search::LocalMerchant') ? (number_to_currency(merchant.user_money)): ''
+                  %td
+                    - if merchant.type == 'Search::SoleoMerchant' || merchant.type == 'Search::LocalMerchant'
+                      = check_box_tag 'to_release[]', merchant.user_money.to_f.round(2), merchant.id == @selected_merchant.id
+            %h3
+              Selected for release:
+              %span#for_release= (@selected_merchant.type == 'Search::SoleoMerchant' || @selected_merchant.type == 'Search::LocalMerchant') ? number_to_currency(@selected_merchant.user_money) : 'N/A'
+            = submit_tag 'Release'
+%h2
+  Outcome report for search intent
+  = "\"#{@intent.search}\""
+%div{:style => 'padding-left: 20px'}
+  %h3
+    = link_to 'Back to outcome reports', admin_outcome_reports_path
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    = link_to 'Back to revenue', '/'
+= render 'layouts/application/one_column'

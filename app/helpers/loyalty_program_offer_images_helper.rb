@@ -1,0 +1,2 @@
+module LoyaltyProgramOfferImagesHelper
+end

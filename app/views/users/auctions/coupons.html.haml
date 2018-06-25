@@ -1,0 +1,82 @@
+!= facebok_include_sdk
+- if params[:mobile]
+  %style
+    :plain
+      html {
+        -moz-transform: scale(0.6)!important;
+        -webkit-transform: scale(0.6)!important;
+        transform: scale(0.6)!important;
+        -moz-transform-origin: 0% 0%!important;
+        -webkit-transform-origin: 0% 0%!important;
+        transform-origin: 0% 0%!important;
+      }
+#coupons-popup
+  %header#header
+    %h1#logo.ir Muddle Me
+    Cash Back & Coupons
+  %article#cash-back
+    .aff-advertiser
+      - if @offer.advertiser.is_a?(LinkshareAdvertiser)
+        = image_tag_unknown_extension "http://merchant.linksynergy.com/fs/logo/lg_#{@offer.advertiser.advertiser_id}"
+      - else
+        = image_tag(@offer.advertiser.logo.url)
+      = link_to "Browse #{@offer.advertiser.name}", @offer.advertiser.advertiser_url, :target=>'muddleChildWin'
+    .cash-back-info
+      Up to
+      %em
+        - unless @offer.advertiser.max_commission_percent.blank?
+          = format_percent_strip(@offer.advertiser.max_commission_percent)
+        - else
+          = format_currency(@offer.advertiser.max_commission_dollars)
+      Cash Back into your MuddleMe
+      account with
+      %em
+        any purchase from this site
+      = '.'
+      - unless @offer.advertiser.coupons.blank?
+        Combine with coupon codes for huge savings!
+    %hr
+    .cash-back-tips
+      .green-guy-icon
+      %h3 IMPORTANT TIPS
+      %ol
+        %li
+          Be sure to click through to the merchant’s website from a link in your MuddleMe Box
+          or this page. This helps us confirm your total cash value!
+        - unless @offer.advertiser.coupons.blank?
+          %li
+            Type or copy/paste the codes below into the
+            “Promotion Code” box during checkout.
+        %li
+          Allow 24-48 hours after your transaction for the cash
+          to post to your MuddleMe account.
+  #social-links
+    SHARE MUDDLEME:
+    != facebook_like_button("http://#{HOSTNAME_CONFIG['hostname']}")
+    - text = "Check out this site: "
+    != twitter_tweet_button("http://#{HOSTNAME_CONFIG['hostname']}", text)
+  - unless @offer.advertiser.coupons.blank?
+    #coupons
+      - @offer.advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today]).each do |coupon|
+        .coupon
+          .coup-header= coupon.header
+          .coup-coupon-wrap
+            .coup-box= coupon.code
+            %a.click-to-copy{:href=>''}
+              Click to copy and&nbsp;use coupon
+          .coup-desc
+            = coupon.description
+            - unless coupon.expires_at.nil?
+              = "Expires #{coupon.expires_at.strftime('%m/%d/%Y')}"
+- content_for :javascripts do
+  = javascript_include_tag "zclip"
+  %script
+    :plain
+      $(function(){
+        $('.click-to-copy').each(function(){
+          $(this).zclip({
+            path: '/ZeroClipboard.swf',
+            copy: $(this).prev().text()
+          })
+        })
+      })

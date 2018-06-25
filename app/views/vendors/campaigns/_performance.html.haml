@@ -1,0 +1,30 @@
+- options = "<option value=\"resume\" #{@campaign.status == 'running' ? 'selected="selected"' : nil}>Running</option>".html_safe
+- options += "<option value=\"pause\" #{@campaign.status == 'stopped' ? 'selected="selected"' : nil}>Paused</option>".html_safe
+- options += "<option value=\"delete\">Delete</option>".html_safe
+
+
+%div.line
+  %div.label Status:
+  %div.to-show
+    %div.input.select
+      = select_tag "campaign_status", options, :data=>{:campaign=>@campaign.id}
+
+%div.line
+  %div.label Created:
+  %div.value= format_datetime @campaign.created_at
+
+%div.line
+  %div.label Budget Left:
+  %div.value= @campaign.budget.nil? ? '-' : format_currency(@campaign.budget-@campaign.total_spent.to_i)
+
+%div.line
+  %div.label Searches:
+  %div.value= @campaign.search_merchants.count
+
+%div.line
+  %div.label Searches Won:
+  %div.value= @campaign.searches_won.count
+
+%div.line
+  %div.label Efficiency:
+  %div.value= @campaign.efficiency.nil? ? '-' : "#{(@campaign.efficiency)*100.round.to_i}%"

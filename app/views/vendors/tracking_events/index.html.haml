@@ -1,0 +1,65 @@
+- content_for :sub_nav do
+  = render 'vendors/profile/sub_nav', :active_action=>'index', :active_controller=>'vendors/tracking_events'
+
+- content_for :main_column do
+  %section.default-content
+    %h3 
+      TRACKING CODE
+      %button#copy-trakcing-code-to-clipboard.oragne-button{:style=>'margin-left: 20px;'}
+        Copy tracking code to clipboard
+    %hr
+    %article.details-preview
+      %pre#tracking-code>= tracking_code
+
+    %h3
+      CONVERSION CODE
+      %button#copy-conversion-code-to-clipboard.oragne-button{:style=>'margin-left: 20px;'}
+        Copy conversion code to clipboard
+    %hr
+    %article.details-preview
+      %pre#conversion-code>= conversion_code
+
+    %h3 TEST
+    %hr
+    %article.details-preview
+      %p Test if you included the script properly on your site.
+      %p When you enter the offer link below, a test link will be generated.
+      %p You can than click that link as a shopper would and check back here to see the tracking results and check wheter they are correct
+      #test-tracker-form-wrap
+        = render 'create_test_form'
+      #test-tracker-results-wrap
+        - if @testOffer && @testOffer.valid?
+          = render 'test_results'
+    %h3 AUTO CONFIRM PURCHASES
+    %hr
+    %article#company-settings.details-preview
+      = render 'settings_form'
+
+%h2 Tracking
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  = javascript_include_tag "zclip"
+
+  %script
+    :plain
+      $('#copy-trakcing-code-to-clipboard').zclip({
+          path:'ZeroClipboard.swf',
+          copy: $('#tracking-code').text()
+      });
+      $('#copy-conversion-code-to-clipboard').zclip({
+          path:'ZeroClipboard.swf',
+          copy: $('#conversion-code').text()
+      });
+
+      $('#test-tracker-form-wrap form:first').on('submit', function(){
+        showLoader($('#test-tracker-results-wrap'))
+      });
+
+      $('.trackable-link').on('click', function() {
+        var $this=$(this);
+        var originalLink = $this.attr('href');
+        $this.attr('href', $this.data('link'));
+        window.setTimeout(function(){console.log(originalLink);$this.attr('href',originalLink)},10);
+      })
+      

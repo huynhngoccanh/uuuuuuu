@@ -1,0 +1,29 @@
+= form_tag({:action=>'send_email_invites'}, :remote=>true, :id=>'send-invites-checkbox-form') do
+  = submit_tag 'Send invites'
+  %table.default-table
+    %tr
+      %th.no-hvr
+        %span.txt
+          %span 
+            = check_box_tag 'check_all', "1", true, :id=>'check-all-contact-checkboxes'
+      %th.no-hvr
+        %span.txt
+          %span Email
+      %th.no-hvr
+        %span.txt
+          %span Name
+    - if @contacts.blank?
+      %tr
+        %td.ctr{:colspan=>3}
+          -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+          = "We were unable to import any contacts from your email account"
+    - else
+      - @contacts.each_with_index do |contact, idx|
+        %tr{:class=>cycle(nil,'odd')}
+          %td
+            %span.checkbox
+              = check_box_tag "contacts[]", contact.second, true, :id => "contact_checkbox_num_#{idx}"
+          %td.ctr= label_tag "contact_checkbox_num_#{idx}", contact.second
+          %td.ctr= label_tag "contact_checkbox_num_#{idx}", contact.first || ''
+  = submit_tag 'Send invites'  
+  

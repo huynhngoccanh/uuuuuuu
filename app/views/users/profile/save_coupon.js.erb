@@ -1,0 +1,17 @@
+<% if @status %>
+  var form = document.getElementById('user_coupon_form');
+  form.reset();
+  $('#processing-message').html("<p style='font-size: 20px;'>Coupon was successfully added</p>");
+  $('#processing-message').show();
+   $('.user-coupon-submit-btn-new').removeAttr("disabled");
+   $('#recaptcha_reload').trigger('click');
+   $('.submit-coupon-user-section').hide();
+   $('#processing-message').delay(15000).fadeOut('slow', function(){ $('#processing-message').html("");  });
+<% else %>
+  $('#recaptcha_reload').trigger('click');
+  if( $('#processing-message').html()==""){
+    $('#processing-message').html("<p style=font-size:20px;><%= @message %></p>");
+  }
+  $('#processing-message').delay(600).fadeOut('slow', function(){  });
+  $('.user-coupon-submit-btn-new').removeAttr("disabled");
+<% end %>

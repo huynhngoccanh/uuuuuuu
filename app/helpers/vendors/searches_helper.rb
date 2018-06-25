@@ -1,0 +1,2 @@
+module Vendors::SearchesHelper
+end

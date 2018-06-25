@@ -1,0 +1,106 @@
+#cse-search-box-form-id {
+  input[type="text"] {
+    border: 1px solid #cccccc!important;
+    width: 585px;
+    height: 28px;
+    outline: none;
+    text-indent: 6px;
+    font-size: 16px;
+    margin-right: -1px;
+    padding: 0!important;
+    &:focus {
+      border: 1px solid #4285f4!important;
+    }
+  }
+  input[type="image"] {
+    vertical-align: middle;
+  }
+}
+
+#cse-pick-merchants-link {
+  a {
+    color: #000000;
+  }
+  font-size: 14px;
+  text-decoration: underline;
+  padding-left: 600px;
+}
+
+#cse-form-container {
+  background-color: #f1f1f1;
+  td:first-child {
+    width: 128px;
+  }
+  #cse-input-column {
+    width: 200px;
+  }
+}
+
+.cse-mm-search-bar-icon-wrapper {
+  position: relative;
+}
+
+.cse-mm-search-bar-icon {
+  position: absolute;
+  right: 10px;
+  top: -25px;
+}
+
+#cse-middle-search-container {
+  margin-left: auto ;
+  margin-right: auto ;
+  width: 585px;
+  margin-top: 190px;
+}
+
+#cse-g-brand {
+  float: right;
+  font-size: 12px;
+  vertical-align: top;
+  padding-top: 6px;
+}
+
+// google css overwrite
+#gcse-container {
+  margin-left: 118px;
+}
+
+.gsc-wrapper {
+  width: 539px!important;
+}
+
+.gsc-results-wrapper-nooverlay {
+  margin-top: -15px;
+}
+
+.gsc-above-wrapper-area {
+  border: 0!important;
+}
+
+.gsc-refinementsArea {
+  border: 0!important;
+  margin-top: -20px !important;
+}
+
+.gsc-tabhActive {
+  border: 0!important;
+  font-size: 16px!important;
+  border-bottom: 3px solid #dd4b39!important;
+  outline:  0!important;
+}
+
+.gsc-tabhInactive {
+  font-size: 16px!important;
+  outline:  0!important;
+}
+
+.gsc-adBlockVertical {
+  float: none!important;
+  position: absolute!important;
+  left: 680px!important;
+}
+
+#cse-slider-container {
+  margin-top: 70px;
+  text-align: center;
+}

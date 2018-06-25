@@ -1,0 +1,12 @@
+%article#direct-email.details-preview
+  %h6
+    %strong Send invites via e-mail:
+    %br
+    %strong (separate emails with a return or comma)
+
+  = form_for InviteUser.new, :method => 'post' do |f|
+    %div.input
+      = f.label :email, 'Email' 
+      = f.text_field :email
+    .field01
+      = f.submit 'Send invites', :class=>"fixed-width-button", style:'width: 100%;background: #d8572a;'

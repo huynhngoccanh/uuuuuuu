@@ -1,0 +1,31 @@
+/ Modal
+#mm-merchant-modal.modal.hide.fade
+  .modal-header
+    %button.close{'data-dismiss' => 'modal'} ×
+    .mm_data_company_name
+    .mm_data_merchant_email
+    .mm_data_company_phone
+  .modal-body
+    #mm-offer-details Offer Details
+    %table#mm-offer-table
+      %tr
+        %td Offer:
+        %td.mm_data_offer_name
+      %tr
+        %td Coupon code:
+        %td.mm_data_coupon_code
+      %tr
+        %td Offer url:
+        %td
+          %a.mm_data_offer_service_url
+      %tr
+        %td Review site url:
+        %td
+          %a.mm_data_merchant_review_url
+      %tr
+        %td Expires:
+        %td.mm_data_offer_expired_at
+      %tr
+        %td Info:
+        %td.mm_data_offer_info
+    .mm-popup-close-button{'data-dismiss' => 'modal'} Close Window

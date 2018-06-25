@@ -1,0 +1,50 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/hp_top_deals'
+- content_for :main_column do
+  %section.default-content
+    = form_tag create_top_deals_admin_affiliated_advertisers_path do
+      %br
+      %h3
+        Select merchant to mark him as top dealer:
+      = select_tag :advertiser_id_with_class_name, options_from_collection_for_select(@list, :id_with_class_name, :name)
+      &nbsp;&nbsp;
+      = submit_tag 'Add', :class => 'orange-button'
+      %br
+      %br
+    = form_tag replace_top_dealer_admin_affiliated_advertisers_path do
+      %br
+      %h3
+        Replace Top Dealers:
+      = select_tag :top_dealer_id, options_for_select(@td_advertisers.map{|ad| [ad.advertiser.name, ad.id]}), :prompt => "Select Top Dealer"
+      &nbsp;&nbsp;
+      and replace with
+      &nbsp;&nbsp;
+      = select_tag :replace_id, options_from_collection_for_select(@list, :id_with_class_name, :name), :prompt => "Different Top Dealer"
+      &nbsp;&nbsp;
+      = submit_tag 'Replace', :class => 'orange-button'
+    %br
+    %br
+    %table.default-table
+      %tr
+        %th
+          %span.txt
+            %span Merchant
+        %th
+          %span.txt
+            %span Delete
+      - if @td_advertisers.blank?
+        %tr
+          %td.ctr{:colspan => 2}
+            %span.txt
+            %span No merchants selected.
+      - @td_advertisers.each do |td_advertiser|
+        %tr
+          %td
+            %span.txt
+            %span= td_advertiser.advertiser.name
+          %td
+            %span.txt
+            %span= link_to 'Delete', destroy_top_deal_admin_affiliated_advertisers_path(:id => td_advertiser), :confirm => 'Are you sure?'
+
+%h2 Top Dealers
+= render 'layouts/application/one_column'

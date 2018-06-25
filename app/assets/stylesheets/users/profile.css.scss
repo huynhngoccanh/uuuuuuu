@@ -1,0 +1,109 @@
+// profile
+
+aside#social-links {
+  text-align: center;
+  h2 {
+    font-size: 20px;
+  }
+  a, span.or {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  span.or {
+    display: block;
+    width: 162px;
+    height: 28px;
+    line-height: 28px;
+    background: image-url("social-login-buttons.png") transparent no-repeat 0 -150px;
+    color: #686868;
+    font-family: MuseoSlab;
+    font-size: 10px;
+    font-style: italic;
+  }
+}
+
+#customer-social-settings {
+  margin-top: 15px;
+}
+
+.social-status {
+  float: left;
+  margin-left: 30px;
+  margin-right: 60px;
+  line-height: 26px;
+  color: #797979;
+
+  .social-icon {
+    float: left;
+    width: 27px;
+    height: 26px;
+    line-height: 26px;
+    background: image-url("social-login-buttons.png") no-repeat;
+    margin-right: 5px;
+  }
+  .txt {
+    float: left;
+    margin-right: 8px;
+  }
+  .checker {
+    float: left;
+    margin-top: 3px;
+  }
+    
+}
+#facebook-status.active .social-icon {
+  background-position: 0px -179px;
+}
+#twitter-status.active .social-icon {
+  background-position: -29px -179px;
+}
+#facebook-status .social-icon {
+  background-position: -95px -179px;
+}
+#twitter-status .social-icon {
+  background-position: -125px -179px;
+}
+
+// earnings
+
+section#earnings {
+  article.half-col {
+    clear: none;
+    width: 450px;
+    padding-right: 44px;
+  }
+  article.half-col.last-child {
+    padding-right: 0;
+  }
+
+  span.label {
+    min-width: 150px;
+  }
+
+  span.dollars, span.important {
+    line-height: 19px;
+  }
+}
+
+article#customer-earnings {
+  form#new_funds_withdrawal {
+    div.inputs {
+      @extend .clearfix;
+      float: left;
+    }
+    div.input {
+      float: left;
+    }
+    div.actions {
+      float: left;
+      margin-top: 22px;
+      margin-left: 10px;
+    }
+    div.input.integer,  div.input.decimal, {
+      width: 122px;
+      input {
+        width: 100px;
+      }
+    }
+  }
+}

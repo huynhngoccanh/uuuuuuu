@@ -1,0 +1,23 @@
+article#direct-link.details-preview
+  p
+    strong Send a direct link:
+    br
+    span (Share this link with your friends directly.)
+  div.input
+    input#link-text-input type='text' value=referral_url data-original-value=referral_url 
+  .field01
+    button.btn.btn-orange style="background-color: #d8572a ! important;width:100%;" data-clipboard-target='fe_text' data-clipboard-text=(referral_url) id='d_clip_button' title='Click me to copy to clipboard.' copy code 
+    / input name="" id="link-copy" type="submit" value=("Copy Link to Clipboard") style="width:100%;font-size: 10px! important;" 
+ 
+- content_for :js do
+   javascript:
+     $(function(){
+       $('#d_clip_button').click(function(){
+         var $temp = $("<input>");
+         $("body").append($temp);
+         $temp.val($('#link-text-input').val()).select();
+         document.execCommand("copy");
+         $temp.remove();
+         $("#d_clip_button").text("Copied!")
+       });
+     });

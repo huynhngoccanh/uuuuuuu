@@ -1,0 +1,29 @@
+- admin_preview = admin_preview ||= nil
+
+- if admin_preview
+  - @user_first_name = "((user_first_name))"
+  - @search_number = "((search_number))"
+  - @search_intent = "((search_intent))"
+  - @auction_url = "#"
+  - @hello_sub_text = @email_content.hello_sub_text
+- else
+  - @user_first_name = @user.first_name
+  - @search_number = @auction.number
+  - @search_intent = @auction.name
+  - @auction_url = users_auction_url(@auction)
+  - @hello_sub_text = prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user)
+
+- content_for :hello_text do
+  = "Hi #{@user_first_name}!"
+
+- content_for :hello_sub_text do
+  - if @email_content.hello_sub_text.blank?
+    Your auction
+    = link_to "##{@search_number}", @auction_url
+    on Muddleme for
+    = "#{@search_intent}"
+    has been ended with no bids.
+  - else
+    = @hello_sub_text
+
+= render 'layouts/application/basic_email', :admin_preview => admin_preview

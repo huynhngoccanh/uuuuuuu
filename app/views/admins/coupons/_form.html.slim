@@ -1,0 +1,93 @@
+.container
+  .row
+    .col-sm-8
+      = simple_form_for [:admins, @coupon],  :html => { class: "form-horizontal", multipart: true } do |f|
+        .row
+          .col-sm-3
+            = f.label :header, class: "pull-right"
+          .col-sm-6  
+            = f.input_field :header, class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :code , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :code , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :description, class: "pull-right"
+          .col-sm-6 
+            = f.input_field :description , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :expires_at, class: "pull-right"
+          .col-sm-6
+            = f.text_field :expires_at, as: :datepicker, class: "form-control" 
+        br
+        .row
+          .col-sm-3
+            = f.label :advertiser_id, class: "pull-right"
+          .col-sm-6
+            = f.input_field :advertiser_id , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :advertiser_type, class: "pull-right"
+          .col-sm-6
+            = f.input_field :advertiser_type, class: "form-control"
+      
+        br
+        .row
+          .col-sm-3
+            = f.label :merchant, class: "pull-right"
+          .col-sm-6
+            = f.input_field :merchant_id,:collection => Merchant.all.order(:name), :label => "Merchant" ,:include_blank => false, class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :ad_url , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :ad_url , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :temp_website , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :temp_website , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :user_id , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :user_id , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :coupon_type , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :coupon_type , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :print , class: "pull-right"
+          .col-sm-6 
+            = f.input_field :print , class: "form-control"
+        br
+        .row
+          .col-sm-3
+            = f.label :manually_uploaded, class: "pull-right"
+          .col-sm-1
+            = f.input_field :manually_uploaded, class: "form-control"    
+        br
+        .row
+          center
+            = f.button :submit, :class => 'btn-primary'
+            = link_to t('.cancel', :default => t("helpers.links.cancel")), admins_coupons_path, :class => 'btn btn-default'
+    -if !@coupon.print_file_name.blank?
+      .col-sm-4
+        div style=("width: 100%;display: table;background: #fff;z-index: 99999;box-shadow: 0 5px 5px 0 rgba(25,24,23,0.45);")
+          center
+            = image_tag @coupon.try(:print).try(:url), class: "img-responsive"
+

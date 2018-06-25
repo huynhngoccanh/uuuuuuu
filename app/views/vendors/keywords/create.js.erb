@@ -1,0 +1,4 @@
+$('#new-keyword-form-wrap').html("<%= escape_javascript render('add_keyword_form') %>")
+initFormValidations('#new-keyword-form-wrap form');
+hideLoader($('#keyword-list-wrap'));
+$('#new-keyword-form-wrap input:text').focus()[0].select();

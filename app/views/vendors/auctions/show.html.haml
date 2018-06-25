@@ -1,0 +1,105 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'file_upload'
+
+- content_for :javascripts do
+  :javascript
+    fileUploadMaxFiles = 3
+    fileUploadMaxFileSize = 800 * 1000
+  = javascript_include_tag "common/file_upload"
+
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column
+      %article#auction-details-preview.details-preview
+        %h3
+          - if @auction.bidding_finished?
+            = "THIS AUCTION ENDED ON: #{format_datetime(@auction.end_time)}"
+            = "( processing winners ...)" if @auction.unresolved?
+          - else
+            = "THIS AUCTION ENDS IN:"
+            - seconds_to_end = (@auction.end_time - Time.now).to_i
+            %span#countdown{:data=>{:seconds_to_end=>seconds_to_end}}
+              = seconds_to_days_and_time_html(seconds_to_end)
+        %hr
+        = render 'auction_attributes'
+      %article#auction-bids
+        - if @auction.resolved? && @auction.winners.include?(current_vendor)
+          #winner-ribbon
+            .ribbon
+            This profile owner has now been served your offer. 
+            His/Her identifiable information and contact details are now available 
+            in the “Revealed Profile” window on the right. Good luck!
+          %hr
+          = render 'winner_bid_list'
+        - else
+          %h3 
+            - if @auction.bidding_finished?
+              = "AUCTION BIDS (total: #{@bids.total_entries}"
+            - else
+              = "CURRENT BIDS (total: #{@bids.total_entries}"
+            = "- top #{@auction.max_vendors} win)"
+            - if @auction.unresolved?
+              %br
+              = 'processing winners please wait up to 5 minutes ...'
+            - if @auction.resolved? &&  @auction.bids.count > 0 && @auction.winners.length == 0
+              %br
+                = 'there are no winners - not enough participants ...'
+          %hr
+          = render 'bid_list'
+
+    .column
+      %article#auction-images
+        %h3
+          AUCTION IMAGES
+          %span (click images to enlarge)
+        %hr
+        = render 'auction_images'
+      %article#bidder-profile
+        = render 'bidder_profile'
+            
+
+%h2.floated
+  = "AUCTION ##{@auction.number}"
+  - if @auction.resolved? && @auction.participants.include?(current_vendor)
+    - if @auction.winners.include?(current_vendor)
+      = " - You won!"
+    - else
+      = " - You have not won"
+      - if @auction.bids.count > 0 && @auction.winners.length == 0
+        = "we're sorry, there were not enough bidders"
+
+= render 'outcome_status_for_vendor'
+    
+= render 'layouts/application/one_column'
+
+= render 'bidding_windows'
+
+= render 'profile_details', :auction => @auction, :user => @auction.user
+
+
+- content_for :javascripts do 
+  %script
+    :plain
+      $('#show-profile-button').click(function(e){
+        e.preventDefault();
+        showDetailsBox($('#profile-details-box'));
+      });
+
+- unless @winning_bids.blank?
+  - @winning_bids.each do |bid|
+    - if bid.vendor == current_vendor
+      = render 'users/auctions/offer_details', :id => bid.id, :vendor=>bid.vendor, :offer=>bid.offer, :offer_images=>bid.offer && bid.offer.offer_images
+  - content_for :javascripts do
+    :javascript
+      initImageSlider();
+
+- content_for :javascripts do
+  :javascript
+    $('.view-offer').click(function(e){
+      e.preventDefault();
+      var num = this.id.replace('offer-link-','');
+      showDetailsBox($('#offer-window-' + num));
+    });

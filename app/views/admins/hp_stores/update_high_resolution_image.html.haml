@@ -1,0 +1,37 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/custom_advertisers'
+- content_for :main_column do
+  %section.default-content
+    = form_for @advertiser, :url => save_high_resolution_image_admin_hp_stores_path, :multipart => true, :id => 'high_resolution_image_form' do |f|
+      %br
+      %p
+        -if @advertiser.image.exists?
+          Current High Resolution Image
+          %br
+          = image_tag @advertiser.image.url(:medium)
+        -else
+          This Advertiser do not have High Resolution Image
+      %br
+      %p Select Image to update
+      %p= f.file_field :image ,:id => "image_field"
+      %p= hidden_field_tag "advertiser_id_with_class_name", params[:advertiser_id_with_class_name]
+      %p= hidden_field_tag "store_type", params[:store_type]
+      &nbsp;&nbsp;
+      = submit_tag 'Update', :class => 'orange-button', :onclick => "return checkForm('high_resolution_image_form');"
+
+%h2
+  Update High Resolution for Merchant
+  = @advertiser.name
+
+= render 'layouts/application/one_column'
+
+
+:javascript
+  function checkForm(form_id){
+    if($('#image_field').val()==''){
+      alert('Please select Image First');
+      return false;
+    }else{
+      return true
+    }
+  }

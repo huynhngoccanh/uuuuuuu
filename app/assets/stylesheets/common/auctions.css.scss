@@ -1,0 +1,490 @@
+// Place all the styles related to the Auctions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//auctions new view
+
+.gray-box {
+  background-color: #eaeaea;
+  border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;-o-border-radius:15px;
+  padding: 20px 30px;
+  width: 230px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.gray-box .orange-button,
+.gray-box .green-button {
+  margin: 20px 0 5px 0;
+}
+
+a.auction-icon {
+  width: 212px;
+  height: 148px;
+  background: image-url("auctions.png") transparent no-repeat;
+  display: block;
+  margin: auto;
+}
+
+a.auction-icon#product-icon {
+  background-position: 0 0;
+}
+
+a.auction-icon#service-icon {
+  background-position: -220px 0px;
+}
+
+// only for product auction
+
+#first-form-part {
+  padding: 30px 0;
+}
+
+
+form.simple_form#new_service_auction hr:last-child,
+form.simple_form#new_product_auction hr:last-child {
+  display: block;
+}
+
+form.simple_form.new_auction div.input.string,
+form.simple_form.new_auction div.input.email,
+form.simple_form.new_auction div.input.password {
+  text-align: left;
+}
+
+form.simple_form.new_auction textarea#auction_extra_info {
+  height: 50px;
+}
+
+form#new_auction_address .inputs.masked {
+  @include opacity(0.5);
+}
+
+//confirm auction view
+
+article#auction-details-preview,
+article#auction-confirm-address,
+article#auction-bids,
+article#auction-outcome-form,
+article#auction-vendor-outcome-form {
+  width: 530px;
+  float: left;
+  margin-right: 35px;
+
+  h3 span {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    color: $red;
+  }
+}
+
+article#auction-details-preview p span {
+  width:  230px;
+  margin-right: 15px;
+}
+
+article#auction-images,
+article#personal-info,
+article#bidder-profile,
+article#auction-value,
+article#extra-offers-message,
+article#auction-details-preview-right {
+  float: left;
+  width: 360px;
+}
+
+article#auction-details-preview-right p {
+  span {
+    width: 140px;
+  }
+  span.label {
+    width: 190px;
+  }
+}
+
+
+
+article#auction-images p,
+article#auction-confirm-address p {
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  color: #797979;
+}
+
+#auction-image-thumbs .thumb {
+  float: left;
+  margin: 0 25px 25px 0;
+  width: 100px;
+  height: 100px;
+}
+
+#auction-image-thumbs .thumb.last {
+  margin-right:0;
+}
+
+#auction-image-thumbs .thumb img {
+  display: block;
+  cursor: pointer;
+}
+
+article#auction-confirm-address .actions {
+  margin: 0;
+}
+
+article#auction-confirm-address .actions input,
+article#auction-confirm-address .actions a {
+  margin-bottom: 15px;
+  display: block;
+}
+
+#bidder-profile p,
+#bidder-profile > h3 {
+  text-align: left;
+}
+
+#personal-info p .label,
+#bidder-profile p .label {
+  width:  150px;
+  margin-right: 15px;
+  margin-left: 20px;
+}
+
+#bidder-profile p a.gray-button {
+  margin-left: 6px;
+}
+
+#auction-success a.orange-button {
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-right: 20px;
+}
+
+#auction-success .buttons-wrap {
+  clear: left;
+  margin-left: 95px;
+  margin-top: 30px;
+}
+
+#big-checkmark-icon {
+  background: image-url("icons.png") no-repeat -138px -200px;
+}
+
+#bidder-profile {
+  text-align: center;
+}
+
+#bidder-profile .offwhite-box h3 {
+  margin: 0;
+  background-color: #e8e7e7;
+  min-height: 100px;
+  @include border-radius(6px, 6px);
+}
+
+#bidder-profile .offwhite-box h3 span {
+  font-size: 18px;
+}
+
+#bidder-profile .offwhite-box.details-preview {
+  padding: 2px 2px 7px 2px;
+}
+
+#bidder-profile button,
+#bidder-profile a.button {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+#auction-value {
+  text-align: center;
+}
+
+#auction-value .offwhite-box h3 {
+  padding: 0 40px;
+  font-size: 18px;
+}
+
+#auction-value p.reminder {
+  color: $light-orange;
+  font-family: MuseoSlab;
+  padding: 0 15px;
+}
+
+#auction-value .encircled-value {
+  background: #fff;
+  width: 112px;
+  height: 112px;
+  border: 1px solid #d6d6d6;
+  @include border-radius(112px, 112px);
+  margin: 0 auto;
+  text-align: center;
+  line-height: 112px;
+  color: #9dc700;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#offer-ribbon {
+  min-height: 41px;
+  position: relative;
+}
+
+#winner-ribbon .ribbon, 
+#offer-ribbon .ribbon {
+  position: absolute;
+    width: 182px;
+    height: 41px;
+    background: image-url("icons.png") no-repeat 0px -1078px;
+    top: 0px;
+    left: -35px;
+}
+
+#winner-ribbon {
+  font-family: MuseoSlab;
+  color: $dark-turquoise;
+  font-size: 13px;
+  position: relative;
+  padding-top: 50px;
+
+  .ribbon {
+    background-position: 0px -1037px;
+  }
+}
+
+section.company-details {
+  article.offer-details {
+    h3 {
+      padding-left: 20px;
+    }
+
+    p {
+      @extend .clearfix;
+      font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+      padding-left: 20px;
+      overflow: hidden;
+
+      span {
+        display: block;
+        color: #797979;
+        padding-right: 15px;
+      }
+
+      span.label {
+        margin-left: 0;
+        float: left;
+        width: 280px;
+        padding-right: 0px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+  .details-box-header {
+    h2 {
+      margin-top: 0;
+      margin-bottom: 5px;
+      padding-top: 4px;
+    }
+    p {
+      margin: 5px 0;
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+}
+
+// bidding forms
+
+#new-bid-form, #edit-bid-form {
+  section#place-bid {
+    article {
+      margin: 0;
+      padding: 0;
+    }
+    article.column {
+      float: left;
+      width: 300px;
+      clear: none;
+      .inputs {
+        padding-left: 55px;
+        label {
+          display: block;
+          font-weight: bold;
+          font-size: 14px;
+          margin: 0.2em 0 0.4em;
+          color: #797979;
+        }
+        span.hint {
+          display: block;
+          font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+          color: #797979;
+          margin: 0.2em 0 0.2em;
+        }
+        input#bid_max_value {
+          width: 100px;
+        }
+      }
+      p {
+        margin: 0.25em 0 0.5em;
+      }
+    }
+    article.column.last-child {
+      margin-left: 30px;
+    }
+    article#create-new-offer {
+      .column {
+        width: 345px;
+        div.line div.label {
+          width: 100px;
+        }
+        input {
+          width: 185px;
+        }
+        textarea {
+          height: 66px;
+        }
+      }
+      .column.last-child {
+        width: 300px;
+        div.line div.label {
+          width: 100%;
+        }
+      }
+    }
+    article#new-offer-images {
+      form.simple_form.in-cols div.col.desc {
+        margin-right: 10px;
+        width: 100px;
+      }
+      form.simple_form.in-cols div.col.flds {
+        width: 210px;
+        .input-file-wrap {
+          width: auto;
+          input.fakeupload {
+            width: 115px;
+          }
+        div.file {
+          width: auto;
+        }
+        }
+      }
+    }
+    a {
+      color: #707f82;
+    }
+    a#provide-offer-link {
+      display: inline-block;
+      margin: 5px 0;
+    }
+    span.highlight {
+      color: #db6015 !important;
+    }
+
+    span.step-number {
+      display: block;
+      background: #d96a26;
+      width: 40px;
+      height: 40px;
+      @include border-radius(40px);
+      line-height: 40px;
+      margin: 0 auto;
+      text-align: center;
+      color: #fff;
+      font-family: 'MuseoSlab';
+      font-size: 24px;
+      margin: 7px 10px;
+    }
+    .actions {
+      clear: both;
+      * {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+// outcome form
+
+form#outcome_new,
+form#outcome_edit,
+form#vendor_outcome_edit {
+  label.radio_buttons, label.text, .text {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0.2em 0 0.4em;
+    color: #797979;
+  }
+
+  label span, .text span {
+    color: #797979;
+    font-family: 'Helvetica Neue','Helvetica',sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  div#purchase_made_wrap > label{
+    display: inline-block;
+  }
+
+  div#purchase_made_wrap span.radio {
+    margin-left: 35px;
+    margin-bottom: 5px;
+  }
+
+  label#select_vendor,
+  label[for="outcome_comment"] {
+    margin-top: 50px;
+  }
+
+  textarea#outcome_comment,
+  textarea#vendor_outcome_comment{
+    width: 490px;
+  }
+
+  div#accepted_wrap {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  div#accepted_wrap > label {
+    text-align: left;
+  }
+
+  div#accepted_wrap span.radio {
+    margin: 20px;
+  }
+}
+
+#countdown span {
+  @include single-transition(opacity, 300ms);
+}
+#countdown span.fade-out {
+  opacity: 0;
+}
+#countdown span.fade-fast {
+  -moz-transition-duration: 100ms;
+  -webkit-transition-duration: 100ms;
+  -o-transition-duration: 100ms;
+  transition-duration: 100ms;
+}
+
+
+// outcome_status_for_vendor
+
+h2.floated {
+  float: left;
+}
+
+h3.outcome_status_for_vendor {
+  float: right;
+  margin-top: 25px;
+  text-transform: uppercase;
+}
+
+h3.outcome_status_for_vendor.green {
+  color: #79ad00 !important;
+}
+
+h3.outcome_status_for_vendor.red {
+  color: #c62f16 !important;
+}

@@ -1,0 +1,13 @@
+article#sign-in {
+  form.simple_form.with-label {
+
+    .input.integer, .input.string,  .input.decimal, .input.email, .input.password, .input.url {
+      width: auto;
+    }
+
+    label {
+      display: inline-block;
+      width: 150px;
+    }
+  }
+}

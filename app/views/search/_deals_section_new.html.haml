@@ -1,0 +1,40 @@
+- advertiser = find_advertiser(result['db_id'], result['type'])
+.deals.gray-border-sq-box
+  .deals-logo.no-gray-border
+    - if advertiser.hp_advertiser_image.blank?
+      = image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url, :title => advertiser.name, :size => "150x110")
+    - else
+      = image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url, :title => advertiser.name, :size => "150x110")
+  .deals-info
+    .row
+      %p.min-height-70{:id => "cdesc_#{advertiser.advertiser_id}" }
+        - content = result['user_money']
+        - content += " Hurry up!. Buy and win more coupons" if index < 1
+        - if content.length < 30
+          %span.roboto-light= content
+        - else
+          %span.roboto-light= content[0..28]
+          %span.roboto-light.more
+            \...
+          %span.more_content.roboto-light{:style => "display:none;"}
+            &nbsp;
+            = content[29..content.length]
+          = link_to 'view more', 'javascript: void(0);', :class => 'view-more-coupon-description roboto-light', :id => "#{advertiser.advertiser_id}", :style => "font-size:12px!important;"
+          %br
+          
+          %span{:class => "coupons rb_regular cursor-pointer", :onclick => "generate_popup(this.id, #{advertiser.advertiser_id}, #{advertiser.coupons.blank?}); return false;" ,:style => 'padding-left: 0px;'}
+            %img{:src => "assets/new_scissor_icon.png"}
+            - coupons = advertiser_coupons(advertiser)  
+            %span{:style => "font-size:12px;"} Get Coupons ( #{coupons.count} )
+                
+    .row
+      %span.roboto-light.margin-left-36
+        = number_to_percentage(advertiser.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})
+        Cash Back
+      %span{:class => "promo pull-right"}
+        = image_tag('scissor.png', :class => 'top-deals-scissor')
+        %span{:style => "border: 2px dashed #828282 ;padding: 2px 25px; width:100%; margin-right: 36px;"}
+          = "SITE40"
+    .row.shop-now-container
+      = link_to "SHOP NOW", result["company_coupons_url"], :id => "merchant_popup_#{result["id"]}", :class => "btn btn-primary-custom width-125", :onclick => "generate_popup(this.id, #{result["id"]}, #{advertiser.coupons.blank?}); return false;"
+      = link_to "coupon_window", mm_prompt_cc_window_path(:ad => advertiser.advertiser_id, :type => advertiser.class.name, :offer_url => result["offer_buy_url"]), :style => "display:none;", :id => "merchant_c_window_#{result["id"]}"

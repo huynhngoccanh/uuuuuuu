@@ -1,0 +1,42 @@
+%h2 Dashboard
+
+
+- content_for :main_column do
+  %div.column.width465
+    %section.default-content.clearfix{:style=>'min-height: 215px;'}
+      %h3.clearfix
+        = link_to 'Create new campaign', product_new_campaign_path, :class=>'orange-button fixed-width-button'
+        = "BEST PERFORMING CAMPAIGNS"
+        - tip = "The most successful vendor campaigns."
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+      %hr.for-table
+      = render 'vendors/dashboard/campaign_list'
+  %div.column.width465.last-child
+    %section.default-content.right.clearfix{:style=>'min-height: 215px;'}
+      %h3.clearfix
+        = link_to 'Create new offer', product_new_offer_path, :class=>'orange-button fixed-width-button'
+        = "BEST PERFORMING OFFERS"
+        - tip = "The most successful vendor offers."
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+      %hr.for-table
+      = render 'vendors/dashboard/offer_list'
+        
+  
+= render 'layouts/application/one_column'
+
+= render 'vendors/auctions/bidding_windows'
+
+#profile-details-wrap
+
+- content_for :javascripts do
+  = javascript_include_tag "vendors/view-profile"
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#bid_auctions_wrap');
+      simpleAjaxPagination('#latest_auctions_wrap');
+      simpleAjaxPagination('#recommended_auctions_wrap');
+      simpleAjaxPagination('#saved_auctions_wrap');
+
+      initTabsNav($('.tabs-nav ul:first'), '_auctions_wrap');

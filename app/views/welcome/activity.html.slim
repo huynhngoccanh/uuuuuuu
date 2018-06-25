@@ -1,0 +1,55 @@
+.grey-section
+  = render partial: "shared/profile_header", locals: {current_tab: 'activity'}
+  .heading-section.clearfix
+    .container
+      h2 My Activity
+      .score
+        span.left Your Ubitru Score
+        span.right= current_user.score
+  .content-section
+    .container
+      .white-box.clearfix
+        ul.nav.nav-tabs style="margin:0px;"
+          li style="width:50%" class=((params[:active_tab] == 'retail') ? 'active' : '')
+            a href=user_activity_path(active_tab: "retail") Activity
+          li style="width:50%" class=((params[:active_tab] == 'service') ? 'active' : '') 
+            a href=(user_activity_path(active_tab: "service")) Service Requests
+          
+        .tab-content
+          br
+          - if params[:active_tab] == 'retail'
+            #my-activity.tab-pane.fade.in.active
+              h5 YOUR ACTIVITY
+              table.sorting
+                theah
+                  tr 
+                    th Page
+                    th Clicked On
+                    th Date
+                    th Earning
+                tbody
+                  - @activities.each do |click|
+                    - if click.resource
+                      tr 
+                        td= click.advertiser.try(:name)
+                        td= click.resource_type
+                        td= click.created_at.to_formatted_s(:long)
+                        td Pending
+              = will_paginate @activities, :param_name => 'activity_page', params: {active_tab: 'retail'}
+          - else 
+            #services.tab-pane.fade.in.active
+              h5 YOUR SERVICES REQUEST
+              table.sorting
+                theah
+                  tr  
+                    th Completetion_number
+                    th Date
+                    th Earning
+                tbody
+                  - @services_request.each do |services|
+                    tr                   
+                      td= services.completetion_number
+                      td= services.created_at.to_formatted_s(:long)
+                      td Pending
+              = will_paginate @services_request, :param_name => 'service', params: {active_tab: 'service'}
+            

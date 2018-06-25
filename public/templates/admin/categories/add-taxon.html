@@ -1,0 +1,45 @@
+<div class="modal-content">
+	<div class="modal-header">
+	  <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+	  <h4 class="modal-title">Add Category</h4>
+	</div>
+	<form class="form-horizontal" ng-submit="save(taxon)">
+		<div class="modal-body">
+			<div class="form-group">
+				<label class="col-md-3 control-label">Name</label>
+				<div class="col-md-9">
+		      <input type="text" class="form-control" placeholder="Clothing" ng-model="taxon.name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Popular</label>
+				<div class="col-md-9">
+		      <input type="checkbox" ng-model="taxon.in_popular_store" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Merchant</label>
+				<div class="col-md-9">
+					<ui-select ng-model="notice.account" on-select="addMerchant($item)">
+		        <ui-select-match placeholder='Merchant Name'>{{$select.selected.name}}</ui-select-match>
+		        <ui-select-choices refresh-delay="0" refresh="updateList($select.search)" repeat="merchant in merchants | filter: $select.search" >
+		          <span ng-bind-html="merchant.name | highlight: $select.search"></span>
+		        </ui-select-choices>
+		      </ui-select>
+		    </div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">&nbsp;</label>
+				<div class="col-md-9">
+					<span class="badge" ng-repeat="merchant in taxon.merchants">
+						{{merchant.name}} <a href="" ng-click="removeMerchant(merchant)"><i class="fa fa-remove"></i></a>
+					</div>
+				</span>
+			</div>
+		</div>
+		
+		<div class="modal-footer">
+	    <button type="submit" class="btn btn-primary">Save</button>
+	  </div>
+  </form>
+</div>

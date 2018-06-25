@@ -1,0 +1,6 @@
+<% if flash.alert.blank? %>
+  $('#contacts-list-dialog').html("<%= escape_javascript render('choose_contacts_form') %>")
+<% else %>
+  $('#contacts-list-dialog').dialog('hide');
+  <%= render :template=>'application/show_flash' %>
+<% end %>

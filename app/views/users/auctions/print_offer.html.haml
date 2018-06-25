@@ -1,0 +1,41 @@
+%h1 MuddleMe Offer
+
+%p
+  %strong Offer:
+  = @offer.name
+
+- unless @offer.coupon_code.blank? 
+  %p.bigger.highlight
+    %strong Coupon code:
+    = @offer.coupon_code
+%p
+  %strong Company:
+  = @offer.vendor.company_name
+  - unless @offer.vendor.email
+    %br
+    %strong email:
+    = @offer.vendor.email
+  - unless @offer.vendor.phone.blank? 
+    %br
+    %strong phone:
+    = @offer.vendor.phone
+
+- unless @offer.offer_url.blank? 
+  %p
+    %strong Offer url:
+    = url_with_http(@offer.offer_url)
+
+- unless @offer.offer_description.blank? 
+  %p
+    %strong Description:
+    %br
+    = @offer.offer_description
+
+- unless @offer.expiration_time.blank? 
+  %p
+    %strong Expires:
+    = format_datetime @offer.expiration_time
+
+- unless @offer.offer_images.blank?
+  - @offer.offer_images.each do |i|
+    = image_tag i.image.url(:banner), :style=>"display: block;"

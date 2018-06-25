@@ -1,0 +1,12 @@
+%section.popular-stories
+  .container
+    .row
+      .col-xs-12
+        #all_pc_sections.slidingDiv{:style => "overflow: hidden;"}
+          - unless @popular_categories.blank?
+            .vertical_listings.popularCat
+              - @popular_categories.in_groups_of(5,false) do |group|
+                - group.each do |product_cat|
+                  %div{:style => "font-size:12px;padding:3px;word-wrap: break-word;"}
+                    = link_to product_cat.name, hp_pc_merchants_path(:pcid => product_cat.id), :class => "pcs_list_link"
+

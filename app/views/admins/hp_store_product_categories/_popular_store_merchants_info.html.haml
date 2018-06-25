@@ -1,0 +1,29 @@
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span Merchant
+    %th
+      %span.txt
+        %span Category
+    %th
+      %span.txt
+        %span Delete
+  - if @popular_stores.blank?
+    %tr
+      %td.ctr{:colspan => 2}
+        %span.txt
+          %span No merchants selected.
+  - else
+    - @popular_stores.each do |adv|
+      %tr
+        %td
+          %span.txt
+            %span= adv.hp_store.advertiser.name
+        %td
+          %span.txt
+            %span= adv.product_category.name
+        %td
+          %span.txt
+            %span= link_to 'Delete', admin_hp_store_product_category_path(adv), :method => "delete", :confirm => 'Are you sure?'
+= will_paginate @popular_stores

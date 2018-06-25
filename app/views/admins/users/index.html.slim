@@ -1,0 +1,35 @@
+- model_class = User
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+.row
+  .col-sm-4  
+      = form_tag " ", method: :get do
+          input type="text" name="email" placeholder="Enter User emailid" class="form-control"
+          .col-sm-2 style="position: relative;right: -97%;top: -34px;"
+            button.form-control type="submit"    
+              i.fa.fa-search
+hr        
+table.table.table-striped
+  thead
+    tr
+      th Id
+      th Name
+      th Email
+      th Address
+      th Zip Code
+      th Edit/Delete
+
+  tbody
+    - @user.each do |user|
+      tr
+        td =user.id
+        td =user.full_name
+        td =user.email
+        td =user.address
+        td =user.zip_code
+        th.btn-fix
+          = link_to "<span class='fa'>&#xf044;</span>".html_safe, "/admin/customers/#{user.id}/edit", class: "btn btn-info btn-sm", "data-no-turbolink" => true
+          
+          = link_to "<span class='fa'>&#xf014;</span>".html_safe, "/admin/customers/#{user.id}", class: "btn btn-danger btn-sm", method: "delete"
+= will_paginate @user, :param_name => 'search_page'
+

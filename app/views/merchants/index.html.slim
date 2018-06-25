@@ -1,0 +1,91 @@
+main.main-container
+  section.search-results.full-width
+    .container
+      .row.page-title.align-center
+        h1
+          = @merchant.name 
+          | 's Coupon Codes and CashBack 
+      .grid-row
+        aside.leftbar.col-3
+          .searched-item.cf
+            = render partial: "shared/join_loyalty", locals: {merchant: @merchant}
+            - if user_signed_in?
+              - user_favourite = current_user.user_favourites.where(resource_id: @merchant.id).last
+              a.like.add-to-fav class=(user_favourite.blank? ? '' : 'change-color') href="#" data-like_state=(!user_favourite.blank?) data-merchant_id=@merchant.id data-merchant_type="Merchant" data-signed_in="true" data-user_favourite_id=(user_favourite.try(:id).to_i)
+                i.fa.fa-heart
+            - else 
+              a.like.add-to-fav href="/login" data-signed_in="false" 
+                i.fa.fa-heart
+            figure
+              a href="#" 
+                = image_tag @merchant.image.url(:medium), title: @merchant.name, :style => "margin-top: 15px;"
+            .button-wrapper.cf
+              a.add-favorite.btn.btn-red.popular-store.merchant-popup href="#" data-merchant_id=(@merchant.id)
+                | Shop at
+                span.store-name data-merchant_id=(@merchant.id)
+                  |&nbsp;
+                  = @merchant.name 
+          .offer-range.cf
+            p.title Offer Range
+            .clear-filter Clear
+            ul.filter-list
+              li data-sort="value:asc" 
+                input#all_offers.css-checkbox checked="checked" name="range" type="radio" value="0" /
+                label.css-label.radGroup1 for="all_offers"  All offers
+          .join-loyalty.cf
+            h4 Earn a Bonus every time you Refer your Friends!
+            .button-wrapper.align-center.cf
+              -if !user_signed_in?
+                a href="#" class="btn btn-red" Join &amp; Earn
+              a href=referred_visits_path class="btn btn-red" Refer a Friend
+          .signup-and-earn.cf
+            .title Sign-up to Start Earning Cashback & Loyalty Points.
+            .steps.cf
+              ol
+                li Sign up for FREE
+                li Earn extra cashback on every purchase or service call
+                li One-click registration to thetop Loyalty Programs
+                li Access to money immediately
+            .button-wrapper.align-center.cf
+              -if !user_signed_in?
+                .button-wrapper.align-center.cf: a href=new_user_registration_path class="btn btn-red" Sign up &amp; Earn
+              .button-wrapper.align-center.cf: a href="/loyalty" class="btn btn-red" Loyalty program                            
+        article.col-9.coupons-list
+          a.btn-coupon.btn.submit-coupon-btn href="javascript:void(0);"
+            i.fa.fa-tag
+            | Submit a Coupon
+          .row.filter-nav
+            navbar-btn
+              .btn.btn-default.filter style=("margin-left:10px")
+                | All
+                |&nbsp;(
+                =@coupons.count+@merchants.count
+                |)
+              .btn.btn-default.filter style=("margin-left:10px")
+                | Coupon
+                |&nbsp;(
+                =@coupon.count
+                |)
+              .btn.btn-default.filter style=("margin-left:10px")
+                | Cashback
+                |&nbsp; 
+              .btn.btn-default.filter style=("margin-left:10px")
+                | Coupons + Cashback
+                |&nbsp;
+              .select-box
+                select.sort
+                  option.sort data-sort="relevance"  Relevance
+                  option.sort data-sort="popularity"  Popularity
+                  option.sort data-sort="expiringsoon"  Expiring Soon
+                i.fa.fa-sort-down
+          - @merchant.placements.where("expiry > ?", Date.today).each do |placement|
+            = render partial: "/shared/placement_list_view", locals: {placement: placement}
+          - @user_coupons.each do |coupon, index|
+            = render partial: "/coupons/list_view", locals: {coupon: coupon}
+          - if @coupons.blank? && @merchant.placements.where("expiry > ?", Date.today).blank?
+            .coupon.row
+              .offer-box.col-12
+                p Sorry ! No active coupons found, 
+                = link_to "Go to store", merchants_redirect_path(@merchant)
+          - @coupons.each do |coupon, index|
+            = render partial: "/coupons/list_view", locals: {coupon: coupon}

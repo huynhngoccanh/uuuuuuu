@@ -1,0 +1,26 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:earnings, 'search')}
+      %a{:href=>list_order_url(:earnings, 'search')}
+        %span Search Request
+    %th{:class=>list_order_class(:earnings, 'updated_at')}
+      %a{:href=>list_order_url(:earnings, 'updated_at')}
+        %span Date
+    %th{:class=>list_order_class(:earnings, 'user_earnings')}
+      %a{:href=>list_order_url(:earnings, 'user_earnings')}
+        %span Amount
+  -if @earnings.blank?
+    %tr
+      %td.ctr{:colspan => 3}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "No earnings"
+  - else
+    - @earnings.each_with_index do |search_intent, idx|
+      %tr{:class=>cycle(nil,'odd')}
+        %td= link_to search_intent.search, {:controller=>'users/search_requests', :action=>'show', :id=>search_intent}
+        %td= format_datetime(search_intent.end_time)
+        %td.ctr= format_currency search_intent.user_earnings
+.table-footer.table-info
+  .pages-info= page_entries_info @earnings
+  .right
+    = paginate @earnings, :param_name=>"earnings_page"

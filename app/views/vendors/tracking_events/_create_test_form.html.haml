@@ -1,0 +1,6 @@
+= simple_form_for @testOffer || Offer.new, :url => create_test_tracking_events_path, |
+  :validate=>true, :wrapper=>:standard, :html=>{:class=>'no-label'}, :remote=>true do |f|
+  .inputs
+    = no_label_input f, :offer_url, :placeholder => 'Enter link to offer on your site here'
+  .actions
+    = f.button :submit, 'Generate test link'

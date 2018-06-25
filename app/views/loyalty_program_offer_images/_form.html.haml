@@ -1,0 +1,13 @@
+= simple_form_for(@loyalty_program_offer_image) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :loyalty_program
+    = f.input :loyalty_program_offer
+    = f.input :image_updated_at
+    = f.input :image_file_name
+    = f.input :image_content_type
+    = f.input :image_file_size
+
+  .form-actions
+    = f.button :submit

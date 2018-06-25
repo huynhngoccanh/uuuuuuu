@@ -1,0 +1,38 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/withdrawal_requests'
+%h2 Withdrawal Request
+- content_for :main_column do
+  - unless @withdrawal_request.blank?
+    %section.default-content#admin-customer
+      .clearfix
+        .column
+          %article.narrowed.details-preview#customer-profile
+            %h3 Withdrawal Request Details
+            %hr
+            %div.line
+              %div.label User Email address:
+              %div.value= @withdrawal_request.user.email || '--'
+
+            %div.line
+              %div.label Paypal Email:
+              %div.value= @withdrawal_request.paypal_email || '--'
+              
+            %div.line
+              %div.label Amount:
+              %div.value= format_currency(@withdrawal_request.amount) || '--'      
+            
+            %div.line
+              %div.label User Balance:
+              %div.value= format_currency(@withdrawal_request.user_balance) || '--'     
+            
+            %div.line
+              %div.label Requested on:
+              %div.value= @withdrawal_request.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p')
+  - else
+    %section.default-content#admin-customer
+      .clearfix
+        .column
+          %h3 Record not found
+   
+
+= render 'layouts/application/one_column'

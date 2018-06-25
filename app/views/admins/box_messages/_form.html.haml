@@ -1,0 +1,11 @@
+= simple_form_for @box_message, :url => admin_box_messages_path(@box_message) do |f|
+  = f.radio_button :type, Search::AdminNotificationBoxMessage.name, :id => :search_box_message_information, :checked => true
+  = f.label :information, 'Information message'
+  &nbsp;&nbsp;&nbsp;
+  = f.radio_button :type, Search::AdminPromotionalBoxMessage.name, :id => :search_box_message_promotional
+  = f.label :promotional, 'Promotional message (expire after one day)'
+  %br
+  %br
+  = f.text_area :message, :style => 'width: 500px; height: 120px;'
+  .actions
+    = f.button :submit, 'Send message', :class => 'fixed-width-button'

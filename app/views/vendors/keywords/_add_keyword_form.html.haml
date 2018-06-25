@@ -1,0 +1,6 @@
+= simple_form_for @keyword, :url => keywords_path, :method=>:post, |
+  :wrapper=>:standard, :html=>{:class=>'no-label'}, :remote=>true do |f|
+  .inputs
+    = no_label_input f, :keyword, :placeholder=>'Type in one keyword and hit enter'
+  .actions
+    = f.button :submit, 'ADD'

@@ -1,0 +1,38 @@
+- model_class = Merchant
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+p
+  strong= model_class.human_attribute_name(:name) + ':'
+  br
+  = @merchant.name
+p
+  strong= model_class.human_attribute_name(:slug) + ':'
+  br
+  = @merchant.slug
+p
+  strong= model_class.human_attribute_name(:image_file_name) + ':'
+  br
+  = @merchant.image_file_name
+p
+  strong= model_class.human_attribute_name(:image_content_type) + ':'
+  br
+  = @merchant.image_content_type
+p
+  strong= model_class.human_attribute_name(:image_file_size) + ':'
+  br
+  = @merchant.image_file_size
+p
+  strong= model_class.human_attribute_name(:image_updated_at) + ':'
+  br
+  = @merchant.image_updated_at
+p
+  strong= model_class.human_attribute_name(:loyalty_enabled) + ':'
+  br
+  = @merchant.loyalty_enabled
+
+= link_to t('.back', :default => t("helpers.links.back")), merchants_path, :class => 'btn btn-default'
+'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_merchant_path(@merchant), :class => 'btn btn-default'
+'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), merchant_path(@merchant), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

@@ -1,0 +1,17 @@
+User:&nbsp;
+= @user.full_name
+= link_to @user.email, 'mailto:' + @user.email
+%br
+%br
+Selected merchant:&nbsp;
+= @merchant.company_name
+%br
+%br
+User comment:&nbsp;
+= @outcome.comment
+%br
+%br
+Click or call was made in:&nbsp;
+= @merchant.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p') + ' EST'
+
+

@@ -1,0 +1,19 @@
+%p
+  Hi Team,
+%p
+  An internal error was recorded in search feature. Please check following error details.
+%p
+  %b Error Details:
+  %table
+    %tr
+      %b Search Query:
+      %p= @query
+    %tr
+      %b Message:
+      %p= @error.message
+    %tr
+      %b Class:
+      %p= @error.class
+    %tr
+      %b Backtrace:
+      %p= @error.backtrace.drop(1).map{|s| "\t#{s}"}

@@ -1,0 +1,8 @@
+= simple_form_for @withdrawal, :validate=>true, :wrapper=>:standard, |
+   :html=>{:class=>'with-label'} do |f|
+  .inputs
+    = f.input :amount, :label=>'Amount:', :input_html=>{:value=>@withdrawal.amount && @withdrawal.amount.to_i}
+    = f.input :paypal_email, :label => 'Your PayPal e-mail:'
+    = f.input :user_balance, :as=>:hidden
+  .actions
+    = f.button :submit, 'Withdraw funds via PayPal'

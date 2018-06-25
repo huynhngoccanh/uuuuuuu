@@ -1,0 +1,52 @@
+
+div class="page-header"
+  h1
+    | User Queries
+ 
+.row
+  .col-sm-4  
+    / = form_tag " ", method: :get, id: "rFilter" do
+    /     - filter_tag = params[:filter] ? params[:filter] : " "
+    /     select.form-control#filter name="filter" 
+    /       option selected= (filter_tag == " ") class="sort" value=" " 
+    /         | -select-filter-
+    /       option selected= (filter_tag == "printable") class="sort" value="printable"  Printable
+    /       option selected= (filter_tag == "with_code") class="sort" value="with_code"  With code
+hr        
+
+       
+
+/ ul class="nav nav-tabs"
+  li role="presentation" class=('active' if params[:manually_uploaded].nil?) 
+    a href=(admins_coupons_path()) All
+  li role="presentation" class=('active' if params[:manually_uploaded] == "true")
+    a href=(admins_coupons_path(manually_uploaded: true)) Manually Uploaded
+  li role="presentation" class=('active' if params[:manually_uploaded] == "false")
+    a href=(admins_coupons_path(manually_uploaded: false)) Scrapped
+
+table class="table table-striped table-condensed" 
+  thead
+    tr
+      th email
+      th facebook Id
+      th Query
+      th created At
+      th Answer
+      th
+      th
+  tbody
+    - @queries.each do |query|
+        tr
+          / td align="left" = truncate(coupon.header, length: 60)
+          td= query.email
+          td= query.facebook_uid
+          td= query.query
+          td= query.created_at
+          td
+            
+            / = link_to t('.edit', :default => t("helpers.links.edit")), edit_admins_coupon_path(coupon), :class => 'btn btn-default btn-xs'
+            / '
+            / = link_to t('.destroy', :default => t("helpers.links.destroy")), admins_coupon_path(coupon), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+/ div= will_paginate @coupons
+/ = link_to t('.new', :default => t("helpers.links.new")), new_admins_coupon_path, :class => 'btn btn-primary'
+

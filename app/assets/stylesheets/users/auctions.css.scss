@@ -1,0 +1,222 @@
+table.default-table td.no-bids-message {
+  text-align: center;
+  color: #030;
+  font-family: MuseoSlab;
+  font-size: 13px;
+  background: #97d107;
+}
+
+.column.with-offers {
+  padding-bottom: 265px;
+}
+
+.columns-wrap {
+  overflow: hidden;
+}
+
+.columns-wrap.with-offers {
+  position: relative;
+}
+
+#extra-offers-message {
+  position: absolute;
+  left: 565px;
+  bottom: 0;
+
+  h3 {
+    text-transform: none;
+    margin-top: 0;
+    padding-top: 8px;
+
+    .pad-line:first-child {
+      padding-right: 60px;
+    }
+  }
+
+  p {
+    font-family: MuseoSlab;
+  }
+
+  .highlight {
+    margin-top: -10px;
+    color: $light-orange;
+  }
+
+  em {
+    text-decoration: underline;
+    font-style: normal;
+  }
+
+  .green-guy-icon {
+    background: image-url("icons.png") no-repeat 0px -1119px;
+    width: 72px;
+    height: 71px;
+    position: absolute;
+    right: 10px;
+    top: -35px;
+  }
+
+  .arrow-down {
+    background: image-url("icons.png") no-repeat -75px -1119px;
+    width: 33px;
+    height: 33px;
+
+    position: absolute;
+    left: 180px;
+    margin-left: -16.5px;
+    bottom: -9px;
+  }
+}
+
+.affiliate-offers {
+  overflow: hidden;
+}
+
+.offer-box {
+  width: 230px;
+  height: 130px;
+  padding: 5px 7px;
+  width: 216px;
+  height: 120px;
+  float: left;
+  margin-left: 7px;
+  background: #e7e7e7;
+  margin-bottom: 7px;
+
+  &.last-in-line {
+    clear: left;
+    margin-left: 0;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  .text-line {
+    font-family: Museo;
+    font-weight: bold;
+    color: #656565;
+    text-align: center;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    @include ellipsis;
+    height: 27px;
+    line-height: 27px;
+  }
+
+  .coupon-box {
+    display: block;
+    width: 216px;
+    height: 45px;
+    padding: 5px 6px;
+    width: 204px;
+    height: 35px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+
+    .img-wrap {
+      width: 131px;
+      height: 35px;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    img {
+      max-width: 131px;
+      max-height: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .commission-amnt {
+      position: absolute;
+      left: 131px;
+      top: 5px;
+      height: 35px;
+      width: 73px;
+      text-align: center;
+      font-family: Museo;
+      font-weight: bold;
+      font-size: 22px;
+      color: $light-orange;
+      line-height: 100%;
+
+      .amnt {
+        display: block;
+        padding-left: 6px;
+        padding-top: 2px;
+      }
+
+      .text {
+        display: block;
+        font-weight: normal;
+        font-size: 10px;
+        padding-top: 3px;
+        line-height: 10px;
+      }
+    }
+  }
+
+  a.orange-button {
+    width: 68px;
+    height: 10px;
+    display: block;
+    margin: 0 auto;
+    font-size: 10px;
+    padding-top: 2px;
+  }
+}
+
+.offers-disclaimer {
+  width: 723px;
+  height: 71px;
+  padding-top: 12px;
+  height: 59px;
+
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #efefef;
+  -moz-box-shadow: -1px 2px 1px rgba(0,0,0,.1), 0 0 0 1px #cfcfcf;
+  -webkit-box-shadow:-1px 2px 1px rgba(0,0,0,.1),0 0 0 1px #cfcfcf;
+  box-shadow: -1px 2px 1px rgba(0,0,0,.1), 0 0 0 1px #cfcfcf;
+  margin: 20px auto 10px;
+
+  ul {
+    margin: 0;
+    padding-left: 66px;
+    background: image-url("alert-box.png") no-repeat 16px 50%;
+  }
+
+  li {
+    list-style: none;
+    padding-left: 10px;
+    background: image-url("bullet-orange.png") no-repeat 0 5px;
+    color: #666666;
+  }
+}
+.affiliate-offers-message {
+  color: #797979;
+  font-family: MuseoSlab;
+  font-size: 13px;
+  text-align: center;
+  padding: 15px 0 20px;
+}
+.offers-spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 20px;
+}
+

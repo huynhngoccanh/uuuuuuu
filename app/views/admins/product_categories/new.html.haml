@@ -1,0 +1,18 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+ 
+%h2 New Store Category
+%section.default-content
+  = simple_form_for(@product_category,  :url => admins_product_categories_path, :method => :post) do |f|
+    = f.error_notification
+    .form-inputs
+      = f.input :name
+      = f.input :order
+      = f.check_box :popular 
+      = "popular"
+
+    .form-actions
+      %br
+      = f.button :submit,:class=>'orange-button fixed-width-button'
+  %br
+  = link_to 'Back', admins_store_categories_path, :class=>'orange-button fixed-width-button'

@@ -1,0 +1,50 @@
+// vendor registration pages
+
+#company-registration {
+  article#step1 {
+    padding-right: 40px;
+  }
+}
+
+#company-registration {
+  nav#sign-in-nav {
+    @extend .clearfix;
+    margin: 5px 0 20px 0;
+    padding: $additional-padding;
+
+    li {
+      display: block;
+      float: left;
+      margin-right: 35px;
+    }
+
+    li.last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+$slider_elem_width: 624px;
+
+// styles for slider in step 2
+#company-registration #company-details {
+
+  div.slider_window {
+    width: $slider_elem_width;
+    overflow: hidden;
+
+    div.slider_wrap {
+      width: $slider_elem_width * 2;
+
+      div.slider_elem {
+        width: $slider_elem_width;
+        float: left;
+      }
+
+      div.slider_elem#step2_optional {
+        display: none;
+      }
+    }
+  }
+}
+

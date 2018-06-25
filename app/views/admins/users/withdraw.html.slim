@@ -1,0 +1,32 @@
+- model_class = PaymentHistory
+div class="page-header"
+  h1=t '.title', :default => "Fund Withdraw History"
+table.table.table-striped
+  thead
+    tr
+      th PayPal Id
+      th Amount
+      th Date
+
+  tbody
+    - if @transaction.blank?
+      tr
+        td colspan="3" No record forund
+    -else
+      - @transaction.each do |transaction|
+        tr
+          td =transaction.paypal_email
+          td =transaction.amount
+          td =transaction.created_at.strftime("%B-%d-%Y")
+hr          
+.row
+  .col-sm-12
+    span
+      |Current Balance :
+      = @user.balance          
+    .pull-right
+      span.b
+        |Total Withdrawl :
+        = @user.withdrawl
+
+

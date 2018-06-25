@@ -1,0 +1,32 @@
+.grey-section
+  .link-section
+    .container
+      nav
+        ul
+          li
+            a href="#"  My Profile
+          li
+            a href="#"  My Earnings
+          li
+            a href="#"  Question Wizard
+          li
+            a href="#"  Notifications
+  .heading-section.clearfix
+    .container
+      h2 Contact Us
+  .content-section
+    .container
+      .white-box.clearfix
+        .contact-form
+          = simple_form_for(@contact_message, :url => contact_path, :validate => true,:wrapper=>:standard, :html=>{:class=>'with-label'}) do |f|
+            .field
+              label NAME
+              = f.input :name
+            .field
+              label EMAIL
+              = f.input :email
+            .field
+              label MESSAGE
+              = f.input :content, :as => :text
+            .field
+              = f.submit "Send", :class=> "fixed-width-button"

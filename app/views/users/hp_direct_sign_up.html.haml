@@ -1,0 +1,14 @@
+.container
+  .row
+    .popup_window
+      %h2 Join for Free today!
+      = form_tag('/hp_user_sign_up', :method => "post", :id => "direct_user_sign_up_form", :remote => true,  :class => "navbar-form") do
+        #processing-message
+        #all-form-errors.text-center.text-danger
+        %p
+          = text_field_tag :user_email, {}, :placeholder => "Email", :class => "form-control"
+        %p
+          = text_field_tag :user_zip_code, {}, :placeholder => "Zip Code", :class => "form-control"
+        %p
+          .col-md-4.center-block
+            = submit_tag 'Submit', :id => "submitBtn", :class => "btn btn-primary-custom center-block search-area"

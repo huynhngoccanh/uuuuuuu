@@ -1,0 +1,77 @@
+// button
+
+.ui-multiselect.multiselect-button {
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  color: #424242 !important;
+  font-size: 12px;
+  font-weight: normal;
+  text-shadow: none;
+  background: #d3d2d2;
+  border: none;
+  border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px;-o-border-radius:6px;
+  height: 27px;
+  padding: 0px 10px;
+  position: relative;
+  vertical-align: middle;
+  margin: 0px 2px 10px 0;
+}
+
+.ui-multiselect.multiselect-button span {
+  display: block;
+  float: left;
+  line-height: 27px;
+  height: 27px;
+}
+
+.ui-multiselect.multiselect-button span.ui-icon {
+  display: block;
+  border-left: 1px solid #FFFFFF;
+  height: 27px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 24px;
+  background: image-url("small-icons.png") no-repeat transparent 1px -22px;
+}
+
+
+// menu
+.ui-multiselect-menu.multiselect-dropdown {
+  background: #d6d6d6;
+  border: none;
+  @include border-radius(6px, 6px);
+  @include box-shadow(-1px 2px 5px -3px black);
+  padding: 6px 0;
+}
+
+
+.ui-multiselect-menu.multiselect-dropdown ul {
+  overflow-y:auto;
+}
+
+.ui-multiselect-menu.multiselect-dropdown ul li {
+  font-size: 12px;
+  padding: 0;
+}
+
+.ui-multiselect-menu.multiselect-dropdown ul li label {
+  border: none;
+  border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;-o-border-radius:0px;
+  padding: 5px 10px !important;
+  line-height: 1.2;
+  min-height: 1.2em;
+}
+
+.ui-multiselect-menu.multiselect-dropdown ul li label.ui-state-hover,
+.ui-multiselect-menu.multiselect-dropdown ul li label.ui-state-active {
+  background: $dark-turquoise;
+  color: #ffffff;
+}
+
+.ui-multiselect-menu.multiselect-dropdown ul.ui-multiselect-checkboxes {
+  max-height: 200px;
+}
+
+.ui-multiselect.multiselect-dropdown.off-top {
+  margin-top: 6px
+}

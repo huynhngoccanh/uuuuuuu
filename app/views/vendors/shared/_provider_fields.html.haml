@@ -1,0 +1,11 @@
+.inputs.clearfix
+  .input#service_provider_wrap
+    = f.check_box :service_provider, :autocomplete=>:off
+    = f.label :service_provider, "I’m a service provider, i’m interested in service searches"
+
+  = inputs_grouped f, :service_category_ids, nil, nil do
+    = select_tag "category", options_from_collection_for_select(ServiceCategory.all, "id", "name"), :prompt => "choose categories", :id => "add-category"
+    %a.add-category-button.green-button{:href=>'#'} Add
+    %div.tags.categories-tags{:data=>{:input_name=>'vendor[service_category_ids][]'}}
+      = f.association :service_categories, :as=>:check_boxes, :collection=>(current_vendor ? current_vendor.service_categories : []), |
+        :label=>false, :wrapper=>:standard, :wrapper_html=>{:class=>'hidden-inputs hidden-categories'}

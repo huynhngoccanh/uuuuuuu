@@ -1,0 +1,29 @@
+/ Modal
+#mm-offer-modal.modal.hide.fade
+  .modal-header
+    %button.close{'data-dismiss' => 'modal'} ×
+    .mm_data_company_name
+    .mm_data_company_url
+    .mm-popup-shop-now
+  .modal-body
+    #mm-offer-details Offer Details
+    %table#mm-offer-table
+      %tr
+        %td Name:
+        %td.mm_data_company_name
+      %tr
+        %td Website:
+        %td.mm_data_company_url
+      %tr
+        %td Offer:
+        %td.mm_data_offer_name
+      %tr
+        %td Earn Cash:
+        %td.mm_data_user_money
+      %tr
+        %td Coupons:
+        %td.mm_data_coupon_code
+      %tr
+        %td Code:
+        %td Not Available
+    .mm-popup-next-offer

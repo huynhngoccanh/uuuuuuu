@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  merchant_id: 1
+  location: MyString
+  description: MyText
+  code: MyString
+  expiry: 2016-07-12
+
+two:
+  merchant_id: 1
+  location: MyString
+  description: MyText
+  code: MyString
+  expiry: 2016-07-12

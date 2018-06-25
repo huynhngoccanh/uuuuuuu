@@ -1,0 +1,52 @@
+- auctions = instance_variable_get("@auctions_#{type}")
+- single ||= nil
+- no_top_pagination ||= nil
+- if single && !no_top_pagination
+  .table-header.table-info
+    .pages-info= page_entries_info auctions
+    .right
+      = paginate auctions, :param_name=>"#{type}_page", :params=>params
+%table.default-table
+  %tr
+    - table_columns(type).each do |column|
+      = table_column_html(column, type)
+    %th
+      %span.txt
+        %span Action
+  - if auctions.blank?
+    %tr
+      - colspan = table_columns(type).length + 1
+      %td.ctr{:colspan=>colspan}
+        = "No auctions to show"
+  - auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      - table_columns(type).each do |column|
+        = table_cell_html auction, column
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              - if auction.status_text_for_vendor(current_vendor) == Auction::CONFIRMATION_NEEDED_TEXT
+                = link_to 'Confirm', auction
+
+              = link_to 'View details', auction
+              = link_to('View profile', preview_profile_auction_path(auction), :class=>'profile-link')
+
+              - if auction.saved_by_vendors.include? current_vendor
+                = link_to 'Remove from saved', unsave_auction_path(auction) , :remote=>true, :method => :post
+              - elsif type != :finished && !auction.saved_by_vendors.include?(current_vendor)
+                = link_to 'Save', save_auction_path(auction) , :remote=>true, :method => :post
+
+              - if auction.in_progress?
+                - @vendor_auctions ||= current_vendor.auctions
+                - if @vendor_auctions.include? auction
+                  = link_to 'Change bid', edit_bid_auction_path(auction) , :remote=>true, :class=>'change-bid-link'
+                - else
+                  = link_to 'BID!', new_bid_auction_path(auction), :remote=>true, :class=>'make-bid-link'
+.table-footer.table-info
+  .pages-info= page_entries_info auctions
+  .right
+    = paginate auctions, :param_name=>"#{type}_page", :params=>params
+    = link_to 'View all', :controller=>'/vendors/auctions', :action=>type unless single

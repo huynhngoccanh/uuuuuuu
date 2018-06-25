@@ -1,0 +1,26 @@
+%h2 
+  Describe your project
+  %span
+    or
+    %a{:href=>company_path} Use Ubitru for my business
+
+= f.fields_for :auctions, resource.auctions.first || resource.auctions.new do |auction_form|
+  .column
+    = auction_form.input :name, :label=>'Name:'
+    = auction_form.input :service_category_id, :label=>'Category:', :collection=> ServiceCategory.all, :prompt => "choose category", :required=>true, |
+      :hint=>'Select a category that best describes the service you are interested in.'
+    = auction_form.input :extra_info, :label=>'Additional information:', |
+      :hint=>'Describe any important or relevant details which will help learn more about your project'
+  .column#advanced-auction-attributes{:style=>'display: none'}
+    = auction_form.input :budget, :label=>'Approximate budget:', :collection=>Auction::BUDGET_OPTIONS, :include_blank=> false, :required=>false
+    = auction_form.input :duration, :collection=>duration_options, :prompt => "choose a duration", :selected =>  '7', :label=>'Post duration:', :hint=>'How long will your project be visible to service providers during the auction?', :required=>false
+    = inputs_grouped auction_form, :max_vendors, 'Number of service providers:', 'What is the maximum number of offers you want to see? Only winning providers see your contact info' do
+      = sub_input_row auction_form, :min_vendors, :collection=>vendors_count_options, :wrapper_html=>{:class=>"half-width"}, |
+        :input_html=>{:validate => false}, :selected => '1', :label=>'Min:'
+      = sub_input_row auction_form, :max_vendors, :collection=>vendors_count_options, :wrapper_html=>{:class=>"half-width"}, |
+        :selected => '4', :label=>'Max:'
+  .buttons-wrap
+    = button_tag "Next", :id=>'step-1-next', :class=>'fixed-width-button', :type=>:button
+    %a#edit-advanced{:href=>'#'} Edit advanced settings
+    %span or
+    %a#skip-auction{:href=>'#'} Register without posting a project

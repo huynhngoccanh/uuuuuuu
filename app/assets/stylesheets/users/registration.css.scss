@@ -1,0 +1,189 @@
+// registration page
+
+#customer-registration article {
+    padding-right: 40px;
+}
+
+#customer-registration nav#sign-in-nav {
+  @extend .clearfix;
+  margin: 15px 0 20px 0;
+  padding: $additional-padding;
+}
+
+#customer-registration nav#sign-in-nav li {
+  display: block;
+  float: left;
+  margin-right: 35px;
+}
+
+#customer-registration nav#sign-in-nav li.last-child {
+  margin-right: 0;
+}
+
+#customer-registration {
+  padding: 10px 30px;
+  article h2 span {
+    color: #637c85;
+    font-size: 11px;
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .buttons-wrap {
+    clear: both;
+    padding: 20px 10px;
+
+    button {
+      width: 290px;
+      float: left;
+      font-size: 18px;
+      font-family: Rockwell, "Courier New", Courier, Georgia, Times, "Times New Roman", serif;
+      height: 35px;
+      margin-right: 30px;
+    }
+
+    a, span {
+      color: #637c85;
+      font-size: 11px;
+      float: left;
+      margin-left: 10px;
+      padding-top: 12px;
+    }
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  #customer-registration-confirm {
+    padding-right: 0;
+    h2, h3 {
+      text-align: center;
+    }
+    h3 {
+      margin-top: 30px;
+    }
+
+
+    p span {
+      display: block;
+      float: left;
+      height: 19px;
+      line-height: 22px;
+    }
+    span.label {
+      width: 430px;
+      margin-right: 25px;
+      color: #4f6971;
+      text-align: right;
+      line-height: 19px;
+    }
+
+    .buttons-wrap {
+      padding-left: 255px;
+
+      .gray-button {
+        width: 157px;
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+#registration-steps {
+  overflow: hidden;
+  padding: 0;
+  padding-bottom: 15px;
+  margin: 0;
+
+  li {
+    float: left;
+    width: 313px;
+    margin-left: 10px;
+    list-style: none;
+    padding: 0;
+
+    a {
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      @include border-radius(14px, 14px);
+      background-clip: padding-box;
+      color: #cbcbcb;
+      background-color: #fff;
+      text-align: center;
+      font-size: 20px;
+      font-family: MuseoSlab;
+      text-decoration: none;
+      @include single-transition(background-color, 300ms);
+    }
+  }
+
+  li:hover a {
+    color: #dd6c2c;
+  }
+
+  li.active {
+    a {
+      @include single-transition(none);
+      background-color: #dd6c2c;
+      color: #fff;
+    }
+    &:hover a {color: #fff;}
+  }
+
+  li.blocked a, li.active a {
+    cursor: default;
+  }
+
+  li.blocked:hover {
+    a {
+      color: #cbcbcb;
+    }
+  }
+
+  li:first-child {
+    margin-left: 0;
+  }
+}
+
+
+
+
+// styles for slider
+
+$slider_elem_width: 624px;
+
+#customer-registration #customer-details {
+
+  div.slider_window {
+    width: $slider_elem_width;
+    overflow: hidden;
+
+    div.slider_wrap {
+      width: $slider_elem_width * 2;
+
+      div.slider_elem {
+        width: $slider_elem_width;
+        float: left;
+      }
+
+      div.slider_elem#step1_describe_customer,
+      div.slider_elem#step1_additional {
+        display: none;
+      }
+    }
+  }
+}
+
+// styles for form
+
+
+#customer-registration #customer-details {
+  form#user_new {
+    div.input.select label {
+      display: inline-block;
+      width: 80px;
+    }
+  }
+}

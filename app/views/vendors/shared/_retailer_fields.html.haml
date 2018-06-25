@@ -1,0 +1,26 @@
+- content_for :javascripts do
+  = javascript_include_tag "users/auctions/product_categories"
+
+.inputs.clearfix
+  .input#retailer_wrap
+    = f.check_box :retailer, :autocomplete=>:off
+    = f.label :retailer, "I’m a retailer, i’m interested in product searches"
+  = inputs_grouped f, :product_category_ids, nil, nil do
+    .inpts-row.clearfix
+      = select_tag "root_category", |
+        options_from_collection_for_select(ProductCategory.roots.order('`order` ASC').to_a, "id", "name"), |
+        :prompt => 'Select', :id => "root_category"
+      %a.add-category-button.green-button{:href=>'#'} Add
+    .inpts-row.clearfix
+      = select_tag "first_level_category", |
+        options_for_select([]), |
+        :include_blank=> true, :id => "first_level_category"
+      %a.add-category-button.green-button{:href=>'#'} Add
+    .inpts-row.clearfix
+      = select_tag "second_level_category", |
+        options_for_select([]), |
+        :include_blank=> true, :id => "second_level_category"
+      %a.add-category-button.green-button{:href=>'#'} Add
+    %div.tags.categories-tags{:data=>{:input_name=>'vendor[product_category_ids][]'}}
+      = f.association :product_categories, :as=>:check_boxes, :collection=>(current_vendor ? current_vendor.product_categories : []), |
+        :label=>false, :wrapper=>:standard, :wrapper_html=>{:class=>'hidden-inputs hidden-categories'}

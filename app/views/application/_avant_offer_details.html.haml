@@ -1,0 +1,61 @@
+- offer ||= nil
+.details-box.affiliate-offer-window.clearfix{:style => "display: block;", :id=>"affiliate-offer-window-#{id}"}
+  .details-overlay
+  .details-wrap
+    .details-outer
+      %a.details-close.details-close-button
+      %section.content-details-box.affiliate-offer-details
+        %article
+          %div.intro.with-green-guy
+            %div.green-guy-icon
+            %h2 Hey, don’t forget your cash!
+            %p
+              You could be getting up to
+              %span
+                - unless offer.commission_percent.blank?
+                  = format_percent_strip(offer.commission_percent)
+                - else
+                  = format_currency(offer.commission_dollars)
+              %span cash back
+              into your MuddleMe account on
+              %span everything
+              you purchase from
+              = "#{offer.advertiser_name}!"
+              But you
+              need to create a free account so we can give you cash back on
+              your purchases and/or Intent earnings.
+            .actions.clearfix
+              = link_to "", new_user_registration_path, :class => "sign-up-its-free ir"
+              #sign-in-menu
+                %span Or sign in with:
+                %nav.sign-in-with-nav
+                  %ul
+                    %li
+                      = link_to "sign in with Facebook", user_omniauth_authorize_path(:facebook), :id => "facebook-small", :class => "ir"
+                    %li
+                      = link_to "sign in with Twitter", user_omniauth_authorize_path(:twitter), :id => "twitter-small", :class => "ir"
+                    %li
+                      = link_to "sign in with Google", user_omniauth_authorize_path(:google_oauth2), :id => "google-small", :class => "ir"
+          %div
+            %p
+              or click through to
+              = link_to offer.advertiser_name, offer.link_href, :target => "muddle_offer"
+              to shop and reveal more coupons!
+          %div
+            .img-wrap
+              = image_tag(offer.advertiser.logo.url)
+            %a.orange-button.fixed-width-button.shop-now{:href=>offer.link_href, :target=>'muddle_offer'} SHOP NOW
+
+        - unless offer.advertiser.coupons.blank?
+          #coupons
+            - offer.advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today]).each do |coupon|
+              .coupon
+                .coup-header= coupon.header
+                .coup-coupon-wrap
+                  .coup-box= coupon.code
+                  %a.click-to-copy{:href=>''}
+                    Click to copy and&nbsp;use coupon
+                .coup-desc
+                  = coupon.description
+                  - unless coupon.expires_at.nil?
+                    = "Expires #{coupon.expires_at.strftime('%m/%d/%Y')}"

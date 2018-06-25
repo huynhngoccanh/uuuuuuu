@@ -1,0 +1,10 @@
+%p
+  %span.label
+    Do you want to describe your business now?
+%p
+  %span
+    Take a few seconds and tell us about your business, this way we can serve you the best possible leads
+    You can skip this step and do it later from your account settings page.
+.actions
+  = button_tag "Continue", :id=>'describe-continue', :class=>'fixed-width-button', :type=>:button
+  = f.button :submit, "I’ll do it later", :class => 'fixed-width-button gray-button'

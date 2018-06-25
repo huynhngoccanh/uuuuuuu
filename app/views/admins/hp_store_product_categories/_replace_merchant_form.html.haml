@@ -1,0 +1,13 @@
+= form_tag replace_hp_store_admin_hp_stores_path do
+  %br
+  %h3
+    Replace
+    = stores_page_name(params[:type])
+  = select_tag :hp_adv_id, options_for_select(@hp_stores.map{|ad| [ad.advertiser.name, ad.id]}), :prompt => "Select Merchant"
+  = hidden_field_tag :store_type, params[:type]
+  &nbsp;&nbsp;
+  and replace with
+  &nbsp;&nbsp;
+  = select_tag :replace_id, options_from_collection_for_select(@list, :id_with_class_name, :name), :prompt => "Different Merchant"
+  &nbsp;&nbsp;
+  = submit_tag 'Replace', :class => 'orange-button'

@@ -1,0 +1,66 @@
+- auctions = instance_variable_get("@auctions_#{type}")
+- single ||= nil
+- if single
+  .table-header.table-info
+    .pages-info= page_entries_info auctions
+    .right
+      = paginate auctions, :param_name=>"#{type}_page", :params=>params
+%table.sorting  
+  %tr
+    %th{:class=>check_order(:name, type)}
+      %span Auction name
+      %i.fa.fa-sort.ctr(aria-hidden="true")
+    %th{:class=>check_order(:product_auction, type)}
+      %span Type
+      %i.fa.fa-sort.ctr(aria-hidden="true")
+    %th{:class=>check_order(:max_vendors, type)}
+      %span Vendors
+      %i.fa.fa-sort.ctr(aria-hidden="true")
+    %th{:class=>check_order(:budget, type)}
+      %span Budget
+      %i.fa.fa-sort.ctr(aria-hidden="true")
+    %th{:class=>check_order(:end_time, type)}
+      %span= type != :in_progress ? 'Ended at' : 'Ends in'
+      %i.fa.fa-sort.ctr(aria-hidden="true")
+    %th{:class=>check_order(:category, type)}
+      %span Category
+      %i.fa.fa-sort.ctr(aria-hidden="true") 
+    %th
+      %span.txt
+        %span Action
+        %i.fa.fa-sort.ctr(aria-hidden="true")
+  - if auctions.blank?
+    %tr
+      %td.ctr{:colspan=>7}
+        = "No #{type.to_s.humanize.downcase} auctions to show"
+  - auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to auction.name, auction
+      %td= auction.product_auction? ? 'product' : 'service'
+      %td.ctr
+        = auction.min_vendors 
+        = " - " if auction.min_vendors 
+        = auction.max_vendors 
+      %td
+        %div= auction.budget
+      %td
+        - if type != :in_progress
+          = format_datetime(auction.end_time)
+        - else
+          = seconds_to_days_and_time(((auction.end_time) - Time.now).to_i, false)
+      %td= auction.service_category && auction.service_category.name
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View Details', auction
+              = link_to 'End Auction', resolve_auction_path(auction) unless auction.bidding_finished?
+              = link_to 'Reveal Outcome', outcome_auction_path(auction) if auction.resolved? && auction.outcome && auction.status == 'unconfirmed'
+              =# link_to 'Repeat Auction', auction
+.table-footer.table-info
+  .pages-info= page_entries_info auctions
+  .pull-right
+    = paginate auctions, :param_name=>"#{type}_page", :params=>params
+    = link_to 'View all', :action=>type unless single

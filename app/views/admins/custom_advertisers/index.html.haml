@@ -1,0 +1,43 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/custom_advertisers'
+- content_for :main_column do
+  %section.default-content
+    = link_to 'Add Merchant', new_admin_custom_advertiser_path, :class=>'orange-button fixed-width-button'
+    %br
+    %br
+    %table.default-table
+      %tr
+        %th
+          %span.txt
+            %span Merchant
+        %th
+          %span.txt
+            %span Advertiser URL
+        %th
+          %span.txt
+            %span Actions
+      - if @custom_advertisers.blank?
+        %tr
+          %td.ctr{:colspan => 2}
+            %span.txt
+            %span No merchants added.
+      - @custom_advertisers.each do |advertiser|
+        %tr
+          %td
+            %span.txt
+            %span= advertiser.name
+          %td
+            %span.txt
+            %span= advertiser.advertiser_url
+          %td
+            %span.txt
+              %span= link_to 'Edit', edit_admin_custom_advertiser_path(advertiser)
+              |
+            %span.txt
+              %span= link_to 'View Details', admin_custom_advertiser_path(advertiser)
+              |
+            %span.txt
+              %span= link_to 'Delete', admin_custom_advertiser_path(advertiser), :method => "delete", :confirm => 'Are you sure?'
+
+%h2 Manually added Advertisers/Merchants/Stores
+= render 'layouts/application/one_column'

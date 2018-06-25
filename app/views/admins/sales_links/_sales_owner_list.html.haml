@@ -1,0 +1,59 @@
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span Full name
+    %th
+      %span.txt
+        %span Sales Executive Link
+    %th
+      %span.txt
+        %span Links with Groups
+    %th
+      %span.txt
+        %span Assign users
+    %th
+      %span.txt
+        %span Action
+  - if @sales_owners.blank?
+    %tr
+      %td.ctr{:colspan => 5}
+        = "No sales links owners to show"
+  - @sales_owners.each do |user|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to user.full_name, admin_user_path(user)
+      %td
+        = "http://muddleme.com/#{user.sales_name || user.encoded_id}"
+        %br
+        %br
+        = simple_form_for user, :url => admin_sales_links_path do |f|
+          = f.label :sales_name, 'Update: '
+          = f.text_field :sales_name, :style => 'width: 150px; padding-top: 2px; padding-bottom: 2px', :placeholder => 'enter personal link name'
+          = f.hidden_field :id, :value => user.id
+      %td
+        - user.sales_groups.each do |sales_group|
+          = link_to "http://muddleme.com/#{sales_group.name}", admin_sales_links_show_group_path(sales_group)
+          %br
+        %br
+        = simple_form_for @sales_group, :url => admin_sales_links_path do |f|
+          = f.label :name, 'Create: '
+          = f.text_field :name, :style => 'width: 150px; padding-top: 2px; padding-bottom: 2px', :placeholder => 'enter group name'
+          = f.hidden_field :user_id, :value => user.id
+      %td
+        = form_tag admin_sales_links_assign_user_path do
+          = email_field_tag :email, '', :style => 'width: 150px; padding-top: 2px; padding-bottom: 2px', :placeholder => 'enter user email'
+          = hidden_field_tag :user_id, user.id
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View revenue report', admin_revenue_report_path(user)
+              = link_to 'Make as not sales owner', become_not_sales_owner_admin_user_path(user, {:sales => 1}), :method => :put, :confirm => 'Are you sure?'
+
+
+.table-footer.table-info
+  .pages-info= page_entries_info @sales_owners
+  .right
+    = paginate @sales_owners, :param_name=>"sales_owner_page", :params=>params

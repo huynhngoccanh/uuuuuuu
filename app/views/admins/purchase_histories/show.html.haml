@@ -1,0 +1,42 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'show', :active_controller=>'admins/purchase_histories'
+- content_for :main_column do
+  %section.default-content
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span Name
+    %th
+      %span.txt
+        %span Model Number
+    %th
+      %span.txt
+        %span SKU
+    %th
+      %span.txt
+        %span Quantity
+    %th
+      %span.txt
+        %span Item Total
+    %th
+      %span.txt
+        %span Product Price
+  - if @items.blank?
+    %tr
+      %td.ctr{:colspan => 6}
+        = "No Items"
+  - @items.each do |item|
+    %tr{:class=>cycle(nil,'odd')}
+      %td
+        = item.name
+      %td
+        = item.model_number
+      %td
+        = item.sku
+      %td
+        = item.quantity
+      %td
+        = item.item_total
+      %td
+        = item.product_price

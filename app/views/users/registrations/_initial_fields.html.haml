@@ -1,0 +1,20 @@
+.inputs.clearfix
+  %div.column.form-col
+    = no_label_input f, :email, :required => true
+    - unless resource.social_registration?
+      = no_label_input f, :password, :required => true
+      = no_label_input f, :password_confirmation, :required => true
+    = no_label_input f, :first_name
+    = no_label_input f, :last_name
+  %div.column.form-col
+    - if resource[:zip_code].blank?
+      = no_label_input f, :zip_code
+    - else
+      = f.input :zip_code, :as=>:hidden
+    =# no_label_input f, :address
+    =# no_label_input f, :city
+    =# no_label_input f, :phone
+    - terms_label = "Agree to #{link_to 'Terms and Conditions', terms_and_conditions_path} of&nbsp;MuddleMe Service"
+    = no_label_input f, :terms, :as=>:boolean, :use_label=>true, :required=>true, :label => terms_label
+.actions.clearfix
+  = button_tag "Next", :id=>'continue-registration', :class=>'fixed-width-button', :type=>:button

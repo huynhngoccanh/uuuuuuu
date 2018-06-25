@@ -1,0 +1,20 @@
+%h2 
+  Review &amp; Submit
+%h3
+  Account info:
+%p
+  %span.label First name:
+  %span#user_first_name_val
+%p
+  %span.label Last name:
+  %span#user_last_name_val
+%p
+  %span.label E-mail address:
+  %span#user_email_val
+%p
+  %span.label ZIP code:
+  %span#user_zip_code_val
+
+.buttons-wrap
+  = button_tag "Go back", :id=>'step-3-back', :class=>'fixed-width-button gray-button', :type=>:button
+  = button_tag "Submit", :class=>'fixed-width-button', :type=>:submit

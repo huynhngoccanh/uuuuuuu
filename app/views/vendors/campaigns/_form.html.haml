@@ -1,0 +1,7 @@
+= simple_form_for(@campaign, :html => {:class=> "in-cols", :id => "new_#{@campaign.product_campaign ? "product" : "service"}_campaign"}, |
+  :validate=>true) do |f|
+  .inputs.clearfix
+    = f.input :product_campaign , :as => :hidden
+    = render "#{@campaign.product_campaign ? "product" : "service"}_fields", :f => f
+  .actions.clearfix
+    = f.button :submit,'Save Campaign'

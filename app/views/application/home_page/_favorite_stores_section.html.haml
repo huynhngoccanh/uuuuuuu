@@ -1,0 +1,104 @@
+.row.featured-coupons
+  - unless @favorite_stores.blank?
+    - @favorite_stores.compact.in_groups_of(3,false) do |group|
+      - group.each do |advertiser|
+        - @advertiser = advertiser.class.name.constantize.where("advertiser_id =?", advertiser.advertiser_id).first
+        - @coupons = @advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today])
+        - @advertiser_url = advertiser.advertiser_url
+        %figure.coupon.col-4
+          -if @coupons.blank?
+            %a{:class => "favorite-store", "data-animation" => "none", "data-reveal-id" => "no_coupon_code_#{advertiser.advertiser_id}", :href => "#{advertiser.base_tracking_url}", :target => "_blank"}
+              = image_tag(advertiser.hp_advertiser_image ? advertiser.hp_advertiser_image.hp_image : '', :title => advertiser.name, :class => "img-resize")
+          -else
+            %a{:class => "favorite-store", "data-animation" => "none", "data-reveal-id" => "coupons_cashback_#{advertiser.advertiser_id}", :href => "#{advertiser.base_tracking_url}", :target => "_blank"}
+              = image_tag(advertiser.hp_advertiser_image ? advertiser.hp_advertiser_image.hp_image : '', :title => advertiser.name, :class => "img-resize")          
+          %figcaption.sponsor
+            .brand-logo.col-3
+              %a{:href => "javascript:;"}
+                = image_tag advertiser.image.url(:medium), title: advertiser.name, class: "ms-info-img logo", onclick: "generate_popup(this.id, #{advertiser.advertiser_id}, #{advertiser.coupons.blank?}); return false;"
+            .coupon-desc.col-9
+              -if advertiser.hp_advertiser_image.blank? or advertiser.hp_advertiser_image.title.blank?
+                %h3= "#{number_to_percentage(advertiser.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})} CASH BACK"
+              -else
+                %h3= advertiser.hp_advertiser_image.title.first(22)
+              %span.block 
+                %p= "#{advertiser.hp_advertiser_image.blank? ? '' : advertiser.hp_advertiser_image.description}"
+
+        
+        .coupon-popup.reveal-modal{:id => "coupons_cashback_#{advertiser.advertiser_id}"}
+          %a.close-reveal-modal
+            = image_tag "coupon-close-btn.png"
+          .top
+            %h2 Copy the Code
+            %p Paste this code at checkout to save
+            .coupon-box
+              -if @coupons && @coupons.size > 0
+                %span.coupon{:id => "coupon-code-#{@coupons.first.id}"}= @coupons.first.code
+                %button.my_clip_button{:id => "copy-code-#{@coupons.first.id}", "data-clipboard-target" => "coupon-code-#{@coupons.first.id}", :title => "Copy Code."} Copy Code
+              -else
+                %span.coupon No code
+            %p.small
+              -if @advertiser_url.blank?
+                Go to
+                %a{:href => @advertiser.advertiser_url} #{@advertiser.name}
+                and paste the code at checkout.
+              -else
+                Go to
+                %a{:href => @advertiser_url} #{@advertiser.name}
+                and paste the code at checkout.
+          .bottom
+            %figure.logo
+              %a{:href => ""}
+                = image_tag @advertiser.image.url(:medium), title: advertiser.name
+            -unless @coupons.blank?
+              %h3 
+                = @coupons.first.header
+              .shipping-info
+                = @coupons.first.description
+                %span.expires
+                  %strong Expiration Date:
+                  = @coupons.first.expires_at
+            -else
+              %h3 Free Shipping And Returns
+              .shipping-info
+                Free Shipping and returns with swim purchase.
+                %br/
+                Valid for free standard shipping and handling.
+                %br/
+                %span.expires
+                  %strong Expiration Date:
+                  4/1/2016
+            .cash-back
+              %h4 Cash Back!
+              -if @advertiser.advertiser_url
+                - url = URI.parse(@advertiser.advertiser_url)
+                %p 
+                  Deposited directly into your account with any purchase from
+                  %a{:href => @advertiser.advertiser_url} #{url.hostname}
+        
+        .reveal-modal.popup{:id => "no_coupon_code_#{advertiser.advertiser_id}"}
+          %header.header
+            %h2 No Coupon Codes Required
+            %a.close-reveal-modal
+              = image_tag "close-btn.png"
+          .popup-content
+            %p
+              Shop now and make money at
+              %a.custom-link{:href => @advertiser.advertiser_url} #{@advertiser.name}
+            .button-wrapper.row
+              %a.cutom-link.btn{:href => @advertiser.advertiser_url} 
+                -if @advertiser_url.blank?
+                  Go to
+                  #{@advertiser.name}
+                -else
+                  Go to
+                  #{@advertiser.name}
+            .align-center.row
+              %a.logo{:href => "#"}
+                = image_tag @advertiser.image.url(:medium), title: advertiser.name
+            %h4
+              cash back on all purchases
+              %br
+              from
+              %a.custom-link{:href => "@advertiser.advertiser_url"} #{@advertiser.name}
+          

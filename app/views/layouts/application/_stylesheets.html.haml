@@ -1,0 +1,5 @@
+- if params['controller'] == "admins/categories"
+  = stylesheet_link_tag "ubitru-admin", :media => nil
+- else
+  = stylesheet_link_tag 'application', :media => nil
+  = yield :stylesheets

@@ -1,0 +1,13 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/custom_advertisers'
+- content_for :main_column do
+  %section.default-content
+    = simple_form_for @advertiser_store_image, :url => update_custom_store_logo_admin_hp_stores_path, :method => "put" do |f|
+      %p Select Image to update
+      %p= f.file_field :hp_image
+      = hidden_field_tag :id, @advertiser_store_image.id
+      = hidden_field_tag :store_type, params[:store_type]
+      %p= f.button :submit, 'Update Store Logo', :class => 'fixed-width-button'
+    %p= link_to 'Back', admin_hp_stores_path(:type => params[:store_type]), :class=>'orange-button'
+%h2 Update Store Logo for merchant
+= render 'layouts/application/one_column'

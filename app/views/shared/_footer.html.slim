@@ -1,0 +1,70 @@
+footer.footer.full-width
+  .container
+    .grid-row.footer-top
+      .social-icons.col-6
+        h3 Follow Us
+        ul
+          li.facebook
+            a href="https://www.facebook.com/UbiTru/about/" target="_blank" 
+              i.fb-i.fa.fa-facebook
+          li.twitter
+            a href="#" target="_blank" 
+              i.twitter-i.fa.fa-twitter
+          li.gplus
+            a href="#" target="_blank" 
+              i.fa.google-i.fa-google-plus
+          li.pinterest
+            a href="#" target="_blank" 
+              i.fa.google-i.fa-pinterest
+          li.youtube
+            a href="#" target="_blank" 
+              i.fa.youtube-i.fa-youtube
+      .col-6.align-right.right
+        a.btn-coupon.btn.submit-coupon-btn href="javascript:void(0);" 
+          i.fa.fa-tag
+          | Submit a Coupon
+        a.btn.btn-red href=referred_visits_path  Refer a Friend
+        br/
+        /!
+          | <div class="facebook-like"
+          | <img src="images/fb-like.png" alt="fb-like-counter"
+          | </div
+    .grid-row.footer-bottom
+      .row
+        hr/
+      .col-12
+      .row
+        nav.col-8.footer-nav
+          ul
+            li
+              a href="/"  Home
+            li
+              a href="/referral"  Referral
+            li
+              a href=loyalty_path  Loyalty Programs
+            - if user_signed_in?  
+                li 
+                  = link_to 'Sign out', destroy_user_session_path, :method => :delete 
+            - else                  
+                li
+                  a href=new_user_registration_path
+                    |Signup
+                li
+                  a href=user_session_path  
+                    |Log In
+            
+        .col-4.align-right.copyright
+          p Copyright © 2016 Ubitru. All Rights Reserved.
+
+
+
+#modal.modal.fade tabindex="-1" role="dialog" 
+  .coupon-popup.reveal-modal.modal-dialog
+
+- content_for :js do
+  javascript:
+    $(document).ready(function(){
+      ZeroClipboard.config({
+        swfPath: '/ZeroClipboard.swf'
+      });
+    })

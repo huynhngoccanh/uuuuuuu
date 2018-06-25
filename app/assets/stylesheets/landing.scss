@@ -1,0 +1,112 @@
+/*
+*= require normalize.css
+*= require style.scss
+*= require bootstrap-theme.min.css
+*= require font-awesome
+*= require mystyle.css
+*= require main.css
+*= require custom.css
+*= require_self
+*/
+
+.merchant-name {
+  position: relative;
+  top: -10px;
+
+}
+
+.accordion {
+	margin-bottom:-3px;
+}
+
+.accordion-group { 
+	border: none;
+}
+
+
+
+.bootstrap-tagsinput { width: 100%; }
+
+.accordion {
+  margin-bottom:-3px;
+}
+
+.accordion-group { 
+  border: none;
+}
+
+.twitter-typeahead #search {
+  background-color: white !important;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
+}
+
+.twitter-typeahead .tt-hint
+{
+    display: none;
+}
+
+.tt-dropdown-menu {
+  position: absolute;
+  width: 535px;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 10px;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+.tt-suggestion > p {
+  display: block;
+  padding: 3px 0;
+  clear: both;
+  margin: 0;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #333333;
+  white-space: nowrap;
+  cursor: pointer;
+  a:hover {
+    background-color: #fafafa;
+  }
+}
+
+.tt-suggestion > p:hover,
+.tt-suggestion > p:focus,
+.tt-suggestion.tt-cursor p {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
+}
+
+.main-header .top-search .submit-search.header-search {
+  position: absolute;
+  top: 0;
+  right: 51px;
+  height: 60px;
+}
+
+.merchant-filters {
+  margin-top: 50px;
+  padding: 10px;
+  .btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}

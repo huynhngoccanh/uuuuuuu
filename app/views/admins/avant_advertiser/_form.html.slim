@@ -1,0 +1,46 @@
+= form_for  @advertiser ,url: {action: "update"}, html: {class: "form-horizontal"} do |f|
+  / .form-group
+  /   = f.label :id, class: "col-sm-2 control-label"
+  /   .col-sm-10
+  /     = f.text_field :id, class: "form-control"
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :commission_percent, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :commission_percent, class: "form-control"
+  .form-group
+    = f.label :description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :description, class: "form-control"
+  
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :title, class: "form-control"
+      
+  / .form-group
+  /   = f.label :merchant_id, class: "col-sm-2 control-label"
+  /   .col-sm-10
+  /     = f.text_field :merchant_id, class: "form-control"
+  / .form-group
+  /   = f.label :loyalty_enabled, class: "col-sm-2 control-label"
+  /   .col-sm-10
+  /     = f.check_box :loyalty_enabled
+  / .form-group
+  /   = f.label :fallback_link, class: "col-sm-2 control-label"
+  /   .col-sm-10
+  /     = f.text_field :fallback_link, class: "form-control"
+  
+  .form-group
+    label.col-sm-2.control-label &nbsp;
+    .col-sm-4
+      = f.submit nil, class: "btn btn-primary"
+      = link_to "Back", admins_avant_advertiser_path
+  
+    label.col-sm-2.control-label &nbsp;
+    .col-sm-4
+      a href="/admins/merchants/#{@advertiser.merchant.id}/edit" class="btn btn-primary" Edit Merchant   
+/ admins/merchants/{{merchant.id}}/edit

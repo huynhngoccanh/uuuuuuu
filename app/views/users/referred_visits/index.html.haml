@@ -1,0 +1,87 @@
+- referral_url = referred_by_user_url(current_user.encoded_id)
+
+- content_for :sub_nav do
+  = render 'users/profile/sub_nav', :active_action=>'index', :active_controller=>'users/referred_visits'
+
+
+
+- content_for :main_column do
+  %section.default-content.clearfix#referrals
+    %div#referrals-picture
+      .refferal-section.clearfix
+        %h5= "WHEN ONE OF YOUR REFERRALS EARNS AT LEAST #{ReferredVisit::EARNINGS_PER_REFERRED_USER_PERCENTAGE}% YOU GET $1!"
+        %hr
+        .row  
+          .col-md-4.col-xs-12
+            = render "email_contacts"
+          .col-md-4
+            = render "direct_email"
+          .col-md-4  
+            = render "social_contacts", :referral_url=>referral_url
+        .row 
+          .col-md-8.col-xs-12
+            = render "referred_users" 
+          .col-md-4.col-xs-12
+            = render "direct_link", :referral_url=>referral_url
+          / .col-md-4  
+        #contacts-list-dialog{:style=>'display: none'}
+.grey-section
+  .heading-section.clearfix
+    .container
+      %h2 Invite Your Friends to UbiTru
+      .score
+        = render 'users/shared/header_score'
+  .content-section
+    .container
+      .white-box.clearfix 
+        .banner-section.clearfix
+          .img-box
+            = image_tag "ubitru/banner-friends.png"
+          .txt-box
+            “I just made $145 by inviting my friends to Ubitru!”
+            %span - Kathy, Boston, MA
+        = render 'layouts/application/one_column'
+
+
+- content_for :javascripts do
+  = javascript_include_tag "zclip"
+
+  %script
+    :plain
+      simpleAjaxPagination('#referred_users_table_wrap');
+      //select text in input on click
+      $('#link-text-input').on('focus mouseup', function(e) {
+        if (e.type == 'focusin') this.select();
+        if (e.type == 'mouseup') return false;
+      });
+      //copy link to clipboard on click
+      $('#copy-link-to-clipboard').zclip({
+          path:'ZeroClipboard.swf',
+          copy: $('#link-text-input').data('original-value')
+      });
+      
+      $('#send-invites-textarea-form').on('submit', function(){
+        showLoader($('#direct-email'), 'Sending invites to users you\'ve specyfied')
+      });
+      $('#send-invites-checkbox-form').on('submit', function(){
+        showLoader($('#contacts-list-dialog'), 'Sending invites to users you\'ve specyfied')
+      });
+      $('#get-contacts-form').on('submit', function(){
+        $('#contacts-list-dialog').dialog('open');
+        showLoader($('#contacts-list-dialog'), 'Retreving your contact list')
+      });
+
+      initDialog('#contacts-list-dialog', undefined, {
+        title : 'Choose contacts to send invites to'
+      });
+
+      $('#check-all-contact-checkboxes').on('change', function(){
+        $('input[name="contacts[]"]').attr('checked', $(this).is(':checked'));
+      });
+
+      $('#social a').on('click', function() {
+        var val = $('#social_text').val()
+        this.href= $(this).data('href').replace('_text_', val);
+      })
+      
+      

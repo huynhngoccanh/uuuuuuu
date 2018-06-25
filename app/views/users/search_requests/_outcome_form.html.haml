@@ -1,0 +1,11 @@
+= simple_form_for @outcome, :as=>:outcome, :url => "/search_requests/#{@search_request.id}/update_outcome", :wrapper=>:standard do |f|
+  = hidden_field_tag :id, :value => @search_request.id
+  = f.input :purchase_made, :as=>:radio_buttons, :wrapper_html=> {:id=>"purchase_made_wrap"}
+  %div.input
+    = label_tag nil, :class=>"radio_buttons", :id => "select_vendor" do
+      = "If yes, select the vendor/service provider you have chosen: "
+      %span (only one selection allowed)
+  = render "outcome_vendor_table"
+  = f.input :comment
+  .actions
+    = f.button :submit, 'Submit outcome report', :class => "fixed-width-button"

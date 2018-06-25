@@ -1,0 +1,28 @@
+%html
+  %head
+    %title MuddleMe Soleo number clicks report
+    %style
+      :plain
+        table {
+          border-collapse: collapse;
+        }
+        table td {
+          padding: 5px;
+          border: 1px solid gray;
+        }
+
+  %body
+    %table
+      %tr
+        %th Date and time
+        %th Phone
+        %th Company name
+        %th Search string
+        %th Username
+      - @report.each do |row|
+        %tr
+          %td= row.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime('%F %H:%M:%S').to_s + ' EST'
+          %td= row.company_phone
+          %td= row.company_name
+          %td= row.intent.search
+          %td= row.intent.user.full_name

@@ -1,0 +1,30 @@
+%table.default-table.packed
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Campaign
+    %th.no-hvr
+      %span.txt
+        %span Impressions
+    %th.no-hvr{:style=>'white-space: nowrap'}
+      %span.txt
+        %span Conversion %
+    %th.no-hvr{:style=>'white-space: nowrap'}
+      %span.txt
+        %span Spent to date
+  - if @best_campaigns.blank?
+    %tr
+      %td.ctr{:colspan=>4}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "You have not created any campaigns yet"
+  - else
+    - @best_campaigns.each do |c|
+      %tr
+        %td= link_to c.name, edit_campaign_path(c)
+        %td.ctr= c.impressions
+        %td.ctr
+          = c.conversion_percent.nil? ? '-' : "#{(c.conversion_percent)*100.round.to_i}%"
+        %td= format_currency(c.total_spent)
+.table-footer.table-info
+  .right
+    = link_to 'View All Campaigns', :controller=>'/vendors/campaigns', :action=>'index'

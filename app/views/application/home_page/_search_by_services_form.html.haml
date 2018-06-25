@@ -1,0 +1,63 @@
+:css
+  .cse-mm-search-bar-icon-wrapper {
+    position: relative;
+  }
+
+  .cse-search-input-box-id-2 input[type="text"] {
+    border: 1px solid #CCC !important;
+    width: 585px;
+    height: 28px;
+    outline: medium none;
+    text-indent: 6px;
+    font-size: 16px;
+    margin-right: -1px;
+    padding: 0px !important;
+  }
+  .cse-mm-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+  }
+
+
+%section.local-merchants.full-width
+  .container
+    .bottom-search.cf
+      = form_tag( hp_mm_box_services_search_path, id: "sbs_search_bar", class: "navbar-form ajax-spinner", remote: true) do
+        #sbs-form-errors.text-center.text-danger
+        = hidden_field_tag :user_id, "#{current_user.id rescue nil}", :class => 'zip-user-id'
+        = autocomplete_field_tag 'service_keyword', params[:service_keyword], '/search/autocomplete_service_search', :placeholder => "Electricians, Plumbers, Dish TV....",  :autocomplete => "off", :class => "search rb_regular custom_ss_field"
+        = submit_tag 'SEARCH',  id: "submit", class: "submit-search popup-services ajax-spinner"
+    .merchants-block.cf
+      .row.header
+        .col-5
+          %h3 Local Merchants
+        .col-4.align-right
+          %h3 Your Earnings
+        .col-3.align-right
+          %h3 Call Now
+      .row.content
+        .col-5.merchant
+          %p BEI Plumbing & Heating
+          %p Fresolo Plumbing  & Heating
+          %p Roto-Rooter Plumbing
+        .col-4.price.align-left
+          %p $ 1.00
+          %p $ 1.00
+          %p $ 1.00
+          %hr
+            %p.total $ 3.00
+            %span Deposited into your account
+        .col-3.number.align-right
+          %a.view-number{:href => "#"}
+            %i.fa.fa-phone
+            View Number
+          %a.view-number{:href => "#"}
+            %i.fa.fa-phone
+            View Number
+          %a.view-number{:href => "#"}
+            %i.fa.fa-phone
+            View Number
+
+
+  #cash_call.reveal-modal.popup.cash-call.top-settings

@@ -1,0 +1,34 @@
+
+div class="page-header"
+  h1 Customer Reffered
+
+= form_tag '/admin/customers/download_csv_file_customer_reffer', method: :get
+    .col-md-5 
+      input.form-control#datepicker1 name="start_date" placeholder="Start date" type="text" as="datepicker"
+      / = text_field_tag :start_date, " ", as: :datepicker, :class => 'form-control'
+    .col-md-5 style="padding-left:0px;"
+      input.form-control#datepicker2 name="end_date" placeholder="End date" type="text" as="datepicker"
+    .col-md-2 style="padding-left:0px;"
+      button.btn.btn-primary type="submit"
+        | Download csv
+
+hr        
+table.table.table-striped
+  thead
+    tr
+      th Name
+      th Email
+      th Reffered By
+      th Reffered On
+
+  tbody
+    -if @reffer.blank?
+      td colspan="4" No reffer found
+    -else
+      - @reffer.each do |reffer|
+        tr
+          td =reffer.try(:name)
+          td =reffer.email
+          td =reffer.try(:user).try(:email)
+          td =reffer.created_at
+      = will_paginate @reffer, :param_name => 'search_page'

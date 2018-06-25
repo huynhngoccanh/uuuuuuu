@@ -1,0 +1,26 @@
+%table.default-table
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Company
+    %th.no-hvr
+      %span.txt
+        %span Bid Amount
+    %th.no-hvr
+      %span.txt
+        %span View Offer
+  - if @winning_bids.blank?
+    %tr
+      %td.ctr{:colspan=>3}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "There were no participants in this auction"
+  - else
+    - @winning_bids.each_with_index do |bid, idx|
+      %tr{:class=>cycle(nil,'odd')}
+        %td
+          %span.radio
+            = radio_button_tag "outcome[vendor_ids][]", bid.vendor_id, @outcome.vendor_ids.include?(bid.vendor_id), :id => "outcome_vendor_ids_#{bid.vendor_id}", :class => "outcome_vendor_ids"
+            = label_tag "outcome_vendor_ids_#{bid.vendor.id}", "#{bid.vendor.company_name}"
+        %td.ctr= format_currency(bid.current_value)
+        %td.ctr
+          = link_to 'View offer', '#', :class=>'button view-offer', :id=>"offer-link-#{bid.id}"

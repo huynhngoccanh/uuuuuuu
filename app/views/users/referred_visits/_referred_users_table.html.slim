@@ -1,0 +1,38 @@
+table.default-table.table-data01
+  table.sorting width="100%"
+    tr
+      th scope="col" 
+        | E-mail
+        i.fa.fa-sort aria-hidden="true" 
+      th scope="col" 
+        | Date
+        i.fa.fa-sort aria-hidden="true" 
+      th scope="col" 
+        | Status
+        i.fa.fa-sort aria-hidden="true" 
+    / tr
+    /   th class=list_order_class(:referred_users, 'users.email') 
+    /     a href=list_order_url(:referred_users, 'users.email') 
+    /       span Email
+    /   th class=list_order_class(:referred_users, 'users.created_at') 
+    /     a href=list_order_url(:referred_users, 'users.created_at') 
+    /       span Registration date
+    /   th class=list_order_class(:referred_users, 'treshold_met') 
+    /     a href=list_order_url(:referred_users, 'treshold_met') 
+    /       span Treshold
+    -if @referred_users.blank?
+      tr
+        td.ctr colspan=3 
+          / !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+          = "No referred users"
+    - else
+      - @referred_users.each do |visit|
+        tr class=cycle(nil,'odd')
+          td style="word-break: break-all;"= visit.email
+          td= visit.created_at
+          td= visit.status
+          / td.ctr= visit.referred_user_total_earnings.to_i < ReferredVisit::EARNINGS_TRESHOLD ? 'no' : 'yes'
+.table-footer.table-info
+  / .pages-info= page_entries_info @referred_users
+  / .right
+    = paginate @referred_users

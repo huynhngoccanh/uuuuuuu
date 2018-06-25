@@ -1,0 +1,52 @@
+- auctions ||= instance_variable_get("@auctions_#{type}")
+- type ||= :user
+
+%table.default-table.packed
+  %tr
+    %th{:class=>check_order(:name, type)}
+      %a{:href=>order_url(:name, type)}
+        %span Auction name
+    %th{:class=>''}
+      %span.txt
+        %span Your&nbsp;Current Bid&nbsp;(bidders)
+    %th{:class=>check_order(:max_vendors, type)}
+      %a{:href=>order_url(:max_vendors, type)}
+        %span Slots Available
+    %th{:class=>check_order(:"lowest_bids_auctions.max_value", type)}
+      %a{:href=>order_url(:"lowest_bids_auctions.max_value", type)}
+        %span Current Low Bid
+    %th{:class=>check_order(:"highest_bids_auctions.max_value", type)}
+      %a{:href=>order_url(:"highest_bids_auctions.max_value", type)}
+        %span Current High Bid
+  - if auctions.blank?
+    %tr
+      %td.ctr{:colspan=>5}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "No auctions to show"
+  - auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to auction.name, auction
+      - bid_index = auction.bids.index{|b| b.vendor_id==current_vendor.id}
+      - warn = [:bid].include?(type) && bid_index && bid_index+1 > auction.max_vendors.to_i
+      %td{:class=>warn ? 'warn tip' :''}
+        =(bid_index ? format_currency(auction.bids[bid_index].max_value) : "-" )
+        = "(#{auction.bids.count})"
+        - tip = "Your current bid is too low to win this auction"
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip if warn
+      %td.ctr
+        = auction.max_vendors 
+      %td
+        - if auction.lowest_bid && auction.lowest_bid.max_value
+          = format_currency(auction.lowest_bid.max_value)
+        - else
+          = "-"
+      %td
+        - if auction.highest_bid && auction.highest_bid.max_value
+          = format_currency(auction.highest_bid.max_value)
+        - else
+          = "-"
+        
+.table-footer.table-info
+  .pages-info= page_entries_info auctions
+  .right
+    = paginate auctions, :param_name=>"#{type}_page", :params=>{:controller => "vendors/auctions", :action => "user"}

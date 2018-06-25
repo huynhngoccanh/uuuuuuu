@@ -1,0 +1,7 @@
+Tire.configure do
+ # url 'http://localhost:9200'
+  url 'http://ecommercedevelopment.us:3000'
+  logger Rails.root + "log/tire_#{Rails.env}.log"
+  #logger 'elasticsearch.log'
+  Tire::Model::Search.index_prefix "#{Rails.application.class.parent_name.downcase}_#{Rails.env.to_s.downcase}"
+end

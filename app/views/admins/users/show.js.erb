@@ -1,0 +1,7 @@
+$('#user_searches_wrap').html("<%= escape_javascript render('consumer_searches_list') %>")
+.css('overflow','')
+
+$('#earnings_table_wrap').html("<%= escape_javascript render('users/funds_withdrawals/earnings_table') %>")
+        .css('overflow','')
+$('#withdrawal_table_wrap').html("<%= escape_javascript render('users/funds_withdrawals/withdrawal_table') %>")
+        .css('overflow','')

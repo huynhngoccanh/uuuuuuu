@@ -1,0 +1,20 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content
+    %article#auction-success
+      %div.icon#big-checkmark-icon
+      %h3= "AUCTION ##{@auction.number} CREATED SUCCESSFULLY"
+      %p Congratulations, you have successfully created an auction. Be sure to look out for the bids on your dashboard.
+      .buttons-wrap
+        = link_to 'View auction', @auction, :class=> "orange-button"
+        = link_to 'View your auctions', url_for(:action=>'index'), :class=> "orange-button"
+        = link_to 'Create new auction',  url_for(:action=>'new'), :class=> "orange-button"
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'
+
+%h2 Congratulations!
+= render 'layouts/application/two_columns'

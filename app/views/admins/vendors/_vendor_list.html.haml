@@ -1,0 +1,79 @@
+- vendors = instance_variable_get("@vendors_#{type}")
+- single ||= nil
+- if single
+  .table-header.table-info
+    .pages-info= page_entries_info vendors
+    .right
+      = paginate vendors, :param_name=>"#{type}_page", :params=>params
+%table.default-table
+  %tr
+    %th{:class=>check_order(:company_name, type)}
+      %a{:href=>order_url(:company_name, type)}
+        %span Company name
+    %th{:class=>check_order(:first_name, type)}
+      %a{:href=>order_url(:first_name, type)}
+        %span First name
+    %th{:class=>check_order(:last_name, type)}
+      %a{:href=>order_url(:last_name, type)}
+        %span Last name
+    %th{:class=>check_order(:email, type)}
+      %a{:href=>order_url(:email, type)}
+        %span E-mail
+    %th{:class=>check_order(:address, type)}
+      %a{:href=>order_url(:address, type)}
+        %span Address
+    %th{:class=>check_order(:city, type)}
+      %a{:href=>order_url(:city, type)}
+        %span City
+    %th{:class=>check_order(:zip_code, type)}
+      %a{:href=>order_url(:zip_code, type)}
+        %span Zip code
+    %th{:class=>check_order(:type, type)}
+      %a{:href=>order_url(:type, type)}
+        %span Type
+    %th
+      %span.txt
+        %span Action
+  - if vendors.blank?
+    %tr
+      %td.ctr{:colspan=>9}
+        = "No companies to show"
+  - vendors.each do |vendor|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to vendor.company_name, admin_vendor_path(vendor)
+      %td= vendor.first_name
+      %td= vendor.last_name
+      %td= vendor.email
+      %td= vendor.address
+      %td= vendor.city
+      %td= vendor.zip_code
+      %td
+        - if vendor.service_provider and vendor.retailer
+          = "service provider; retailer"
+        - elsif vendor.service_provider
+          = "service provider"
+        - elsif vendor.retailer
+          = "retailer"
+        - else
+          = "undefined"
+
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View Details', admin_vendor_path(vendor)
+              - if vendor.blocked?
+                = link_to('Unblock this vendor', unblock_admin_vendor_path(vendor), :method => :put, :confirm => 'Are you sure?')
+              - else
+                - confirm = ''
+                - confirm += "Vendor has positive balance. " if (vendor.balance && vendor.balance > 0)
+                - confirm += "Vendor has running campaigns. " unless vendor.campaigns.where('campaigns.status = "running"').blank?
+                - confirm += "Vendor has active bids in auctions. " unless vendor.campaigns.where('campaigns.status != "deleted" AND auctions.status = "active"').joins('LEFT JOIN `bids` ON `bids`.`campaign_id` = `campaigns`.`id` LEFT JOIN `auctions` ON `auctions`.`id` = `bids`.`auction_id`').blank?
+                - confirm += "Are you sure you want to block this vendor?" unless confirm.blank?
+                = link_to('Block this vendor', block_admin_vendor_path(vendor), :method => :put, :confirm => confirm)
+.table-footer.table-info
+  .pages-info= page_entries_info vendors
+  .right
+    = paginate vendors, :param_name=>"#{type}_page", :params=>params

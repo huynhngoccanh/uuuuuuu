@@ -1,0 +1,12 @@
+!!! 5
+%html{"xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml", :lang=>'en'}
+  %head
+    %meta{ :charset => "utf-8" }/
+    = stylesheet_link_tag 'print_preview', :media => :all
+    = stylesheet_link_tag 'print', :media => :print
+    %title= @title || "MuddleMe"
+  %body
+    #print-button
+      %button{:onclick=>'print()'} Print
+    #preview
+      = yield

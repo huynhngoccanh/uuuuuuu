@@ -1,0 +1,7 @@
+$('#sp-processing-message').show();
+$('#sp-processing-message').html("");
+$('#favorite-merchant-errors').html("");
+$('#sp-processing-message').html("<p style=font-size:20px;> Service provided details saved successfully.</p>");
+$("#sp-processing-message").delay(5000).fadeOut( "slow", function() {
+  $('.favorite-service-provider-form').toggle();
+});

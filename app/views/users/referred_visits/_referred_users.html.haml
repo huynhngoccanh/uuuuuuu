@@ -1,0 +1,19 @@
+%article#referred-users.details-preview
+  %h3 FRIEND INVITE STATISTICS
+  %hr.for-table
+  .col-md-6
+    .table-data01{style:'min-width: 100%;'}   
+      #referred_users_table_wrap
+        = render 'referred_users_table'
+  .col-md-6
+    .table-data02{style:'min-width: 100%;'}   
+      #stats
+        %p{style:"font-size:20px;"}
+          %span.label= 'Number of referrals:'
+          %span.highlight=(current_user.invite_user.all.count)
+        %p{style:"font-size:20px;"}
+          %span.label= 'Registered users: '
+          %span.highlight=(current_user.active_invite_users.count)
+        %p{style:"font-size:20px;"}
+          %span.label= 'Conversion rate: '
+          %span.highlight="#{number_with_precision(current_user.referral_conversion_rate , :precision=>2)}%" 

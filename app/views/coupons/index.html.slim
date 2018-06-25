@@ -1,0 +1,113 @@
+
+section.search-results.full-width#search-results
+  .container
+    .row.page-title.align-center
+      h1= "#{params[:q][:search]} Coupon Codes and Deal Activated Coupons"
+    .grid-row
+      article.col-9.coupons-list
+        a href="javascript:void(0);" class="btn-coupon btn submit-coupon-btn"
+          i class="fa fa-tag"
+          | Submit a Coupon
+        .row.filter-nav
+          nav
+            ul.filters-block
+              li.filter: a data-filter="all" href="/coupons?q[search]=#{params[:q][:search]}&q[coupon_type]=all"
+                |All
+                | &nbsp;(
+                = @search_co.count
+                |)
+                
+              li.filter: a data-filter="cashbacks" href="/coupons?q[search]=#{params[:q][:search]}&q[coupon_type]=code&page=#{params[:page]}"
+                |Coupons
+                | &nbsp;(
+                = @search_co.count-@count 
+                |)
+              li.filter: a data-filter="cashbacks" href="/coupons?q[search]=#{params[:q][:search]}&q[coupon_type]=deal_activated&page=#{params[:page]}" 
+                |Deal Activated 
+                |&nbsp;(
+                =@count
+                |)
+              li.filter: a data-filter="couponsandcashbacks" href="/coupons?q[search]=#{params[:q][:search]}&q[coupon_type]=coupons+deal_activated" 
+                |Coupons + Deal Activated
+                |&nbsp;(
+                =@search_co.count
+                |)
+            .select-box
+              = form_tag " ", method: :get, id: "rFilter" do
+                = hidden_field_tag 'q[search]', params[:q][:search]
+                select.sort#radiusFilter name="q[filter]"
+                  option class="sort" value="1" 
+                    | -select-filter-
+                  option class="sort" value="Popularity" Popularity
+                  option class="sort" value="Expiring Soon" Expiring Soon
+                i.fa.fa-sort-down
+        -if @coupons.blank? && @merchants.blank?
+         .coupon.row.mix.couponsandcashbacks
+            .offer-box.col-1
+              / .offer
+              /   span.offer-big-font
+              /   span.offer-small-font
+              /   .align-center.store-img
+              /     / a href="#"= image_tag @merchant.image.url(:medium), title: @merchant.name
+            .offer-info.col-11 style="padding-right:3%;"
+              .offer-content-top.row style="padding:0 14px;"
+                h3.store-name
+                br
+                .offer-title Cash Back On all your Purchases
+                p.details 
+                  strong 
+                    a style="text-decoration: underline;" href="/loyalty" Join loyalty programs for even more saving
+                a class="btn btn-red coupon-view" href="/loyalty" Join Now
+              .offer-content-bottom.row style="padding:0 14px;"
+                p.details 
+                  strong Sorry! No Coupon Available
+        -else
+          -@coupons.each do |coupon|
+            = render partial: "/coupons/list_view", locals: {coupon: coupon}
+          .merchants
+            -if @merchants && !@merchants.blank?       
+              - @merchants.each do |merchant|
+                .coupon.row
+                  .offer-box.col-2
+                    .offer
+                      span.offer-big-font 
+                      span.offer-small-font
+                      .align-center.store-img 
+                        = image_tag merchant.image.url(:medium), class: "img-responsive"
+                  .offer-info.col-10 style="padding-right:3%;"
+                    .offer-content-top.row style="padding:0 14px;"
+                      span.coupon-verification
+                      h4 style="width: 72%;"= "Get cashback on buying #{params[:q][:search]} from #{merchant.name}"
+                      span
+                        = link_to merchant.name, "#", class: "btn btn-red merchant-popup", "data-merchant_id" => merchant.id ,style:"width:170px;white-space: pre-line;word-break: break-word;"
+                    .offer-content-bottom.row style="padding:0 14px;"
+      aside.leftbar.col-3
+        .offer-range.cf
+          p.title 
+            strong Merchant List:
+          = form_tag '/coupons',method: :get,class:'merchant-filters'
+            / = hidden_field_tag 'q[search]', params[:q][:merchants]
+            - @search.facet(:merchant_name).rows.each do |row|
+              .checkbox
+                = check_box_tag "q[merchants]", row.value, (params[:merchants] || []).include?(row.value), class: "css-checkbox" , style:"bottom: 5px;"
+                label style="font-size:14px;"
+                  = truncate(" #{row.value}", length:25)
+        .join-loyalty.cf
+          h4 Earn a Bonus every time you Refer your Friends!
+          div.button-wrapper.align-center.cf
+            -if !user_signed_in?
+              a href="#" class="btn btn-red" Join &amp; Earn
+            a href=referred_visits_path  class="btn btn-red" Refer a Friend
+        .signup-and-earn.cf
+          .title Sign-up to Start Earning Cashback &amp; Loyalty Points.
+          .steps.cf
+            ol
+              li Sign up for FREE
+              li Earn extra cashback on every purchase or service call
+              li One-click registration to thetop Loyalty Programs
+              li Access to money immediately
+          -if !user_signed_in?
+            .button-wrapper.align-center.cf: a href=new_user_registration_path class="btn btn-red" Sign up &amp; Earn
+          .button-wrapper.align-center.cf: a href="/loyalty" class="btn btn-red" Loyalty program
+
+    div= will_paginate @coupons

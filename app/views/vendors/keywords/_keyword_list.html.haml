@@ -1,0 +1,24 @@
+.table-header.table-info
+  .pages-info= page_entries_info @keywords
+  .right
+    = paginate @keywords, :params=>params.merge(:action=>:index)
+%table.default-table.keywords-table
+  - if @keywords.blank?
+    %tr
+      %td.ctr.msg
+        - if params[:search].blank?
+          = "No keywords yet"
+        - else
+          = "No keywords found"
+  - else
+    - @keywords.in_groups_of(5) do |row|
+      %tr{:class=>cycle(nil,'odd')}
+      - row.each do |k|
+        - cls = (k.nil? ? 'empty' : nil )
+        %td{:class=>cls}= k.nil? ? '' : k.keyword 
+        %td.action{:class=>cls}= k.nil? ? '' : (link_to '', keyword_path(k, :page=>params[:page], :search=>params[:search]), :method=>:delete, | 
+                            :remote=>true, :class=>'delete', :title=>'Delete keyword')
+.table-footer.table-info
+  .pages-info= page_entries_info @keywords
+  .right
+    = paginate @keywords, :params=>params.merge(:action=>:index)

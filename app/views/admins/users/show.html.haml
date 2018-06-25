@@ -1,0 +1,133 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/users'
+
+- content_for :main_column do
+  %section.default-content#admin-customer
+    .clearfix
+      .column
+        %article.narrowed.details-preview#customer-profile
+          %h3 CUSTOMER DETAILS
+          %hr
+          %div.line
+            %div.label First name:
+            %div.value= @user.first_name || '--'
+
+          %div.line
+            %div.label Last name:
+            %div.value= @user.last_name || '--'
+
+          %div.line
+            %div.label E-mail address:
+            %div.value= @user.email || '--'
+
+          %div.line
+            %div.label Address:
+            %div.value= @user.address || '--'
+
+          %div.line
+            %div.label City:
+            %div.value= @user.city || '--'
+
+          %div.line
+            %div.label Zip code:
+            %div.value= @user.zip_code || '--'
+
+          %div.line
+            %div.label Gender:
+            %div.value= @user.sex || '--'
+
+          %div.line
+            %div.label Age range:
+            %div.value= @user.age_range || '--'
+
+        %article.details-preview#customer-additional-info
+          %h3 ADDITIONAL INFORMATION
+          %hr
+          %div.line
+            %div.label MuddleMe score:
+            %div.value= @user.score || '--'
+          %div.line
+            %div.label Online Friends:
+            %div.value
+          %div.line
+            %div.label Education:
+            %div.value= @user.education.blank? ? '--' : @user.education.to_s.humanize
+          %div.line
+            %div.label Occupation:
+            %div.value= @user.occupation.blank? ? '--' : @user.occupation.to_s.humanize
+          %div.line
+            %div.label Income Range:
+            %div.value= @user.income_range.blank? ? '--' : @user.income_range.to_s.humanize
+          %div.line
+            %div.label Marital status:
+            %div.value= @user.marital_status.blank? ? '--' : @user.marital_status.to_s.humanize
+          %div.line
+            %div.label Family size:
+            %div.value= @user.family_size.blank? ? '--' : @user.family_size.to_s.humanize
+          %div.line
+            %div.label Home owner:
+            %div.value= @user.home_owner.nil? ? '--' : (@user.home_owner ? "Yes" : "No")
+          %div.line
+            %div.label Favourite web browser:
+            %div.value= "#{@user.favourite_browser_name} #{@user.favourite_browser_major_version}"
+      .column
+        %article.details-preview#admin-customer-earnings
+          %h3 CUSTOMER EARNINGS
+          %hr
+          %p
+            %span.label
+              = 'TOTAL BALANCE: '
+            %span.dollars
+              = format_currency(@user.total_balance)
+          %p
+            %span.label
+              = 'Available balance: '
+            %span.dollars
+              = format_currency(@user.balance || 0)
+          %p
+            %span.label
+              = 'Pending outcome : '
+            %span.dollars
+              = format_currency(@user.unconfirmed_earnings)
+          %p
+          %p
+            %span.label
+              = 'Add money to available balance : '
+          %p
+            = form_tag add_money_admin_user_path(@user) do
+              = text_field_tag :commission_amount
+              = submit_tag 'Add'
+
+
+    %article#active-searches
+      %h3 SEARCHES
+      %hr.for-table
+      #user_searches_wrap
+        = render 'consumer_searches_list'
+
+    %article#outcome-reports
+      %h3 OUTCOME REPORTS
+      %hr.for-table
+      #user_outcome_reports_wrap
+        = render 'consumer_outcome_reports_list'
+
+    %article.column.half-col.last-child
+      %h3 WITHDRAWALS
+      %hr.for-table
+      #withdrawal_table_wrap
+        = render 'users/funds_withdrawals/withdrawal_table'
+
+%h2 Customer Profile
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#user_auctions_wrap');
+
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#earnings_table_wrap');
+      simpleAjaxPagination('#withdrawal_table_wrap');

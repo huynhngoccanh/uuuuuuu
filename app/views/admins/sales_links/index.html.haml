@@ -1,0 +1,11 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action => 'index', :active_controller=>'admins/sales_links'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %nav.with-search
+      #all_users_wrap
+        = render 'sales_owner_list'
+
+%h2 Sales links owners
+= render 'layouts/application/one_column'

@@ -1,0 +1,8 @@
+- unless @auction_images.blank?
+  #auction-image-thumbs
+    - @auction_images.each do |img|
+      %a.thumb{:href=>img.image.url(:original), :class => cycle('first', 'middle', "last"), :rel=>'images'}
+        = image_tag img.image.url(:thumb)
+- else
+  %p
+    %i= '-- no images --'

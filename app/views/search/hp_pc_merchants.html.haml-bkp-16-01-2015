@@ -1,0 +1,54 @@
+%section.deals-area
+  .container
+    .row
+      .search-result-title
+        .large-search-results-label Search Results -
+        .small-search-results-label Showing most trending stores
+        %hr.line= "&nbsp;".html_safe
+    .row.deals-content{:style => "display:table;width:100%;"}
+      - if !@advertisers.blank?
+        - @advertisers.compact.in_groups_of(3,false) do |group|
+          %div{:style => "display:table-row;"}
+            - group.each_with_index do |result, i|
+              .col-md-4.col-sm-6.padding-left-0
+                .deals.gray-border-sq-box
+                  .deals-logo.no-gray-border
+                    - if result.hp_advertiser_image.blank?
+                      = image_tag(result.is_a?(LinkshareAdvertiser) ? result.logo_url : result.logo.url, :title => result.name, :size => "150x110")
+                    - else
+                      = image_tag(result.hp_advertiser_image.hp_image.url, :title => result.name, :size => "150x110")
+                  .deals-info
+                    .row
+                      %p.min-height-70{:id => "cdesc_#{result.advertiser_id}" }
+                        - content = "40% off on your entire order"
+                        - content += " Hurry up!. Buy and win more coupons" if i < 1
+                        - if content.length < 30
+                          %span.roboto-light= content
+                        - else
+                          %span.roboto-light= content[0..28]
+                          %span.roboto-light.more
+                            \...
+                          %span.roboto-light.more_content{:style => "display:none;"}
+                            &nbsp;
+                            = content[29..content.length]
+                          = link_to 'view more', 'javascript: void(0);', :class => 'view-more-coupon-description roboto-light', :id => "#{result.advertiser_id}", :style => "font-size:12px!important;"
+                    .row
+                      %span.roboto-light.margin-left-36
+                        = number_to_percentage(result.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})
+                        Cash Back
+                      %span{:class => "promo pull-right"}
+                        = image_tag('scissor.png', :class => 'top-deals-scissor')
+                        %span{:style => "border: 2px dashed #828282 ;padding: 2px 25px; width:100%; margin-right: 36px;"}
+                          = "SITE40"
+
+                    .row.shop-now-container
+                      = link_to "SHOW NOW", result.advertiser_url, :id => "merchant_popup_#{result.advertiser_id}", :class => "btn btn-primary-custom width-125 roboto-bold", :onclick => "generate_popup(this.id, #{result.advertiser_id}, #{result.coupons.blank?}); return false;"
+                      = link_to "coupon_window", mm_prompt_cc_window_path(:ad => result.advertiser_id, :type => result.class.name, :offer_url => result.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{result.advertiser_id}"
+      - else
+        %p
+          No Merchants found under categories.
+
+      .search-results-back-section
+        = image_tag('second-pattern-line.png', :class => 'search-results-bottom-line-img')
+        = link_to 'BACK', root_path, :class => 'back-from-search pull-right btn roboto-bold'
+        = link_to 'SEARCH AGAIN', hp_pc_merchants_url(:pcid => params[:pcid]), :class => 'btn btn-primary-custom pull-right roboto-bold search-again-merchants'

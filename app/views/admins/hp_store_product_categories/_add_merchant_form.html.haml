@@ -1,0 +1,11 @@
+= form_tag admin_hp_store_product_categories_path do
+  %br
+  %h3
+    SELECT STORES FOR HOME PAGE POPULAR STORES
+  = select_tag :advertiser_id_with_class_name, options_from_collection_for_select(@list, :id_with_class_name, :name)
+  %h3
+    SELECT POPULAR PRODUCT CATEGORY FOR HOME PAGE POPULAR STORES
+  = select_tag :product_category, options_from_collection_for_select(@product_category, 'id', 'name')
+  = hidden_field_tag :store_type, params[:type]
+  &nbsp;&nbsp;
+  = submit_tag 'Add', :class => 'orange-button'

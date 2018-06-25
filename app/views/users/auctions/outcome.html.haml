@@ -1,0 +1,53 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column
+      %article#auction-outcome-form
+        %h3= "PROJECT NAME: \"#{@auction.name}\" "
+        %hr
+        = render "outcome_form"
+    .column
+      %article#auction-details-preview-right.details-preview
+        %h3 
+          AUCTION DETAILS
+          = link_to 'view auction', @auction, :class => "orange-link"
+        %hr
+        = render 'auction_attributes'
+      %article#auction-images
+        %h3
+          AUCTION IMAGES
+          %span (click images to enlarge)
+        %hr
+        = render 'auction_images'
+
+= render 'users/shared/header_score'
+
+%h2
+  = "Auction ##{@auction.number} outcome report"
+  
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      $(document).ready(function(){
+        outcome_edit.validators['outcome[purchase_made]'] = {
+          presence : {message : #{@outcome.errors.generate_message(:purchase_made,:blank).to_json.html_safe} } }
+      })
+
+- unless @winning_bids.blank?
+  - @winning_bids.each do |bid|
+    = render 'offer_details', :id => bid.id, :vendor=>bid.vendor, :offer=>bid.offer, :offer_images=>bid.offer && bid.offer.offer_images
+  - content_for :javascripts do 
+    :javascript
+      initImageSlider();
+
+- content_for :javascripts do 
+  :javascript
+    $('.view-offer').click(function(e){
+      e.preventDefault();
+      var num = this.id.replace('offer-link-','');
+      showDetailsBox($('#offer-window-' + num));
+    });

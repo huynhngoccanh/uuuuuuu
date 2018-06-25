@@ -1,0 +1,15 @@
+- content_for :main_column do
+  %section.default-content
+    %article#sign-in
+      = simple_form_for(resource, :as => resource_name, :url => update_vendor_password_path, |
+      :wrapper=>:standard, :html=>{:class=>'no-label', :method => :put}) do |f|
+        = f.hidden_field :reset_password_token
+        .inputs
+          = no_label_input f, :password
+          = no_label_input f, :password_confirmation
+        .actions
+          = f.button :submit, "Change my password", :class => "fixed-width-button"
+      = render "vendors/devise/links"
+
+%h2 Change your password
+= render 'layouts/application/two_columns'

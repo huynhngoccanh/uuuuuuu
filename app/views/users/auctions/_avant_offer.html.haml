@@ -1,0 +1,21 @@
+- popup_href = auction_coupons_path('avant', offer)
+.text-line
+  = offer.advertiser_name
+%a.coupon-box.affiliate-offer-link{:href=>offer.link_href, :target=>'muddle_offer', :data=>{:popup_href=>popup_href}}
+  .img-wrap
+    = image_tag(offer.advertiser.logo.url)
+  %span.commission-amnt
+    %span.amnt
+      - unless offer.commission_percent.blank?
+        = format_percent_strip(offer.commission_percent)
+      - else
+        = format_currency(offer.commission_dollars)
+    %span.text Cash Back
+.text-line
+  Cash Back
+  - unless offer.advertiser.coupons.blank?
+    + Coupon Codes !
+%a.orange-button.fixed-width-button.affiliate-offer-link{:href=>offer.link_href, :target=>'muddle_offer', :data=>{:popup_href=>popup_href}} SHOP NOW
+  
+
+ 

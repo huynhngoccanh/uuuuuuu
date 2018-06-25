@@ -1,0 +1,29 @@
+- content_for :main_column do
+  %section.default-content
+    %article.text
+      %h3 An opportunity to bring unprecedented efficiency to your marketing spend.
+      %h4 Stop wasting money on advertising
+      %p Maybe you’ve heard the old adage: “Half the money I spend on advertising is wasted; the trouble is I don’t know which half.” Maybe you even subscribe to this thinking. If so, maybe it’s time to consider a new marketing model that doesn’t include wasting money on fruitless advertising.
+      %h4 MuddleMe introduces you to interested buyers
+      %p MuddleMe redefines what’s possible with your marketing budget—ANY budget. Whether you have $100 or $10,000,000 to spend, buyers on MuddleMe declare their intent to purchase, and you bid against other sellers for their contact information. Choose your buyers individually, or set up an automated campaign. However you do it, you’ll be working off the factual basis of a buyer’s expressed intent to buy, not a hope and dream that somebody within your target market might want to buy.
+      %h4 Real opportunities to make a sale
+      %p Auctions contain anonymous profiles of customers, their purchase histories, other meaningful data, and their MuddleMe Scores, a patented, algorithm-based rating of a buyer’s propensity to buy. You decide if the opportunity is worth the cost. Buyers indicate the number of vendors they wish to hear from and when. You make your best offer, and may the best seller win! If you don’t close that sale, you still retain the buyer’s information for future marketing efforts in a format compatible with all the popular contact and sales management platforms.
+      %p
+        %strong
+          = link_to "Sign up FREE", new_vendor_registration_path
+          to become a MuddleMe vendor!
+- content_for :aside do
+  %aside
+    %section.milky-box.box-with-stamp
+      %h3
+        Want to sell your
+        %br
+        contact info instead?
+      %p 
+        Head on over to the
+        %a{:href => root_path} Customer Zone 
+        and get paid just for being a customer.
+      %div.stamp#get-paid-stamp
+
+%h2 What is MuddleMe for vendors?
+= render 'layouts/application/two_columns'

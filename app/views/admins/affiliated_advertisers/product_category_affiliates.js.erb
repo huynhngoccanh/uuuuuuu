@@ -1,0 +1,14 @@
+$('#affiliates-form-warp').html("<%= escape_javascript render('affiliates_form') %>");
+
+$('select#cj_advertiser, select#avant_advertiser, select#linkshare_advertiser, select#pj_advertiser, select#ir_advertiser').multiselect({
+    header: false,
+    selectedList: 1,
+    height: "auto",
+    minWidth: "239",
+    multiple: false,
+    classes: "multiselect-button multiselect-dropdown",
+    position: {
+        my: 'left top',
+        at: 'left top'
+    }
+});

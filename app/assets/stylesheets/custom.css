@@ -1,0 +1,69 @@
+.feture-sec.ms-feature .ms-info .ms-info-img{
+  height: auto !important;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img{
+  display: inline-block !important;
+}
+
+#owl-demo .owl-item .item .ms-imgwrapper img{max-width: 100%; max-height: 100%;}
+
+#owl-demo .owl-item .item .ms-imgwrapper {
+  box-shadow: 1px -1px 4px rgba(78, 78, 78, 0.8);
+  margin: 0;
+  padding-bottom: 25px;
+  padding-top: 60px;
+  width: 100%;
+  padding-left: 15px;
+  height: 175px;
+  padding-right: 5px;
+}
+
+
+
+
+.btm-button .btm-button-st{
+  font-size: 12px;
+  width: 135px;
+}
+.part-2 input[type="submit"], .part-7 input[type="submit"]{
+  background: none repeat scroll 0 0 #ff6600;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Roboto Slab', serif;
+  font-size: 18px;
+  margin-left: -5px;
+  padding: 21px 30px 19px;
+  transition: all 0.5s ease 0s;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.part-2 input[type="submit"]:hover {
+  color:#f6f6f6;
+  background:#1B1B1B;
+  text-decoration:none;
+}
+
+@media screen and (max-width: 445px) {
+  .part-2 input[type="submit"], .part-7 input[type="submit"] {
+    font-family: 'Roboto Slab', serif;
+    padding: 8px 18px 8px;
+    font-size: 16px;
+  }
+}
+
+
+.item.orange > p, .item darkCyan > p, .item.yellow > p, .item.forestGreen > p, .item.dodgerBlue > p, .item.skyBlue > p, .item.zombieGreen > p, .item.violet > p, .item.steelGray > p, .item.dodgerBlue > p {
+  font-size: 18px !important;
+  padding: 8px 0px !important;
+  overflow: hidden !important;
+  height: 60px !important;
+}
+
+
+.dropdown-a
+{
+  max-width: 200px;
+    position: absolute;
+    left: initial;
+}

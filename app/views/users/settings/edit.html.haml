@@ -1,0 +1,27 @@
+- content_for :sub_nav do
+  = render 'users/profile/sub_nav', :active_action=>'new', :active_controller=>'users/settings'
+
+- content_for :main_column do
+  %section.default-content
+    = form_for(@user_setting, :url=>settings_path) do |f|
+      %h3 NOTIFICATIONS SETTINGS
+      %hr
+      %article.customer-settings.details-preview
+        .column
+          = render 'form', :f=>f
+      %h3 SOCIAL NETWORKS
+      %hr
+      %article#customer-social-settings
+        = render 'social_form'
+      %article.customer-settings.details-preview.narrowed
+        %p
+          %span.label
+            = f.label :bid_mail, 'Post to my social networks when my search finishes:'
+          %span
+            = f.check_box :post_to_social
+        .actions
+          = f.submit "Save Changes", :class=> "fixed-width-button"
+          %a.gray-button.fixed-width-button Cancel Changes
+
+%h2 Notifications
+= render 'layouts/application/one_column'

@@ -1,0 +1,6 @@
+$('#offer-preview-wrap').html("<%= escape_javascript render 'users/auctions/offer_details', 
+      :id =>'preview' , 
+      :vendor=>current_vendor, 
+      :offer=>@offer, 
+      :offer_images=>@offer.offer_images %>")
+initImageSlider();   

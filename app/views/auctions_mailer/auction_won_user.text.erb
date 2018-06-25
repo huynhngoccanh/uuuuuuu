@@ -1,0 +1,18 @@
+Hi <%= @user.first_name %>, you have offers!
+
+<% if @email_content.hello_sub_text.blank? %>
+    Your MuddleMe auction #<%= @auction.number %>  for <%= @auction.name %>  <%= @auction.product_auction? ? '' : 'project'%> has ended and you have
+    offers waiting.
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user) %>
+<% end %>
+
+
+Your worth for this auction was  <%= format_currency(@auction.user_earnings) %> !
+
+
+Head on over to MuddleMe and view your offers!
+
+Click te link below:
+
+<%= users_auction_url(@auction)  %>

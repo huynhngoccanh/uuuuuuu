@@ -1,0 +1,37 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/custom_advertisers'
+- content_for :main_column do
+  %section.default-content
+    = simple_form_for @advertiser_store_image, :html => { :multipart => true }, :url => update_custom_store_logo_admin_hp_stores_path, :method => "put" do |f|
+      -if params[:store_type] != "browseable" and params[:store_type] != "top_dealers"
+        %p Merchant Image
+        =image_tag @advertiser_store_image.hp_image, :style => "width: 150px; height: 150px;"
+
+      -if params[:store_type] == "top_dealers"
+        %p Coupon Code
+        =f.text_field :title
+      -else
+        %p Title
+        =f.text_field :title
+
+
+      -if params[:store_type] != "browseable"
+        %p
+          = params[:store_type] == "top_dealers" ? "Header" : "Description"
+        =f.text_area :description
+
+      -if params[:store_type] != "browseable" and params[:store_type] != "top_dealers"
+        %p Select Image to update
+        %p= f.file_field :hp_image
+
+      = hidden_field_tag :id, @advertiser_store_image.id
+      = hidden_field_tag :store_type, params[:store_type]
+      %p= f.button :submit, 'Update', :class => 'fixed-width-button'
+    %p= link_to 'Back', admin_hp_stores_path(:type => params[:store_type]), :class=>'orange-button'
+-if params[:store_type] == "browseable"
+  %h2 Update Header/Offer
+-elsif params[:store_type] == "top_dealers"
+  %h2 Update Merchant Info
+-else
+  %h2 Update Merchant Image
+= render 'layouts/application/one_column'

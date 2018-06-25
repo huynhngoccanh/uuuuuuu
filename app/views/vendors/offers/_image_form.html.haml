@@ -1,0 +1,54 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'file_upload'
+
+- content_for :javascripts do
+  :javascript
+    fileUploadMaxFiles = 3
+    fileUploadMaxFileSize = 800 * 1000
+  = javascript_include_tag "common/file_upload"
+
+= simple_form_for(OfferImage.new({:offer_id=>@offer.id}), :url=>url_for(:action=>'upload_image'), |
+      :html=>{:class=>"in-cols",:multipart => true, :id => "fileupload", :'data-image-list-url'=>url_for(:action=>'uploaded_images', :id=>@offer.id)}) do |f|
+  = f.input :offer_id, :as=>:hidden
+  = inputs_grouped f, :image do
+    .input-file-wrap.fileupload-buttonbar
+      .fakeupload
+        %input.fakeupload{:type=>:text}
+        %a.green-button Browse
+      = sub_input_row f, :image, :label=>false
+      .files
+      .info.drop-msg= '...or drop files here'
+
+%script#template-upload{:type=>"text/html"}
+  :plain
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <div class="template-upload fade">
+        {% if (file.error) { %}
+          <div class="preview error cancel">
+            <button class="fade"/>
+            <div>{%=locale.fileupload.errors[file.error] || file.error%}</div>
+          </div>
+        {% } else { %}
+          <div class="preview" title="{%=file.name%}"><span class="fade"></span></div>
+          <div class="progress active progress-success"><div class="bar" style="width:0%;"></div></div>
+        {% } %}
+      </div>
+    {% } %}
+%script#template-download{:type=>"text/html"}
+  :plain
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <div class="template-download fade">
+          {% if (file.error) { %}
+              <div class="preview error delete">
+                <button class="fade" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" />
+                {%=locale.fileupload.errors[file.error] || file.error%}
+              </div>
+          {% } else { %}
+                <div class="preview delete" title="{%=file.name%}">{% if (file.thumbnail_url) { %}
+                    <button class="fade" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" />
+                    <img src="{%=file.thumbnail_url%}">
+                {% } %}
+                </div>
+          {% } %}
+        </div>
+    {% } %}

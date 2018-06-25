@@ -1,0 +1,71 @@
+/ - resource[:email] = params[:email] if params[:email]
+/ - resource[:zip_code] = params[:zip_code] if params[:zip_code]
+/ - resource[:zip_code] = params[:user_initial_data][:zip_code] if params[:user_initial_data] && params[:user_initial_data][:zip_code]
+/ - resource[:email] = params[:email] if params[:email]
+/ - resource[:email] = params[:user_initial_data][:email] if params[:user_initial_data] && params[:user_initial_data][:email]
+/ - resource.dont_require_password_confirmation = true
+
+/ - content_for :javascripts do
+/   :javascript
+/     user_registration_form.validators['user[password]'].confirmation = null //dont require password confirmation client side validation
+
+/ - content_for :main_column do
+/   %section.default-content#customer-registration
+/     = simple_form_for(resource, :as => resource_name, :url => user_registration_path, |
+/       :wrapper=>:default, :validate=>true, :html => { :id => "user_registration_form", :class => "big-fields"}) do |f|
+/       %article#auction-details.step-1{:style=>'display: none'}
+/       %article#customer-details.step-2
+/         = render 'user_form_part', :f=>f
+/       %article#customer-registration-confirm.step-3.details-preview{:style=>'display: none'}
+/         = render 'confirmation_part', :f=>f
+
+/ %ul#registration-steps
+/   %li.reg-step-1{:style=>'display: none'}
+/     %a{:href=>'#'} 1. Describe Project
+/   %li.reg-step-2.active
+/     %a{:href=>'#'} 1. Account Setup
+/   %li.reg-step-3.blocked
+/     %a{:href=>'#'} 2. Review &amp; Submit
+
+/ = render 'layouts/application/one_column'
+
+
+.login-container
+  section.signup-login.full-width
+    .container
+      .form.clearfix
+        .tab-content.clearfix
+          h1 Sign up
+          h4 It's free and always will be.
+        = simple_form_for(resource, :as => resource_name, :url => user_registration_path,:wrapper=>:default, :validate=>true, :html => { :id => "user_registration_form", :class => "big-fields"}) do |f|
+          .top-row.clearfix
+            .field-wrap
+              = f.text_field :first_name, :placeholder => "First name", :class => "form-control"
+            .field-wrap  
+              = f.text_field :last_name, :placeholder => "Last name", :class => "form-control no-border-top"
+          .field-wrap
+            = f.email_field :email, :placeholder => "Email address", :class => " form-control no-border-top"
+          .field-wrap
+            = f.password_field :password, :placeholder => "Password", :class => "form-control no-border-top"
+          .field-wrap
+            = f.password_field :password_confirmation, :placeholder => "Password confirmation", :class => "form-control no-border-top"
+          .top-row.clearfix
+            .field-wrap
+              = f.text_field :city, :placeholder => "City", :class => " form-control no-border-top"
+            .field-wrap
+              = f.text_field :zip_code, :placeholder => "Zip Code", :class => " form-control no-border-top", :maxlength => 5
+          -if params[:token]
+            .top-row.clearfix
+              .field-wrap
+                = hidden_field_tag 'token', params[:token]
+                  
+          br
+          .field-wrap2
+            input checked="" name="" type="checkbox" value="" /
+            |&nbsp; By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including Cookie Use.
+
+          .field-wrap
+            = f.submit "Get Started"
+          .field-wrap
+            = link_to "sign up with facebook", user_omniauth_authorize_path(:facebook)           
+

@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+body {
+    background-color: #ebebeb;
+}
+
+.navbar {
+    background-image: linear-gradient(to bottom, #F7946A 0px, #ED510E 100%);
+    margin-bottom:0 !important;
+}
+.heading-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    padding: 5px 0;
+}
+
+.heading-title img {
+    padding: 0 0 5px 0 !important;
+    float:left;
+}
+
+.head-row {
+    background: #286090 url("../img/HEY_KEVIN_GRADIENT_928X150_1.png") no-repeat left center;
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+img {
+    max-width: 100% !important;
+}
+.skyblue-row {
+    background-color: #9acfea;
+    color: #004f80;
+    padding: 10px 0 5px 0;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24px;
+}
+.name-orange {
+    color: #dc6b26;
+    text-transform: uppercase;
+}
+.detail-box {
+    background-color: white;
+    border:1px solid #C1C2C3;
+    border-radius: 5px;
+    padding: 10px 35px;
+}
+.detail-box-in {
+    border:1px solid #d2d3d4;
+    border-radius: 5px;
+    padding: 25px 20px;
+    background-color: #efeeee;
+    margin: 15px 0;
+}
+.detail-box-left {
+    border:1px solid #c2c2c3;
+    border-radius: 5px;
+    padding: 5px 25px;
+    background-color: white;
+}
+.detail-box p {
+    font-size: 24px;
+}
+.detail-box-right p {
+    font-size: 20px;
+    color: #797979;
+}
+.green-text {
+    color: #85b805;
+}
+.bottom-text {
+    padding-top:10%;
+}
+.responsive-video {
+    position: relative;
+    overflow: hidden;
+    background-color: black;
+}
+.responsive-video iframe,
+.responsive-video object,
+.responsive-video embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.table-header {
+    background-color: #db1f2e;
+    font-size: 18px !important;;
+    font-weight:bolder;
+    color:white;
+    border-radius: 5px;
+}
+.table-greyback {
+    background-color: #cecece;
+    border-radius: 5px;
+}
+.table-greyback table {
+    background-color: white;
+    margin : 10px;
+    width:93% !important;
+}
+.table-footer {
+    font-size: 18px !important;;
+    font-weight:bolder;
+}

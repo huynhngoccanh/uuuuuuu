@@ -1,0 +1,59 @@
+#new-bid-form{:style=>'display: none'}
+#edit-bid-form{:style=>'display: none'}
+
+- content_for :javascripts do 
+  %script
+    :plain
+      initDialog('#new-bid-form', '.make-bid-link', {
+        title : 'Place your BID',
+        showLoader: true
+      });
+      initDialog('#edit-bid-form', '.change-bid-link', {
+        title : 'Change your BID',
+        showLoader: true
+      });
+
+      $(function(){
+        $('#new-bid-form form, #edit-bid-form form').on('submit',function(){
+          showLoader($(this).closest('#new-bid-form, #edit-bid-form'));
+        });
+
+        $('.cancel-bid-button').on('click', function(e){
+          e.preventDefault();
+          $(this).closest('#new-bid-form, #edit-bid-form').dialog('close');
+        });
+
+        $('#submit_new_bid_form').on('click', function() {
+          $('#new_bid_form').submit();
+        });
+
+        $('#submit_edit_bid_form').on('click', function() {
+          $('#edit_bid_form').submit();
+        });
+
+        $('#provide-offer-link').on('click', function(e) {
+          e.preventDefault();
+          $('#place-bid .to-show').show();
+          $('#place-bid input:disabled, #place-bid textarea:disabled').removeAttr('disabled');
+        });
+
+        var pendingRequest;
+        var linkTxt = $('#preview-offer-link').text();
+        $('#preview-offer-link').on('click', function(e){
+          e.preventDefault();
+          if(!$('#new_bid_form').isValid(new_bid_form.validators)) return false;
+          var $this = $(this);
+          $this.text('Generating preview...');
+          if(pendingRequest) pendingRequest.abort();
+          $.ajax({
+            type: 'POST',
+            url: $this.attr('href'),
+            data: $('#new_bid_form').serialize(),
+            complete: function(){
+              $this.text(linkTxt);
+              showDetailsBox($('#offer-window-preview'));
+            },
+            dataType: 'script'
+          });
+        });
+      });

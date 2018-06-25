@@ -1,0 +1,45 @@
+
+.grey-section
+  = render :partial =>"shared/profile_header", locals: {current_tab: 'noty'}
+  .heading-section.clearfix
+    .container
+      h2 Notifications
+      .score
+        span.left Your Ubitru Score
+        span.right 78
+  .content-section
+    .container
+      .white-box.clearfix style="min-height:100px;"
+        .notification-section
+          h5 NOTIFICATIONS SETTINGS
+          = form_for @notification, :url => update_notification_profile_path, method: 'put' do |f|
+                .row
+                  .form-group
+                    .col-12
+                      = f.label 'Send me an email when I initiate an Search:', class: "col-7 control-label"
+                      .col-sm-5
+                        = f.check_box :initiated_auction_mail, class: "chck"
+                .row
+                  .form-group
+                    .col-12
+                      = f.label 'Send me an email when an Search ends:', class: "col-7 control-label"
+                      .col-sm-5
+                        = f.check_box :ended_auction_mail, class: "chck"
+                .row  
+                  .form-group
+                    .col-12
+                      = f.label 'Send me an email after every purchase:', class: "col-7 control-label"
+                      .col-sm-5
+                        = f.check_box :bid_mail, class: "chck"
+                
+                br
+                br      
+                .row 
+                  .form-group 
+                    .col-sm-4
+                    .col-sm-3.col-md-3
+                       = f.submit "Save Changes", :id => "button" 
+                    .col-sm-3.col-md-3
+                       input type='button' value='reset' class="btn.btn.primary" style="font-size: 14px;padding:13px;background-color: #c1c1c1;" id="button_not"
+        hr
+          

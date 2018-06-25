@@ -1,0 +1,21 @@
+- content_for :main_column do
+  %section.default-content#customer-survey
+    %article
+      %div.icon#mic-icon
+      %h3 A HIGHER SCORE MEANS VENDORS PAY YOU MORE!
+      %p 
+        Teach Ubitru about you. The more you teach Ubitru about you, the higher your Ubitru score will go! 
+        Get an instant boost of  16 Ubitru points just for completing the wizard. To skip click here.
+    %hr
+    = form_for(@survey, :url=>survey_path) do |f| 
+      = render 'form', :f=>f
+  .bottom-disclaimer
+    %p
+      If you want to skip the questionnaire  
+      = link_to 'click here', :controller=>'/users', :action=>'dashboard'
+    %p
+      Unanswered questions will be availiable in the question area, so you can answer them later. 
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'

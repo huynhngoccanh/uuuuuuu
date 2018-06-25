@@ -1,0 +1,7 @@
+- content_for :sub_nav do
+  = render 'users/profile/sub_nav', :active_action=>'index', :active_controller=>'users/surveys'
+
+= render 'wizard'
+
+%h2 Increase your score and worth, by answering all questions!
+= render 'layouts/application/two_columns'

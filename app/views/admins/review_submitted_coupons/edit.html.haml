@@ -1,0 +1,10 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+  
+%h2 Reviewing Submitted Coupons
+
+%section.default-content
+  = render 'form' , method: :put
+
+  %br
+  = link_to 'Back', admins_review_submitted_coupons_path ,:class=>'orange-button fixed-width-button'

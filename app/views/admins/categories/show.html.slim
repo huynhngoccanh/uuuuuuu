@@ -1,0 +1,10 @@
+.categories ng-controller="CategoryController"
+
+  legend= @taxonomy.name
+  ul.category-tree
+    li ng-repeat="taxon in taxons"
+      .child ng-include="'/templates/admin/categories/taxon.html'"
+    a href="" ng-click="addNewTaxon('', {})" Add New
+
+javascript: 
+  taxonomy_id = #{@taxonomy.id};

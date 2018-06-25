@@ -1,0 +1,76 @@
+:css
+  .cse-mm-search-bar-icon-wrapper {
+    position: relative;
+  }
+
+  .cse-search-input-box-id-2 input[type="text"] {
+    border: 1px solid #CCC !important;
+    width: 585px;
+    height: 28px;
+    outline: medium none;
+    text-indent: 6px;
+    font-size: 16px;
+    margin-right: -1px;
+    padding: 0px !important;
+  }
+  .cse-mm-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+  }
+
+
+%section
+  .part-7
+    .container
+      .col-lg-12.col-md-12.col-sm-12.col-xs-12.text-center
+        .square
+          = form_tag('#', :id => "sbs_search_bar", :class => "navbar-form") do
+            #sbs-form-errors.text-center.text-danger
+            = hidden_field_tag :user_id, "#{current_user.id rescue nil}", :class => 'zip-user-id'
+            = autocomplete_field_tag 'service_keyword', params[:service_keyword], '/search/autocomplete_service_search', :placeholder => "Electricians, Plumbers, Dish TV....",  :autocomplete => "off", :class => "search rb_regular custom_ss_field"
+
+            - if current_user.present? && !current_user.zip_code.blank?
+              = link_to 'SEARCH', "javascript:;", :onClick => "generate_services_search_results_popup();", :id => "sbs_subBtn"
+              = link_to "services results", hp_mm_box_services_search_path, :id => "services_results_popup", :style => "display:none;"
+            -elsif current_user.present? && current_user.zip_code.blank?
+              = link_to 'SEARCH', "javascript:;", :onClick => "generate_zip_code_popup();", :id => "sbs_subBtn"
+            -else
+              = link_to 'SEARCH', "javascript:;", :onClick => "generate_zip_code_popup();", :id => "sbs_subBtn"
+            = link_to "zipcode form", mm_zip_code_window_path, :id => "zip_code_popup", :style => "display:none;"
+
+      .container
+        .row
+          .col-lg-8.col-md-8.col-lg-offset-2.col-md-offset-2
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4.text-center
+              .square.align-right
+                %h1 Local Merchants
+                %img{:alt => "underline", :src => "assets/underline.jpg", :style => "repeat-y; width: 117%;"}
+                  %p Direct TV
+                  %p Charter communications
+                  %p Dish network auth. retailer
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4.text-center
+              .square.align-center
+                %h1{:style => "text-align:center;"} Your Earnings
+                %img{:alt => "underline", :src => "assets/underline.jpg", :style => "repeat-y; width: 114%;"}
+                  %p $ 12.88
+                  %p $ 11.45
+                  %p $ 9.74
+                  %hr/
+                  %p{:style => "font-size:24px;"} $ 34.07
+                  %span
+                    %p Deposited into your account
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+              .square.text-center.align-left
+                %h1{:style => "text-align:center;"} Call Now
+                %img{:alt => "underline", :src => "assets/underline.jpg", :style => "repeat-y; width: 100%;"}
+
+                  %p
+                    %i.fa.fa-phone
+                    View Number
+                  %p
+                    %i.fa.fa-phone
+                    View Number
+                  %p
+                    %i.fa.fa-phone
+                    View Number

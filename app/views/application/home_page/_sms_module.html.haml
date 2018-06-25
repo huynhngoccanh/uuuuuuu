@@ -1,0 +1,7 @@
+= form_tag('/send_sms', :method => "post", :id => "hp_sms_form", :remote => true, :class => "navbar-form app-search-form") do
+  = text_field_tag :user_phone_number, nil, :placeholder => "Enter your mobile number", :class => "search rb_regular"
+  %span
+    %a{:href => "javascript:;", :onclick => "$('#hp_sms_form').submit();"} SEND
+  %br/
+  %span
+    %p By  clicking “Send”, you authorize us to send you an automated text with a link to download the Muddleme app. Receipt of text is not a condition of purchase.

@@ -1,0 +1,17 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+ 
+%h2 Product Categories Details
+%p#notice= notice
+
+%section.default-content
+  %p
+    %b Name:
+    = @product_category.name
+  %p
+    %b Order:
+    = @product_category.order
+  
+  = link_to 'Edit', edit_admins_product_category_path(@product_category),:class=>'orange-button fixed-width-button'
+  
+  = link_to 'Back', admins_product_categories_path,:class=>'orange-button fixed-width-button'

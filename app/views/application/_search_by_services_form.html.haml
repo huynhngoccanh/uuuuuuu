@@ -1,0 +1,89 @@
+#search_by_services_section
+%section.service-2-area
+  .container-fluid
+    .service2-content
+      .row.search-area-2{:style => "margin-left:0%;"}
+        = form_tag('#', :id => "sbs_search_bar", :class => "navbar-form") do
+          #sbs-form-errors.text-center.text-danger
+          .search-area{:style => "max-width: 900px; margin-right: 11%;"}
+            .input-group
+              = hidden_field_tag :user_id, "#{current_user.id rescue nil}", :class => 'zip-user-id'
+              = text_field_tag :service_keyword, {}, :placeholder => "Electricians, Plumbers, Dish TV....",  :autocomplete => "off", :class => "form-control search rb_regular custom_ss_field"
+              %span.cse-mm-search-bar-icon-wrapper
+                - if current_user.blank?
+                  = link_to "", new_user_session_path, :class => "mm-search-bar-icon cse-mm-search-bar-icon mm-search-bar-icon-not-logged-in"
+                - else
+                  = link_to "", destroy_admin_session_path, :method=>'delete', :id=>'logout-link', :class => " mm-search-bar-icon mm-search-bar-icon-logged-in cse-mm-search-bar-icon"
+              .input-group-btn
+                - if current_user.present? && !current_user.zip_code.blank?
+                  = submit_tag 'SEARCH', :onClick => "generate_services_search_results_popup(); return false;", :id => "sbs_subBtn", :class => "btn btn-primary rb_bold custom_ss_btn"
+                  = link_to "services results", hp_mm_box_services_search_path, :id => "services_results_popup", :style => "display:none;"
+                -elsif current_user.present? && current_user.zip_code.blank?
+                  = submit_tag 'SEARCH', :onClick => "generate_zip_code_popup(); return false;", :id => "sbs_subBtn", :class => "btn btn-primary rb_bold custom_ss_btn"
+                -else
+                  = submit_tag 'SEARCH', :onClick => "generate_zip_code_popup(); return false;", :id => "sbs_subBtn", :class => "btn btn-primary rb_bold custom_ss_btn"
+                = link_to "zipcode form", mm_zip_code_window_path, :id => "zip_code_popup", :style => "display:none;"
+
+            //.keyword-error-message{:style => "font-size: 10px; color: red; text-align: left; margin-top: 5px; "}
+
+
+    .row
+      .container
+        .calculations.cal_section_right{:style => "margin-top:50px; margin-bottom:0px;margin-right:238px ;width:61%;"}
+          .row
+            %div
+              %table.table.table-calculations
+                %thead
+                  %tr
+                    %th Local Merchants
+                    %th Your Earnings
+                    %th Call Now
+                %tbody
+                  %tr
+                    %td.td_content Direct TV
+                    %td.td_content $ 12.88
+                    %td
+                      %i.fa.fa-phone
+                      View Number
+                  %tr
+                    %td.td_content Charter Communications
+                    %td.td_content $ 11.45
+                    %td
+                      %i.fa.fa-phone
+                      View Number
+                  %tr
+                    %td.td_content Dish Network Auth. Retailer
+                    %td.td_content $ 9.74
+                    %td
+                      %i.fa.fa-phone
+                      View Number
+                  %tr.result
+                    %td
+                    %td.hr.td_content
+                      %hr
+                        $ 34.07
+                        %p.rb_italic{:style => "font-size:12pt;font-family:Roboto-Italic;"}
+                          Deposited into your account
+                      %td
+
+
+:css
+  .cse-mm-search-bar-icon-wrapper {
+    position: relative;
+  }
+
+  .cse-search-input-box-id-2 input[type="text"] {
+    border: 1px solid #CCC !important;
+    width: 585px;
+    height: 28px;
+    outline: medium none;
+    text-indent: 6px;
+    font-size: 16px;
+    margin-right: -1px;
+    padding: 0px !important;
+  }
+  .cse-mm-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+  }

@@ -1,0 +1,17 @@
+- content_for :main_column do
+  %section.default-content
+    %article#sign-in
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), |
+        :wrapper=>:standard, :html=>{:class=>'no-label'}) do |f|
+        .inputs
+          = no_label_input f, :email, :required => true
+          = no_label_input f, :password, :required => true
+          -#= f.input :email, :required => false, :autofocus => true
+          -#= f.input :password, :required => false
+          = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+        .actions
+          = f.button :submit, "Sign in", :class => "fixed-width-button"
+      = render "admins/devise/links"
+
+%h2 Sign in
+= render 'layouts/application/two_columns'

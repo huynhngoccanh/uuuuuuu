@@ -1,0 +1,12 @@
+<% if @status %>
+  var form = document.getElementById('user_coupon_form');
+  form.reset();
+  $('#processing-message').html("<p style='font-size: 20px;'>Coupon was successfully added</p>");
+  $('#processing-message').delay(5000).fadeOut('slow', function(){
+    $('.submit-coupon-user-section').hide();
+  });
+<% else %>
+  $('#recaptcha_reload').trigger('click');
+  $('#processing-message').html("<p style=font-size:20px;><%= @message %></p>");
+  $('.user-coupon-submit-btn').removeAttr("disabled");
+<% end %>

@@ -1,0 +1,16 @@
+= simple_form_for(@loyalty_program_offer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :loyalty_program
+    = f.association :loyalty_program_offer_images
+    = f.input :name
+    = f.input :coupon_code
+    = f.input :offer_url
+    = f.input :offer_description
+    = f.input :expiration_time
+    = f.input :product_offer
+    = f.input :is_deleted
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,14 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/hp_stores'
+- content_for :main_column do
+  %h2 Add Marchant to Store Category
+  %section.default-content
+    %h3 Select Store Category
+    .loader{:style => "position:absolute;display:none;margin-left:30% "}
+      =image_tag("ajax-loader.gif")
+    = select_tag :category, options_from_collection_for_select(@cat_list, "id", "name")
+    %br
+    %span.message
+    .merchant_content{:style => "display:none"}
+    .selected_merchant_content{:style => "display:none"}
+= render 'layouts/application/one_column' 

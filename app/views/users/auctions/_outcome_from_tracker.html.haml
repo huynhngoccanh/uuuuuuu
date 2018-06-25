@@ -1,0 +1,5 @@
+= simple_form_for @outcome, :as=>:outcome, :validate=>true, :url => update_outcome_auction_path(@auction), :wrapper=>:standard do |f|
+  = f.input :purchase_made, :as=>:hidden
+  = label_tag nil, :class=>"radio_buttons", :id => "select_vendor" do
+    Our data indicagtes that you have made a purchase : <span>(the vendor you have made a purchase at is selected)</span>
+  = render "outcome_vendor_table"

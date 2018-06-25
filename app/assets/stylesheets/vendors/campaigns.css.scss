@@ -1,0 +1,85 @@
+//edit campaign view
+
+section#campaign {
+  article.half-col {
+    clear: none;
+    width: 450px;
+    padding-right: 44px;
+  }
+  article.half-col.last-child {
+    padding-right: 0;
+  }
+
+  article#campaign-details-preview,
+  article#campaign-performance-preview {
+    div.line {
+      div.label {
+        width: 200px;
+      }
+      div.value, div.to-show {
+        width: 220px;
+      }
+    }
+  }
+
+  .inpts-row {
+    margin-bottom: 10px;
+  }
+  .inpts-row:last-child {
+    margin-bottom: 4px;
+  }
+
+
+}
+
+
+// icons for campaign status multiselect
+
+button.campaign-status-multiselect {
+  span.running {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px 0px transparent;
+  }
+  span.paused {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px -30px transparent;
+  }
+  span.delete {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px -60px transparent;
+  }
+}
+div.campaign-status-multiselect ul.ui-multiselect-checkboxes li label {
+  span.running {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px -8px transparent;
+  }
+  span.paused {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px -38px transparent;
+
+  }
+  span.delete {
+    padding-left: 17px;
+    background: image-url('campaign-statuses.png') no-repeat -10px -68px transparent;
+  }
+}
+
+//form extra styles
+.camp-zip-form-row {
+  padding-top: 10px;
+  &:first-child {
+    padding-top: 0;
+  }
+  
+
+  label {
+    width: 100px;
+    display: block;
+    float: left;
+  }
+}
+
+.to-show {
+  padding-bottom: 9px;
+}

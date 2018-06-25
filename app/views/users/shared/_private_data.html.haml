@@ -1,0 +1,66 @@
+- content_for :javascripts do
+  :javascript
+    initTabsNav($('.tabs-nav ul:first'), '-wrap')
+
+%nav.tabs-nav.for-box
+  %ul{:style => "padding-left: 0px;"}
+    %li.active
+      %a#my-private-data-tab-link{:href=>'#'} My Private Data
+    %li
+      %a#what-vendors-see-tab-link{:href=>'#'} What Vendors See
+
+%section.default-content#private-data
+  %div#my-private-data-wrap.tab-content
+    %h3
+      MY PRIVATE PROFILE
+      - tip = "This is your private Ubitru profile. Click in the fields you wish to edit."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %a.orange-link#edit-profile{:href => contact_info_profile_path} edit profile
+    %hr.for-table
+    %table.striped-table
+      %tr
+        %td.label Name:
+        %td.rgt= current_user.full_name
+      %tr.odd
+        %td.label Email:
+        %td.rgt= (current_user.email.size > 19 ? "#{current_user.email.slice(0..18)}..." : current_user.email)
+      %tr
+        %td.label Address:
+        - addr = current_user.address.blank? ? "" : "#{current_user.address}, "
+        - addr += current_user.city.blank? ? "" : "#{current_user.city}, "
+        - addr += "#{current_user.zip_code}"
+        %td.rgt= addr
+      %tr.odd
+        %td.label Phone Number:
+        %td.rgt= current_user.phone
+  %div#what-vendors-see-wrap.tab-content{:style=>'display: none'}
+    %h3
+      MY ANONYMOUS PROFILE
+      - tip = "This is how MuddleMe vendors currently see your profile."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %hr.for-table
+    %table.striped-table
+      %tr
+        %td.label Gender:
+        %td.rgt= current_user.sex.to_s.humanize
+      %tr.odd
+        %td.label Age range:
+        %td.rgt= current_user.age_range.to_s.humanize
+      %tr
+        %td.label Education:
+        %td.rgt= current_user.education.to_s.humanize
+      %tr.odd
+        %td.label Occupation:
+        %td.rgt= current_user.occupation.to_s.humanize
+      %tr
+        %td.label Income range:
+        %td.rgt= current_user.income_range.to_s.humanize
+      %tr.odd
+        %td.label Marital status:
+        %td.rgt= current_user.marital_status.to_s.humanize
+      %tr
+        %td.label Family size:
+        %td.rgt= current_user.family_size.to_s.humanize
+      %tr.odd
+        %td.label Home owner:
+        %td.rgt= current_user.home_owner.nil? ? '' : (current_user.home_owner ? "Yes" : "No")

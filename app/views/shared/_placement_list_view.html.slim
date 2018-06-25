@@ -1,0 +1,49 @@
+
+  - merchant = placement.merchant
+  .coupon.row.mix.couponsandcashbacks
+    .offer-box.col-2
+      .offer
+        span.offer-big-font= placement.merchant.name
+        span.offer-small-font
+        .align-center.store-img
+          a href="#"= image_tag placement.merchant.image.url(:thumb), title: placement.merchant.name
+    .offer-info.col-10 style="padding-right:3%;"
+      .offer-content-top.row style="padding:0 14px;"
+        .title-meta
+          span.coupon-verification
+            i.fa.fa-shield
+            span.coupon-used-
+            i.fa.fa-users
+        h3.store-name: a href="#"= placement.merchant.name
+        .offer-title: a href="#"= placement.header
+        a.btn.btn-red.coupon-view href=(merchants_redirect_path(merchant)) data-show_url=("#{request.env['PATH_INFO']}?placement=placement-#{placement.id}&#{params.except('action').except('controller').except('placement').to_query}") Get Code
+      .offer-content-bottom.row style="padding:0 14px;"
+        p.details 
+          strong Details: 
+          = placement.description
+        footer.footer-meta.cf
+          span.submitted-by
+            strong.bold
+              i.fa.fa-flag-o
+              |  Submitted By: 
+            | Ubitru Admin
+          span.exp-date
+            i.fa.fa-clock-o
+            strong.bold Expires: 
+            = placement.expiry
+          span.success-rate
+          - if user_signed_in?
+            - user_like = current_user.likes.where(resource_id: placement.id,resource_type: 'placement',user_id: current_user.id).last
+            a.thumb  href="#" data-like_state=(!user_like.blank?) data-merchant_id=placement.id data-merchant_type="Placement" data-signed_in="true" data-user_like_id=(user_like.try(:id).to_i) data-status_value=(user_like.blank? ? '0' : (user_like.like == true ? "1" : "0"))
+              -if !user_like.blank? && user_like.like == true
+                i.fa.fa-thumbs-up
+              -else  
+                i.fa.fa-thumbs-o-up
+            
+            a.thumb_down  href="#" data-like_state=(!user_like.blank?) data-merchant_id=placement.id data-merchant_type="Placement" data-signed_in="true" data-user_like_id=(user_like.try(:id).to_i) data-status_value=(user_like.blank? ? '0' : (user_like.dislike == true ? "1" : "0"))
+              -if !user_like.blank? && user_like.dislike == true
+                i.fa.fa-thumbs-down
+              -else  
+                i.fa.fa-thumbs-o-down
+          span.share-btn.links
+            a.mbx.shareBtn href="#" data-placement_id=(placement.id) class=("shareModal_x#{placement.id}") data-show_url=("#{request.env['PATH_INFO']}?placement=placement-#{placement.id}&#{params.except('action').except('controller').except('placement').to_query}") : i.fa.fa-share-alt

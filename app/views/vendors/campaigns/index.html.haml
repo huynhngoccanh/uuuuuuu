@@ -1,0 +1,21 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'index', :active_controller=>'campaigns'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %h3
+      MANAGE AND CREATE CAMPAIGNS
+      - tip = "Create, edit, and manage your MuddleMe campaigns."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %hr.for-table
+    #campaigns_wrap
+      = render 'campaign_list'
+
+
+%h2 Campaign Manager
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#campaigns_wrap');

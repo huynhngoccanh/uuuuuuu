@@ -1,0 +1,10 @@
+I"4(function() {
+  $(document).ready(function() {
+    if ($('section.local-merchants.full-width').length > 0) {
+      $('.ajax-spinner').on('ajax:beforeSend', function(e, data, status, xhr) {});
+      return $('.ajax-spinner').on('ajax:complete', function(e, data, status, xhr) {});
+    }
+  });
+
+}).call(this);
+:ET

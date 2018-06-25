@@ -1,0 +1,48 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'index'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    - if @auctions_bid.blank?
+      - if @auctions_recommended.blank?
+        %h3 Latest auctions
+        %hr.for-table
+        #latest_auctions_wrap
+          = render 'auction_list', :type=>:latest
+      - else
+        %h3 Recommended auctions
+        %hr.for-table
+        #recommended_auctions_wrap
+          = render 'auction_list', :type=>:recommended
+    - else
+      %h3 Active auctions on which you have placed a bid
+      %hr.for-table
+      #bid_auctions_wrap
+        = render 'auction_list', :type=>:bid
+    %h3 Your recent auctions
+    %hr.for-table
+    #finished_auctions_wrap
+      = render 'auction_list', :type=>:finished
+    %h3 Your saved auctions
+    %hr.for-table
+    #saved_auctions_wrap
+      = render 'auction_list', :type=>:saved
+
+%h2 Auctions
+= render 'layouts/application/one_column'
+
+= render 'bidding_windows'
+
+#profile-details-wrap
+
+- content_for :javascripts do
+  = javascript_include_tag "vendors/view-profile"
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#bid_auctions_wrap');
+      simpleAjaxPagination('#latest_auctions_wrap');
+      simpleAjaxPagination('#recommended_auctions_wrap');
+      simpleAjaxPagination('#finished_auctions_wrap');
+      simpleAjaxPagination('#saved_auctions_wrap');

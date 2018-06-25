@@ -1,0 +1,27 @@
+- @merchants.each do |merchant|
+  - coupons = merchant.coupons
+  %table
+    %tr
+      %td{:style => "vertical-align:top;padding-top:18px;"}
+        -if merchant.class.name == "LinkshareAdvertiser"
+          - if merchant.logo_url.blank?
+            = image_tag("logo-unavailable.jpg")
+          -else
+            = image_tag(merchant.logo_url)
+        -else
+          - if merchant.logo.blank? || !merchant.logo.file?
+            = image_tag("logo-unavailable.jpg")
+          -else
+            = image_tag(merchant.logo.url)
+
+      %td{:style => "vertical-align:middle; padding-left: 20px;"}
+        %p{:style => "font-size: 20px;"}
+          = merchant.name
+        %p{:style => "font-size:18px;color:#dd6c2c"}
+          Coupons Offered:
+        - coupons.each do |coupon|
+          %p{:style => "font-size: 22px;color:#0b6ba3;"}
+            = coupon.header
+          %p{:style => "font-size: 18px;color: #052c43"}
+            = coupon.description
+          %br

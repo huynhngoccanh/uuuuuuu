@@ -1,0 +1,82 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'affiliates_categories', :active_controller=>'admins/affiliated_advertisers'
+
+- content_for :javascripts do
+  = javascript_include_tag "users/auctions/product_categories", "admins/affiliated_advertisers/affiliate_categories.js"
+
+- content_for :main_column do
+  %section.default-content#admin-affiliations
+    %article.details-preview
+      %h3 Product categories mapping
+      &nbsp;&nbsp;
+      %button#set_source_category_to_copy_mappings Set source category for copying mappings
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      %button#copy_mappings_to_current_category Copy mappings from previously selected category and paste to current category
+      %hr
+      .column
+        %p
+          %span.label Select category:
+        .input.categories-selects
+
+          = select_tag "root_category", |
+            options_from_collection_for_select(ProductCategory.roots.order('`order` ASC').to_a, "id", "name"), |
+            :id => "affiliation_root_category", :size => "20"
+
+          = select_tag "first_level_category", |
+            options_for_select([]), |
+            :id => "affiliation_first_level_category", :size => "20"
+
+          = select_tag "second_level_category", |
+            options_for_select([]), |
+            :id => "affiliation_second_level_category", :size => "20"
+
+        #affiliates-form-warp{:style=>"min-height: 100px"}
+
+%h2 Affiliate links management
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      $('#set_source_category_to_copy_mappings').click(function() {
+          $.post('set_source_category_to_copy_mappings', {'copy_source_category_id': window.selected_category_id}, function(data) {
+          console.log(data);
+            if(data)
+              alert('Category successfully set.');
+            else
+              alert('Category not selected.');
+          });
+      });
+
+      $('#copy_mappings_to_current_category').click(function() {
+          if(window.selected_category_id == null) {
+            alert('Category not selected.');
+            return;
+          }
+          $.post('copy_mappings_to_current_category', {'current_category_id': window.selected_category_id}, function(data) {
+            console.log(data);
+            if(data) {
+               alert('Successfully copied.');
+            }
+            else
+               alert('Category for copy was not selected.');
+            });
+      });
+
+      var subCategories = #{ProductCategory.all_children_by_id.to_json.html_safe}
+
+      $('.categories-selects option').on('click', function(){
+        var select = $(this).parent('select');
+        selected_category_id = select.val();
+        if(subCategories[selected_category_id])
+          reloadCategorySelects(subCategories[selected_category_id], select.next('select')[0])
+
+        $.getScript("#{product_category_affiliates_admin_affiliated_advertisers_path('__category_id__')}".
+          replace('__category_id__',selected_category_id))
+          
+        showLoader($('#affiliates-form-warp'))
+      });
+
+      add_advertiser_mapping_url = "#{add_affiliate_mapping_admin_affiliated_advertisers_path('__category__id__', '__type__','__advertiser_id__')}"
+    });
+

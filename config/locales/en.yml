@@ -1,0 +1,60 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  errors:
+    messages:
+      greather_or_equal_to_other_attr: "Has to be greater than or equal to %{other_attr}"
+      less_or_equal_to_other_attr: "Has to be less than or equal to %{other_attr}"
+    attributes:
+      zip_code: 
+        invalid: 'does not look like a zip code, e.g., 99999'
+      phone:
+        invalid: 'does not look like a phone, e.g., 1 (555) 555-5555'
+  will_paginate:
+    previous_label: '◀'
+    next_label: '▶'
+    first_label: '◀◀'
+    last_label: '▶▶'
+    page_entries_info:
+      single_page:
+        zero:  ""
+        one:   "Viewing 1 result"
+        other: "Displaying all %{count} results"
+      single_page_html:
+        zero:  ""
+        one:   "Viewing 1 result"
+        other: "Displaying all %{count} results"
+
+      multi_page: "Viewing %{from}-%{to} of %{count} results"
+      multi_page_html: "Viewing %{from}-%{to} of %{count} results"
+  activerecord:
+    errors:
+      models:
+        vendor:
+          attributes:
+            password:
+              confirmation: "Please retype password"
+        user:
+          attributes:
+            password:
+              confirmation: "Please retype password"
+        bid:
+          attributes:
+            max_value:
+              less_or_equal_to_other_attr: "You have insufficient funds (available funds $%{other_attr})"
+        campaign:
+          attributes:
+            max_bid:
+              less_or_equal_to_other_attr: "You have insufficient funds (available funds $%{other_attr})"
+            budget:
+              less_or_equal_to_other_attr: "You don't have enough funds in your MM account to create campaign with this budget (available funds $%{other_attr})"
+        funds_refund:
+          attributes:
+            requested_amount:
+              less_or_equal_to_other_attr: "Only $%{other_attr} is available for refund"
+        funds_withdrawal:
+          attributes:
+            amount:
+              less_or_equal_to_other_attr: "You can't withdraw more than your current balance of: $%{other_attr} "
+    

@@ -1,0 +1,29 @@
+= form_for(@vendor_setting, :url=>settings_path) do |f|
+  %p
+    %span.label
+      = f.label :recommended_auctions_mail, 'Recommended auctions:'
+    %span
+      = f.check_box :recommended_auctions_mail
+  %p
+    %span.label
+      = f.label :auction_status_mail, 'Active auction status change:'
+    %span
+      = f.check_box :auction_status_mail
+  %p
+    %span.label
+      = f.label :auction_result_mail, 'Auction result:'
+    %span
+      = f.check_box :auction_result_mail
+  %p
+    %span.label
+      = f.label :contact_info_mail, 'Customers contact information:'
+    %span
+      = f.check_box :contact_info_mail
+  %p
+    %span.label
+      = f.label :auto_bid_mail, 'When auto-bid is placed:'
+    %span
+      = f.check_box :auto_bid_mail
+  .actions
+    =f.submit "Save Changes", :class=> "fixed-width-button"
+    %a.gray-button.fixed-width-button Cancel Changes

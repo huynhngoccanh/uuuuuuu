@@ -1,0 +1,108 @@
+!= facebok_include_sdk
+.home-main-section
+  - if defined?(iac)
+    #iac-container
+      #iac-logo
+        #iac-register-btn
+  #page-header
+  %table#homepage-buttons-table
+    %tr
+      %td
+        #try-now-btn Try It Now
+
+    %tr
+      %td#try-now-label Muddleme Extension
+  %p
+    = render "/application/home_page/search_by_merchants_form"
+  %p
+    = render "/application/home_page/favorite_stores_section"
+  %p
+    = render "/application/home_page/browse_stores_section"
+  - if current_user.blank?
+    %p.section_header
+      = link_to "Join for free", hp_direct_sign_up_path, :id => "direct_user_sign_up", :onClick => "generate_direct_sign_up_form();"
+  %p
+    = render "/application/home_page/search_by_services_form"
+  %p
+    = render "/application/home_page/top_deals_section"
+  %p
+    = render "/application/home_page/mobile_apps_banner"
+  %p
+    #most_popular_merchants_section
+      %h1.section_header Most Popular Stores
+      .hp_posts
+        = render "/application/home_page/most_popular_stores_section", :locals => { :posts => @pcs }
+      %h3.section_header
+        =# link_to 'View More', load_more_posts_path(:page => @pcs.next_page, :last_alpha => @alphabet), :class => 'load-more-posts', :remote => true if @pcs.next_page
+        =# link_to 'View Less', load_more_posts_path(:page => 1, :last_alpha => nil, :less => true), :class => 'load-less-posts', :remote => true, :style => "display:none;" if @pcs.next_page
+  %p
+    = render "/application/home_page/ctc_services_section"
+    =# @ctc_merchants.inspect
+  %p
+    %h1.section_header
+      = link_to "+", "#", :id => "plus", :class => "show_hide"
+      Popular Categories
+    = render "/application/home_page/popular_categories"
+
+  -# #money_box_section
+  -#   .money_box_container
+  -#     .mm_money_box{:style => "border-right: 1px solid white;"}
+  -#       %table
+  -#         %tr
+  -#           %td
+  -#             = image_tag "search/mm-icon-not-logged-in.png"
+  -#           %td
+  -#             %p Your Personal Money Box
+  -#             %p The Muddleme Coupon and Cash Back Browser Extension
+  -#     .mm_money_box
+  -#       %table
+  -#         %tr
+  -#           %td
+  -#             %p Search for services and shop at your favorite stores and the Muddleme Money
+  -#             %p Box will notify you when you have Coupons and Cash Back
+  -#           %td
+  -#             #try-now-btn Get it now
+  -#
+  -#     %div{:style => "clear:both;"}
+  -# #mid-images
+  -# #medium-images
+  -#   #center-images
+  -#     #experience-btn
+  -#     #referral-btn
+  -#     #business-btn
+  #bottom
+  #bottom-content
+    %table
+      %tr
+        %td.first
+          #social-media
+            = link_to '', 'https://www.facebook.com/pages/Muddleme/308255049336613?ref_type=bookmark', :id => 'follow-facebook', :target => '_blank'
+            = link_to '', 'https://twitter.com/MuddlemeSavings', :id => 'follow-twitter', :target => '_blank'
+            = link_to '', 'https://plus.google.com/109111471039644073577', :id => 'follow-google', :target => '_blank', :rel => 'publisher'
+            = link_to '', 'https://www.youtube.com/channel/UC80FmBdIUnmxVvIB1aOpaxw', :id => 'follow-youtube', :target => '_blank'
+        %td
+          #browser-content
+            #browser-logo-chrome{:class => "#{@browser == :chrome ? 'browser-logo-enabled' : '' }"}
+            #browser-logo-firefox{:class => "#{@browser == :firefox ? 'browser-logo-enabled' : '' }"}
+            #browser-logo-ie{:class => "#{@browser == :ie ? 'browser-logo-enabled' : '' }"}
+            #browser-logo-safari{:class => "#{@browser == :safari ? 'browser-logo-enabled' : '' }"}
+            #notice-screen Make money while you search.
+            #start-now
+        %td.last
+          #refer-a-friend
+            #refer-a-friend-btn
+            != facebook_like_button("https://www.facebook.com/pages/Muddleme/308255049336613")
+
+= render '/application/home_page/hp_popup'
+
+- if session[:user_sign_up_via_sbs]
+  - session.delete(:user_sign_up_via_sbs)
+  - content_for :javascripts do
+    %script
+      :plain
+        document.location.hash="#search_by_services_section";
+-else
+  - content_for :javascripts do
+    %script
+      :plain
+        document.location.hash="";

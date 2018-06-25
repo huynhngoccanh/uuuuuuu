@@ -1,0 +1,19 @@
+%section.full-width.we-are-on-app
+  .container
+    = image_tag "we-are-on-app-bg.jpg", class: "no-desktop"
+    .col-8
+      %h2 We’re an app, too!
+      %p Our single-sign on loyalty app combines all your apps into one place. Start earning points and saving from all your favorite stores and restaurants. Simply show your phone at checkout!
+      %p.apps
+        %a.goole-app{:href => "#"}
+        = image_tag "google-apps.jpg"
+        %a.ios-app{:href => "#"}
+        = image_tag "apple-apps.jpg"
+      %p Or enter your phone number to text yourself the app!
+
+      .app-search.cf
+        %form{:action => ""}
+          %input#search{:placeholder => "Enter your mobile number", :type => "search"}
+          %input#submit{:type => "submit", :value => "send"}
+      %p.info By clicking “Send”, you authorize us to send you an automated text with a link to download the Ubitru app. Receipt of text is not a condition of purchase.
+      

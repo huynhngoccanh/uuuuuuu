@@ -1,0 +1,33 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column
+      %article#auction-vendor-outcome-form
+        %h3 CONFIRM THE OUTCOME OF THIS AUCTION
+        %hr
+        = render "outcome_form"
+    .column
+      %article#bidder-profile
+        = render 'bidder_profile'
+      %article#auction-details-preview-right.details-preview
+        %h3 
+          AUCTION DETAILS
+          = link_to 'view auction', @auction
+        %hr
+        = render 'auction_attributes'
+      %article#auction-images
+        %h3
+          AUCTION IMAGES
+          %span (click images to enlarge)
+        %hr
+        = render 'auction_images'
+
+%h2.floated
+  = "Auctions Won > Auction ##{@auction.number} confirm outcome"
+
+= render 'outcome_status_for_vendor'
+  
+= render 'layouts/application/one_column'
+

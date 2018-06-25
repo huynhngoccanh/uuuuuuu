@@ -1,0 +1,12 @@
+- content_for :sub_nav do
+  = render 'vendors/profile/sub_nav', :active_action=>'new', :active_controller=>'vendors/settings'
+
+- content_for :main_column do
+  %section.default-content
+    %h3 NOTIFICATIONS SETTINGS
+    %hr
+    %article#company-settings.details-preview.column
+      = render 'form'
+
+%h2 Notifications
+= render 'layouts/application/one_column'

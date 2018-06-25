@@ -1,0 +1,40 @@
+%h3
+  REVEALED PROFILE
+
+%hr
+.offwhite-box.details-preview
+  %h3
+    .person-icon
+    - if !@auction.score.nil? && @auction.score.to_i != @auction.user.score
+      MuddleMe Score: 
+      %span= @auction.score
+      %br
+      Current Score:
+    - else
+      MuddleMe Score: 
+    %span= @auction.user.score
+
+    %a.button.orange-button#show-profile-button{:href => admin_user_path(@auction.user)}
+      View Profile Details
+  - contact_info = @auction.auction_address || @auction.user
+  %p
+    %span.label Name:
+    %span= "#{contact_info.first_name} #{contact_info.last_name}"
+  %p
+    %span.label Email:
+    %span= @auction.user.email
+  %p
+    %span.label Address:
+    %span= contact_info.address
+  %p
+    %span.label Phone number:
+    %span= @auction.user.phone
+  %p
+    %span.label Gender:
+    %span= @auction.user.sex
+  %p
+    %span.label Age:
+    %span= @auction.user.age_range
+  %p
+    %span.label Zip code:
+    %span= contact_info.zip_code

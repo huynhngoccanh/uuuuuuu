@@ -1,0 +1,11 @@
+- content_for :sub_nav do
+  = render 'vendors/campaigns/sub_nav', :active_action=>'product', :active_controller=>'offers'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    = render 'tabs_nav', :active_action=>'service'
+    %article.narrowed#new-offer
+      = render 'form'
+
+%h2 Create New Offer
+= render 'layouts/application/one_column'

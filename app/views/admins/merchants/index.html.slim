@@ -1,0 +1,73 @@
+- model_class = Merchant
+div ng-controller="MerchantsController"
+
+  div class="page-header"
+    h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+  form
+    .row
+      .col-md-4
+        .input-group
+          .input-group-addon: i.fa.fa-search
+          input.form-control type="text" ng-model="filter.query"
+      .col-md-4
+        label.checkbox-inline
+          input type="checkbox" ng-true-value="'TopDeal'" ng-false-value="''"  ng-model="filter.trending_stores"
+          | Top Deals
+        label.checkbox-inline
+          input type="checkbox" ng-true-value="'FavStores'" ng-false-value="''"  ng-model="filter.trending_stores"
+          | Fav Stores
+        label.checkbox-inline
+          input type="checkbox" ng-true-value="'BrowsableStores'" ng-false-value="''" ng-model="filter.trending_stores"
+          | Browsable Stores
+  hr
+  .row
+    .col-md-4
+      = form_tag '/admins/merchants/download_csv_file_most_seached_merchants', method: :get
+        button.btn.btn-primary type="submit"
+          | Download Csv for Most Searched Merchants
+    .col-md-6
+      a class="btn btn-primary" href="/admins/merchants/download_csv_commission_deatils" Download Csv for Cashback on Purchases from Merchants
+    .col-md-2  
+      = link_to t('.new', :default => t("helpers.links.new")), new_admins_merchant_path, :class => 'btn btn-primary'
+  hr
+      
+  table class="table table-striped merchants-table"
+    thead
+      tr
+        th= model_class.human_attribute_name(:id)
+        th= model_class.human_attribute_name(:name)
+        th Top Deals
+        th Fav Stores
+        th Browsable Stores
+        th Image
+        th= model_class.human_attribute_name(:loyalty_enabled)
+        th= model_class.human_attribute_name(:mobile_enabled)
+        th=t '.actions', :default => t("helpers.actions")
+    tbody
+      tr ng-show="!fetched"
+        td colspan="9" align="center": i.fa.fa-spinner.fa-spin 
+      tr.ng-hide ng-repeat="merchant in merchants | filter: {name:filter.query} | filter: filter.trending_stores ? {placements : {location : filter.trending_stores}} : ''  "  ng-show="fetched" ng-style="{ 'background-color' : (merchant.advertisers_count > 0) ? (merchant.advertisers_count ==1 ? 'white' : 'rgba(236, 93, 93, 0.35)') : 'rgba(221, 221, 221, 0.71)' }"
+        
+        td
+          a href="/admin/merchants/{{merchant.id}}"= "{{merchant.id}}"
+        td= "{{merchant.name}}"
+        td.top-deals
+          a.add href="" ng-click="addIn(merchant, 'TopDeal')" Add
+          a.edit href="" ng-repeat="placement in merchant.placements" ng-show="placement.location == 'TopDeal'" ng-click="addIn(merchant, placement)" Edit
+        td.fav-stores
+          a.add href="" ng-click="addIn(merchant, 'FavStores')" Add
+          a.edit href="" ng-repeat="placement in merchant.placements" ng-show="placement.location == 'FavStores'" ng-click="addIn(merchant, placement)" Edit
+        td.browsable-stores 
+          a.add href="" ng-click="addIn(merchant, 'BrowsableStores')" Add
+          a.edit href="" ng-repeat="placement in merchant.placements" ng-show="placement.location == 'BrowsableStores'" ng-click="addIn(merchant, placement)" Edit
+        td
+          a href="{{merchant.image_url}}" ng-if="!!merchant.image_url" Image URL
+        td= "{{merchant.loyalty_enabled}}"
+
+        td= "{{merchant.mobile_enabled}}"
+        
+        td
+          a href="/admins/merchants/{{merchant.id}}/edit" Edit
+
+  / = link_to t('.new', :default => t("helpers.links.new")), new_admins_merchant_path, :class => 'btn btn-primary'
+

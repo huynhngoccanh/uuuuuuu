@@ -1,0 +1,109 @@
+%div.line
+  %div.label Campaign name:
+  %div.value.to-hide= @campaign.name_was
+  %div.to-show{:style=>"display: none;"}
+    = no_label_input f,  :name, :placeholder => 'Games 50% OFF'
+
+%div.line
+  %div.label Type:
+  %div.value.to-hide= @campaign.product_campaign_was ? "product" : "service"
+  %div.to-show{:style=>"display: none;"}
+    %div.input= @campaign.product_campaign_was ? "product" : "service"
+
+%div.line
+  %div.label Stop campaign at:
+  %div.value.to-hide= @campaign.stop_at_was
+  %div.to-show{:style=>"display: none;"}
+    = no_label_input f, :stop_at, :as=>:datepicker, :label=>false, :placeholder=>false
+
+%div.line
+  %div.label MuddleMe Score:
+  %div.value.to-hide= "#{@campaign.score_min_was}-#{@campaign.score_max_was}"
+  %div.to-show{:style=>"display: none;"}
+    .inpts-row.clearfix
+      = no_label_input f, :score_range, :label=>false, :collection => score_options, :prompt=>false
+    #score-range-custom.inpts-row.clearfix{:style=>'display: none'}
+      = sub_input_row f, :score_min, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+      = sub_input_row f, :score_max, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+      
+%div.line
+  %div.label Zip code limit:
+  %div.value.to-hide
+    - unless @campaign.zip_code.blank? 
+      = "Within #{@campaign.zip_code_miles_radius} miles of #{@campaign.zip_code}"
+  %div.to-show{:style=>"display: none;"}
+    = sub_input_row f, :zip_code, :label=>'Zip code:', :input_html => {:class => 'number'}
+    = sub_input_row f, :zip_code_miles_radius, :input_html => {:class => :number}
+
+%div.line
+  %div.label Min Bid:
+  %div.value.to-hide= format_currency(@campaign.min_bid_was)
+  %div.to-show{:style=>"display: none;"}
+    %span.beside-inpt= '$'
+    = sub_input_row f, :min_bid, :label=>false, :input_html => {:class => :cash, :value=>@campaign.min_bid && @campaign.min_bid.to_i}
+
+%div.line
+  %div.label Max Bid:
+  %div.value.to-hide= format_currency(@campaign.max_bid_was)
+  %div.to-show{:style=>"display: none;"}
+    %span.beside-inpt= '$'
+    = sub_input_row f, :max_bid, :label=>false, :input_html => {:class => :cash, :value=>@campaign.max_bid && @campaign.max_bid.to_i}
+
+%div.line
+  %div.label Fixed Bid:
+  %div.value.to-hide= format_currency(@campaign.fixed_bid_was)
+  %div.to-show{:style=>"display: none;"}
+    %span.beside-inpt= '$'
+    = sub_input_row f, :fixed_bid, :label=>false, :input_html => {:class => :cash, :value=>@campaign.fixed_bid && @campaign.fixed_bid.to_i}
+
+%div.line
+  %div.label Budget:
+  %div.value.to-hide= @campaign.budget_was.nil? ? 'unconstrained' : format_currency(@campaign.budget_was)
+  %div.to-show{:style=>"display: none;"}
+    %span.beside-inpt= '$'
+    = sub_input_row f, :budget, :label=>false, :input_html => {:class => :cash, :value=>@campaign.budget && @campaign.budget.to_i}
+
+
+%div.line
+  %div.label Offer:
+  %div.value.to-hide= link_to @campaign.offer.name_was, preview_existing_offer_path(@campaign.offer), :class=>'preview-offer-link'
+  %div.to-show{:style=>"display: none;"}
+    = no_label_input f, :offer_id, :as=>:select, :collection=>current_vendor.offers.where(:product_offer=>false), :prompt => "choose an offer"
+
+%div.line
+  %div.label Categories:
+  %div.value.to-hide
+    - @campaign.service_categories.each do |c|
+      = "#{c.name};"
+  %div.to-show{:style=>"display: none;"}
+    %div.input
+      = select_tag "category", options_from_collection_for_select(ServiceCategory.all, "id", "name"), :prompt => "choose categories", :id => "add-category"
+      %a.add-category-button.green-button{:href=>'#'} Add
+      %div.tags.categories-tags{:data=>{:input_name=>'campaign[service_category_ids][]'}}
+        = f.association :service_categories, :as=>:check_boxes, :collection=>@campaign.service_categories, |
+          :label=>false, :wrapper=>:standard, :wrapper_html=>{:class=>'hidden-inputs hidden-categories'}
+
+
+#offer-preview-wrap.existing
+
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      var pendingRequest;
+      var linkTxt = $('.preview-offer-link:first').text();
+      $('.preview-offer-link').click(function(e){
+        e.preventDefault();
+        var $this = $(this);
+        $this.text('Generating preview...');
+        if(pendingRequest) pendingRequest.abort();
+        $.ajax({
+          type: 'POST',
+          url: $this.attr('href'),
+          complete: function(){
+            $this.text(linkTxt);
+            showDetailsBox($('#offer-window-preview'));
+          },
+          dataType: 'script'
+        });
+      });
+    })

@@ -1,0 +1,5 @@
+$('#test-tracker-results-wrap').html("<%= escape_javascript render("test_results") %>")
+if(window.check_test_timeout) clearTimeout(check_test_timeout);
+check_test_timeout = window.setTimeout(function(){
+  $.getScript('<%=  check_test_tracking_events_path %>');
+}, 4000);

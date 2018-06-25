@@ -1,0 +1,14 @@
+!!! 5
+%html{"xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml", :lang=>'en'}
+  %head
+    %meta{ :charset => "utf-8" }/
+    %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge,chrome=1' }/
+
+    %meta{ :name => "description", :content => "" }/
+    %meta{ :name => "author", :content => "" }/
+    = csrf_meta_tag
+    %title= @title || "MuddleMe"
+    = render "layouts/application/stylesheets"
+  %body#popup-body
+    = yield
+    = render "javascripts"

@@ -1,0 +1,31 @@
+- model_class = PaymentHistory
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+table.table.table-striped
+  thead
+    tr
+      th User Email
+      th Amount
+      th transaction Date
+
+
+  tbody
+    - if @payment_history.blank?
+      tr
+        td colspan="3" No transaction available
+
+    -else
+      - @payment_history.each do |payment_history|
+        tr
+          td =payment_history.user.try(:email)
+          td =payment_history.amount
+          td =payment_history.created_at.strftime("%B-%d-%Y")
+          / td =user.email
+          / td =user.address
+          / td =user.zip_code
+          th.btn-fix
+            / = link_to "<span class='fa'>&#xf044;</span>".html_safe, "/admin/customers/#{user.id}/edit", class: "btn btn-info btn-sm", "data-no-turbolink" => true
+            
+            / = link_to "<span class='fa'>&#xf014;</span>".html_safe, "/admin/customers/#{user.id}", class: "btn btn-danger btn-sm", method: "delete"
+  / = will_paginate @payment_history, :param_name => 'search_page'
+

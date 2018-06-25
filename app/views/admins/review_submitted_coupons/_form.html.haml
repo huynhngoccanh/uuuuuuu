@@ -1,0 +1,16 @@
+= simple_form_for(@user_coupon,  :url => admins_review_submitted_coupon_path, :method => :put) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :code
+    = f.input :discount_description
+    = f.input :header
+    = f.input :offer_header
+    = f.input :store_website
+    = f.input :expiration_date
+    = f.check_box :admin_approve
+    = "Admin Approval"
+
+  .form-actions
+    %br
+    = f.button :submit,:class=>'orange-button fixed-width-button'

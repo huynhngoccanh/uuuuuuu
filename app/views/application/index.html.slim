@@ -1,0 +1,88 @@
+section.favorite-stores.ubitru-services.full-width
+  .container
+    .grid-row.services
+      figure.service-box.col-4
+        h2 UBITRU home services
+        a href="/services" class="feature-img"
+          = image_tag "ubitru/home-services.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="#"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 Pros that pay you for your business
+      figure.service-box.col-4
+        h2 RETAIL STORES
+        a href="/retail" class="feature-img"
+          = image_tag "ubitru/retail-stores.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="/retail"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 Coupons, cash back and loyalty made simple
+      figure.service-box.col-4
+        h2 TRAVEL & HOSPITALITY
+        a href="/travel" class="feature-img"
+          = image_tag "ubitru/travel-hospitality-services.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="#"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 Travel at your fingertips savings in your wallet
+      / = render "/application/home_page/search_by_merchants_form"
+      / = render "/application/home_page/favorite_stores_section"
+  / = render "/application/home_page/browse_stores_section"
+section.full-width.browse-the-store
+  .container
+    h2.align-center Top trending stores with great offers and cash back!
+    .row
+      - @browse_stores.first(6).each do |advertiser|
+        - @advertiser = advertiser.class.name.constantize.where("advertiser_id =?", advertiser.advertiser_id).first
+        - @coupons = @advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today])
+        - @advertiser_url = advertiser.advertiser_url
+        figure.col-2.store-item
+          a href="#" class="store-logo" data-reveal-id="service_provider" data-animation="none"
+            = image_tag advertiser.image.url(:medium), title: advertiser.name
+            span.cash-back Cash Back   
+          figcaption.store-info 5% of on Lorem ipsum dolor sit amet,
+section.full-width.ubi-steps.align-center
+  .container
+    h2.align-center How to Earn Cash Back, Get Loyalty Points and Save Money
+    .row.steps
+      .col-4.step.step-1
+        figure.align-center
+          = image_tag "ubitru/browse-the-store.png"
+        .large-num.cf 1. Browse
+        .step-info.cf Find great deals at  your favorite stores 
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/buy.png"
+        .large-num.cf 2. Shop
+        .step-info.cf Click via our link and shop as usual.
+      .col-4.step.step-3
+        figure.align-center
+          = image_tag "ubitru/call-us.png"
+        .large-num.cf 3. Call
+        .step-info.cf Call service providers via our click-to-call
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/loyalty.png"
+        .large-num.cf 4. Join
+        .step-info.cf Join 100’s of loyalty programs with one click
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/earn-cash-back.png"
+        .large-num.cf 5. Earn
+        .step-info.cf Sit back, relax and watch the cash roll in.
+    h2 One click registration for all your <a href="/loyalty">loyalty programs</a>
+
+/ = render "/application/home_page/local_services_section"
+/ = render "/application/home_page/search_by_services_form"
+
+/ section.full-width.click-to-call.align-center
+/   .container
+/     p Search in Muddleme (i.e. Plumbers) and see local service providers willing to pay you for the right to talk and quote your project. If you call three and transact with one, you’ll receive the payout from all. Simple right?
+/     h3 Click. Call . Hire . Get Paid
+
+= render "/application/home_page/top_deals_section"
+= render "/application/home_page/mobile_apps_banner"
+= render '/application/home_page/most_popular_stores'

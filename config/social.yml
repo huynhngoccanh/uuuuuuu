@@ -1,0 +1,81 @@
+production:
+  fb_app_id: '444018178973901'
+  fb_app_secret: 'a61c8b011bf6353250161840def2c670'
+  tw_consumer_key: 'cELQnUxVThUU4zeGmB2XuA'
+  tw_consumer_secret: 'Jnl0XjPiU02ITZDWsazbP2qsxxzCAb7JSOTjY6aAkE'
+  g_consumer_key: '648763776892.apps.googleusercontent.com'
+  g_consumer_secret: 'e37lEFUQcWdZ7UHVwkXrapwu'
+  g_api_key: 'AIzaSyDp2Pzw39ug59zexopf-VYU5Dv_tBmil7M'
+  fs_client_id: '5DWPLDDLXVL40EN4L1BTCL5ML0J0CUMYDZGAOWM4IG20ISDI'
+  fs_client_secret: 'TZP30OZKYLN2WAPQEARXJJJTPAUKYK1DONO2MQZA4OOUAQMQ'
+  paypal_login: 4gambi_1337953814_biz_api1.gmail.com
+  paypal_password: 1337953855
+  paypal_signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacA.YiSEypTMI7xcZezZIlEDF3TDcW
+#  paypal_login: kevin_api1.muddleme.com
+#  paypal_password: FJSUHS44CVCMT6KN
+#  paypal_signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A6PbmCghMzJ3F-vAxF38niR-SXqv
+  authorize_login   : '6Y5g6H4Uun'
+  authorize_password: '5bB6be6436uH7aCE'
+  merchant_production_mode : false
+  bing_basic_auth: "82557c4f-ee23-4412-9618-2529fe6b987b:7ymrriJ4oEd0DCQgT2AJlNo2C6s60xilzvQe0aOhNkQ"
+  paypal_sender_email: "kevin@muddleme.com"
+  sms_acc_sid: 'ACe1c859580e8269758eb2e5c24724298f'
+  sms_acc_token: '2a4240ff537c40179cc91890b9ed55b0'
+  sms_from_number: "+16037681852"
+
+staging:
+  fb_app_id: '444018178973901'
+  fb_app_secret: 'a61c8b011bf6353250161840def2c670'
+  tw_consumer_key: 'cELQnUxVThUU4zeGmB2XuA'
+  tw_consumer_secret: 'Jnl0XjPiU02ITZDWsazbP2qsxxzCAb7JSOTjY6aAkE'
+  g_consumer_key: '648763776892.apps.googleusercontent.com'
+  g_consumer_secret: 'e37lEFUQcWdZ7UHVwkXrapwu'
+  g_api_key: 'AIzaSyDp2Pzw39ug59zexopf-VYU5Dv_tBmil7M'
+  fs_client_id: '5DWPLDDLXVL40EN4L1BTCL5ML0J0CUMYDZGAOWM4IG20ISDI'
+  fs_client_secret: 'TZP30OZKYLN2WAPQEARXJJJTPAUKYK1DONO2MQZA4OOUAQMQ'
+  paypal_login      : 'kevin_api1.muddleme.com'
+  paypal_password   : 'FJSUHS44CVCMT6KN'
+  paypal_signature  : 'AFcWxV21C7fd0v3bYYYRCpSSRl31A6PbmCghMzJ3F-vAxF38niR-SXqv'
+  authorize_login   : '6Y5g6H4Uun'
+  authorize_password: '5bB6be6436uH7aCE'
+  merchant_production_mode : true
+  bing_basic_auth: "82557c4f-ee23-4412-9618-2529fe6b987b:7ymrriJ4oEd0DCQgT2AJlNo2C6s60xilzvQe0aOhNkQ"
+  paypal_sender_email: "kevin@muddleme.com"
+  sms_acc_sid: 'ACfcfaf7c0143ad3d990d1dc49da4b055c'
+  sms_acc_token: 'f176d4064cc1612ea2333c844cdf91ce'
+  sms_from_number: "+15005550006"
+
+development:
+  fb_app_id: '117604691694839'
+  fb_app_secret: '017d97b2ae9c582fb5a7359e8b8f539b'
+  tw_consumer_key: 'CwMEAcXftbmytZPvAAiyQ'
+  tw_consumer_secret: '9YzEQKX3tWYu3RRqhXzzUxajUINqDRdHh2xkoHUSg'
+  g_consumer_key: '31680053763.apps.googleusercontent.com'
+  g_consumer_secret: 'gmelKRFUkzudAYkbugPGy9tE'
+  g_api_key: 'AIzaSyDp2Pzw39ug59zexopf-VYU5Dv_tBmil7M'
+  fs_client_id: '5DWPLDDLXVL40EN4L1BTCL5ML0J0CUMYDZGAOWM4IG20ISDI'
+  fs_client_secret: 'TZP30OZKYLN2WAPQEARXJJJTPAUKYK1DONO2MQZA4OOUAQMQ'
+  paypal_login      : "4gambi_1337953814_biz_api1.gmail.com"
+  paypal_password   : "1337953855"
+  paypal_signature  : "AiPC9BjkCyDFQXbSkoZcgqH3hpacA.YiSEypTMI7xcZezZIlEDF3TDcW"
+  authorize_login   : "92QkxMqZ5F7S"
+  authorize_password: "98yEe334CBX2BGwJ"
+  merchant_production_mode : false
+  bing_basic_auth: "82557c4f-ee23-4412-9618-2529fe6b987b:7ymrriJ4oEd0DCQgT2AJlNo2C6s60xilzvQe0aOhNkQ"
+  paypal_sender_email: "raghu@rubyeffect.com"
+  pj_api_key: "b7139aaa17bebda81b23bddb2040ed9c702294bf443aadd7d8f3dba159a3a9c4"
+  pj_api_version: "20120402"
+  #SMS INTEGRATION USING TWILIO API
+  sms_acc_sid: 'ACfcfaf7c0143ad3d990d1dc49da4b055c'
+  sms_acc_token: 'f176d4064cc1612ea2333c844cdf91ce'
+  sms_from_number: "+15005550006"
+
+
+test:
+  fb_app_id: '117604691694839'
+  fb_app_secret: '017d97b2ae9c582fb5a7359e8b8f539b'
+  tw_consumer_key: 'CwMEAcXftbmytZPvAAiyQ'
+  tw_consumer_secret: '9YzEQKX3tWYu3RRqhXzzUxajUINqDRdHh2xkoHUSg'
+  g_consumer_key: '31680053763.apps.googleusercontent.com'
+  g_consumer_secret: 'gmelKRFUkzudAYkbugPGy9tE'
+  g_api_key: 'AIzaSyDp2Pzw39ug59zexopf-VYU5Dv_tBmil7M'

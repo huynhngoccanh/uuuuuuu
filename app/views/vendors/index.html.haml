@@ -1,0 +1,42 @@
+.home-main-section
+  #business-top
+  #business-header Muddleme Business
+  #business-text1
+    Get all the customers you’ve ever wanted plus real time analytics,
+    %br
+    competitive analysis, custom campaigns and more!
+  #business-shadow
+  #business-content
+    = form_tag(new_vendor_registration_path) do
+      %table
+        %tr
+          %td
+            #business-offer1
+              #business-signup-offer1
+          %td
+            #business-offer2
+              #business-signup-offer2
+        %tr
+          %td.business-input1{:colspan => 2}
+            = email_field_tag "vendor[email]", nil, :placeholder => 'email address'
+        %tr
+          %td.business-sign-in-btn{:colspan => 2}
+            = submit_tag '', :class => "fixed-width-button"
+  #business-bottom
+    #business-bottom-container
+      #business-bottom-wrapper
+        #business-bottom-h1 An opportunity to bring unprecedented efficiency to your marketing spend
+        #business-bottom-h2 Stop wasting time on advertising.
+        #business-bottom-text1
+          Maybe you've heard the old adage: "Half the money I spend on advertising is wasted; the trouble is I don't know which half." Maybe you even subscribe to this thinking.
+          If so, maybe it's time to consider a new marketing model that doesn't include wasting money on fruitless advertising but focuses on consumers who declare their intent
+          to buy your product or service.
+        #business-bottom-h3 Muddleme introduces you to real time in market purchasers.
+        #business-bottom-text2
+          Muddleme redefines what's possible with your marketing budget. Whether you have $100 or $10.000.000 to spend, buyers on the Muddleme platform are incentivized
+          to buy with cash rewards, coupons and our proprietary value score. Choose your customers with pin-point accuracy, or allow us to set up an automated campaign.
+          Whatever you choose, you'll be working off the factual basis of a consumer's expressed intent to buy.
+        #business-bottom-h4 Real opportunities to make a sale.
+        #business-bottom-text3
+          Simply having a website or buying keywors doesn't generate sales. In fact, sometimes they can be a deterrent when having to chose where to spend your money.
+          The Muddleme platform increases conversion by revealing a user's real intent to buy via our Muddleme score, a patented, algorithm based rating of a buyer's probability to transact.

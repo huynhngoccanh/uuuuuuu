@@ -1,0 +1,61 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'search'
+
+- content_for :main_column do
+  
+
+  %section.default-content.clearfix
+    %h3 THE MUDDLEME DATABASE - WHERE THEY ARE AND WHAT THEY'RE WORTH
+    %hr.for-table
+    %nav.tabs-nav.for-table.with-search
+      = form_tag(search_auctions_path, :method=>:get, :remote=>true) do
+        = text_field_tag 'search', params['search'], :class=>'search-field', |
+          :placeholder=>'Search Auctions'
+      %ul
+        - cls = (@auctions_recommended.blank? && !@auctions_all_unfinished.blank?) ? '' : 'active'
+        %li{:class => cls}
+          %a#recommended-tab-link{:href=>'#'} Recommended
+        - cls = cls.blank? ? 'active' : ''
+        %li{:class => cls}
+          %a#all_unfinished-tab-link{:href=>'#'} All
+        %li
+          %a#product_unfinished-tab-link{:href=>'#'} Products Only
+        %li
+          %a#service_unfinished-tab-link{:href=>'#'} Services Only
+    - style = (@auctions_recommended.blank? && !@auctions_all_unfinished.blank?) ? 'display: none' : ''
+    #recommended_auctions_wrap.tab-content{:style=>style}
+      = render 'auction_list', :type=>:recommended, :single=>true, :no_top_pagination=>true
+    - style = style.blank? ? 'display: none' : ''
+    #all_unfinished_auctions_wrap.tab-content{:style=>style}
+      = render 'auction_list', :type=>:all_unfinished, :single=>true, :no_top_pagination=>true
+    #product_unfinished_auctions_wrap.tab-content{:style=>'display: none'}
+      = render 'auction_list', :type=>:product_unfinished, :single=>true, :no_top_pagination=>true
+    #service_unfinished_auctions_wrap.tab-content{:style=>'display: none'}
+      = render 'auction_list', :type=>:service_unfinished, :single=>true, :no_top_pagination=>true
+
+%h2 Search auctions
+= render 'layouts/application/one_column'
+
+= render 'vendors/auctions/bidding_windows'
+
+#profile-details-wrap
+
+- content_for :javascripts do
+  = javascript_include_tag "vendors/view-profile"
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#recommended_auctions_wrap');
+      simpleAjaxPagination('#all_unfinished_auctions_wrap');
+      simpleAjaxPagination('#product_unfinished_auctions_wrap');
+      simpleAjaxPagination('#service_unfinished_auctions_wrap');
+
+      initTabsNav($('.tabs-nav ul:first'), '_auctions_wrap');
+
+      $('input.search-field').closest('form').submit(function(){
+        showLoader($('.tab-content:visible'));
+      });
+      
+
+      

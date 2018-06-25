@@ -1,0 +1,16 @@
+.col-sm-6.col-xs-12.col-md-4.col-lg-3
+  .panel
+    .panel-logo
+      %a{href:"javascript:void(0);", class:"img-responsive", id:"merchant_popup_#{product.id}", onclick:"generate_popup(this.id, #{product.id}, false); return false;"}
+        = image_tag(product.is_a?(LinkshareAdvertiser) ? product.logo_url : product.logo.url, :title => product.name, :size => "150x110")
+      = link_to "coupon_window", mm_prompt_cc_window_path(:ad => product.advertiser_id, :type => product.class.name, :offer_url => product.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{product.id}"  
+    .panel-info
+      .row
+        %span.coupons.rb_regular.cursor-pointer{onclick:"generate_popup(this.id, '#{product.id}', false); return false;"}
+          %img{alt:"New_scissor_icon", src:"/assets/new_scissor_icon.png"}
+          - coupons = advertiser_coupons(product) 
+          %span{style:"font-size:12px;"}
+            = "Get Coupons ( #{coupons.count} )"
+        .cash-back.rb_black
+          = number_to_percentage(product.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})
+          CASH BACK      

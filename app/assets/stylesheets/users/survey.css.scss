@@ -1,0 +1,81 @@
+#customer-survey {
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  #question-window {
+    width: 598px;
+    overflow: hidden;
+
+    //gets overriden by js just to sow properly until doc.ready fired
+    height: 320px;
+  }
+
+  .question-wrap {
+    overflow: hidden;
+    min-height: 205px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    width: 568px;
+    float: left;
+
+    //gets overriden by js just to sow properly until doc.ready fired
+    height: 305px;
+  }
+
+  .question {
+    margin-left: 55px;
+    font-weight: bold;
+    overflow: hidden;
+    padding-top: 7px;
+
+    p {
+      margin-top: 0;
+      font-size: 14px;
+      min-height: 40px;
+      color: #666;
+      font-weight: bold;
+      font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    }
+  }
+
+  .question-num {
+    width: 39px;
+    height: 39px;
+    line-height: 39px;
+    text-align: center;
+    background: image-url("small-icons.png") no-repeat -22px -177px;
+    font-family: MuseoSlab;
+    font-size: 24px;
+    color: #fff;
+    float: left;
+  }
+
+  label.radio {
+    margin: 15px 0 5px;
+  }
+
+  .actions {
+    text-align:left;
+    padding: $additional-padding;
+  }
+  .right {
+    float: right;
+    overfloe: hidden;
+    button {
+      float: left;
+      margin-left: 20px;
+    }
+  }
+
+  #survey-save-no-social-wrap {
+    text-align: center;
+    padding-top: 40px;
+    padding-right: 40px;
+  }
+}
+

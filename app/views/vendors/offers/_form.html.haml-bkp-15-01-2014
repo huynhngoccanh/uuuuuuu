@@ -1,0 +1,63 @@
+- content_for :javascripts do
+  = javascript_include_tag "#{params[:controller]}/multiselect"
+
+- content_for :javascripts do
+  :javascript
+    $('#submit_offer_form').click(function() {
+      $('#offer_form').submit();
+    });
+
+= simple_form_for(@offer, :html => {:class=>"in-cols", :id => "offer_form"}, :validate=>true) do |f|
+  .inputs.clearfix
+    = f.input :product_offer , :as => :hidden
+    = input_row f, :name
+
+    = inputs_grouped f, :coupon_code, "Enter coupon code:", |
+      "Coupon code redeemable on your website." do
+      .inpts-row.clearfix
+        = sub_input_row f, :coupon_code, :label=>false
+
+    = inputs_grouped f, :coupon_url, "Enter offer URL:" do
+      .inpts-row.clearfix
+        = sub_input_row f, :offer_url, :label=>false
+
+    = input_row f, :expiration_time, :as=>:datetimepicker, :input_html => {:validate=>false }
+    = input_row f, :offer_description
+
+= render "image_form"
+
+.actions.clearfix
+  - submit_id = "submit_offer_form"
+  = submit_tag 'Save Offer', :id => submit_id
+
+.actions.clearfix
+  = link_to 'Preview', preview_new_offer_path(:id=>@offer.id), :id=>'preview-offer-link', :class=> 'gray-button'
+
+#offer-preview-wrap
+
+- content_for :javascripts do 
+  :javascript
+    $(function(){
+      var pendingRequest;
+      var linkTxt = $('#preview-offer-link').text();
+      $('#preview-offer-link').click(function(e){
+        e.preventDefault();
+        if(!$('#offer_form').isValid(offer_form.validators)) return false;
+        var $this = $(this);
+        $this.text('Generating preview...');
+        if(pendingRequest) pendingRequest.abort();
+        $.ajax({
+          type: 'POST',
+          url: $this.attr('href'),
+          data: $('#offer_form').serialize(),
+          complete: function(){
+            $this.text(linkTxt);
+            showDetailsBox($('#offer-window-preview'));
+          },
+          dataType: 'script'
+        });
+      });
+    })
+
+
+

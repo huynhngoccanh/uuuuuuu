@@ -1,0 +1,71 @@
+%section#place-bid.content-details-box
+  = simple_form_for @bid, :validate=>true, :url => create_bid_auction_path(@auction), |
+    :wrapper=>:standard, :html=>{:class=>'no-label', :id => "new_bid_form"}, :remote=>true do |f|
+    %div.clearfix
+      %article.column.details-preview
+        %div.column
+          %span.step-number 1
+        .inputs
+          %p
+            = label_tag :bid_max_value, "Enter your bid amount:"
+            %span.hint Enter the maximum amount you are willing to spend on this lead. MuddleMe incrementally increase your bids as needed, so you may pay less!
+          = no_label_input f, :max_value, :placeholder=>""
+          %p
+            %span.highlight= "#{format_currency(@bid.minimum_value)} minimum"
+      %article.column.details-preview.last-child
+        %div.column
+          %span.step-number 2
+        .inputs
+          %p
+            = label_tag :bid_offer_id, "Attach an offer:"
+            %span.hint When you win the auction this offer will be served to the consumer.
+          = no_label_input f, :offer_id, :as=>:select, |
+            :collection=>current_vendor.offers.where(:product_offer=>@auction.product_auction), |
+            :prompt => "choose an offer (optional)"
+          = f.input :minimum_value, :as=>:hidden
+          = f.input :vendor_balance, :as=>:hidden
+          %p
+            %span.highlight Don’t have any pre-set offers?
+            %br
+            %a#provide-offer-link{:href => '#'}
+              = "Provide your offer details manually"
+    %div.to-show{:style=> 'display: none;'}
+      %hr
+      %article.details-preview#create-new-offer
+        %h3 CREATE AN OFFER:
+        - @bid.build_offer unless @bid.offer
+        = f.fields_for :offer do |g|
+          .inputs.column
+            %div.line
+              %div.label
+                = g.label :name
+              %div.input
+                = g.text_field :name, :disabled=>"disabled", :validate=>false
+            %div.line
+              %div.label
+                = g.label :coupon_code
+              %div.input
+                = g.text_field :coupon_code, :disabled=>"disabled", :validate=>false
+            %div.line
+              %div.label
+                = g.label :offer_url
+              %div.input
+                = g.text_field :offer_url, :disabled=>"disabled", :validate=>false
+          .inputs.column.last-child
+            %div.line
+              %div.label
+                = g.label :offer_description
+              %div
+                = g.text_area :offer_description, :disabled=>"disabled", :validate=>false
+  %div.to-show{:style=> "display: none;"}
+    = render "new_bid_image_form", :offer => @bid.offer
+
+    .actions.clearfix
+      = link_to 'Preview Offer', preview_new_offer_path(:id=>@bid.offer.id), :id=>'preview-offer-link', :class=> 'gray-button'
+
+  %div.actions
+    = submit_tag 'Place Bid!', :class => "orange-button fixed-width-button", :id => "submit_new_bid_form"
+    = button_tag 'Cancel', :type=>:button, :class=>'cancel-bid-button gray-button fixed-width-button'
+
+
+#offer-preview-wrap

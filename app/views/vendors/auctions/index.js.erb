@@ -1,0 +1,17 @@
+<% if @auctions_bid.blank? %>
+  <% if @auctions_recommended.blank? %>
+    $('#latest_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:latest) %>")
+    .css('overflow','')
+  <% else %>
+    $('#recommended_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:recommended) %>")
+    .css('overflow','')
+  <% end %>
+<% else %>
+    $('#bid_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:bid) %>")
+    .css('overflow','')
+<% end %>
+
+$('#finished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:finished) %>")
+.css('overflow','')
+$('#saved_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:saved) %>")
+.css('overflow','')

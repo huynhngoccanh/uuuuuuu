@@ -1,0 +1,43 @@
+%h1 Listing loyalty_program_coupons
+
+%table
+  %thead
+    %tr
+      %th Loyalty program
+      %th Loyalty program name
+      %th Header
+      %th Ad
+      %th Add url
+      %th Description
+      %th Code
+      %th Start date
+      %th Expires at
+      %th Created at
+      %th Updated at
+      %th Manually uploaded
+      %th
+      %th
+      %th
+
+  %tbody
+    - @loyalty_program_coupons.each do |loyalty_program_coupon|
+      %tr
+        %td= loyalty_program_coupon.loyalty_program
+        %td= loyalty_program_coupon.loyalty_program_name
+        %td= loyalty_program_coupon.header
+        %td= loyalty_program_coupon.ad_id
+        %td= loyalty_program_coupon.add_url
+        %td= loyalty_program_coupon.description
+        %td= loyalty_program_coupon.code
+        %td= loyalty_program_coupon.start_date
+        %td= loyalty_program_coupon.expires_at
+        %td= loyalty_program_coupon.created_at
+        %td= loyalty_program_coupon.updated_at
+        %td= loyalty_program_coupon.manually_uploaded
+        %td= link_to 'Show', loyalty_program_coupon
+        %td= link_to 'Edit', edit_loyalty_program_coupon_path(loyalty_program_coupon)
+        %td= link_to 'Destroy', loyalty_program_coupon, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Loyalty program coupon', new_loyalty_program_coupon_path

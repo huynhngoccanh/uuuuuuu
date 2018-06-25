@@ -1,0 +1,35 @@
+- content_for :javascripts do
+  = javascript_include_tag "#{params[:controller]}/multiselect"
+  = javascript_include_tag "#{params[:controller]}/product_categories"
+  :javascript
+    $('#muddle-me-button').click(function() {
+      $('#second-form-part, #image-form-part').show();
+    });
+
+    $('#submit_new_product_auction').click(function() {
+      $('form#new_product_auction').submit();
+    });
+  - unless @auction.name.nil?
+    :javascript
+      $(document).ready(function(){
+        $('#second-form-part, #image-form-part').show();
+      });
+
+= simple_form_for(@auction, :url=>validate_new_auction_path, :validate=>true, |
+  :html => { :id => "new_product_auction", :class => "in-cols"}) do |f|
+  #first-form-part
+    = f.input :product_auction, :as=>:hidden
+    .input
+      = f.label :name, "I want to buy:", :class => "big-label"
+      = f.text_field :name, :placeholder=>'enter a product keyword', :class => 'big-input'
+      = button_tag "MuddleMe!", :type => "button", :id => "muddle-me-button"
+    %p.info You can simply type in "TV" (for example) or provide a specific brand and model you are interested in.
+  #second-form-part{:style=> "display: none;"}
+    %hr
+    .inputs.clearfix
+      = render "product_fields", :f=>f
+
+#image-form-part{:style=> "display: none;"}
+  = render "image_form"
+  .actions.clearfix
+    = submit_tag "Next", :id => "submit_new_product_auction"

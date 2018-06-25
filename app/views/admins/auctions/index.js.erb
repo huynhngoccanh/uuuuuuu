@@ -1,0 +1,4 @@
+$('#all_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:all, :single=>true, :no_top_pagination=>true) %>")
+$('#in_progress_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:in_progress, :single=>true, :no_top_pagination=>true) %>")
+$('#finished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:finished, :single=>true, :no_top_pagination=>true) %>")
+$('#confirmation_negative_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:confirmation_negative, :single=>true, :no_top_pagination=>true) %>")

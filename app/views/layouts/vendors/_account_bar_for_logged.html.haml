@@ -1,0 +1,22 @@
+%div#account-bar.clearfix{ :style => "height:60px" }
+  %div.logged
+
+    - if session[:new_leads]
+      %a{:href => won_searches_path}
+        New leads:
+        %span.important= session[:new_leads]
+      %span.separator= "|"
+    %a{:href => loyalty_program_path}
+      Loyalty Program:
+      -if current_vendor.loyalty_program
+        = current_vendor.loyalty_program.name
+      -else
+        Choose a loyalty program
+    %span.separator= "|"
+    %a{:href => funds_transfers_path}
+      Balance:
+      %span.dollars= format_currency(current_vendor.available_balance || 0)
+    %span.separator= "|"
+    = current_vendor.email
+    %span.separator= "|"
+    = link_to 'sign out', destroy_vendor_session_path, :method=>'delete', :id=>'logout-link'

@@ -1,0 +1,38 @@
+%header
+  .main-header.cf
+    .container
+      .logo.col-3
+        %a{:href => "/profiles"}
+          = image_tag("logo.png", :id => "logo", :class => "image-responsive")
+      .col-9.main-nav
+        %ul.top-menu
+          %li
+            %a{:href => "/"} Home
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Advertisers
+              %span.caret
+          %li
+            %a{:href => "/referral"} Referral
+          %li
+            %a{:href => about_path} About
+          %li
+            %a{:href => "#"} Muddle App
+          %li
+            %a{:href => 'http://muddleme.blog.com', :target => 'blank'} Muddle
+          %li
+            - if current_user.blank?
+              %a{:href => "/login"}
+                %i.fa.fa-key
+                LogIn
+            - else
+              %a{:href => funds_withdrawals_path, :style => "color:#f6f6f6;margin-right:5px;"}
+                %i.fa.fa-lock
+                %span{:style => "margin-right:15px;"} Balance:
+                %span.dollars{:style => "color:#9dc700 !important;"}= format_currency(current_user.total_balance || 0)
+              = link_to raw("<span>Sign out</span>"), destroy_user_session_path, :method=>'delete', :id=>'logout-link',:style => "color:#f6f6f6;margin-right:5px;"
+    .container
+      .top-search.cf
+        = form_tag('/coupons', :method => "get", :id => "sbm_search_bar", :class => "search-form navbar-form") do
+          = text_field_tag 'q', params[:q], :size => 75, :placeholder => "Macy's, JCPenney, Target...", :autocomplete => "off", :class => "search rb_medium typeahead", :id => "search"
+          = submit_tag "SEARCH", class: "submit-search header-search"

@@ -1,0 +1,104 @@
+.home-main-section
+  #experience-popup1
+    #experience-popup1-close
+  #experience-popup2
+    #experience-popup2-close
+  #experience-popup3
+    #experience-popup3-close
+  #experience-popup-backdrop
+  #experience-block1
+    #experience-top
+  #experience-header1 The Muddleme Experience
+  #experience-header2 Take Control of Your Online Value
+  #experience-text1
+    Popular social networks, search engines and telecom companies make a lot of money by gathering information about your location,
+    %br
+    searches, purchases and everyday activity. They sell this information to the highest advertisers, raking in billions along the way, with the
+    %br
+    consumer receiving none of the benefits.
+  #experience-shadow
+  #experience-form
+    = simple_form_for(User.new, :as => :user_initial_data, :url => new_user_registration_path, :wrapper=>:standard, :html=>{:class=>'no-label'}, :validate=>true) do |f|
+      = no_label_input f, :email, :placeholder => "enter your email address", :input_html => { :"data-fade-error" => 'true' }
+      = submit_tag "", :id => "sign-up-its-free", :class => "experience-signup-submit-btn"
+  #experience-info
+    #experience-mid1
+      %table
+        %tr
+          %td#experience-text2
+            %span.head We think you deserve some of that money
+            %br
+            %br
+            We'll still gather some information but we will be giving you 70% of the
+            %br
+            revenue. For example, the user on the right entered a search request
+            %br
+            for HVAC. They received 11 Merchants and called 3 (highlighted in gray)
+            %br
+            to discuss their project. By calling three merchants, they accumulated an
+            %br
+            online value of $36.00. If the user selects any one of the 11 merchants
+            %br
+            provided from the list, they will receive $36.00 directly deposited into
+            %br
+            their PayPal, Bank or CreditCard account. Whether they call one or all
+            %br
+            eleven merchants, they'll receive 70% of the total accumulated money if
+            %br
+            they transact with one of the provided merchants.
+          %td#experience-imac-col
+            #experience-imac
+              #experience-imac-zoom
+    #experience-mid2
+      %table
+        %tr
+          %td
+            #experience-mbook
+              #experience-mbook-zoom
+          %td#experience-text3
+            %span.head Receive real time coupons and cash back
+            %br
+            %br
+            Muddleme crawls the web and displays the most relevant and useable
+            %br
+            coupons available from retailers. Whether you're looking for electronics
+            %br
+            at BestBuy, kids clothes at Old Navy, travel plans at Expedia or home
+            %br
+            decor at Overstock, our platform will provide you the most up-to-date
+            %br
+            coupons available, as well as cash back to your account if you transact
+            %br
+            with the selected retailer.
+    #experience-bottom
+      %table
+        %tr
+          %td#experience-text4
+            %span.head How it works
+            %br
+            %br
+            Simply download, register and sign in. The Muddleme application will
+            %br
+            appear in your search bar via a small capital M. If the "M" is
+            %span.orange
+              orange
+            the
+            %br
+            platform is off. If the "M" is
+            %span.green
+              green
+            , you're logged in and ready to receive
+            %br
+            money, coupons and the best deals in the market.
+            %br
+            %br
+            Our proprietary Muddleme Box accurately reflects your online value for
+            %br
+            services and provides coupons and cash back for everything you need,
+            %br
+            on every browser and in every search engine across the globe.
+            %br
+            It's time to start getting paid for everything you do.
+          %td
+            #experience-monitor3
+              #experience-monitor3-zoom

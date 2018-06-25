@@ -1,0 +1,19 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content
+    %article
+      %div.icon#megaphone-icon
+      %h3 Start a new MuddleMe auction now!
+      %p Create an auction for a Product or Service
+    %article.clearfix
+      = render 'users/shared/create_auction'
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'
+
+%h2 Create an auction
+= render 'layouts/application/two_columns'
+

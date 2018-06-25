@@ -1,0 +1,14 @@
+- content_for :sub_nav do
+  = render 'vendors/profile/sub_nav', :active_action=>'categories', :active_controller=>'/vendors'
+
+- content_for :main_column do
+  %section.default-content
+    = render 'tabs_nav', :active_action=>'categories', :active_controller=>'/vendors'
+    %article.column#company-details
+      = simple_form_for(@vendor, :url => details_path, :html => {:class => "in-cols"}) do |f|
+        = render "vendors/shared/vendor_categories_fields", :f=>f
+        .actions.clearfix
+          = f.button :submit, "Update & Save"
+
+%h2 Company Details
+= render 'layouts/application/one_column'

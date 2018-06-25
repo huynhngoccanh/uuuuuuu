@@ -1,0 +1,37 @@
+%section.banner.whiteBoxBg
+  .container
+    .row{:style => ""}
+      %h2.title.title2 Coupons and Cash Back from your Favorite Stores
+      - unless @favorite_stores.blank?
+        %div.clearfix.favouriteCont{:style => "margin: 26px 19px 40px 15px;"}
+          - @favorite_stores.compact.in_groups_of(3,false) do |group|
+            - group.each do |advertiser|
+              - if advertiser.hp_advertiser_image.blank?
+                .slider.col-sm-6.col-xs-10.col-md-6.col-lg-4.wd_33
+                  %a{:href => "javascript:void(0);", :id => "merchant_popup_#{advertiser.advertiser_id}", :class => "img img-responsive fav_merchant", :onclick => "generate_popup(this.id, #{advertiser.advertiser_id}, #{advertiser.coupons.blank?}); return false;"}
+                    = image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url(:medium), :title => advertiser.name, :size => "150x110", :class => "favImg")
+                    .bottom_div.clearfix
+                      &nbsp;
+                    .inner_div
+                      .bg_div.clearfix
+                        #left_div
+                          = image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url, :title => advertiser.name)
+                      .cash-back1
+                        = "#{number_to_percentage(advertiser.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})} Off Site Wide"
+                  = link_to "coupon_window", mm_prompt_cc_window_path(:ad => advertiser.advertiser_id, :type => advertiser.class.name, :offer_url => advertiser.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{advertiser.advertiser_id}"
+              - else
+                .slider.col-sm-6.col-xs-10.col-md-6.col-lg-4.wd_33
+                  %a{:href => "javascript:void(0);", :id => "merchant_popup_#{advertiser.advertiser_id}", :class => "img img-responsive fav_merchant", :onclick => "generate_popup(this.id, #{advertiser.advertiser_id}, #{advertiser.coupons.blank?}); return false;"}
+                    = image_tag(advertiser.hp_advertiser_image.hp_image.url, :title => advertiser.name, :class => "favImg", :size => "393x437")
+                    .bottom_div.clearfix
+                      &nbsp;
+                    .inner_div
+                      .bg_div.clearfix
+                        #left_div
+                          = image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url, :title => advertiser.name)
+                      .cash-back1
+                        - if advertiser.max_commission_percent.blank?
+                          = "6% Cash Back"
+                        - else                        
+                          = "#{number_to_percentage(advertiser.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})} Cash Back"
+                  = link_to "coupon_window", mm_prompt_cc_window_path(:ad => advertiser.advertiser_id, :type => advertiser.class.name, :offer_url => advertiser.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{advertiser.advertiser_id}"

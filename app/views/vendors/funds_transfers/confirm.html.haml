@@ -1,0 +1,24 @@
+- content_for :main_column do
+  %section.default-content.clearfix
+    %h3 CONFIRM FUNDS DEPOSIT
+    %hr
+    #funds-transfer-confirmation-wrap
+      %p
+        The funds are ready to be transfered
+      %p
+        Confirm the transfer of
+        = format_currency(@transfer.amount)
+        to MuddleMe
+      %p
+        = link_to 'Confirm', execute_funds_transfer_path(@transfer), |
+          :method=>:post, :id=>'execute-link', :class=>'orange-button fixed-width-button'
+
+%h2 Your funds
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      $('#execute-link').on('click',function(){
+        showLoader($('#funds-transfer-confirmation-wrap'));
+      });

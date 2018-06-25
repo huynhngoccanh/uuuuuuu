@@ -1,0 +1,28 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+  
+%h2 Store Categories List
+= link_to 'New Store category', new_admins_store_category_path, :class=>'orange-button fixed-width-button'
+%br
+%br
+%section.default-content
+  %table.default-table
+    %tr
+      %th
+        %span.txt
+          %span Name
+      %th
+        %span.txt
+          %span Order
+      %th
+      %th
+      %th
+  
+    - @admins_store_categories.each do |admins_store_category|
+      %tr
+        %td= admins_store_category.name
+        %td= admins_store_category.order
+        %td= link_to 'Show', admins_store_category
+        %td= link_to 'Edit', edit_admins_store_category_path(admins_store_category)
+        %td= link_to 'Delete', admins_store_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

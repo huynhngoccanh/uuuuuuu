@@ -1,0 +1,35 @@
+- model_class = LinkshareAdvertiser
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+p
+  strong= model_class.human_attribute_name(:id) + ':'
+  br
+  = @advertiser.id
+p
+  strong= model_class.human_attribute_name(:name) + ':'
+  br
+  = @advertiser.name
+p
+  strong= model_class.human_attribute_name(:max_commission_percent) + ':'
+  br
+  = @advertiser.max_commission_percent
+p
+  strong= model_class.human_attribute_name(:title) + ':'
+  br
+  = @advertiser.title
+p
+  strong= model_class.human_attribute_name(:description) + ':'
+  br
+  = @advertiser.description
+p
+  strong= model_class.human_attribute_name(:merchant_id) + ':'
+  br
+  = @advertiser.merchant_id
+
+
+= link_to 'back', admins_linkshare_advertiser_index_path, :class => 'btn btn-default'
+'
+= link_to  'edit', edit_admins_linkshare_advertiser_path(@advertiser), :class => 'btn btn-default'
+'
+/ = link_to  admins_avant_advertiser(@merchant), :method => "delete",  :class => 'btn btn-danger'

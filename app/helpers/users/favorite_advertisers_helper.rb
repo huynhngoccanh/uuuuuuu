@@ -1,0 +1,2 @@
+module Users::FavoriteAdvertisersHelper
+end

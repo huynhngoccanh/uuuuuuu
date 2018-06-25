@@ -1,0 +1,74 @@
+- users = instance_variable_get("@users_#{type}")
+- single ||= nil
+- if single
+  .table-header.table-info
+    = link_to 'Download as csv', download_csv_admin_users_path
+    %br
+    %br
+    .pages-info= page_entries_info users
+    .right
+      = paginate users, :param_name=>"#{type}_page", :params=>params
+%table.default-table
+  %tr
+    %th{:class=>check_order(:last_name, type)}
+      %a{:href=>order_url(:last_name, type)}
+        %span Full name
+    %th{:class=>check_order(:email, type)}
+      %a{:href=>order_url(:email, type)}
+        %span E-mail
+    %th{:class=>check_order(:address, type)}
+      %a{:href=>order_url(:address, type)}
+        %span Address
+    %th{:class=>check_order(:zip_code, type)}
+      %a{:href=>order_url(:zip_code, type)}
+        %span Zip code
+    %th{:class=>check_order(:sex, type)}
+      %a{:href=>order_url(:sex, type)}
+        %span Gender
+    %th
+      %span.txt
+        %span Confirmed
+    %th
+      %span.txt
+        %span Needs release
+    %th
+      %span.txt
+        %span Action
+  - if users.blank?
+    %tr
+      %td.ctr{:colspan => 7}
+        = "No customers to show"
+  - users.each do |user|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to user.full_name, admin_user_path(user)
+      %td= user.email
+      %td= user.address
+      %td= user.zip_code
+      %td= user.sex
+      %td= user.confirmed_at.nil? ? 'NO' : 'YES'
+      %td= user.need_release? ? 'YES' : 'NO'
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View Details', admin_user_path(user)
+              = link_to 'Act as this user', become_admin_user_path(user)
+              - if user.blocked?
+                = link_to('Unblock this user', unblock_admin_user_path(user), :method => :put, :confirm => 'Are you sure?')
+              - else
+                - confirm = ''
+                - confirm += "User has positive balance. " if user.total_balance > 0
+                - confirm += "User has active auctions. " unless user.auctions.where('auctions.status = "active"').blank?
+                - confirm += "Are you sure you want to block this user?" unless confirm.blank?
+                = link_to('Block this user', block_admin_user_path(user), :method => :put, :confirm => confirm)
+              - if user.sales_owner
+                = link_to 'Make as not sales owner', become_not_sales_owner_admin_user_path(user), :method => :put, :confirm => 'Are you sure?'
+              - else
+                = link_to 'Make as sales owner', become_sales_owner_admin_user_path(user), :method => :put, :confirm => 'Are you sure?'
+
+.table-footer.table-info
+  .pages-info= page_entries_info users
+  .right
+    = paginate users, :param_name=>"#{type}_page", :params=>params

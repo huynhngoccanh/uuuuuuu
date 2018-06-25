@@ -1,0 +1,49 @@
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span Merchant
+    - if params[:type] != "top_dealers"
+      - if params[:type] == "browseable"
+        %th
+          %span.txt
+            %span Add/Update Header/Offer
+      - else
+        %th
+          %span.txt
+            %span Add/Update Merchant Image for Home Page
+
+
+    %th
+      %span.txt
+        %span Delete
+  - if @hp_stores.blank?
+    %tr
+      %td.ctr{:colspan => 2}
+        %span.txt
+          %span No merchants selected.
+  - @hp_stores.each do |adv|
+    %tr
+      %td
+        %span.txt
+          %span= adv.advertiser.name
+      - if params[:type] != "top_dealers"
+        %td
+          - if adv.advertiser.hp_advertiser_image.blank?
+            %span.txt
+              %span= link_to params[:type] == "browseable" ? 'Add Header/Offer' : 'Add Merchant Image', add_custom_store_logo_admin_hp_stores_path(:adv_id => (adv.advertiser.class.name == "CustomAdvertiser") ? adv.advertiser.id : adv.advertiser.advertiser_id, :adv_type => adv.advertiser.class.name, :store_type => params[:type])
+          - else
+            %span.txt
+              %span= link_to params[:type] == "browseable" ? 'Edit Header/Offer' : 'Edit Merchant Image', edit_custom_store_logo_admin_hp_stores_path(:hpai => adv.advertiser.hp_advertiser_image.id, :store_type => params[:type])
+      - else
+        %td
+          - if adv.advertiser.hp_advertiser_image.blank?
+            %span.txt
+              %span= link_to 'Add Merchant Info', add_custom_store_logo_admin_hp_stores_path(:adv_id => (adv.advertiser.class.name == "CustomAdvertiser") ? adv.advertiser.id : adv.advertiser.advertiser_id, :adv_type => adv.advertiser.class.name, :store_type => params[:type])
+          - else
+            %span.txt
+              %span= link_to 'Edit Merchant Info', edit_custom_store_logo_admin_hp_stores_path(:hpai => adv.advertiser.hp_advertiser_image.id, :store_type => params[:type])
+
+      %td
+        %span.txt
+          %span= link_to 'Delete', admin_hp_store_path(adv, :type => params[:type]), :method => "delete", :confirm => 'Are you sure?'

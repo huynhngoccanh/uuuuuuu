@@ -1,0 +1,9 @@
+= simple_form_for(@campaign, :wrapper=>:standard, :html => {:id => "edit_#{@campaign.product_campaign ? "product" : "service"}_campaign", |
+  :class=>'thinner'}, :validate=>true) do |f|
+  = f.input :product_campaign , :as => :hidden
+  = f.input :total_spent, :as=>:hidden
+  = render "edit_#{@campaign.product_campaign ? "product" : "service"}_fields", :f => f
+
+  .actions.clearfix{:style=>"display: none;"}
+    = f.button :submit,'Update Campaign'
+    %a#cancel-edit-campaign.fixed-width-button.gray-button Cancel Changes

@@ -1,0 +1,42 @@
+%p#notice= notice
+
+%p
+  %b Loyalty program:
+  = @loyalty_program_coupon.loyalty_program
+%p
+  %b Loyalty program name:
+  = @loyalty_program_coupon.loyalty_program_name
+%p
+  %b Header:
+  = @loyalty_program_coupon.header
+%p
+  %b Ad:
+  = @loyalty_program_coupon.ad_id
+%p
+  %b Add url:
+  = @loyalty_program_coupon.add_url
+%p
+  %b Description:
+  = @loyalty_program_coupon.description
+%p
+  %b Code:
+  = @loyalty_program_coupon.code
+%p
+  %b Start date:
+  = @loyalty_program_coupon.start_date
+%p
+  %b Expires at:
+  = @loyalty_program_coupon.expires_at
+%p
+  %b Created at:
+  = @loyalty_program_coupon.created_at
+%p
+  %b Updated at:
+  = @loyalty_program_coupon.updated_at
+%p
+  %b Manually uploaded:
+  = @loyalty_program_coupon.manually_uploaded
+
+= link_to 'Edit', edit_loyalty_program_coupon_path(@loyalty_program_coupon)
+\|
+= link_to 'Back', loyalty_program_coupons_path

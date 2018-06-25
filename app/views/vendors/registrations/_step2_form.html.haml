@@ -1,0 +1,14 @@
+- current_admin ? resource.create_by_admin = true : resource.create_by_admin = false
+- resource.dont_require_password_confirmation = (current_admin ?  true : false)
+
+= simple_form_for(resource, :as => resource_name, :url => step2_vendor_registration_path, :html=>{ :id => "vendor_new", :class=>"in-cols"}) do |f|
+  %h3 DESCRIBE YOUR COMPANY:
+  %hr
+  %div.slider_window
+    %div.slider_wrap
+      %div#step2_init.slider_elem
+        = render "describe_company", :f=>f
+      %div#step2_optional.slider_elem
+        = render "vendors/shared/vendor_categories_fields", :f=>f
+        .actions.clearfix
+          = f.button :submit, "Create Account"

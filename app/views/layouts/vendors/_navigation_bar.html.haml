@@ -1,0 +1,11 @@
+%nav#main-nav.clearfix
+  %ul{:style => "margin-top:-40px;"}
+    - unless current_vendor.nil?
+      %li{:class=>"#{current_page?(root_path) ? 'active' : ''}"}
+        %a{:href => root_path} Home
+      %li{:class=>"#{params[:controller]=='vendors/searches' ? 'active':''}"}
+        %a{:href => searches_path} Searches
+      %li{:class=>"#{['vendors/campaigns','vendors/offers'].include?(params[:controller]) ? 'active':''}"}
+        %a{:href => campaigns_path} My Campaigns & Offers
+      %li{:class=>"#{['vendors/funds_transfers', 'vendors/profile', 'vendors/settings'].include?(params[:controller]) ? 'active':''}"}
+        %a{:href => profile_path} My Account

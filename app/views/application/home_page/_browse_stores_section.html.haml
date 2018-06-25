@@ -1,0 +1,156 @@
+%section.full-width.browse-the-store.mt-minus
+  .container
+    %h2.border-lr.align-center Browse these stores for more great offers and cash back!
+    .col-12
+      - unless @browse_stores.blank?
+        - @browse_stores.first(6).each do |advertiser|
+          - @advertiser = advertiser.class.name.constantize.where("advertiser_id =?", advertiser.advertiser_id).first
+          - @coupons = @advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today])
+          - @advertiser_url = advertiser.advertiser_url
+          %figure.col-2.store-item
+            -if @coupons.blank?
+              %a.store-logo{"data-animation" => "none", "data-reveal-id" => "no_coupon_code_#{advertiser.advertiser_id}", :href => "#{advertiser.base_tracking_url}", :target => "_blank"}
+                = image_tag advertiser.image.url(:medium), title: advertiser.name
+              %span.ribbon
+                %span.ribbon-text Cash Back
+              %figcaption.store-info
+                -if advertiser.hp_advertiser_image.present?
+                  = "#{advertiser.hp_advertiser_image.title}"
+                -else
+                  No Title
+            -elsif @coupons.count == 1
+              %a.store-logo{"data-animation" => "none", "data-reveal-id" => "coupons_cashback_#{advertiser.advertiser_id}", :href => "#{advertiser.base_tracking_url}", :target => "_blank"}
+                = image_tag advertiser.image.url(:medium), title: advertiser.name
+              %span.ribbon
+                %span.ribbon-text Cash Back
+              %figcaption.store-info
+                -if advertiser.hp_advertiser_image.present?
+                  = "#{advertiser.hp_advertiser_image.title}"
+                -else
+                  No Title
+            -else
+              %a.store-logo{"data-animation" => "none", "data-reveal-id" => "coupons_cashback_#{advertiser.advertiser_id}", :href => "#{advertiser.base_tracking_url}", :target => "_blank"}
+                = image_tag advertiser.image.url(:medium), title: advertiser.name
+              %span.ribbon
+                %span.ribbon-text Cash Back
+              %figcaption.store-info
+                -if advertiser.hp_advertiser_image.present?
+                  = "#{advertiser.hp_advertiser_image.title}"
+                -else
+                  No Title
+        
+    - unless @browse_stores.blank?  
+      - @browse_stores.first(6).each do |advertiser|
+        - @advertiser = advertiser.class.name.constantize.where("advertiser_id =?", advertiser.advertiser_id).first
+        - @coupons = @advertiser.coupons.where(['expires_at IS NULL or expires_at >= ?', Date.today])
+        - @advertiser_url = advertiser.advertiser_url
+
+        .coupon-popup.reveal-modal{:id => "coupons_cashback_#{advertiser.advertiser_id}"}
+          %a.close-reveal-modal
+            = image_tag "coupon-close-btn.png"
+          .top
+            %h2 Copy the Code
+            %p Paste this code at checkout to save
+            .coupon-box
+              -if @coupons && @coupons.size > 0
+                %span.coupon{:id => "coupon-code-#{@coupons.first.id}"}= @coupons.first.code
+                %button.my_clip_button{:id => "copy-code-#{@coupons.first.id}", "data-clipboard-target" => "coupon-code-#{@coupons.first.id}", :title => "Copy Code."} Copy Code
+              -else
+                %span.coupon No code
+            %p.small
+              -if @advertiser_url.blank?
+                Go to
+                %a{:href => @advertiser.advertiser_url} #{@advertiser.name}
+                and paste the code at checkout.
+              -else
+                Go to
+                %a{:href => @advertiser_url} #{@advertiser.name}
+                and paste the code at checkout.
+          .bottom
+            %figure.logo
+              %a{:href => ""}
+                = image_tag @advertiser.image.url(:medium), title: advertiser.name
+            -unless @coupons.blank?
+              %h3 
+                = @coupons.first.header
+              .shipping-info
+                = @coupons.first.description
+                %span.expires
+                  %strong Expiration Date:
+                  = @coupons.first.expires_at
+            -else
+              %h3 Free Shipping And Returns
+              .shipping-info
+                Free Shipping and returns with swim purchase.
+                %br/
+                Valid for free standard shipping and handling.
+                %br/
+                %span.expires
+                  %strong Expiration Date:
+                  4/1/2016
+            .cash-back
+              %h4 Cash Back!
+              -if @advertiser.advertiser_url
+                -url = URI.parse(@advertiser.advertiser_url)
+                %p 
+                  Deposited directly into your account with any purchase from
+                  %a{:href => @advertiser.advertiser_url} #{url.hostname}
+
+        .reveal-modal.popup{:id => "no_coupon_code_#{advertiser.advertiser_id}"}
+          %header.header
+            %h2 No Coupon Codes Required
+            %a.close-reveal-modal
+              = image_tag "close-btn.png"
+          .popup-content
+            %p
+              Shop now and make money at
+              %a.custom-link{:href => @advertiser.advertiser_url} #{@advertiser.advertiser_url}
+            .button-wrapper.row
+              %a.cutom-link.btn{:href => @advertiser.advertiser_url} 
+                -if @advertiser_url.blank?
+                  Go to
+                  #{@advertiser.name}
+                -else
+                  Go to
+                  #{@advertiser.name}
+            .align-center.row
+              %a.logo{:href => "#"}
+                = image_tag @advertiser.image.url(:medium), title: advertiser.name
+            %h4
+              cash back on all purchases
+              %br
+              from
+              %a.custom-link{:href => "@advertiser.advertiser_url"} #{@advertiser.advertiser_url}
+
+
+:css
+  #right-button {
+    width: 0; height: 0;
+    border: 20px solid transparent;
+    border-left-color: grey;
+    cursor: pointer;
+  }
+
+  .mar-top-90 {
+    margin-top: 90px;
+  }
+
+  #left-button {
+    width: 0; 
+    height: 0; 
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent; 
+    border-right:20px solid grey;
+    cursor: pointer; 
+  }
+
+  .panel-bottom {
+    background-color: #F7F7F7;
+    padding: 17px;
+    font-size: 20px;
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+

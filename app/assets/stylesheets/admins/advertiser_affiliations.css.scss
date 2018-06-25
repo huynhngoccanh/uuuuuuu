@@ -1,0 +1,30 @@
+section#admin-affiliations {
+  select#affiliation_root_category,
+  select#affiliation_first_level_category,
+  select#affiliation_second_level_category {
+    width: 200px;
+    height: 300px;
+  }
+  p {
+    font-size: 14px;
+  }
+  a.add-advertiser-button {
+    vertical-align: top;
+  }
+
+  .hidden-inputs {
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+  }
+
+
+  .advertisers-tags {
+    margin-top: -5px;
+  }
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+}

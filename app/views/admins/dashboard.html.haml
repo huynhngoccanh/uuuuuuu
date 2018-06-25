@@ -1,0 +1,10 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'dashboard', :active_controller=>'/admins'
+
+- content_for :main_column do
+  %section.default-content#dashboard
+    %article.clearfix
+
+%h2 Admin Dashboard
+= render 'layouts/application/one_column'
+

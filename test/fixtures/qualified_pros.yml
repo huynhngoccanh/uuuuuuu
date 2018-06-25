@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  l_name: MyString
+  business_name: MyString
+  spanish: false
+
+two:
+  name: MyString
+  l_name: MyString
+  business_name: MyString
+  spanish: false

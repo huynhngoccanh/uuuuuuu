@@ -1,0 +1,117 @@
+%br
+- more_deals_total = 0
+- total = 0
+.container-fluid
+  .row
+    .popup_window
+      #service_results
+        .row{:style => "margin-bottom:20px;width:100%;"}
+          .col-md-5
+            %h2{:style => "padding-top:30px; font-size: 29px;"} Your Cash Calls
+          .col-md-4.col-md-offset-3
+            #mm_user_score
+              ="#{current_user ? current_user.score : '--'}<p style= 'line-height: 4px; font-size: 12px;'> YOUR SCORE </p>".html_safe
+
+        - if @results.present?
+          .table-responsive
+            %table.table
+              %thead
+                %th.active.no_border Merchant
+                %th.active.no_border Earn Cash
+                %th.active.no_border Offer
+                %th.active.no_border Code
+                %th.active.no_border Call/Shop Now
+              %tbody
+                - if @results.length <= 3
+                  - @results.each do |result|
+                    - total = total + result['user_money'] if result['user_money'].present?
+                    - more_deals_total = more_deals_total + result['user_money'] if result['user_money'].present?
+                    %tr
+                      %td.no_border
+                        = result["company_name"]
+                      %td.no_border
+                        $
+                        = result["user_money"]
+                      %td.no_border= "-"
+                      %td.no_border= "-"
+                      %td.no_border
+                        %i.fa.fa-phone
+                        = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result.id}", 'data-id' => "#{result.id}"
+                        %span{:class => "result-company-phone", :id => "result-company-phone-#{result.id}", :style => "display: none; cursor: pointer;", 'data-id' => "#{result.id}"}
+                          = result['company_phone']
+                - else
+                  - index = 0
+                  - @results.in_groups_of(3) do |result_batch|
+                    - if index == 0
+                      - index = index + 1
+                      - result_batch.each do |result|
+                        - if result.present?
+                          - total = total + result['user_money'] if result['user_money'].present?
+                          %tr
+                            %td.no_border
+                              = result["company_name"]
+                            %td.no_border
+                              $
+                              = result["user_money"]
+                            %td.no_border= "-"
+                            %td.no_border= "-"
+                            %td.no_border
+                              %i.fa.fa-phone
+                              = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result.id}", 'data-id' => "#{result.id}"
+                              %span{:class => "result-company-phone", :id => "result-company-phone-#{result.id}", :style => "display: none;", 'data-id' => "#{result.id}"}
+                                = result['company_phone']
+                    - else
+                      %tbody.hidden-more-deals.no_border{:style => "display: none;"}
+                        - result_batch.each do |result|
+                          - if result.present?
+                            - more_deals_total = more_deals_total + result['user_money'] if result['user_money'].present?
+                            %tr.no_border
+                              %td.no_border
+                                = result["company_name"]
+                              %td.no_border
+                                $
+                                = result["user_money"]
+                              %td.no_border= "-"
+                              %td.no_border= "-"
+                              %td.no_border
+                                %i.fa.fa-phone
+                                = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result.id}", 'data-id' => "#{result.id}"
+                                %span{:class => "result-company-phone", :id => "result-company-phone-#{result.id}", :style => "display: none;", 'data-id' => "#{result.id}"}
+                                  = result['company_phone']
+          %hr
+          .total_cash.clearfix{:style => "margin: 10px 0px 20px 0px;"}
+            .col-md-7{:style => "text-align:left;"}
+              %h4
+                = "Your Total Cash: <span class='total-value' data-total='#{@more_deals_total}' data-initial='#{total}'>$#{total}</span>".html_safe
+              %span{:style => "margin-top: -10px;display: block;font-size: 11px;"}
+                For every call made you receive the cash payout if you transact
+            .col-md-5{:style => "text-align:right;margin-top: 10px;"}
+              = link_to 'MORE<br>DEALS'.html_safe, "javascript:void(0);", :class => 'more-deals-link hidden-deals btn btn-primary-custom', :style => "font-size: 12px;font-weight: bold;"
+
+          .clearfix{:style => "width:100%;"}
+            %hr
+            - if !current_user.blank?
+              %p.text-center{:style => "margin:20px 0px;"}
+                %br
+                = link_to "Didn't see your favorite service provider? Tell us who they are and get paid for every project they complete.", 'javascript:void(0);', :id => "service_providers_form", :style => "width: 50px", :class => "inverse_general_theme_link user-service-provider-toggle-link"
+                %br
+                =# link_to "Didn’t see your favorite service provider? Tell us who they are and get paid for every project they complete.", new_user_service_provider_path, :onClick => "generate_add_service_providers_popup(); return false;", :id => "service_providers_form", :style => "width: 50px", :class => "inverse_general_theme_link"
+        - else
+          %p
+            No information found.
+
+        .favorite-service-provider-form{:style => 'display: none; margin: 0 auto;'}
+          = render 'search/favorite_service_provider_form'
+:javascript
+
+  $('.more-deals-link').on('click', function(){
+    if($('.more-deals-link').hasClass('hidden-deals')){
+      $('.hidden-more-deals').show();
+      $('.total-value').html("$" + $('.total-value').data('total'));
+      $('.more-deals-link').removeClass('hidden-deals');
+    }else{
+      $('.hidden-more-deals').hide();
+      $('.total-value').html("$" + $('.total-value').data('initial'));
+      $('.more-deals-link').addClass('hidden-deals');
+    }
+  });

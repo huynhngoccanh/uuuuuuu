@@ -1,0 +1,90 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/affiliated_advertisers'
+
+- content_for :main_column do
+  %section.default-content
+    %p
+      = link_to "Download User's Intent History", {:action=>'download_user_data', :format=>'csv'}
+      %br
+    %p
+      = link_to 'Download CJ advertisers', {:action=>'cj_advertisers', :format=>'csv'}
+      %br
+      = link_to 'Download Avant advertisers', {:action=>'avant_advertisers', :format=>'csv'}
+      %br
+      = link_to 'Download Linkshare advertisers', {:action=>'linkshare_advertisers', :format=>'csv'}
+      %br
+      = link_to 'Download PepperJam advertisers', {:action=>'pj_advertisers', :format=>'csv'}
+      %br
+      = link_to 'Download Impact Radius advertisers', {:action=>'ir_advertisers', :format=>'csv'}
+    %p
+      = link_to 'Download CJ coupons', {:action=>'cj_coupons', :format=>'csv'}
+      %br
+      = link_to 'Download CJ coupons from api', {:action=>'cj_auto_downloaded_coupons', :format=>'csv'}
+      %br
+      = link_to 'Fetch CJ coupons from api', {:action=>'cj_fetch_coupons_manually'}, :confirm => 'Are you sure? This may take a while.'
+    %p
+      = link_to 'Download Avant coupons', {:action=>'avant_coupons', :format=>'csv'}
+      %br
+      = link_to 'Download Avant coupons from api', {:action=>'avant_auto_downloaded_coupons', :format=>'csv'}
+      %br
+      = link_to 'Fetch Avant coupons from api', {:action=>'avant_fetch_coupons_manually'}, :confirm => 'Are you sure? This may take a while.'
+    %p
+      = link_to 'Download Linkshare coupons', {:action=>'linkshare_coupons', :format=>'csv'}
+      %br
+      = link_to 'Download Linkshare coupons from api', {:action=>'linkshare_auto_downloaded_coupons', :format=>'csv'}
+      %br
+      = link_to 'Fetch Linkshare coupons from api', {:action=>'linkshare_fetch_coupons_manually'}, :confirm => 'Are you sure? This may take a while.'
+    %p
+      = link_to 'Download PJ coupons', {:action=>'pj_coupons', :format=>'csv'}
+      %br
+      = link_to 'Download PJ coupons from api', {:action=>'pj_auto_downloaded_coupons', :format=>'csv'}
+      %br
+      = link_to 'Fetch PJ coupons from api', {:action=>'pj_fetch_coupons_manually'}, :confirm => 'Are you sure? This may take a while.'
+
+    %p
+      = link_to 'Download IR coupons', {:action=>'ir_coupons', :format=>'csv'}
+      %br
+      = link_to 'Download IR coupons from api', {:action=>'ir_auto_downloaded_coupons', :format=>'csv'}
+      %br
+      = link_to 'Fetch IR coupons from api', {:action=>'ir_fetch_coupons_manually'}, :confirm => 'Are you sure? This may take a while.'
+
+    %hr
+    %p
+      Import CJ coupons
+      = form_tag({:action=>:cj_coupons_from_csv}, :multipart=>:true, :method=>:post) do
+        = file_field_tag :cj_coupons_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import Avant coupons
+      = form_tag({:action=>:avant_coupons_from_csv}, :multipart=>:true, :method=>:post) do
+        = file_field_tag :avant_coupons_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import Linkshare coupons
+      = form_tag({:action=>:linkshare_coupons_from_csv}, :multipart=>:true, :method=>:post) do
+        = file_field_tag :linkshare_coupons_csv
+        = submit_tag 'Upload'
+
+    %hr
+    %p
+      Import PJ coupons
+      = form_tag({:action=>:pj_coupons_from_csv}, :multipart=>:true, :method=>:post) do
+        = file_field_tag :pj_coupons_csv
+        = submit_tag 'Upload'
+
+    %hr
+    %p
+      Import IR coupons
+      = form_tag({:action=>:ir_coupons_from_csv}, :multipart=>:true, :method=>:post) do
+        = file_field_tag :ir_coupons_csv
+        = submit_tag 'Upload'
+
+
+
+
+
+
+%h2 Affiliates coupons
+= render 'layouts/application/one_column'

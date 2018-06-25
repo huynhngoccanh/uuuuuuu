@@ -1,0 +1,72 @@
+section.full-width.top-deals
+  .container
+    h2.border-lr.align-center Top Deals
+    .deals.grid-row
+      - @top_deals.each_with_index do |placement, i|
+        - merchant = placement.merchant
+        .col-4.deal-box
+          .deal
+            .top-sec
+              span.ribbon-overlay Deal
+              .links
+                a.shareBtn href="#" data-placement_id=(placement.id) data-share_url=("#{request.env['PATH_INFO']}?placement=placement-#{placement.id}") class=("shareModal_x#{placement.id}") : i.fa.fa-share-alt
+                - if user_signed_in?
+                  - user_favourite = current_user.user_favourites.where(resource_id: merchant.id).last
+                  a.like class=(user_favourite.blank? ? '' : 'change-color') href="#" data-like_state=(!user_favourite.blank?) data-merchant_id=merchant.id data-merchant_type="Merchant" data-signed_in="true" data-user_favourite_id=(user_favourite.try(:id).to_i)
+                    i.fa.fa-heart
+                - else
+                  a.like href="/login" data-signed_in="false"
+                    i.fa.fa-heart
+            figure
+              a#deal.thumb-image-container href="#{merchants_redirect_path(merchant.id)}" target="_blank"
+                .aligner
+                  = image_tag merchant.image.url(:iphone), title: merchant.name
+              .deal-info.align-center: p
+                = placement.header
+              .deal-bottom
+                p.join-loyalty-box
+                  - joined = !merchant.loyalty_programs_users.where(user_id: current_user.try(:id)).blank?
+                  .handshake
+                    a.join.joined href=(loyalty_result_path) class=('hide' if !joined) data-loyalty_enabled=(merchant.loyalty_enabled.to_s) Loyalty Program Joined
+                    a.join.joinModal href=(user_signed_in? ? "javascript:void(0)" : user_session_path) class=("joinModal_x#{merchant.id}" if user_signed_in?) data-merchant_id=(merchant.id) data-loyalty_enabled=(merchant.loyalty_enabled.to_s) class=('hide' if joined) Join Loyalty Program
+                p.view-more
+                  | View More
+                  = link_to " #{truncate(merchant.name, length: 25)} Offers ".html_safe, "/merchants/#{merchant.slug}/coupons", :target => "_blank"
+                p.deal-val
+                  span.ex-date
+                    i.fa.fa-clock-o
+                    - if placement.expiry.nil?
+                      = " Never Expires"
+                    - else
+                      = " Expires #{placement.expiry}"
+                  span.last-used
+                    i.fa.fa-unlock
+                    - if placement.last_used?
+                      = " Used #{time_ago_in_words(placement.last_used)} ago"
+                    - else
+                      = " Used #{rand(10..50)} minutes ago"
+                .button-wrapper
+                  a href="#" onclick="CouponModal.ShowCouponModal(#{placement.merge_attr.to_json});" class="btn sale-btn"  Get Deal
+
+#couponModal.modal.fade role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      span.modal-close
+        button.close-icon data-dismiss="modal" title=("Close") type="button" ×
+      .offer-outter-wrapper-b
+        .offer-box-b
+          .offer-bubble
+            | Copy the code below and paste it at checkout!
+          .offer-bubble-bottom
+            span#placement_code
+        .offer-action-b
+          a#placement_action.offer-action-button-b target="_blank"
+
+        hr.offer-horiz-b
+
+        .offer-details-b-sale
+          .offer-info-b
+            span#placement_description
+          .offer-info-2-b
+            .offer-clock-sign
+            span     

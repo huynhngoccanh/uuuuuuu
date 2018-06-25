@@ -1,0 +1,284 @@
+- if params[:placement]
+  - placement = Placement.where(id: params[:placement].split("-").last).last
+  - placement.update_attributes(last_used: DateTime.now)
+  - merchant = placement.merchant
+  #coupons_cashback.modal.fade tabindex="-1" role="dialog"
+      .coupon-popup.reveal-modal.modal-dialog
+        a.close-reveal-modal data-dismiss="modal" X
+        .top
+          h2 Copy the Code
+          p Paste this code at checkout to save
+          .coupon-box
+            - if placement.code.blank?
+              span.coupon Deal Activated
+            - else
+              span.coupon= placement.code
+              button.btn.btn-orange data-clipboard-target='fe_text' data-clipboard-text=(placement.code) id='d_clip_button' title='Click me to copy to clipboard.' copy code
+          p.small= "Go to <a target='_blank' href='#{merchants_redirect_path(merchant)}'>#{merchant.name}</a> and paste the code at checkout.".html_safe
+        .bottom
+          h3= placement.header
+          div class="shipping-info"
+            = placement.description
+            span.expires= "<strong>Expiration Date:</strong> #{placement.expiry}</span>".html_safe
+          .cash-back
+            h4 Cash Back!
+            p= "Deposited directly into your account with any purchase from #{merchant.name}"
+  - content_for :js do
+    javascript:
+      $(function() {
+        $('#coupons_cashback').modal("show");
+        $('.scr').css({'display':'block'})
+        var clip = new ZeroClipboard($("#d_clip_button"));
+        clip.on("copy", function (event) {
+          $("#d_clip_button").text("Copied!")
+        });
+        $('.close-reveal-modal').click(function(){
+          $('.scr').css({'display':'none'})
+        });
+      });
+       
+
+- if params[:coupon]
+  - coupon = Coupon.where(id: params[:coupon].split("-").last).last
+  - merchant = coupon.merchant
+  #coupons_view.modal.fade tabindex="-1" role="dialog" 
+    .coupon-popup.reveal-modal.modal-dialog
+      a.close-reveal-modal data-dismiss="modal" X
+      .top
+        h2 Copy the Code
+        p Paste this code at checkout to save
+        .coupon-box
+          - if !coupon.code.blank?
+              p =coupon.code
+              span.coupon= coupon.code
+              button.btn.btn-orange data-clipboard-target='fe_text' data-clipboard-text=(coupon.code) id='d_clip_button' title='Click me to copy to clipboard.' copy code
+          - else
+              span.coupon Deal Activated
+        p.small= "Go to <a href='#{merchants_redirect_path(merchant)}'>#{merchant.name}</a> and paste the code at checkout.".html_safe
+      .bottom
+      	-if coupon.coupon_type == "printable"
+	        figure class="logo" style=("box-shadow: 0 0px 5px 0 rgba(25,24,23,0.45);")
+	          = image_tag coupon.try(:print).try(:url), class: "img-responsive"
+        h3= coupon.header
+        div class="shipping-info"
+          - if coupon.expires_at.nil?
+              span.expires
+                strong 
+                 |Never Expires
+          - else       
+              span.expires= "<strong>Expiration Date:</strong> #{coupon.expires_at}</span>".html_safe
+        .cash-back
+          h4 Cash Back!
+          p= "Deposited directly into your account with any purchase from #{merchant.name}"
+  - content_for :js do
+    javascript:
+      $(function() {
+        $('#coupons_view').modal("show");
+        $('.scr').css({'display':'block'})
+        var clip = new ZeroClipboard($("#d_clip_button"));
+        clip.on("copy", function (event) {
+          $("#d_clip_button").text("Copied!")
+        });
+        $('.close-reveal-modal').click(function(){
+          $('.scr').css({'display':'none'})
+        });
+      });
+- if (params[:action] == "services") && (params[:controller] == "welcome")
+    
+    #services_modal.modal.fade tabindex="-1" role="dialog" style="position:fixed;top:20%;"
+        #cash_call.reveal-modal.popup.cash-call
+          header.header style=("background-color: #fff !important;")
+            figure
+              = image_tag "ubitru/logo.png"
+            a.close-reveal-modal data-dismiss="modal" X
+          .popup-content
+            .merchants-block.cf.zip-code
+              h3 style=("color: #f28006 !important;") align="center" 
+                strong For Local Merchants We need your Zipcode
+              br
+              .row
+                .col-sm-12 style="float:none"
+                  form.form-inline.zip-form
+                    .form-group
+                      .col-sm-6 style="float:none"
+                        input#zip-code type="text" class="form-control" placeholder="Zip Code" value=(current_user.try(:zip_code))
+                      .col-sm.3 style="float:none"
+                          button.btn.btn-default style=("padding: 8px 15px; background: #f28006;") type="submit"
+                            span.service-loader.hide
+                              i.fa.fa-spinner.fa-spin
+                            |  Submit
+              h4 align="center" To get cash back for all calls placed and completed
+              br
+              - unless user_signed_in?
+                h4 align="center" To get cash back for all calls placed and completed
+                h4 align="center" 
+                  | transactions don't forget to <a href="/signup">register</a> or <a href="/login">sign in</a>
+            .merchants-block.cf.results.hide
+              table.results-table
+                thead
+                  tr
+                    th.align-left Merchant
+                    th.align-center Earn Cash
+                    th.align-center Call Now
+                tbody
+                  tr
+                    td.align-left A Plumber Near You
+                    td.align-center $5.25
+                    td.align-center
+                      a.view-number href="#"
+                        i.fa.fa-phone
+                        | View Number
+#footer-links.modal.fade tabindex="-1" role="dialog"
+  .reveal-modal.modal-dialog.popup
+    header.header
+      h2 No Coupon Codes Required
+      a.close-reveal-modal data-dismiss="modal" X
+    .data-loading align="center"
+      i.fa.fa-spinner.fa-spin
+    .popup-content.hide
+      p Shop now and make money at <a href="#" class="custom-link inline-link" target="_blank">FinishLine.com</a>
+      .button-wrapper.row: a href="#" class="cutom-link btn btn-link" target="_blank" Go to FinishLine.com
+      .align-center.row: a href="#" class="logo"
+        = image_tag "ubitru/logo.png"
+      h4 
+        | Cash back on all purchases <br/>
+        | from <a href="#" class="custom-link inline-link" target="_blank">finishline.com</a>
+
+
+
+#submit_coupon.modal.fade tabindex="-1" role="dialog"
+  .reveal-modal.modal-dialog.popup.submit-coupon
+    header.header
+      h2
+        | Submit a New Coupon to Ubitru
+        |  and Get Paid!
+      a.close-reveal-modal data-dismiss="modal" X
+    .popup-content
+      p
+        | Help millions of shoppers save and
+        |  make money along the way!
+      form.coupons-form#coupon-form12 action=""
+        .input-box
+          label for="website"  Store Website
+          input#websit name="web"  type="text" required="true" placeholder="storewebsite.com"
+        .input-box.offer-type
+          label for="offer_type"  Offer Type:
+          .coupon-types
+            a.active href="#" data-coupon_type="with_code" Coupon Code
+            a href="#" data-coupon_type="printable" Printable Coupon
+            a href="#" data-coupon_type="tip" Sale/Shopping Tip
+        .input-box.code-block
+          label for="code"  Code
+          input#code type="text" placeholder="e.g. mm2014ab"  
+        .input-box.print-block.hide
+          label for="code" Select image to update
+          input#print placeholder="Image File" type="file"
+        .input-box.url-block.hide
+          label for="url" Select image to update
+          input#url placeholder="URL" type="text"
+        .input-box
+          label for="discount_desc"  Discount Description
+          textarea#discount_desc placeholder="e.g. 10% off all shoes, accessories at example.com. Excludes sales item. Expires 2/12/2020" required="true"
+        .input-box
+          label for="expiration"  Expiration Date (Optional)
+          input#expiration.datepicker placeholder="mm/dd/yy" type="text" required="true" as="datepicker"
+        .button-wrapper.align-center
+          input.btn.submit type="submit" value="Submit" 
+          input.btn.review type="button" value="Review"
+
+
+/! qualified pro popup
+-if (params[:action] == "services") && (params[:controller] == "welcome")
+  #qualified_popup.modal.fade tabindex="-1" role="dialog" 
+    .reveal-modal.modal-dialog.popup  
+      header.header style=("background-color: #fff !important;")
+        figure
+          = image_tag "ubitru/logo.png" ,:style => "width:14%;"
+        a.close-reveal-modal data-dismiss="modal" X
+      .popup-content style="max-width:450px"
+        .top
+          h3 Connect with New Customers
+          p 
+            strong
+              Last month thousands of customers requested help from professionals just like you
+        = form_tag '/qualified_pro', :method => :post do 
+          p Tell us about your business to see if you qualify to be part of the ubitru platform.
+          .row
+            .col-12
+              .col-md-4
+                p  Type of Service*
+              .col-md-8
+                = select_tag "qualified_pro[service_id]" ,options_from_collection_for_select(@services,"id","name")
+                
+          .row
+            .col-12
+              .col-md-4  
+                p 
+                  | Business Name
+                  sup *
+              .col-md-8    
+                .input-box
+                  input#business_name.form-control placeholder=("Your Business Name") type="text" name="qualified_pro[business_name]"
+          .row
+            .col-12
+              .col-md-4
+                p 
+                  | Your Name
+                  sup *
+              .col-md-4 
+                input#name.form-control placeholder=("First Name") type="text" name="qualified_pro[name]"
+              .col-md-4 
+                input#name.form-control placeholder=("Last Name") type="text" name="qualified_pro[l_name]"
+          .row
+            .col-12
+              .col-md-4  
+                p 
+                  | Phone
+                  sup *
+              .col-md-8    
+                .input-box
+                  input#phone.form-control placeholder=("Phone Number") type="tel" name="qualified_pro[phone]"
+          .row
+            label
+            .input-box
+              input#spanish type="checkbox" value="true" name="qualified_pro[spanish]"
+                | Spanish is my preferred language
+              sup *
+              .button-wrapper
+                input.btn.btn-green type="submit" value="Submit" 
+
+
+#preview_coupon.modal.fade tabindex="-1" role="dialog"
+ .reveal-modal.modal-dialog.popup.submit-coupon style="padding-bottom:0"
+   .coupon-popup.reveal-modal.modal-dialog 
+     a.close-reveal-modal data-dismiss="modal" X
+     .top
+         h2 Copy the Code
+         p Paste this code at checkout to save
+         h2
+           stronq 
+             |Coupon Type:
+             
+             strong#cou_type
+         .coupon-box
+           span.coupon#newcode 
+           button.btn.btn-orange 
+             |copy code
+         p.small= "Go to and paste the code at checkout."
+         p#coupon_merchant.small
+     .bottom
+         h3#coupon_header
+          |header
+         div class="shipping-info" style="word-break:break-all;"
+           s
+             |Description:
+             strong#coupon_des
+           span.expires 
+             |Expiry Date:
+             span#coupon_date
+         .cash-back
+           h4 Cash Back!
+           p= "Deposited directly into your account with any purchase from " 
+     .modal-footer
+       button.btn.btn-default#cancel-preview data-dismiss="modal" type="button"  Cancel
+   

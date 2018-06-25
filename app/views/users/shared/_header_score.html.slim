@@ -1,0 +1,6 @@
+.score
+ 	span.left Your Ubitru Score
+	- tip = "Your Ubitru score indicates your value to Ubitru vendors. It’s based on your likelihood to complete a purchase and the completeness of your profile."
+ 	= image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+  	span.right
+  		= current_user.score

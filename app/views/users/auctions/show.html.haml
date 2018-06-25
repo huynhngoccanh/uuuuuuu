@@ -1,0 +1,137 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .columns-wrap{:class=>@auction.combined_affiliate_offers.blank? ? '': 'with-offers'}
+      .column
+        %article#auction-details-preview.details-preview
+          %h3
+            - if @auction.bidding_finished?
+              = "THIS AUCTION ENDED ON: #{format_datetime(@auction.end_time)}"
+              = "( processing winners ...)" if @auction.unresolved?
+            - else
+              = "THIS AUCTION ENDS IN:"
+              - seconds_to_end = (@auction.end_time - Time.now).to_i
+              %span#countdown{:data=>{:seconds_to_end=>seconds_to_end}}
+                = seconds_to_days_and_time_html(seconds_to_end)
+          %hr
+          = render 'auction_attributes'
+        %article#auction-bids
+          - if @auction.resolved? #&& @auction.winners.count > 0
+            #offer-ribbon
+              .ribbon
+            %hr
+            = render 'winner_bid_list'
+          - else
+            %h3 
+              - if @auction.bidding_finished?
+                = "AUCTION WINNING BIDS"
+              - else
+                = "CURRENT WINNING BIDS"
+              = "- top #{@auction.max_vendors} win"
+              - if @auction.unresolved?
+                %br
+                = 'processing winners please wait up to 5 minutes ...'
+            %hr
+            = render 'bid_list'
+          - unless @auction.bidding_finished?
+            .actions
+              = link_to "Finish auction now!", resolve_auction_path(@auction), :class=> 'orange-button fixed-width-button'
+
+      - unless @auction.combined_affiliate_offers.blank?
+        = render 'extra_offers_message'
+
+      .column.second{:class=>@auction.combined_affiliate_offers.blank? ? '': 'with-offers'}
+        %article#auction-images
+          %h3
+            AUCTION IMAGES
+            %span (click images to enlarge)
+          %hr
+          = render 'auction_images'
+
+        - if @auction.resolved? && @auction.status != 'rejected'
+          %article#auction-value
+            .offwhite-box.details-preview
+              - if @auction.winners.count > 0
+                %h3 CONGRATULATIONS! You&nbsp;have earned
+                .encircled-value= format_currency(@auction.user_earnings)
+                %h3 from THIS AUCTION!
+                - if @auction.outcome && @auction.status == 'unconfirmed'
+                  %p.reminder
+                    Remember, you must accept at least one offer
+                    in order for these funds to be added to your MuddleMe
+                    wallet. Come back and provide feedback on your 
+                    transaction for an extra boost to your MuddleMe score!
+                  %p
+                    = link_to 'Provide outcome to claim earnings', outcome_auction_path(@auction), :class=>'orange-button'
+                - if @auction.status == 'confirmed'
+                  %p.reminder
+                    The company you indicated as the one you transacted with still needs to accept your claim.
+                    If the company will not reject your claim within 2 weeks the funds will be transfer to your MuddleMe balance automatically.
+
+              - else
+                - if @auction.status == 'accepted' || @auction.status == 'confirmed'
+                  %h3 CONGRATULATIONS! You&nbsp;have earned
+                  .encircled-value= format_currency(@auction.user_earnings)
+                  - if !@auction.affiliate_comission.blank?
+                    %p
+                      via instant offer from our affilate:
+                      = @auction.affiliate_comission.advertiser.name
+                - else
+                  %h3
+                    - if @auction.participants.count > 0
+                      = "There were too few bidders in this auction to meet the limit"
+                    - else
+                      = "There were no bids in this auction"
+    - if @auction.product_auction
+      %hr
+      .affiliate-offers-wrap
+        = render "affiliate_offers"
+      - if @auction.loading_affiliate_offers       
+        - content_for :javascripts do 
+          :javascript
+            $(function(){
+              showLoader($('.offers-spinner'))
+              window.setTimeout(function(){
+                $.getScript('#{check_offers_auction_path(@auction)}')
+              }, 3000)
+            })
+          
+
+%h2
+  = "AUCTION ##{@auction.number}"
+  - if @auction.bidding_finished?
+    - if @auction.resolved?
+      = 'has ended'
+    - else
+      = 'processing winners...'
+= render 'layouts/application/one_column'
+
+- unless @winning_bids.blank?
+  - @winning_bids.each do |bid|
+    - offer = bid.offer || (bid.campaign && bid.campaign.offer)
+    = render 'offer_details', :id => bid.id, :vendor=>bid.vendor, :offer=>offer, :offer_images=>offer && offer.offer_images
+  - content_for :javascripts do 
+    :javascript
+      initImageSlider();
+
+- content_for :javascripts do 
+  :javascript
+    $('.view-offer').click(function(e){
+      e.preventDefault();
+      var num = this.id.replace('offer-link-','');
+      showDetailsBox($('#offer-window-' + num));
+    });
+    $(function(){
+      $('.affiliate-offer-link').on('click', function(e){
+        e.preventDefault()
+        window.open($(this).attr('href'), 'muddleChildWin')
+        var height = 660
+        var left = $(window).width() + 100
+        var winParams = 'innerWidth=440,height=' + height + ',resizable=no,location=no,scrollbars=yes'
+        winParams += ',left=' + left
+        window.open($(this).attr('data-popup-href'), 'couponsPopup', winParams);
+      })
+    })
+

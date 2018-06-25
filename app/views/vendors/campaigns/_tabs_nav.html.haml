@@ -1,0 +1,12 @@
+- active_action ||= ''
+- tabs_actions = []
+- tabs_actions << {:action=>'product', :label=>'+ Product Campaign'}
+- tabs_actions << {:action=>'service', :label=>'+ Service Campaign'}
+
+%nav.tabs-nav
+  %ul
+    - tabs_actions.each do |action|
+      - cls = action[:action] == active_action ? 'active' : nil
+      %li{:class=>cls}
+        = link_to_unless(active_action==action[:action], action[:label], {:action=>action[:action]}) do
+          %span= action[:label]

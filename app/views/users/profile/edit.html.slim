@@ -1,0 +1,80 @@
+.grey-section
+  .link-section
+    .container
+      nav
+        ul
+          li
+            a.active href=(profile_path)  My Profile
+          li
+            a href=(earning_info_profile_path)  My Earnings
+          li
+            a href=(funds_withdrawals_path)  Withdraw Funds
+          li
+            a href=(notification_profile_path)  Notifications
+  .heading-section.clearfix
+    .container
+      h2
+        b My Profile
+      .score
+        span.left Your MuddleMe Score
+        span.right = current_user.score
+  .content-section
+    .container
+      .white-box.clearfix
+        .profile-section
+          h5
+            | UPDATE PROFILE DETAILS
+          - if @user.errors.any?
+            div class="alert alert-error" id="error_explanation"
+              h4
+                span.error= pluralize(@user.errors.count, "error")
+                |  prohibited this user from being saved
+              .error-list
+                - @user.errors.full_messages.each do |msg|
+                  li
+                    span= msg
+          table.normal border="0" cellpadding="0" cellspacing="0" width="100%" 
+            = simple_form_for @user, :url=>{:action=>:update},:wrapper=>:standard, :validate => true, :html=>{:class=>'no-label clearfix'} do |f|
+                tr
+                  th scope="row" width="25%"  First Name:
+                  td
+                    = f.input_field :first_name, class: "form-control"
+                tr
+                  th scope="row"  Last Name:
+                  td
+                    = f.input_field :last_name, class: "form-control"
+                tr
+                  th scope="row"  E-mail Address:
+                  td
+                    = f.input_field :email, class: "form-control", disabled: true
+                tr
+                  th scope="row"  Address:
+                  td
+                    = f.input_field :address, class: "form-control"
+                tr
+                  th scope="row"  City:
+                  td
+                    = f.input_field :city, class: "form-control"
+                tr
+                  th scope="row"  Zip Code:
+                  td
+                    = f.input_field :zip_code, class: "form-control"
+                tr
+                  th scope="row"  Phone Number:
+                  td
+                    = f.input_field :phone, class: "form-control"
+                tr
+                  th scope="row" Loyalty Password:
+                  td
+                    
+                    = f.text_field :storepassword, class: "form-control"
+                tr
+                  th scope="row"  &nbsp;
+                  td
+
+                tr
+                  th
+                  td
+                    = f.button :submit, :class => 'btn-primary'
+                    | &nbsp;
+                    = link_to "Cancel", profile_path

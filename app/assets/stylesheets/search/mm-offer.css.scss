@@ -1,0 +1,107 @@
+#mm-offer-modal, #mm-merchant-modal {
+  width: 500px!important;
+  .modal-header {
+    background-color: #a8da00;
+    min-height: 70px;
+    padding: 20px 20px 10px 20px;
+    .mm_data_company_name {
+      font-size: 26px;
+      color: #333333;
+      font-weight: bold;
+    }
+    .mm_data_company_url {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 16px;
+      display: inline;
+      line-height: 35px;
+    }
+  }
+}
+
+#mm-merchant-modal {
+  .modal-header {
+    padding-top: 10px;
+  }
+  .mm_data_merchant_email, .mm_data_company_phone {
+    margin-top: 5px;
+    color: white;
+  }
+  .mm_data_company_phone {
+    margin-top: 5px;
+  }
+}
+
+.mm-popup-shop-now {
+  width: 171px;
+  height: 36px;
+  background: image-url('search/shopnow.png');
+  display: inline-block;
+  float: right;
+  @include cursor-hand;
+}
+
+.mm-popup-close-button {
+  background-color: #797979;
+  background-image: -moz-linear-gradient(top, #a9a9a9, #797979);
+  background-image: -ms-linear-gradient(top, #a9a9a9, #797979);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a9a9a9), to(#797979));
+  background-image: -webkit-linear-gradient(top, #a9a9a9, #797979);
+  background-image: -o-linear-gradient(top, #a9a9a9, #797979);
+  background-image: linear-gradient(top, #a9a9a9, #797979);
+  border: 1px solid #797979;
+  border-top-color: #a9a9a9;
+  @include cursor-hand;
+  width: 140px;
+  white-space: normal;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-weight:bold;
+  font-size: 12px;
+  color:#fff !important;
+  //text-shadow: $text-shadow;
+  text-decoration: none;
+  padding:5px 10px;
+  @include border-radius(6px);
+  @include box-shadow(-2px 2px 5px -3px black);
+  line-height: normal;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.mm-popup-next-offer {
+  width: 164px;
+  height: 30px;
+  background: image-url('search/nextoffer.png');
+  float: left;
+  @include cursor-hand;
+  margin-bottom: 20px;
+}
+
+#mm-offer-details {
+  float: left;
+  line-height: 50px;
+  border-bottom: 1px solid #cccccc;
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#mm-offer-table {
+  margin-bottom: 10px;
+  td {
+    vertical-align: top;
+    text-align: left;
+    color: #222222;
+    font-size: 16px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    &:first-child {
+      padding-right: 10px;
+      width: 170px;
+    }
+  }
+}

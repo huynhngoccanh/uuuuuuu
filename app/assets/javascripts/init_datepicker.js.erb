@@ -1,0 +1,29 @@
+$(document).ready(function(){
+  initDatepickers();
+});
+
+function initDatepickers() {
+    $('input.datepicker:not(.hasDatepicker)').datepicker({
+        onClose:function (dateText, inst) {
+            $(inst.input).change().focusout();
+        },
+        dateFormat:'mm/dd/y',
+        buttonImage:"<%= asset_path('calendar-handle.png') %>",
+        buttonText:"Select date",
+        buttonImageOnly:true,
+        showOn:'both'
+    });
+
+    $('input.datetimepicker:not(.hasDatepicker)').datetimepicker({
+        dateFormat:'mm/dd/y',
+        timeFormat:'hh:mm TT',
+        ampm:true,
+        stepHour:1,
+        stepMinute:5,
+        separator: " at ",
+        buttonImage:"<%= asset_path('calendar-handle.png') %>",
+        buttonText:"Select date and time",
+        buttonImageOnly:true,
+        showOn:'both'
+    });
+}

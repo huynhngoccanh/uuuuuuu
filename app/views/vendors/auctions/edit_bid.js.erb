@@ -1,0 +1,14 @@
+$('#edit-bid-form').html("<%= escape_javascript render('edit_bid_form') %>");
+$('#bid_offer_id').multiselect({
+    header: false,
+    selectedList: 1,
+    height: "auto",
+    minWidth: "235",
+    multiple: false,
+    classes: "multiselect-button multiselect-dropdown",
+    position: {
+        my: 'left top',
+        at: 'left top'
+    }
+});
+initFormValidations('#edit-bid-form form');

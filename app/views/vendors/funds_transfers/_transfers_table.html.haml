@@ -1,0 +1,29 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:transfers, 'created_at')}
+      %a{:href=>list_order_url(:transfers, 'created_at')}
+        %span Date
+    %th
+      %span.txt
+        %span Type
+    %th{:class=>list_order_class(:transfers, 'amount')}
+      %a{:href=>list_order_url(:transfers, 'amount')}
+        %span Amount
+  - if @transfers.blank?
+    %tr
+      %td.ctr{:colspan=>3}
+        = "No transfers to show"
+  - else
+    - @transfers.each do |transfer|
+      %tr
+        %td= format_datetime(transfer.created_at)
+        %td
+          - if transfer.transactable_type == 'FundsTransfer' 
+            = transfer.transactable.use_credit_card ? 'Credit Card ' : 'Paypal ' if transfer
+            = "Payment" 
+          = "Grant by admin" if transfer.transactable_type == 'VendorFundsGrant' 
+        %td.ctr= format_currency(transfer.amount)
+.table-footer.table-info
+  .pages-info= page_entries_info @transfers
+  .right
+    = paginate @transfers, :param_name=>"transfers_page"

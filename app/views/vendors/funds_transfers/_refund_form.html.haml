@@ -1,0 +1,7 @@
+= simple_form_for @refund, :validate=>true, :wrapper=>:standard, |
+   :html=>{:class=>'with-label'} do |f|
+  .inputs
+    = f.input :requested_amount, :label => 'Requested amount:', :input_html=>{:value=>@refund.requested_amount && @refund.requested_amount.to_i}
+    = f.input :amount_available_for_refund, :as=>:hidden
+  .actions
+    = f.button :submit, 'Refund my transfers', :class=> "fixed-width-button"

@@ -1,0 +1,55 @@
+- model_class = User
+div class="page-header"
+  
+  h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+.row
+  .col-sm-9 style="border-right:1px black solid"
+    = form_for @user ,url: {action: "update"}, html: {class: "form-horizontal"} do |f|
+      .form-group
+        = f.label :First_Name, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :first_name, class: "form-control"
+      .form-group
+        = f.label :last_name, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :last_name, class: "form-control"
+      .form-group
+        = f.label :email, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :email, class: "form-control"
+      .form-group
+        = f.label :address, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :address, class: "form-control"
+      .form-group
+        = f.label :city, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :city, class: "form-control"
+      .form-group
+        = f.label :phone, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :phone, class: "form-control"
+      .form-group
+        = f.label :role, class: "col-sm-2 control-label"
+        .col-sm-6
+          = f.label :Admin, class: "col-sm-2"
+          .col-sm-10
+            = f.check_box :role, {:class => "(#{@user.role}  ==  ADMIN) ? 'cheked' : ''", :style => "mystyle" }, "ADMIN", ""
+          
+      .form-group
+        label.col-sm-2.control-label &nbsp;
+        .col-sm-10
+          = f.submit nil, class: "btn btn-primary"  
+          = link_to "Back", admin_users_path
+  
+  .col-sm-3
+    .pull-right style="margin-right:10%;"
+      ul
+        li.admin-user  
+          = link_to "Withdraw Amount History".html_safe, "/admin/customers/#{@user.id}/withdraw"        
+        li.admin-user 
+          = link_to "Purchase History".html_safe, "/admin/customers/#{@user.id}/purchase"    
+
+              
+
+           

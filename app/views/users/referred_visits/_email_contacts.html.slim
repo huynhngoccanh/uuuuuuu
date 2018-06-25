@@ -1,0 +1,29 @@
+
+article#direct-link.details-preview
+  h6
+    strong Invite your contacts from Gmail:
+    br
+    strong 
+      
+.field01
+  a href="#" class="btn fixed-width-button" style='width: 100%;background: #d8572a;' onclick="auth()" Import contacts  
+table.sorting border="0" cellpadding="0" cellspacing="0" width="100%"
+.table-responsive
+  table.sorting
+    thead
+     tr
+      / th Name
+      th Email
+      th Action
+    tbody#email-container
+
+  / = form_tag({:action=>'get_contact_list'}, :remote=>true, :id=>'get-contacts-form') do
+  /   div.input
+  /     = label_tag 'email_username', "E-mail:"
+  /     = text_field_tag 'email_username'
+  /   div.input
+  /     = label_tag 'email_password', "Password:"
+  /     = password_field_tag 'email_password'
+  /   .field01
+  /     = submit_tag 'Import contacts', :name=>'gmail', :class=>"fixed-width-button"
+  /     /= submit_tag 'Import Yahoo contacts', :name=>'ymail', :class=>"fixed-width-button"

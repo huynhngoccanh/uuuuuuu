@@ -1,0 +1,256 @@
+%main.main-container
+  %section.search-results.full-width
+    .container
+      %aside.leftbar.col-3
+        .searched-item
+          %h5.loyality-program
+            %a{:href => "#"} Join Loyalty Program
+          %figure
+            = image_tag @advertiser.image.url(:medium), title: @advertiser.name, :style => "margin-top: 15px;"
+          -unless @favorite_merchant
+            -if current_user.present?
+              %h4
+                = link_to "Add Favorite", favorite_path(advertisable_id: @advertiser.id, advertisable_type: @advertiser.class.name), remote: true 
+          -else
+            -if current_user.present?
+              %h4
+                = link_to "Remove from Favorites", remove_favorite_path(id: @favorite_merchant.id), remote: true
+              
+      %article.col-9.coupons-list
+        %h1
+          = @search_text 
+          's Coupon Codes and Cash Back 
+        -if current_user.present?
+          %a.submit-coupon{"data-animation" => "none", "data-reveal-id" => "submit_coupon", :href => "javascript:void(0);"}
+            %i.fa.fa-tag
+            Submit a Coupon
+        -else
+          %a.submit-coupon{"data-animation" => "none", "data-reveal-id" => "login_form", :href => "javascript:void(0);"}
+            %i.fa.fa-tag
+            Submit a Coupon
+        / coupon
+        -@user_coupons.each do |coupon, index|
+          .coupon.row
+            -if coupon.printable_coupon.present?
+              .offer-box.col-2
+              .offer-info.col-7
+                %h3
+                  = coupon.offer_type
+                %p.details
+                  %strong> Coupon Website:
+                  = coupon.store_website
+                %h5.submitted-by
+                  %span Submitted By:
+                  %a.link{:href => ""}= coupon.user.full_name
+                %p.expires
+                  %strong
+                    Cash Back
+                    = succeed "Expired:" do
+                      %br
+                  %span.date
+                    = coupon.expiration_date
+              .coupon-links.col-3
+                .show-coupon-code.row
+                  =image_tag coupon.printable_coupon.coupon_image, :style => "width: 150px; height: 150px;"
+
+            -else
+              .offer-box.col-2
+                .offer
+                  %h3
+                    %span= coupon.offer_header
+                  %h5 Offer
+              .offer-info.col-7
+                %h3
+                  = coupon.header
+                %p.details
+                  %strong> Details:
+                  = coupon.discount_description
+                %h5.submitted-by
+                  %span Submitted By:
+                  %a.link{:href => ""}= coupon.user.full_name
+                %p.expires
+                  %strong
+                    Cash Back
+                    = succeed "Expired:" do
+                      %br
+                  %span.date
+                    = coupon.expiration_date
+              .coupon-links.col-3
+                .show-coupon-code.row
+                  -if coupon.code.present?
+                    %span.coupon-overlay> Show Coupon Code
+                    = coupon.code
+                  -else
+                    %span.coupon-overlay> Show Coupon Code
+                    XXXXXX
+                .share
+                  %a.share-btn{:href => "javascript:void(0);"} Share
+                  .share-form
+                    %i.fa.fa-caret-up
+                    %i.fa.fa-close
+                    %h4 Send this coupon to your friends or post it.
+                    .social
+                      %a.facebook{:href => '#'}
+                        %i.fa.fa-facebook
+                      %a.twitter{:href => '#'}
+                        %i.fa.fa-twitter
+                      %a.google-plus{:href => '#'}
+                        %i.fa.fa-google-plus
+                    %h6.border-lr or
+                    %form{:action => '#'}
+                      .input-box
+                        %input#email{:placeholder => "Email Address", :type => "email"}
+                        %input{:type => "submit", :value => "Send"}
+                      %p
+                        If your contacts transact and redeem the coupon
+                        you get paid. It pays to share.
+
+
+
+        -@coupons.each do |coupon, index|
+          .coupon.row
+            .offer-box.col-2
+              .offer
+                %h3
+                  %span 25%
+                  Offer
+                %h5 Offer
+            .offer-info.col-7
+              %h3
+                = coupon.header
+              %p.details
+                %strong> Details:
+                = coupon.description
+              %h5.submitted-by
+                %span Submitted By:
+                %a.link{:href => ""} Muddle Admin
+              %p.expires
+                %strong
+                  Cash Back
+                  = succeed "Expired:" do
+                    %br
+                %span.date
+                  = coupon.expires_at
+            .coupon-links.col-3
+              .show-coupon-code.row
+                -if coupon.code.present?
+                  %span.coupon-overlay> Show Coupon Code
+                  = coupon.code
+                -else
+                  %span.coupon-overlay> Show Coupon Code
+                  XXXXXX
+              .share
+                %a.share-btn{:href => "javascript:void(0);"} Share
+                .share-form
+                  %i.fa.fa-caret-up
+                  %i.fa.fa-close
+                  %h4 Send this coupon to your friends or post it.
+                  .social
+                    %a.facebook{:href => '#'}
+                      %i.fa.fa-facebook
+                    %a.twitter{:href => '#'}
+                      %i.fa.fa-twitter
+                    %a.google-plus{:href => '#'}
+                      %i.fa.fa-google-plus
+                  %h6.border-lr or
+                  %form{:action => '#'}
+                    .input-box
+                      %input#email{:placeholder => "Email Address", :type => "email"}
+                      %input{:type => "submit", :value => "Send"}
+                    %p
+                      If your contacts transact and redeem the coupon
+                      you get paid. It pays to share.
+        
+
+      / submit coupon form
+      #submit_coupon.reveal-modal.popup.submit-coupon
+        %header.header
+          %h2
+            Submit a New Coupon to Muddleme
+            and Get Paid!
+          %a.close-reveal-modal
+            %img{:alt => "close", :src => "assets/close-btn.png"}
+        .popup-content
+          %p
+            Help millions of shoppers save and
+            make money along the way!
+          =form_tag(user_save_coupon_profile_path, :method => "post", :multipart => true ) do
+            = hidden_field_tag :advertisable_id, @advertiser.id
+            = hidden_field_tag :advertisable_type, @advertiser.class.name
+            = hidden_field_tag :store_website, @advertiser.advertiser_url
+            .input-box.offer-type
+              %label{:for => "offer_type"} Offer Type:
+              .coupon-types
+                %a.active{:id => "couponcode", :href => "#", :onclick => "couponcode()"} Coupon Code
+                %a{:id => "printcoupon", :href => "#", :onclick => "printablecoupon()"} Printable Coupon
+                %a{:href => "#"} Sale/Shopping Tip
+            #coupon_code
+              = hidden_field_tag :offer_type, "Coupon code"
+              .input-box
+                %label{:for => "code"} Code
+                = text_field_tag :code, '', :placeholder => 'e.g. mm2014ab'
+              .input-box
+                %label{:for => "header"} Header
+                = text_field_tag :header, '', :placeholder => 'e.g. 20% off on all products'
+              .input-box
+                %label{:for => "offer_header"} Offer Header
+                = text_field_tag :offer_header, '', :placeholder => 'e.g. 20% off Offer'
+              .input-box
+                %label{:for => "discount_desc"} Discount Description
+                = text_area_tag :discount_description, '', :placeholder => 'e.g. 10% off on all shoes, accessories at example.com. Excludes sales tax. Expires 2/12/2020', :class => 'placeholder-font-size'
+              .input-box  
+                %label{:for => "expiration"} Expiration Date (Optional)
+                = text_field_tag :expiration_date, '', :placeholder => "mm/dd/yy", :type => "date"
+              .button-wrapper.align-center
+                %input.btn.submit#submit_tag{:type => "submit", :value => "Submit"}
+                %button.btn.review{:type => "button"} Review
+            
+            #printablecoupon{:style=>"display:none;"}
+              = hidden_field_tag :offer_type, "Printable Coupon"
+              .input-box  
+                %label{:for => "expiration"} Expiration Date
+                = text_field_tag :expiration_date, '', :placeholder => "mm/dd/yy", :type => "date"
+              .input-box
+                %label{:for => "store_website"} Link to Coupon Code
+                = text_field_tag :store_website, '', :placeholder => 'e.g. www.bestbuy.com/code'
+              .input-box
+                %label{:for => "printable_coupon"} Select Image to Update
+                = file_field_tag :printable_coupon
+              .button-wrapper.align-center
+                %input.btn.submit#submit_tag{:type => "submit", :value => "Submit"}
+                %button.btn.review{:type => "button"} Review
+
+      #login_form.reveal-modal.popup.submit-coupon
+        %header.header
+          %h2
+            You need to Login Before Submitting Coupon
+          %a.close-reveal-modal
+            %img{:alt => "close", :src => "assets/close-btn.png"}
+        .popup-content
+          %p
+            Login Form
+          =form_tag(user_session_path, :method => "post") do
+            .input-box
+              %label{:for => "email_address"} Email Address
+              =text_field_tag("user[email]")
+            .input-box
+              %label{:for => "password"} Password
+              =password_field_tag("user[password]")
+            .button-wrapper.align-center
+              %input.btn.submit#submit_tag{:type => "submit", :value => "Submit"}
+
+:javascript
+  function couponcode() {
+    $("#printcoupon").removeClass("active");
+    $("#couponcode").addClass("active");
+    $('#printablecoupon').css("display", "none");
+    $('#coupon_code').css("display", "block");
+    console.log("A");
+  }
+  function printablecoupon() {
+    $("#printcoupon").addClass("active");
+    $("#couponcode").removeClass("active");
+    $('#coupon_code').css("display", "none");
+    $('#printablecoupon').css("display", "block");
+    console.log("B");
+  }

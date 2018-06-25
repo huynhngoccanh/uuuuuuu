@@ -1,0 +1,11 @@
+Hi <%= @user.first_name %>
+
+<% if @email_content.hello_sub_text.blank? %>
+    You made a successful cash-back purchase from
+    <%= @affiliate_name %>
+    via MuddleMe. Your got
+    <%= number_to_currency @search.user_earnings %>
+    .
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :search => @search, :user => @user, :merchant=>@merchant) %>
+<% end %>

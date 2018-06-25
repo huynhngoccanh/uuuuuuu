@@ -1,0 +1,44 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action => params[:action]
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %table.default-table
+      %tr
+        %th
+          %span.txt
+            %span Search
+        %th
+          %span.txt
+            %span Revenue
+        %th
+          %span.txt
+            %span Date
+      - if @searches.blank?
+        %tr
+          %td.ctr{:colspan => 3}
+            = 'No searches to show'
+      - @searches.each do |search|
+        %tr
+          %td
+            %span.txt
+              %span= link_to search.search, search_path(search)
+          %td
+            %span.txt
+              %span= number_to_currency search.revenue
+          %td
+            %span.txt
+              %span= search.created_at.strftime('%Y-%m-%d')
+
+    .table-footer.table-info
+      .pages-info= page_entries_info @searches
+      .right
+        = paginate @searches, :page => params[:page]
+
+%h2
+  All searches [
+  = @date_start.strftime('%B %d')
+  \-
+  = @date_end.strftime('%B %d')
+  ]
+= render 'layouts/application/one_column'

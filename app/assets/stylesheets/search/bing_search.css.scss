@@ -1,0 +1,141 @@
+#bing-container {
+  font-family: Arial, "Lucida Grande", sans-serif;
+  table {
+    width: auto;
+  }
+}
+
+#bing-top-bar {
+  height: 30px;
+  background-color: #333333;
+}
+
+#bing-results-type {
+  color: white;
+  margin-left: 120px;
+  font-size: 13px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+}
+
+#bing-arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid white;
+  position: absolute;
+  top: 23px;
+  margin-left: 129px;
+}
+
+#bing-logo-column {
+  width: 71px;
+  background: image-url('search/bing-iconset.png') 0 4px no-repeat;
+  padding-right: 12px;
+}
+
+#bing-search-box-form {
+  display: inline;
+}
+
+#bing-search-box-form-wrapper {
+  margin-top: 10px;
+  margin-left: 17px;
+}
+
+#bing-search-box-form {
+  input[type="text"] {
+    border: 0;
+    border-right: 1px solid #cccccc;
+    width: 517px;
+    height: 28px;
+    outline: none;
+    text-indent: 17px;
+    font-size: 18px;
+  }
+}
+
+#bing-input-column {
+  border: 1px solid #999999;
+  border-right: 0;
+  height: 35px;
+}
+
+#bing-submit-column {
+  border: 1px solid #999999;
+  border-left: 0;
+  width: 31px;
+  padding-left: 9px;
+  padding-top: 1px;
+}
+
+#bing-submit-button {
+  width: 23px;
+  height: 24px;
+  cursor: pointer;
+  cursor: hand;
+  background: image-url('search/bing-iconset.png') -97px 0 no-repeat;
+}
+
+.bing-search-input-box-id-1-focused {
+  border-right: 0!important;
+}
+
+.bing-submit-column-focused {
+  background-color: #ffb900;
+}
+
+.bing-submit-button-focused {
+  background: image-url('search/bing-iconset.png') -122px 0 no-repeat!important;
+}
+
+#bing-results-container {
+  margin-left: 120px;
+}
+
+#bing-total-results {
+  margin-top: 22px;
+  margin-bottom: -4px;
+  font-size: 12px;
+}
+
+#bing-results-table {
+  td {
+    width: 530px;
+  }
+  #bing-results-header-column {
+    padding-top: 22px;
+    font-size: 18px;
+  }
+
+  #bing-results-link-column {
+    padding-top: 4px;
+    color: green;
+    font-size: 13px;
+  }
+
+  #bing-results-description-column {
+    padding-top: 2px;
+    font-size: 13px;
+  }
+}
+
+#bing-pager-table {
+  .page {
+    padding-left: 10px;
+    padding-right: 10px;
+    //border: 1px solid red;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+#bing-bottom-bar {
+  margin-top: 60px;
+  background-color: #333333;
+  height: 60px;
+}

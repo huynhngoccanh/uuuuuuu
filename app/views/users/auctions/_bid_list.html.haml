@@ -1,0 +1,27 @@
+%table.default-table
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Bidder
+    %th.no-hvr
+      %span.txt 
+        %span Bid Amount
+    %th.no-hvr
+      %span.txt
+        %span Bid Time
+  - if @bids.blank?
+    %tr
+      - if !@auction.product_auction
+        %td.ctr{:colspan=>3} 
+          = "No bids on this auction yet"
+      - else
+        %td.no-bids-message{:colspan=>3} 
+          = "No bids yet? No problem! Find your item and related accessories below!"
+  - else
+    - @bids.each_with_index do |bid, idx|
+      - cls = cycle(nil,'odd')
+      %tr{:class=>cls}
+        %td= bid.vendor.company_name
+        %td.ctr= format_currency(bid.current_value)
+        %td.ctr
+          = format_datetime(bid.updated_at)

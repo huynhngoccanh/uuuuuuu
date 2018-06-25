@@ -1,0 +1,14 @@
+<%if @error_message.blank?%>
+  parent.jQuery.fancybox.close();
+  <%if params[:go_to_url].present?%>
+    alert("Your registration was successful, please check your email.");
+    parent.location.reload(true);
+    window.open( "<%=params[:go_to_url]%>", '_blank');
+  <%else%>
+    alert("Your registration was successful, please check your email.");
+    <%session[:user_sign_up_via_sbs] = true%>
+    parent.location.reload(true);
+  <%end%>
+<%else%>
+  //alert("<%=@error_message%>");
+<%end%>

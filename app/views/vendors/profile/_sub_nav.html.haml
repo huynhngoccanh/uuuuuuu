@@ -1,0 +1,18 @@
+- active_action ||= ''
+- active_controller ||= ''
+
+- subnav_actions = []
+- subnav_actions << {:controller=>'vendors/profile', :action=>'show', :label=>'Profile Details'}
+- subnav_actions << {:controller=>'/vendors', :action=>'categories', :label=>'Company Details'}
+- subnav_actions << {:controller=>'vendors/funds_transfers', :action=>'index', :label=>'Billing'}
+- subnav_actions << {:controller=>'vendors/settings', :action=>'new', :label=>'Notifications'}
+- subnav_actions << {:controller=>'vendors/tracking_events', :action=>'index', :label=>'Tracking'}
+
+
+
+%ul{:style => "margin-top: -38px;"}
+  - subnav_actions.each do |action|
+    - cls = (action[:action]==active_action && action[:controller]==active_controller) ? 'active' : nil
+    %li{:class=>cls}
+      = link_to_unless(active_action==action[:action] && action[:controller]==active_controller, action[:label], {:controller=> action[:controller], :action=>action[:action]}) do
+        %span= action[:label]

@@ -1,0 +1,13 @@
+<h2>Import Stores Location for Loyalty Program</h2>
+
+<%= form_tag "loyalty_program_stores", multipart: true do %>
+  <p>Loyalty Program : 
+  <%= select_tag "id", options_from_collection_for_select(LoyaltyProgram.all, "id", "name"), :prompt => "choose loyalty program", :id => "add-loyalty-program"  %>
+  </p>
+  </br>
+  <p>File : 
+  <%= file_field_tag :file %>
+  </p>
+  </br>
+  <%= submit_tag "Import" %>
+<% end %>

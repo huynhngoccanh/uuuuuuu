@@ -1,0 +1,10 @@
+= simple_form_for(@admins_store_category) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :order
+
+  .form-actions
+    %br
+    = f.button :submit,:class=>'orange-button fixed-width-button'

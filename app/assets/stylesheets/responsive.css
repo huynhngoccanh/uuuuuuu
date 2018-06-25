@@ -1,0 +1,227 @@
+@media screen and (min-width: 1200px) and (max-width: 1920px){
+  .header-area ul {
+    list-style: outside none none;
+    margin-left: 8%!important;
+    margin-top: 1%;
+  }
+  .align-right p, .align-right h1 {text-align: left;}
+  .align-center  h1, .align-left > h1 {
+    text-align: right !important;
+  }
+  .align-center > p, .align-left > p {
+    text-align: right;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px){
+  .header-area ul {margin-left: 0}
+  .align-right p, .align-right h1 {text-align: left;}
+  .align-center  h1, .align-left > h1 {
+    text-align: right !important;
+  }
+  .align-center > p, .align-left > p {
+    text-align: right;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px){
+  .top-menu{display: none;}
+  .login-sec{display: none;}
+  .part-4 hr {
+    display: none;
+  }
+  .part-6 {
+    background: none repeat scroll 0 0 #fa7f07;
+  }
+  .part-7 {
+    padding-bottom: 20px;
+  }
+  .part-9 hr, .part-12 hr, .part-14 hr{display: none;}
+  .part-11 {
+    background: none;
+  }
+  .part-13 a {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+  }
+  .align-right p, .align-right h1 {text-align: left;}
+  .align-center span p {
+    text-align: center;
+  }
+  .menubtn {
+    margin: -36px 0 10px;
+  }
+  .header-area ul {margin-left: 0}
+}
+
+
+
+@media screen and (min-width: 640px) and (max-width: 767px){
+  .top-menu{display: none;}
+  .login-sec{display: none;}
+  .part-4 hr {
+    display: none;
+  }
+  .part-11 {
+    background: none;
+  }
+  .part-6 {
+    background: none repeat scroll 0 0 #fa7f07;
+  }
+  .part-7 {
+    padding-bottom: 20px;
+  }
+  .part-9 hr, .part-12 hr, .part-14 hr{display: none;}
+  .part-13 a {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+  }
+  .feture-sec img {
+    margin-bottom: 20px;
+    width: auto;
+  }
+  .part-4 {margin: 0;}
+  .square.align-right  img, .align-center img, .align-left img {width: 38% !important;}
+  .align-center span p {
+    text-align: center;
+  }
+  .part-10 .boxs {
+    margin: 0 22% 10px;
+  }
+  .header-area ul {margin-left: 0}
+}
+
+@media screen and (min-width:445px) and (max-width: 639px) {
+  .top-menu{display: none;}
+  .login-sec{display: none;}
+  .part-4 hr, .part-12 hr, .part-14 hr {
+    display: none;
+  }
+  .part-6 {
+    background: none repeat scroll 0 0 #fa7f07;
+  }
+  .part-11 {
+    background: none;
+  }
+  .part-7 {
+    padding-bottom: 20px;
+  }
+  .part-9 hr{display: none;}
+  .part-13 a {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  .part-4 {margin: 0;}
+  .align-center span p {
+    text-align: center;
+  }
+  .part-10 .boxs {
+    margin: 0 22% 10px;
+  }
+  .square.align-right  img, .align-center img, .align-left img {width: 38% !important;}
+  .align-center span p {
+    text-align: center;
+  }
+  .part-3 img {
+    width: auto;
+    margin: 9px 0;
+  }
+}
+@media screen and (max-width: 445px) {
+  .top-menu{display: none;}
+  .login-sec{display: none;}
+  .part-4 hr, .part-12 hr, .part-14 hr {
+    display: none;
+  }
+  .part-6 {
+    background: none repeat scroll 0 0 #fa7f07;
+  }
+  .part-11 {
+    background: none;
+  }
+  .part-7 {
+    padding-bottom: 20px;
+  }
+  .part-9 hr{display: none;}
+  .part-13 a {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  .part-4 {margin: 0;}
+  .align-center span p {
+    text-align: center;
+  }
+  .part-10 .boxs {
+    margin: 0 8% 10px;
+  }
+  .square.align-right  img, .align-center img, .align-left img {width: 38% !important;}
+  .align-center span p {
+    text-align: center;
+  }
+  .part-3 img {
+    width: auto;
+    margin: 9px 0;
+  }
+  .part-11 input {
+    width: 55%;
+  }
+  .part-13 .dis-right{border-left: none;}
+  .part-11 span p {
+    padding: 5px 0px 30px 0;
+  }
+  .part-3 img {
+    width: 100%;
+  }
+  .part-2 input, .part-7 input {
+    width: 48.2%;
+  }
+  .part-7 .col-xs-4 {
+    margin: 0;
+    padding: 0;
+  }
+  .part-7 h1 {
+    font-size: 12px;
+  }
+  .part-7 img{width: 85%;}
+  .part-7 p {
+    font-size: 9px;
+  }
+  .part-7 i {
+    height: 15px;
+    padding: 2px;
+    width: 16px;
+  }
+  .part-2 input, .part-7 input {
+    height: 35px;
+    width: 50.2%;
+    font-size: 16px;
+  }
+  .part-2 a, .part-7 a {
+    font-family: 'Roboto Slab', serif;
+    padding: 8px 18px 8px;
+    font-size: 16px;
+  }
+  .square.align-center span p {
+    font-size: 9px;
+  }
+  .part-8 h1{font-size: 26px;}
+  .part-2 h1{font-size: 24px;}
+  .part-4 h1{font-size: 26px;}
+  .part-12-top-margin {
+    bottom: 18px;
+    left: 15px;
+    position: absolute;
+  }
+  .part-12{
+    position:relative;
+  }
+  .part-12.padding-top {
+    padding-bottom: 215px;
+  }
+}

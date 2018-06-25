@@ -1,0 +1,43 @@
+- current_admin ? resource.create_by_admin = true : resource.create_by_admin = false
+- resource.dont_require_password_confirmation = (current_admin ?  true : false)
+
+- content_for :javascripts do
+  - if resource.create_by_admin
+    :javascript
+      vendor_new.validators['vendor[password]'].confirmation = null //dont require password confirmation (manually  cause js doesnt support conditional validations)
+      vendor_new.validators['vendor[first_name]'].presence = null
+      vendor_new.validators['vendor[last_name]'].presence = null
+      vendor_new.validators['vendor[address]'].presence = null
+      vendor_new.validators['vendor[city]'].presence = null
+      vendor_new.validators['vendor[zip_code]'].presence = null
+      vendor_new.validators['vendor[zip_code]'].format = null
+      vendor_new.validators['vendor[phone]'].presence = null
+      vendor_new.validators['vendor[terms]'].acceptance = null
+  - else
+    :javascript
+      vendor_new.validators['vendor[first_name]'].presence = null
+      vendor_new.validators['vendor[last_name]'].presence = null
+      vendor_new.validators['vendor[address]'].presence = null
+      vendor_new.validators['vendor[city]'].presence = null
+
+= simple_form_for(resource, :as => resource_name, :validate=>true, :url => step1_vendor_registration_path, :wrapper=>:standard, :html=>{:class=>'no-label'}) do |f|
+  .inputs.clearfix
+    %div.column.form-col
+      = numbered_input f, :company_name, :required => true
+      = numbered_input f, :email, :required => true
+      - unless resource.social_registration?
+        = numbered_input f, :password, :required => true
+        = numbered_input f, :password_confirmation, :required => true unless resource.dont_require_password_confirmation
+      = numbered_input f, :first_name
+      = numbered_input f, :last_name
+      = numbered_input f, :address
+    %div.column.form-col
+      = numbered_input f, :city
+      = numbered_input f, :zip_code
+      = numbered_input f, :phone
+      = numbered_input f, :website_url
+      = numbered_input f, :review_url, :hint=>true
+      - terms_label = "Agree to #{link_to 'Terms and Conditions', company_terms_and_conditions_path} of&nbsp;MuddleMe Service".html_safe
+      = numbered_input f, :terms, :as=>:boolean, :use_label=>true, :required=>true, :label => terms_label
+  .actions.clearfix
+    = f.button :submit, "Continue", :class => "fixed-width-button"

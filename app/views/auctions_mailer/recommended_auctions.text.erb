@@ -1,0 +1,11 @@
+Hi <%= @vendor.first_name %>!
+
+<% if @email_content.hello_sub_text.blank? %>
+    today <%= @auctions.length %> auctions matching your criteria were initiated.
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auctions => @auctions, :vendor => @vendor) %>
+<% end %>
+
+Visit Muddleme to view them: 
+
+<% search_company_auctions_url %>

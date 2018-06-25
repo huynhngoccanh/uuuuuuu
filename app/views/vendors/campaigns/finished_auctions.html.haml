@@ -1,0 +1,18 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>''
+
+- content_for :main_column do
+  %section#campaign.default-content.clearfix
+    %article#campaign-auctions
+      %h3 Campaign name - #{@campaign.name}
+      %hr
+      #campaign_auctions_wrap
+        = render 'campaign_finished_auctions_list'
+
+%h2 Auctions history for campaign
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#campaign_auctions_wrap');

@@ -1,0 +1,34 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/custom_advertisers'
+  - content_for :main_column do
+    %section.default-content
+      %table
+        %tr
+          %td
+            %p Merchant/Store/Advertiser Name
+          %td
+            = @custom_advertiser.name
+        %tr
+          %td
+            %p Merchant Website URL
+          %td
+            = @custom_advertiser.advertiser_url
+        %tr
+          %td
+            %p Max Commission Percent
+          %td
+            = @custom_advertiser.max_commission_percent
+        %tr
+          %td
+            %p Max Commission Dollars
+          %td
+            = @custom_advertiser.max_commission_dollars
+        %tr
+          %td
+            %p Logo
+          %td
+            %a.thumb{:href=>@custom_advertiser.logo.url(:original), :class => cycle('first', 'middle', "last"), :rel=>'images', :id => "cd_logo"}
+              = @custom_advertiser.logo_file_name
+
+%h2 Merchant Details
+= render 'layouts/application/one_column'

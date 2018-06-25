@@ -1,0 +1,49 @@
+- content_for :sub_nav do
+  = ""
+
+- content_for :main_column do
+  %section.default-content#dashboard
+    %article.clearfix
+      %h3 INITIATE AN AUCTION FOR A PRODUCT OR SERVICE!
+      %hr
+      = render 'users/shared/create_auction'
+
+  %section.default-content#dashboard-auctions
+    %article.clearfix
+      %div.clearfix
+        .column.half-col 
+          %h3.icon.green-dot
+            ACTIVE AUCTIONS
+            - tip = "These are your currently active MuddleMe auctions."
+            = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+          %hr.for-table
+          #in_progress_auctions_wrap
+            - active_auctions  = current_user.auctions.where('auctions.end_time >= UTC_TIMESTAMP() ').limit(3)
+            = render 'users/auctions/auction_list_for_dashboard', :auctions=>active_auctions,:type=>:in_progress
+        .column.half-col.last-child
+          %h3.icon.red-dot
+            FINISHED AUCTIONS
+            - tip = "These are your finished MuddleMe auctions."
+            = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+          %hr.for-table
+          #finished_auctions_wrap
+            - finished_auctions = current_user.auctions.where('auctions.end_time < UTC_TIMESTAMP() ').limit(3)
+            = render 'users/auctions/auction_list_for_dashboard', :auctions=>finished_auctions,:type=>:finished
+      .actions
+        = link_to "Go to My Auctions!", auctions_path, :class=> 'orange-button fixed-width-button'
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'
+    = render 'users/shared/quick_stats'
+    = render 'users/shared/private_data'
+    = render 'users/shared/raise_score'
+
+
+
+%h2.floated My Dashboard
+%a{:href=> $app_store_link, :class=> "ir", :id => "app-store-link"}
+  Available on the app store
+.ui-helper-clearfix
+= render 'layouts/application/two_columns'
+

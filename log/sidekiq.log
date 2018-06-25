@@ -1,0 +1,41 @@
+# Logfile created on 2018-05-22 13:17:07 +0700 by logger.rb/44203
+2018-05-22T06:17:10.578Z 19074 TID-grsx0yuj8 INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-05-22T06:17:13.147Z 19074 TID-grsx0yuj8 INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-05-22T06:17:13.147Z 19074 TID-grsx0yuj8 INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-05-22T06:17:13.147Z 19074 TID-grsx0yuj8 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-05-22T06:17:46.019Z 19346 TID-gnxehgncg INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-05-22T06:17:48.204Z 19346 TID-gnxehgncg INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-05-22T06:17:48.204Z 19346 TID-gnxehgncg INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-05-22T06:17:48.204Z 19346 TID-gnxehgncg INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-05-22T06:17:48.206Z 19346 TID-gnxehgncg INFO: Starting processing, hit Ctrl-C to stop
+2018-05-22T06:19:49.640Z 19346 TID-gnxehgncg INFO: Shutting down
+2018-05-22T06:19:49.641Z 19346 TID-gnxehgncg INFO: Terminating quiet workers
+2018-05-22T06:19:49.641Z 19346 TID-gnxgkp660 INFO: Scheduler exiting...
+2018-05-22T06:19:49.741Z 19346 TID-gnxehgncg INFO: Pausing to allow workers to finish...
+2018-05-22T06:19:50.644Z 19346 TID-gnxehgncg INFO: Bye!
+2018-05-24T09:14:18.584Z 2557 TID-gquhya2vo INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-05-24T09:14:21.852Z 2557 TID-gquhya2vo INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-05-24T09:14:21.852Z 2557 TID-gquhya2vo INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-05-24T09:14:21.854Z 2557 TID-gquhya2vo INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-05-24T09:14:21.941Z 2557 TID-gquhya2vo INFO: Starting processing, hit Ctrl-C to stop
+2018-05-25T02:51:38.667Z 10196 TID-gpvxa1644 INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-05-25T02:51:43.570Z 10196 TID-gpvxa1644 INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-05-25T02:51:43.570Z 10196 TID-gpvxa1644 INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-05-25T02:51:43.570Z 10196 TID-gpvxa1644 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-05-25T02:51:43.742Z 10196 TID-gpvxa1644 INFO: Starting processing, hit Ctrl-C to stop
+2018-06-11T04:16:54.840Z 14642 TID-gqmgdoysg INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-06-11T04:16:58.926Z 14642 TID-gqmgdoysg INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-06-11T04:16:58.926Z 14642 TID-gqmgdoysg INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-06-11T04:16:58.926Z 14642 TID-gqmgdoysg INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-06-13T02:28:00.745Z 11494 TID-gnpa3hv78 INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-06-13T02:28:04.279Z 11494 TID-gnpa3hv78 INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-06-13T02:28:04.279Z 11494 TID-gnpa3hv78 INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-06-13T02:28:04.279Z 11494 TID-gnpa3hv78 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-06-18T04:12:59.514Z 16225 TID-gqlo9no6g INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-06-18T04:13:02.672Z 16225 TID-gqlo9no6g INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-06-18T04:13:02.672Z 16225 TID-gqlo9no6g INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-06-18T04:13:02.672Z 16225 TID-gqlo9no6g INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2018-06-19T02:08:24.395Z 8487 TID-gt0rmhauo INFO: Booting Sidekiq 4.1.4 with redis options {:url=>"redis://localhost:6379/0"}
+2018-06-19T02:08:29.612Z 8487 TID-gt0rmhauo INFO: Running in ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+2018-06-19T02:08:29.613Z 8487 TID-gt0rmhauo INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2018-06-19T02:08:29.613Z 8487 TID-gt0rmhauo INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org

@@ -1,0 +1,8 @@
+.tooltip {
+  @include border-radius(2px, 2px);
+  border: 1px solid #ffeea0;
+  background: #fff5c6;
+  padding: 7px;
+  color: #333333;
+  max-width: 228px - 14px;
+}

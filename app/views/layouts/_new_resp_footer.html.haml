@@ -1,0 +1,60 @@
+%footer.footer.full-width
+  .container.footer-top
+    .social-icons.col-6
+      %h3 Follow Us
+      %ul
+        %li.facebook
+          %a{:href => "https://www.facebook.com/pages/Muddleme/308255049336613?ref_type=bookmark", :target => "_blank"}
+            %i.fb-i.fa.fa-facebook
+          %span Facebook
+        %li.twitter
+          %a{:href => "https://twitter.com/MuddlemeSavings", :target => "_blank"}
+            %i.twitter-i.fa.fa-twitter
+          %span Twitter
+        %li.gplus
+          %a{:href => "https://plus.google.com/109111471039644073577", :target => "_blank"}
+            %i.fa.google-i.fa-google-plus
+          %span Google+
+        %li.youtube
+          %a{:href => "https://www.youtube.com/channel/UC80FmBdIUnmxVvIB1aOpaxw", :target => "_blank"}
+            %i.fa.youtube-i.fa-youtube
+          %span YouTube
+
+    .col-6.align-right.right
+      %a.btn.btn-orange{:href => "/referral"} REFER A FRIEND
+      %br
+        .facebook-like
+          = image_tag "fb-like.png"
+  .container.footer-bottom
+    .col-12
+      %hr
+    .row
+      .col-8.footer-nav
+        %ul
+          %li
+            %a{:href => "/"} Home
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Advertisers
+              %span.caret
+          %li
+            %a{:href => "/referral"} Referral
+          %li
+            %a{:href => about_path} About
+          %li
+            %a{:href => "#"} Muddle App
+          %li
+            %a{:href => 'http://muddleme.blog.com', :target => 'blank'} Muddle
+          %li
+            - if current_user.blank?
+              %a{:href => "/login"}
+                %i.fa.fa-key
+                LogIn
+            - else
+              %a{:href => funds_withdrawals_path, :style => "color:#f6f6f6;margin-right:5px;"}
+                %i.fa.fa-lock
+                %span{:style => "margin-right:15px;"} Balance:
+                %span.dollars{:style => "color:#9dc700 !important;"}= format_currency(current_user.total_balance || 0)
+              = link_to raw("<span>Sign out</span>"), destroy_user_session_path, :method=>'delete', :id=>'logout-link',:style => "color:#f6f6f6;margin-right:5px;"
+      .col-4.align-right.copyright
+        Copyright 2016 Muddleme

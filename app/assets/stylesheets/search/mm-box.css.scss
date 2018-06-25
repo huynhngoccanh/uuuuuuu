@@ -1,0 +1,387 @@
+@mixin control($height, $bg, $padding: 6px) {
+  display: inline-block;
+  padding: 0 $padding 0 $padding;
+  height: $height;
+  line-height: $height;
+  background-color: $bg;
+}
+
+@mixin cursor-hand {
+  cursor: pointer;
+  cursor: hand;
+}
+
+@mixin box-shadow($shadow: 0 1px 3px rgba(0,0,0,.25)) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin border-radius($radius: 5px) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin gradient-bg($color-start, $color-end, $old_ie: true) {
+  background: -webkit-gradient(linear, left top, left bottom, from($color-start), to($color-end));
+  background: -moz-linear-gradient(top, $color-start, $color-end);
+  @if $old_ie == true {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-start}', endColorstr='#{$color-end}');
+  }
+  background-image: linear-gradient(to bottom, $color-start, $color-end);
+}
+
+@mixin button($height, $bg) {
+  @include control($height, $bg);
+  @include cursor-hand;
+}
+
+#mm-box-container {
+  width: 540px;
+  text-align: right;
+  font-family: Arial, "Lucida Grande", sans-serif;
+  font-size: 12px;
+  margin-top: -10px;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+#mm-box {
+  background-color: #f1f1f1;
+  padding: 5px 6px 5px 5px;
+}
+
+#mm-logo {
+  width: 126px;
+  height: 44px;
+  background: image-url('search/muddlemelogo.png') no-repeat;
+  background-size: 100% auto;
+}
+
+.mm-listings {
+  margin-top: 5px;
+  th {
+    background-color: #dd4b39;
+    color: #f9f9f9;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+    border-left: 1px solid #d74331;
+  }
+  td, th {
+    text-align: center;
+    &:first-child {
+      text-align: left;
+      padding-left: 4px;
+    }
+  }
+  tbody {
+    tr:first-child td {
+      height: 4px !important;
+      padding: 0;
+    }
+    tr:nth-child(even) td {
+      background: #ffffff;
+    }
+    td {
+      padding: 6px 0 6px 0;
+      font-weight: normal;
+      color: #555555;
+      border-left: 1px solid transparent; /* firefox border glitch */
+    }
+  }
+  tfoot {
+    tr {
+      background: none;
+    }
+    td {
+      padding: 16px 0 8px 0 !important;
+    }
+  }
+  .mm_data_company_name, .mm_data_company_address {
+    width: 189px;
+    overflow: hidden;
+  }
+  .mm_data_user_money {
+    width: 70px;
+  }
+  .mm_data_company_name {
+    text-decoration: underline;
+  }
+  .mm_data_coupon_code {
+    width: 85px;
+  }
+  .mm-action {
+    width: 100px;
+  }
+  .mm_data_offer_name {
+    width: 75px;
+  }
+}
+
+#mm-box-header {
+  td {
+    text-align: left;
+    height: 80px;
+  }
+}
+
+#mm-user-score-label {
+  background-color: #506770;
+  min-width: 100px;
+  float: right;
+  text-align: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+#mm-user-score-label-after {
+  width: 0px;
+  height: 0px;
+  float: right;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid #506770;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+#mm-user-score-label, #mm_user_score {
+  height: 26px;
+  line-height: 26px;
+}
+
+#mm_user_score {
+  margin-right: 10px;
+  font-weight: normal;
+  float: right;
+  width: 73px;
+  height: 60px;
+  line-height: 55px;
+  font-size: 26px;
+  color: #ffffff;
+  text-align: center;
+  background: image-url('search/mm-score-bg.png') no-repeat;
+}
+
+#mm-next-offers-btn {
+  @include button(24px, #ffb709);
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+  text-indent: 16px;
+  padding-left: 4px;
+}
+
+#mm-next-offers-btn-icon {
+  width: 14px;
+  height: 12px;
+  background: image-url('search/mm-next-offers-icon.png');
+  position: absolute;
+  top: 6px;
+}
+
+#mm-total-money {
+  color: #dd4b39;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 40px;
+  font-size: 14px;
+}
+
+.mm-box-control {
+  @include control(28px, #ff955e, 8px);
+  margin-bottom: 5px;
+  margin-left: 5px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #93d500;
+  text-indent: 18px;
+  position: relative!important;
+}
+
+#mm-balance-btn-icon {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  background: image-url('search/mm-balance-btn-icon.png');
+  top: 6px;
+}
+
+#mm-profile-btn-icon {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  background: image-url('search/mm-profile-btn-icon.png');
+  top: 7px;
+}
+
+.mm-call-now-btn, .mm-shop-now-btn {
+  text-indent: 20px;
+  height: 18px;
+  @include cursor-hand;
+  color: #38a602!important;
+  font-weight: bold;
+  display: block;
+  line-height: 20px;
+}
+
+.mm-shop-now-btn {
+  background: image-url('search/mm-shopnow-btn-icon.png') no-repeat;
+}
+
+.mm-call-now-btn {
+  background: image-url('search/mm-callnow-btn-icon.png') no-repeat;
+}
+
+.mm-search-bar-icon {
+  width: 20px;
+  height: 21px;
+  outline: none;
+}
+
+.mm-search-bar-icon-logged-in {
+  background: image-url('search/mm-icon-logged-in.png') no-repeat;
+}
+
+.mm-search-bar-icon-not-logged-in {
+  background: image-url('search/mm-icon-not-logged-in.png') no-repeat;
+}
+
+.mm-active-link {
+  @include cursor-hand;
+  color: #1155cc !important;
+  text-decoration: underline !important;
+}
+
+.mm-affiliate-icon {
+  @include cursor-hand;
+  width: 20px;
+  height: 20px;
+  background: image-url('search/score.png');
+  position: absolute !important;
+  left: 114px;
+}
+
+
+#mm-coupons-modal {
+  width: 250px;
+  height: 400px;
+  margin-left: -125px;
+  top: 57%;
+  border-radius: 0;
+  overflow: hidden;
+  .modal-header {
+    padding: 0!important;
+    margin: 0!important;
+    .close {
+      position: absolute;
+      right: 0;
+    }
+  }
+  .modal-body {
+    padding: 0!important;
+    margin: 0!important;
+  }
+}
+
+#mm-coupons-iframe {
+  width: 250px;
+  border: 0;
+}
+
+.mm-continue-shopping-button {
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-weight: bold;
+  color: #fff !important;
+  text-decoration: none;
+  padding: 5px 10px;
+  -webkit-border-radius: 6px 6px;
+  -moz-border-radius: 6px / 6px;
+  -ms-border-radius: 6px / 6px;
+  -o-border-radius: 6px / 6px;
+  border-radius: 6px / 6px;
+  -webkit-box-shadow: -2px 2px 5px -3px black;
+  -moz-box-shadow: -2px 2px 5px -3px black;
+  box-shadow: -2px 2px 5px -3px black;
+  line-height: normal;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  background-color: #c75d1e;
+  background-image: -moz-linear-gradient(top, #dd6c2c, #c75d1e);
+  background-image: -ms-linear-gradient(top, #dd6c2c, #c75d1e);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dd6c2c), to(#c75d1e));
+  background-image: -webkit-linear-gradient(top, #dd6c2c, #c75d1e);
+  background-image: -o-linear-gradient(top, #dd6c2c, #c75d1e);
+  background-image: linear-gradient(top, #dd6c2c, #c75d1e);
+  background-repeat: repeat-x;
+  border: 1px solid #c75d1e;
+  border-top-color: #eb7d42;
+  margin-bottom: 5px;
+}
+
+.mm-center-content {
+  width: 100%;
+  text-align: center;
+}
+
+#mm-info-before-shopping {
+  z-index: 10000!important;
+  display: none;
+  width: 250px;
+  background-color: #a8da00;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 auto;
+  font-family: Arial, "Lucida Grande", sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  position: fixed !important;
+  input {
+    vertical-align: -2px;
+  }
+}
+
+#mm-box-message-container {
+  width: 100%;
+  height: 50px;
+  border: 1px solid silver;
+  overflow: hidden;
+  display: none;
+  padding: 1px;
+  .close {
+    transform: scale(0.7, 0.7);
+    -ms-transform: scale(0.7, 0.7);
+    -webkit-transform: scale(0.7, 0.7);
+
+    transform-origin: right top;
+    -webkit-transform-origin: right top;
+    -ms-transform-origin: right top;
+  }
+
+  #mm-current-message {
+    font-family: Museo;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  #mm-referral-notification-message {
+    min-height: 44px;
+    background: image-url('search/mm-referrals-incoming.png') no-repeat;
+    div {
+      margin-top: 5px;
+      font-size: bold;
+      font-weight: 16px;
+      margin-left: 60px;
+      width: 180px;
+      line-height: normal;
+    }
+  }
+}

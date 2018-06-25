@@ -1,0 +1,11 @@
+%p
+  %span.label
+    Do you want to tell us more about yourself now?
+%p
+  %span
+    Take a few seconds and tell us about yourself.
+    This way can calculate your Muddleme score more accurately and help you earn more money of your auctions.
+    You can skip this step and do it later from your account settings page.
+.actions
+  = button_tag "Continue", :id=>'describe-continue', :class=>'fixed-width-button', :type=>:button
+  = f.button :submit, "I’ll do it later", :class => 'fixed-width-button gray-button'

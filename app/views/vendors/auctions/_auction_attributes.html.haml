@@ -1,0 +1,66 @@
+- if @auction.product_auction?
+  %p
+    %span.label Product category:
+    %span
+      - @auction.product_category.ancestors.each do |c|
+        = c.name
+        &raquo;
+      = @auction.product_category.name
+- else
+  %p
+    %span.label Service category:
+    %span= @auction.service_category.name
+
+%p
+  %span.label= @auction.product_auction? ? "Seeking a product:" : "Project name:"
+  %span= @auction.name
+%p
+  %span.label Auction duration:
+  %span= @auction.duration_string
+%p
+  %span.label Approximate budget:
+  %span= @auction.budget || '--'
+
+- # vendor_restriction TODO
+
+%p
+  %span.label= @auction.product_auction? ? "Number of vendors:" : "Number of service providers:"
+  %span
+    - if @auction.min_vendors
+      = "At least #{@auction.min_vendors} and maximum of #{@auction.max_vendors}"
+    - else 
+      = @auction.max_vendors
+    = "top"
+    = @auction.product_auction? ? "vendors" : "service providers"
+    = "win"
+
+-#%p
+-#  %span.label= @auction.product_auction? ? "Desired time of purchase:" : "Desired time of service:"
+-#  %span
+-#    - if @auction.desired_time_to.blank?
+-#      = @auction.desired_time.nil? ? '--' : @auction.desired_time.strftime('%m/%d/%Y')
+-#    - else
+-#      = "between #{@auction.desired_time.strftime '%m/%d/%Y'}"
+-#      = "and #{@auction.desired_time_to.strftime '%m/%d/%Y'}"
+-#%p
+-#  %span.label Best contact time:
+-#  %span
+-#    - if @auction.contact_time.blank?
+-#      = 'any day'
+-#    - else
+-#      - if @auction.contact_time_to.blank?
+-#        = "at #{@auction.contact_time.strftime '%m/%d/%Y'}"
+-#      - else
+-#        = "between #{@auction.contact_time.strftime '%m/%d/%Y'}"
+-#        = "and #{@auction.contact_time_to.strftime '%m/%d/%Y'}"
+-#    - unless @auction.contact_time_of_day.blank?
+-#      = ", in the #{@auction.contact_time_of_day}"
+%p
+  %span.label Additional info:
+  %span= @auction.extra_info.blank? ? '--' : @auction.extra_info
+%p
+  %span.label MuddleMe score:
+  %span= @auction.score || '--'
+%p
+  %span.label Customers Claimed Score for this Auction:
+  %span= @auction.claimed_score || '--'

@@ -1,0 +1,92 @@
+%article#new-offer-images
+  = simple_form_for(OfferImage.new({:offer_id=>offer.id}), :url=>url_for(:controller=>"vendors/offers", :action=>'upload_image'), |
+        :html=>{:class=>"in-cols",:multipart => true, :id => "fileupload", :'data-image-list-url'=>url_for(:controller=>"vendors/offers", :action=>'uploaded_images', :id=>offer.id)}) do |f|
+    = f.input :offer_id, :as=>:hidden
+    = inputs_grouped f, :image, "Upload image:" do
+      .input-file-wrap.fileupload-buttonbar
+        .fakeupload
+          %input.fakeupload{:type=>:text}
+          %a.green-button Browse
+        = sub_input_row f, :image, :label=>false
+        .files
+        .info.drop-msg= '...or drop files here'
+
+%script#template-upload{:type=>"text/html"}
+  :plain
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <div class="template-upload fade">
+        {% if (file.error) { %}
+          <div class="preview error cancel">
+            <button class="fade"/>
+            <div>{%=locale.fileupload.errors[file.error] || file.error%}</div>
+          </div>
+        {% } else { %}
+          <div class="preview" title="{%=file.name%}"><span class="fade"></span></div>
+          <div class="progress active progress-success"><div class="bar" style="width:0%;"></div></div>
+        {% } %}
+      </div>
+    {% } %}
+%script#template-download{:type=>"text/html"}
+  :plain
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <div class="template-download fade">
+          {% if (file.error) { %}
+              <div class="preview error delete">
+                <button class="fade" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" />
+                {%=locale.fileupload.errors[file.error] || file.error%}
+              </div>
+          {% } else { %}
+                <div class="preview delete" title="{%=file.name%}">{% if (file.thumbnail_url) { %}
+                    <button class="fade" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" />
+                    <img src="{%=file.thumbnail_url%}">
+                {% } %}
+                </div>
+          {% } %}
+        </div>
+    {% } %}
+
+%script
+  :plain
+    $(function () {
+        $("input[type=file]")
+        .change(function(){
+          $(this).closest('.input-file-wrap').find('input.fakeupload').val($(this).val().replace('C:\\fakepath\\',''))
+        })
+
+        locale.fileupload.errors.emptyResult = 'Error while loading file'
+
+        // Initialize the jQuery File Upload widget:
+        $('#fileupload').fileupload({
+          autoUpload: true,
+          previewMaxWidth: 48,
+          previewMaxHeight: 48,
+          maxFileSize: window.fileUploadMaxFileSize || (300 * 1000),
+          maxNumberOfFiles: window.fileUploadMaxFiles || 10,
+          acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        });
+
+        var showHideDropMessage = function() {
+          var fn = $('#fileupload .files').children().length ? 'hide' : 'show';
+          $('#fileupload .drop-msg')[fn]();
+        }
+
+        $('#fileupload').bind('fileuploadadded', function () {showHideDropMessage()});
+        $('#fileupload').bind('fileuploaddestroyed', function () {showHideDropMessage()});
+        $('#fileupload input[type="file"]').attr('multiple', 'multiple');
+        //
+        // Load existing files:
+        $.getJSON($('#fileupload').data('image-list-url'), function (files) {
+          var fu = $('#fileupload').data('fileupload'),
+            template;
+          fu._adjustMaxNumberOfFiles(-files.length);
+          template = fu._renderDownload(files)
+            .appendTo($('#fileupload .files'));
+          // Force reflow:
+          fu._reflow = fu._transition && template.length &&
+            template[0].offsetWidth;
+          template.addClass('in');
+          $('#loading').remove();
+          showHideDropMessage();
+        });
+
+    });

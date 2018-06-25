@@ -1,0 +1,82 @@
+section.results-section.full-width
+  .container
+    .grid-row
+      .section01.clearfix
+        .left
+          ul
+            li class=((params[:category] != 'success' && params[:category] != 'num_used') ? 'selected' : '')
+              = link_to "ALL", loyalty_result_path(:category=>"all")
+            li class=(params[:category] == 'success' ? 'selected' : '')
+              = link_to "Active Accounts", loyalty_result_path(:category=>"success")
+            li class=(params[:category] == 'num_used' ? 'selected' : '')
+              = link_to "Recently Changed", loyalty_result_path(:category=>"num_used") 
+        .right
+          -if !@date.first.updated_at.blank?
+            ="Last Updated #{time_ago_in_words(@date.first.try(:updated_at))} ago."
+            / = " Last Updated #{rand(0..50)} minutes ago"
+          / -if @loyalty_programs_user.blank?
+          / -else
+          /   = " Last Updated #{time_ago_in_words(@loyalty_programs_user.first.try(:updated_at))} Ago"
+      .section02.clearfix
+        .heading RETAIL / SHOPPING
+        .content
+          table border="0" cellpadding="0" cellspacing="0" width="100%" 
+            thead
+              tr
+                th scope="col"  Loyalty Program
+                th scope="col"  Account
+                th scope="col"  Status
+                th scope="col"  Balance
+                th scope="col"  Expiration
+                th scope="col"  &nbsp;
+            tbody
+              - if current_user.loyalty_programs_users.blank?
+                tr
+                  td colspan="6" No Programs found in list
+              - @loyalty_programs_user.each do |loyalty_programs_user|
+                tr
+                  td
+                    span.joined
+                      = image_tag "ubitru/handshake01.png" ,class: "img-responsive" 
+                    = link_to loyalty_programs_user.loyalty_program.name , loyalty_programs_user.loyalty_program.redirection_link, target: "_blank"
+                  td= loyalty_programs_user.account_number
+                  td 
+                    a data-toggle="tooltip" style="color:#000" href="javascript:void(0)" title=loyalty_programs_user.try(:exception) =loyalty_programs_user.status.humanize
+                    '
+                    -if loyalty_programs_user.status.humanize == 'Failed'
+                      a class="retry" href="javascript:void(0)" data-toggle="tooltip" title="Retry program" data-merchant_id=(loyalty_programs_user.loyalty_program.id) data-account_id=(loyalty_programs_user.account_id) data-program_id=(loyalty_programs_user.id) data-programs_password=(loyalty_programs_user.password)
+                        i.fa.fa-repeat aria-hidden="true"
+                    = link_to 'Manually Upload' , "/loyalty_programs_users/#{loyalty_programs_user.id}/edit?manually_update=true"           
+                  -if loyalty_programs_user.loyalty_program.mobile_created == true
+                    
+                    td= loyalty_programs_user.points? ? loyalty_programs_user.points : "N/A"
+                  -else          
+                      td= loyalty_programs_user.points? ? loyalty_programs_user.points : "Pending"
+
+                  td &nbsp;
+                  td 
+                    a href='/loyalty_programs_users/#{loyalty_programs_user.id}/edit'
+                      i.fa.fa-pencil-square-o aria-hidden="true" 
+                    a href=(loyalty_programs_user_path(loyalty_programs_user.id)) data-method="delete"
+                      i.fa.fa-trash-o aria-hidden="true" 
+      .section03.clearfix
+        - if current_user.loyalty_programs_users.blank?
+          .modal-box
+            .close
+              a href="#" 
+                i.fa.fa-times aria-hidden="true" 
+            .heading Add Loyalty Reward Programs
+            .content.clearfix
+              p At this point you have not added any loyalty programs to your profile, please proceed to add your first loyalty program to Ubitru Reward Program.
+              .add-btn
+                a href="/loyalty"  Add a New Loyalty Program
+        - else
+          .content.clearfix
+            .add-btn style="text-align:right;"
+              a style="border-radius: 27px;" href="/loyalty"  Add a New Loyalty Program
+
+-content_for :js
+  javascript: 
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });

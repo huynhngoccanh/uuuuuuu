@@ -1,0 +1,47 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:campaigns, 'campaigns.name')}
+      %a{:href=>list_order_url(:campaigns, 'campaigns.name')}
+        %span Name
+    %th{:class=>list_order_class(:campaigns, 'campaigns.status')}
+      %a{:href=>list_order_url(:campaigns, 'campaigns.status')}
+        %span Status
+    %th{:class=>list_order_class(:campaigns, 'searches_won_count')}
+      %a{:href=>list_order_url(:campaigns, 'searches_won_count')}
+        %span Searches won
+    %th{:class=>list_order_class(:campaigns, 'searches_count')}
+      %a{:href=>list_order_url(:campaigns, 'searches_count')}
+        %span Impressions
+    %th{:class=>list_order_class(:campaigns, 'auctions_bid_to_won_ratio')}
+      %a{:href=>list_order_url(:campaigns, 'auctions_bid_to_won_ratio')}
+        %span Efficiency
+    %th
+      %span.txt
+        %span Actions
+  - if @campaigns.blank?
+    %tr
+      %td.ctr{:colspan=>6}
+        = "No campaigns to show"
+  - @campaigns.each do |c|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to c.name, edit_campaign_path(c)
+      %td= c.status
+      %td= c.searches_won_count
+      %td= c.searches_count
+      %td= c.searches_won_ratio.nil? ? '-' : "#{(c.searches_won_ratio)*100.round.to_i}%"
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              - if c.status == 'running'
+                = link_to 'Pause campaign', pause_campaign_path(c)
+              - elsif c.status == 'stopped'
+                = link_to 'Resume campaign', resume_campaign_path(c)
+              = link_to 'View campaign', edit_campaign_path(c)
+              = link_to('Delete campaign', campaign_path(c), :method => :delete, :confirm => 'Are you sure?')
+.table-footer.table-info
+  .pages-info= page_entries_info @campaigns
+  .right
+    = paginate @campaigns, :params=>params, :param_name=>"campaigns_page"

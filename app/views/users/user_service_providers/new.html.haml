@@ -1,0 +1,21 @@
+.container
+  .row
+    .popup_window
+      %h2
+        %p Didn't see your Favorite Service Provider?
+      %br
+      %h3
+        %p Enter their information and let us track them down and ask them to join!
+      %br
+      %h4
+        %p If they join, you get paid for every job they do.
+      = form_tag('/user_service_providers', :method => "post", :id => "new_service_provider_form", :remote => true, :class => "navbar-form") do
+        #sp-processing-message
+        #all-form-errors.text-center.text-danger
+        %p
+        = text_field_tag :merchant_name, {}, :placeholder => "Merchant Name", :class => "form-control"
+        %p
+        = text_field_tag :merchant_address, {}, :placeholder => "Merchant Address", :class => "form-control"
+        %p
+          .col-md-4.center-block
+            = submit_tag 'Submit', :id => "submitBtn", :class => "btn btn-primary-custom center-block"

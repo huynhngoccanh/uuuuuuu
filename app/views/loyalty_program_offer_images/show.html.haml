@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Loyalty program:
+  = @loyalty_program_offer_image.loyalty_program
+%p
+  %b Loyalty program offer:
+  = @loyalty_program_offer_image.loyalty_program_offer
+%p
+  %b Image updated at:
+  = @loyalty_program_offer_image.image_updated_at
+%p
+  %b Image file name:
+  = @loyalty_program_offer_image.image_file_name
+%p
+  %b Image content type:
+  = @loyalty_program_offer_image.image_content_type
+%p
+  %b Image file size:
+  = @loyalty_program_offer_image.image_file_size
+
+= link_to 'Edit', edit_loyalty_program_offer_image_path(@loyalty_program_offer_image)
+\|
+= link_to 'Back', loyalty_program_offer_images_path

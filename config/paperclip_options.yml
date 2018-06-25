@@ -1,0 +1,488 @@
+common: &default_settings
+  :access_key_id: <%= API_CONFIG['amazon_access_key'] %>
+  :secret_access_key: <%= API_CONFIG['amazon_access_secret'] %>
+  :bucket: <%= API_CONFIG['amazon_bucket_name'] %>
+  :s3_host_name: <%= API_CONFIG['s3_host_name'] %>
+
+production: &production
+  :auction_images:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "100x100>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/auction_images/image/:id/:style/:basename.:extension"
+      :path: "/auction_images/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :avant_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/avant_advertisers/image/:id/:style/:basename.:extension"
+      :path: "/avant_advertisers/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/avant_advertisers/logo/:id/:style/:basename.:extension"
+      :path: "/avant_advertisers/logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :cj_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/cj_advertisers/image/:id/:style/:basename.:extension"
+      :path: "/cj_advertisers/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/cj_advertisers/logo/:id/:style/:basename.:extension"
+      :path: "/cj_advertisers/logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :custom_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/custom_advertisers/image/:id/:style/:basename.:extension"
+      :path: "/custom_advertisers/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/custom_advertisers/logo/:id/:style/:basename.:extension"
+      :path: "/custom_advertisers/logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :hp_advertiser_images:
+    :hp_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "100X100>"
+        :medium: "381X328#"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/hp_advertiser_images/hp_image/:id/:style/:basename.:extension"
+      :path: "/hp_advertiser_images/hp_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :hp_logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "100X100>"
+        :medium: "100X100#"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/hp_advertiser_images/hp_logo/:id/:style/:basename.:extension"
+      :path: "/hp_advertiser_images/hp_logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :ir_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/ir_advertisers/image/:id/:style/:basename.:extension"
+      :path: "/ir_advertisers/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/ir_advertisers/logo/:id/:style/:basename.:extension"
+      :path: "/ir_advertisers/logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :linkshare_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/linkshare_advertiser/image/:id/:style/:basename.:extension"
+      :path: "/linkshare_advertiser/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :loyalty_programs:
+    :logo_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/loyalty_programs/logo_image/:id/:style/:basename.:extension"
+      :path: "/loyalty_programs/logo_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :icon_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/loyalty_programs/icon_image/:id/:style/:basename.:extension"
+      :path: "/loyalty_programs/icon_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :loyalty_program_coupons:
+    :barcode_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/loyalty_program_coupons/barcode_image/:id/:style/:basename.:extension"
+      :path: "/loyalty_program_coupons/barcode_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :offers:
+    :offer_video:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :url: ":s3_domain_url"
+      :url: "/offers/offer_video/:id/:style/:basename.:extension"
+      :path: "/offers/offer_video/:id/:style/:basename.:extension"
+    :barcode_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/offers/barcode_image/:id/:style/:basename.:extension"
+      :path: "/offers/barcode_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :offer_images:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :banner: "617x380>"
+        :medium: "617x380>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/offer_images/image/:id/:style/:basename.:extension"
+      :path: "/offer_images/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :personal_offers:
+    :offer_video:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :url: ":s3_domain_url"
+      :url: "/personal_offers/offer_video/:id/:style/:basename.:extension"
+      :path: "/personal_offers/offer_video/:id/:style/:basename.:extension"
+    :offer_barcode_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/personal_offers/offer_barcode_image/:id/:style/:basename.:extension"
+      :path: "/personal_offers/offer_barcode_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :offer_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/personal_offers/offer_image/:id/:style/:basename.:extension"
+      :path: "/personal_offers/offer_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :pj_advertisers:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/pj_advertisers/image/:id/:style/:basename.:extension"
+      :path: "/pj_advertisers/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :logo:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :url: ":s3_domain_url"
+      :url: "/pj_advertisers/logo/:id/:style/:basename.:extension"
+      :path: "/pj_advertisers/logo/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :printable_coupons:
+    :coupon_image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/:style/missing.png'
+      :styles:
+        :medium: "300x300>"
+        :thumb: "100x100>"
+      :url: ":s3_domain_url"
+      :url: "/printable_coupons/coupon_image/:id/:style/:basename.:extension"
+      :path: "/printable_coupons/coupon_image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :loyalty_program_offers:
+    :offer_video:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :url: ":s3_domain_url"
+      :url: "/loyalty_program_offers/offer_video/:id/:style/:basename.:extension"
+      :path: "/loyalty_program_offers/offer_video/:id/:style/:basename.:extension"
+  :merchants:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/missing/merchants/iphone/missing.png'
+      :styles:
+        :thumb: "70x"
+        :medium: "381x328>"
+        :upload: "48x48>"
+        :iphone: "268x>"
+        :iphone2x: "536x>"
+      :url: ":s3_domain_url"
+      :url: "/merchants/image/:id/:style/:basename.:extension"
+      :path: "/merchants/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+    :icon:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/missing/merchants/iphone/missing.png'
+      :styles:
+        :phone: "100x100#"
+      :url: ":s3_domain_url"
+      :url: "/merchants/icon/:id/:style/:basename.:extension"
+      :path: "/merchants/icon/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :placements:
+    :image:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/missing/merchants/:style/missing.png'
+      :styles:
+        :medium: "381X328#"
+      :url: ":s3_domain_url"
+      :url: "/placements/image/:id/:style/:basename.:extension"
+      :path: "/placements/image/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+  :coupons:
+    :print:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :https
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :avatar: :medium
+      :default_url: '/images/missing/merchants/:style/missing.png'
+      :styles:
+        :medium: "381X328#"
+      :url: ":s3_domain_url"
+      :url: "/coupons/print/:id/:style/:basename.:extension"
+      :path: "/coupons/print/:id/:style/:basename.:extension"
+      :convert_options:
+        :all: '-strip -auto-orient -colorspace sRGB'
+
+staging: &staging
+  <<: *production
+
+development: &development
+  <<: *production
+test: &test
+  <<: *production

@@ -1,0 +1,43 @@
+- content_for :javascripts do
+  = javascript_include_tag "#{params[:controller]}/multiselect"
+  = javascript_include_tag "#{params[:controller]}/customer-details"
+
+- resource[:email] = params[:email] if params[:email]
+- resource[:zip_code] = params[:zip_code] if params[:zip_code]
+- resource[:zip_code] = params[:user_initial_data][:zip_code] if params[:user_initial_data] && params[:user_initial_data][:zip_code]
+- resource[:email] = params[:email] if params[:email]
+- resource[:email] = params[:user_initial_data][:email] if params[:user_initial_data] && params[:user_initial_data][:email]
+
+= simple_form_for(resource, :as => resource_name, :url => user_registration_path, |
+  :wrapper=>:standard, :html=>{:class=>'no-label'}, :validate=>true) do |f|
+
+  %div.slider_window
+    %div.slider_wrap
+      %div#step1_init.slider_elem
+
+        %div.icon#mic-icon
+        %h3 THIS IS YOUR SECRET SAUCE!
+        %p
+          When you initiate a Ubitru auction, this is your contact information that will be up for sale to
+          the highest bidder. A vendor cannot view it until they have paid you for the right to do so.
+          You (along with market forces) determine the selling price. Otherwise, this information is private,
+          secure, and entirely controlled by you. Your contact information is a valuable product in this
+          marketplace, so keep it up-to-date.
+
+        %h3 WHAT ARE YOU REALLY WORTH?
+        = render :partial => 'social_nav'
+        = render "initial_fields", :f=>f
+
+      %div#step1_describe_customer.slider_elem.details-preview
+        %h3 DESCRIBE YOUR PROFILE
+        %hr
+        = render "describe_customer", :f=>f
+
+      %div#step1_additional.slider_elem.details-preview
+        %h3 DESCRIBE YOUR PROFILE
+        %hr
+        = render "additional_fields", :f=>f
+
+
+
+

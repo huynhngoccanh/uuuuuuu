@@ -1,0 +1,30 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>params[:action]
+
+- content_for :main_column do
+  %section.default-content.clearfix{:id=>"#{@type}_auctions_wrap"}
+    = render "vendors/auctions/headlines/#{@type}_headline" if @type == :won
+    = render 'auction_list', :type=>@type, :single=>true
+
+- header_texts = {}
+- header_texts[:bid] = 'Active auctions on which you have placed a bid'
+- header_texts[:recommended] = 'Recommended auctions'
+- header_texts[:latest] = 'Latest auctions'
+- header_texts[:finished] = 'Your recent auctions'
+- header_texts[:saved] = 'Your saved auctions'
+- header_texts[:won] = 'Auctions Won'
+
+%h2= header_texts[@type]
+= render 'layouts/application/one_column'
+
+= render 'bidding_windows'
+
+#profile-details-wrap
+
+- content_for :javascripts do
+  = javascript_include_tag "vendors/view-profile"
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('##{@type}_auctions_wrap');

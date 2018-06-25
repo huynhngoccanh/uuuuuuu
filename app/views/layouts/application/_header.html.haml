@@ -1,0 +1,35 @@
+
+%header#header
+  %div.row
+    %div.column
+      %a{:href => root_path}
+        %h1#logo.ir Muddle Me
+    - if current_user.nil?
+      %nav#main-nav.clearfix.site-navigation{:style => 'float: left;'}
+        %ul.menu
+          %li.menu-item{:class=>"#{current_page?(root_path) ? 'active' : ' '}"}
+            %a{:href => '/'} Home
+          %li.menu-item{:class=>"#{current_page?('/experience') ? 'active' : ' '}"}
+            %a{:href => '#'} Products
+            %ul.dropdown
+              %li.menu-item.sub-menu
+                = link_to "Browser Extension", "/experience"
+              %li.menu-item.sub-menu
+                = link_to "Muddleme Envy App", "#"
+              %li.menu-item.sub-menu
+                = link_to "Muddleme Services App", "#"
+              %li.menu-item.sub-menu
+                = link_to "Muddleme Mobile Coupon Book", "#"
+          %li{:class=>"#{current_page?('/referral') ? 'active' : ' '}"}
+            %a{:href => '/referral'} Referral
+          %li{:class=>"#{current_page?('/company')? 'active' : ' '}"}
+            %a{:href => '/company'} Business
+          %li{:class=>"#{current_page?(about_path)? 'active' : ' '}"}
+            %a{:href => about_path} About Us
+          %li
+            %a{:href => 'http://muddleme.blog.com', :target => 'blank'} Blog
+
+
+    %div#navigation-area
+      = render :partial => 'layouts/application/account_bar'
+      = render :partial => 'layouts/application/navigation_bar'

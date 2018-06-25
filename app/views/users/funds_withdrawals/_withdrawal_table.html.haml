@@ -1,0 +1,23 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:withdrawals, 'created_at')}
+      %a{:href=>list_order_url(:withdrawals, 'created_at')}
+        %span Date
+    %th{:class=>list_order_class(:withdrawals, 'amount')}
+      %a{:href=>list_order_url(:withdrawals, 'amount')}
+        %span Amount
+  - if @withdrawals.blank?
+    %tr
+      %td.ctr{:colspan => 2}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "No withdrawals"
+  - else
+    - @withdrawals.each_with_index do |w, idx|
+      %tr{:class=>cycle(nil,'odd')}
+        %td= format_datetime(w.created_at)
+        %td.ctr= format_currency w.amount
+
+.table-footer.table-info
+  .pages-info= page_entries_info @withdrawals
+  .right
+    = paginate @withdrawals, :param_name=>"withdrawals_page"

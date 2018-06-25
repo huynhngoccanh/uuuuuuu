@@ -1,0 +1,94 @@
+- content_for :sub_nav do
+  = render 'vendors/profile/sub_nav', :active_action=>'categories', :active_controller=>'/vendors'
+
+- content_for :main_column do
+  %section.default-content
+    = render 'vendors/tabs_nav', :active_action=>'index', :active_controller=>'vendors/keywords'
+
+    #new-keyword-form-wrap
+      = render 'add_keyword_form'
+    #filter-keyword-input-wrap.clearfix
+      = label_tag :filter, 'Filter:'
+      = text_field_tag :filter, '', :placeholder=>"type here to filter keywords"
+    #import-keywords-form-wrap
+      = form_tag({:action=>:import_from_adwords_csv}, :multipart=>:true, :method=>:post) do
+        .input-file-wrap.fileupload-buttonbar
+          .fakeupload
+            %input.fakeupload{:type=>:text}
+            %a.green-button Browse
+          .sub_input.file.optional
+            = file_field_tag :report_file, :id=>:report_file_input
+        = submit_tag '', :class=>'hidden-submit'
+        = label_tag :report_file, 'Import form AdWords CSV file'
+    #keyword-list-wrap.clearfix
+      = render 'keyword_list'
+    #delete-all-keywords-link-wrap
+      = link_to 'Delete all keywords', destroy_all_keywords_path, :method=>:delete, | 
+        :confirm=>'Are you sure you want to delete all keywords?'
+      
+
+
+%h2 Keywords
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  :javascript
+    simpleAjaxPagination('#keyword-list-wrap');
+
+    $(function(){
+      $('#new-keyword-form-wrap form').on('submit',function(){
+        showLoader($('#keyword-list-wrap'));
+      });
+
+      $('#keyword-list-wrap .delete').on('click', function(){
+        showLoader($('#keyword-list-wrap'));
+      });
+
+      //live filtering
+      var pendingReq;
+      var filterList = function(){
+        if(pendingReq) pendingReq.abort();
+        pendingReq = $.getScript('#{keywords_path(:search=>'__qry__')}'.replace('__qry__', $('#filter').val()));
+        showLoader($('#keyword-list-wrap'));
+        return;
+      }
+
+      var typingTimeout;
+      $('#filter').on('keyup', function(){
+        if(typingTimeout) window.clearTimeout(typingTimeout);
+
+        typingTimeout = window.setTimeout(function(){
+          filterList();
+        }, 300);
+      })
+
+      if($('#filter').val()) {
+        filterList();
+      }
+
+      $('#report_file_input').on('change', function(){
+        showLoader($('#import-keywords-form-wrap'), "Import keywords from CSV in progress");
+        $('#import-keywords-form-wrap .mask-txt').css('margin-top', '0px');
+        $('#import-keywords-form-wrap .mask img').css('opacity', 0.3);
+        $(this).closest('form').submit();
+      });
+
+      //table hover
+      $('.keywords-table td').on('mouseover', function(){
+        var $this = $(this);
+        if($this.hasClass('action')) {
+          $this.addClass('vis')
+        } else {
+          $this.next().addClass('vis')
+        }
+      }).on('mouseout', function(){
+        var $this = $(this);
+        if($this.hasClass('action')) {
+          $this.removeClass('vis')
+        } else {
+          $this.next().removeClass('vis')
+        }
+      });
+    })
+    
+    

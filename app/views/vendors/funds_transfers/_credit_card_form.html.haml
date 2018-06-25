@@ -1,0 +1,48 @@
+= simple_form_for @transfer, |
+  :wrapper=>:standard, :html=>{:class=>'with-label'} do |f|
+  .inputs
+    = f.input :use_credit_card, :as=>:hidden, :input_html=>{:value=>true}
+    = f.input :amount, :label => 'Amount:'
+    = f.input :card_type, :as=>:select, :collection=>credit_card_types, |
+      :prompt => "choose type", :label=>'Credit card type:'
+    = f.input :card_number, :label => 'Credit card number:', :required=>true
+  .inputs
+    = f.input :card_verification_value, :label => 'Sercurity code (CVV):', :as=>:integer, :required=>true
+    = f.input :card_month, :as=>:select, :label => 'Valid to month:', :required=>true, |
+      :collection=>(1..12).to_a
+    = f.input :card_year, :as=>:select, :label => 'Valid to year:', :required=>true, |
+      :collection=>(Date.today.year..Date.today.year+10).to_a
+  .inputs
+    = f.input :card_first_name, :label => 'First name:', :required=>true
+    = f.input :card_last_name, :label => 'Last name:', :required=>true
+  .actions
+    = f.button :submit, 'Deposit funds via CreditCard'
+
+= content_for :javascripts do
+  :javascript
+    $(function(){
+      $('select#funds_transfer_card_type').multiselect({
+        header: false,
+        selectedList: 1,
+        height: "auto",
+        minWidth: "110",
+        multiple: false,
+        classes: "multiselect-button multiselect-dropdown",
+        position: {
+          my: 'left top',
+          at: 'left top'
+        }
+      });
+      $('select#funds_transfer_card_year, select#funds_transfer_card_month').multiselect({
+        header: false,
+        selectedList: 1,
+        height: "auto",
+        minWidth: "80",
+        multiple: false,
+        classes: "multiselect-button multiselect-dropdown",
+        position: {
+          my: 'left top',
+          at: 'left top'
+        }
+      });
+    });

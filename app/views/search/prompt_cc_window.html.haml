@@ -1,0 +1,287 @@
+-if @coupons.blank?
+  .container-fluid
+    .row
+      .popup_window
+        #coupons-popup
+          .spacer45
+            %h2.noCouponTitle No Coupon Codes Required
+            %h4
+              Shop now and make money at
+              = link_to @advertiser.name, (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "mpc_link"
+          %br.spacer
+          = link_to "Go to #{@advertiser.name}", (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "btn btn-primary-custom gotoBtn"
+- else
+  #coupons_cashback.coupon-popup
+    .top
+      %h2 Copy the Code
+      %p Paste this code at checkout to save
+      .coupon-box
+        %span.coupon 
+          = @coupons.first.code
+        %button copy code
+      %p.small
+        -if @advertiser_url.blank?
+          Go to
+          %a{:href => @advertiser.advertiser_url} #{@advertiser.name}
+          and paste the code at checkout.
+        -else
+          Go to
+          %a{:href => @advertiser_url} #{@advertiser.name}
+          and paste the code at checkout.
+    .bottom
+      %figure.logo
+        %a{:href => ""}
+          %img{:src => fetch_image_of_advertiser(@advertiser, 'thumb')}
+      %h3 Free Shipping And Returns
+      .shipping-info
+        Free Shipping and returns with swim purchase.
+        %br/
+        Valid for free standard shipping and handling.
+        %br/
+        %span.expires
+          %strong Expiration Date:
+          4/1/2016
+      .cash-back
+        %h4 Cash Back!
+        %p Deposited directly into your account with any purchase from Sears.com
+
+= javascript_include_tag "zclip"
+:javascript
+
+    $(function(){
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })      
+    
+
+    //$(".user-submit-coupon-link").click(function(){$(".submit-coupon-user-section").slideToggle("slow")})
+    
+    $(document).on('click','.user-coupon-submit-btn-new',function(){
+   
+      var ccode = $('#user_coupon_form #code').val();
+      var cdesc = $('#user_coupon_form #discount_description').val();
+      var cexp = $('#user_coupon_form #expiration_date').val();
+      
+      if(ccode != '' && cdesc != '' && cexp != ''){
+        $('#coupCont1').hide();
+        $('#coupCont2').hide();
+        //$('#coupCont3').hide();
+        $(".submit-coupon-user-section").hide();
+        $(".preview-coupon-user-section").show();
+        $('#preview_coupon_code').html(ccode);
+        $('#preview_coupon_description').html(cdesc);
+        $('#preview_coupon_expire').html(cexp);
+      }else{
+        alert("Please Enter The Below Informations:\r\nCode:\r\nDiscount Description:\r\nExpiration Date:");
+      }
+      
+    });
+    
+    //preview
+    $(document).on('click','.user-coupon-preview-btn-new',function(){
+      var ccode = $('#user_coupon_form #code').val();
+      var cdesc = $('#user_coupon_form #discount_description').val();
+      var cexp = $('#user_coupon_form #expiration_date').val();
+      
+      
+      if(ccode != '' && cdesc != '' && cexp != ''){
+        $('#coupCont1').hide();
+        $('#coupCont2').hide();
+        //$('#coupCont3').hide();
+        $(".submit-coupon-user-section").hide();
+        $(".preview-coupon-user-section").show();
+        $('#preview_coupon_code').html(ccode);
+        $('#preview_coupon_description').html(cdesc);
+        $('#preview_coupon_expire').html(cexp);
+        $(".modalDialog").hide();
+        $(".preview-coupon-user-section").show();
+        if($("#offer_type").val() != "Printable Coupon"){
+          $(".prevewimg").hide();
+        }else{
+          $(".prevewimg").show();
+        }
+      }else{
+        alert("Please Enter The Below Informations:\r\nCode:\r\nDiscount Description:\r\nExpiration Date:");
+      }
+    });
+    
+    
+    });
+    
+     $("input.datepicker2").datepicker("destroy");
+    $("input.datepicker2").datepicker({
+        dateFormat: "mm/dd/y",
+        buttonImage: "/assets/calendar-handle.png",
+        buttonText: "Select date",
+        buttonImageOnly: !0,
+        showOn: "both"
+    })
+    $("input.datepicker2").click(function(){
+    $("#ui-datepicker-div").remove();
+    $("input.datepicker2").unbind("click");
+    $("input.datepicker2").datepicker("destroy");
+    $("input.datepicker2").datepicker({
+         dateFormat: "mm/dd/y",
+        buttonImage: "/assets/calendar-handle.png",
+        buttonText: "Select date",
+        buttonImageOnly: !0,
+        showOn: "both"
+    })
+    $("input.datepicker2").datepicker("show");
+    });
+    
+    
+     function  UpdatePreview(obj){
+          // if IE < 10 doesn't support FileReader
+          if(!window.FileReader){
+             // don't know how to proceed to assign src to image tag
+          } else {
+             var reader = new FileReader();
+             var target = null;
+
+             reader.onload = function(e) {
+              target =  e.target || e.srcElement;
+               $(".prevewimg").prop("src", target.result).show();
+             };
+              reader.readAsDataURL(obj.files[0]);
+          }
+        }
+    
+    
+    
+    $('.user-coupon-preview-cancel').click(function(){
+        $('#coupCont1').show();
+        $('#coupCont2').show();
+        //$('#coupCont3').show();
+        $(".submit-coupon-user-section").show();
+        $(".preview-coupon-user-section").hide();
+        
+        $(".modalDialog").show();
+        $(".preview-coupon-user-section").hide();
+    });
+    
+    $(".cp-back-btn").click(function(){
+      var prevElement=$('.selectedDiv').prev();
+      prevElement.show();
+      $(".selectedDiv").hide();
+      $(".selectedDiv").removeClass("selectedDiv");
+      prevElement.addClass("selectedDiv");
+
+      if($('div.first').css('display')=="block"){
+        $(".cp-back-btn").addClass("off");
+        if ($('.coupons_slider').length == 2){
+          $(".cp-next-btn").removeClass("off");
+        }
+      }
+      else{
+        $(".cp-next-btn").removeClass("off");
+      }
+
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })
+    });
+
+    $(".cp-next-btn").click(function(){
+      var nextElement= $('.selectedDiv').next();
+      nextElement.show();
+      $(".selectedDiv").hide();
+      $(".selectedDiv").removeClass("selectedDiv");
+      nextElement.addClass("selectedDiv");
+      if($('div.last').css('display')=="block"){
+        $(".cp-next-btn").addClass("off");
+        if ($('.coupons_slider').length == 2){
+          $(".cp-back-btn").removeClass("off");
+        }
+      }
+      else{
+        $(".cp-back-btn").removeClass("off");
+      }
+
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })
+    });
+
+
+:css
+  .coupons_slider { display: none; }
+  .coupons_slider.first { display: block; }
+  .off{display:none;}
+  .next_pos_fixed {
+    position: relative;
+    top: 200px;
+    right: 5px;
+    color: red;
+    float: right;
+  }
+  .prev_pos_fixed{
+    position: relative;
+    top: 199px;
+    left: 5px;
+    color: red;
+    float: left;
+  }
+  
+  .modalDialog {
+          position: fixed;
+          font-family: Arial, Helvetica, sans-serif;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: rgba(0,0,0,0.8);
+          z-index: 99999;
+          opacity:0;
+          -webkit-transition: opacity 400ms ease-in;
+          -moz-transition: opacity 400ms ease-in;
+          transition: opacity 400ms ease-in;
+          pointer-events: none;
+  }
+
+  .modalDialog:target {
+          opacity:1;
+          pointer-events: auto;
+  }
+
+  .modalDialog > div {
+          width: 600px;
+          position: relative;
+          margin: 1% auto;
+          padding: 5px 20px 13px 20px;
+          border-radius: 10px;
+          background: #fff;
+          /*background: -moz-linear-gradient(#fff, #999);
+          background: -webkit-linear-gradient(#fff, #999);
+          background: -o-linear-gradient(#fff, #999);*/
+  }
+
+  .close {
+          background: #fff;
+          color: #111;
+          line-height: 25px;
+          position: absolute;
+          right: -12px;
+          text-align: center;
+          top: -10px;
+          width: 24px;
+          text-decoration: none;
+          font-weight: bold;
+          -webkit-border-radius: 12px;
+          -moz-border-radius: 12px;
+          border-radius: 12px;
+          -moz-box-shadow: 1px 1px 3px #000;
+          -webkit-box-shadow: 1px 1px 3px #000;
+          box-shadow: 1px 1px 3px #000;
+  }
+
+  .close:hover { background: #fff; }

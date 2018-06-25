@@ -1,0 +1,10 @@
+- if check_withdrawal_errors(params[:errors])
+  #flash
+    .wrapper
+      .alert{:title => "Alert"}
+        .close
+        - unless session[:withdrawal_errors].blank?
+          - session[:withdrawal_errors].each do |error_message|
+            %p= error_message
+- else
+  - session.delete(:withdrawal_errors)          

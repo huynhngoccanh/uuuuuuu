@@ -1,0 +1,48 @@
+body {
+  margin:0;
+  padding: 0;
+  line-height: 1.4em;
+  font: 12pt  Arial,  Helvetica, "Lucida Grande", sens-serif;
+  background: #fff; 
+  color: #000;
+}
+
+h1 {
+  font-size: 13pt;
+  text-align: center;
+  padding: 3pt;
+}
+
+#preview {
+  padding: 15pt;
+}
+
+p {
+  paddin: 3pt 0;
+}
+
+p.bigger {
+  fon-size: 13pt;
+}
+
+p.highlight {
+  font-weight: bold;
+}
+
+/* overriden in print.css */
+
+body {
+  padding: 10px;
+} 
+
+#print-button {
+  padding: 40px;
+  text-align: center;
+  button {
+    font-size: 14pt;
+  }
+}
+
+#preview {
+  border: 2px solid black;
+}

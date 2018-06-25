@@ -1,0 +1,7 @@
+<a href="" ng-click="addNewTaxon(taxon, taxon)">{{taxon.name}}</a> <a href="" ng-click="fetchChild(taxon)"><i class="fa fa-plus"></i></a>
+<ul ng-if="!!taxon.descendants">
+  <li class="" ng-repeat="taxon in taxon.descendants">
+  	<div class="child" ng-include="'/templates/admin/categories/taxon.html'"></div>
+ 	</li>
+ 	<li class=""><a href="" ng-click="addNewTaxon('', taxon)">Add New</a></li>
+</ul> 

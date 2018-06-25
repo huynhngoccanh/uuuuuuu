@@ -1,0 +1,46 @@
+  .coupon.row.mix.couponsandcashbacks
+    .offer-box.col-2
+      .offer
+        span.offer-big-font =taxon.name 
+        span.offer-small-font
+        .align-center.store-img
+          a href="#"
+    .offer-info.col-10
+      .offer-content-top.row
+        .title-meta
+          span.coupon-verification
+            / -if coupon.expires_at.to_s > Date.today.to_s || coupon.expires_at.nil?
+            /   i.fa.fa-shield
+            /     strong.bold style="font-family: 'Roboto';"
+            /       = " Verified #{time_ago_in_words(coupon.verified_at)} ago"
+            / span.coupon-used-
+            /   i.fa.fa-users
+            /     '
+            /     strong.bold style="font-family: 'Roboto';" 
+            /       = coupon.views == nil ? 0 : coupon.views 
+            /       '
+            /       | People Used
+        h3.store-name: a href="#"= taxon.name
+        .offer-title: a href="#"
+        / a class="btn btn-red coupon-view" href=(redirect_coupon_path(coupon)) data-show_url=("#{request.env['PATH_INFO']}?coupon=coupon-#{coupon.id}&#{params.except('action').except('controller').except('coupon').to_query}") Get Code
+      .offer-content-bottom.row
+        p.details 
+          strong Details: 
+          = taxon.description
+        footer.footer-meta.cf
+          span.submitted-by
+            strong.bold
+              i.fa.fa-flag-o
+              |  Submitted By: 
+            
+          / span.exp-date
+          /   i.fa.fa-clock-o
+          /   -if coupon.expires_at.nil?
+          /     strong.bold Never Expires 
+          /   -else  
+          /     strong.bold Expires: 
+          /     = coupon.expires_at
+          span.success-rate
+            / i.fa.fa-thumbs-o-up
+          span.share-btn.links
+            a.mbx.shareBtn href="#" data-placement_id=(taxon.id) class=("shareModal_x#{taxon.id}") data-show_url=("#{request.env['PATH_INFO']}?taxon=taxon-#{taxon.id}&#{params.except('action').except('controller').to_query}") : i.fa.fa-share-alt

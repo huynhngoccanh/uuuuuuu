@@ -1,0 +1,84 @@
+.grey-section
+  = render partial: "shared/profile_header", locals: {current_tab: 'earning'}
+  .heading-section.clearfix
+    .container
+      h2 My Earnings
+      .score
+        span.left Your Ubitru Score
+        span.right = current_user.score
+  .content-section
+    .container
+      .white-box.clearfix
+        .earning-section
+          h5 YOUR EARNINGS
+          p style="font-size:17px;" 
+            span.label style="font-size:17px;color:#000;padding-left:0px;"  
+              | Total Balance:
+            strong.doller style="color:#000;"
+              = format_currency(current_user.total_balance)
+          p style=("font-size: 17px;color: #89bd07;padding-left:0px;") 
+            | Current Balance: 
+            strong = number_to_currency(current_user.balance)
+          p style="font-size:17px;padding-left:0px;" 
+            span class="label" style="font-size:17px;padding-left:0px;" Pending outcome:
+            strong.doller style="color:#cc3333;" 
+              =format_currency(current_user.unconfirmed_earnings) 
+              / = link_to format_currency(current_user.unconfirmed_earnings),"/search_requests#unconfirmed_search_requests_wrap", style:"color:#cc3333;"
+          hr
+          p
+            | Withdraw Funds:
+            span ($20 minimum withdrawal)
+          = form_tag '/api/v1/payment_histories/create_pay_request', :method => :post do 
+            .field01
+              label Amount:
+              input name="payment_history[amount]" type="text" /
+            .field02
+              label Your PayPal e-mail:
+              input name="payment_history[paypal_email]" type="text" /
+            .field03
+              input name="" type="submit" value=("Withdraw Via PayPal") /
+          .clearfix
+          hr
+          .left-panel
+            h5 Withdraw Transaction Details:
+            -if !@transaction.blank?
+              table.sorting border="0" cellpadding="0" cellspacing="0" width="100%" 
+                tr
+                  th scope="col" 
+                    | Paypal Email 
+                    i.fa.fa-sort aria-hidden="true" 
+                  th scope="col" 
+                    | Date
+                    i.fa.fa-sort aria-hidden="true" 
+                  th scope="col" 
+                    | Amount
+                    i.fa.fa-sort aria-hidden="true" 
+                - @transaction.each do |transaction|
+                  tr
+                    td =transaction.paypal_email
+                    td =transaction.created_at.strftime("%d-%B-%Y")
+                    td =transaction.amount.to_f
+            -else
+              h3
+                |Do not have any transaction history.
+            .container.pagination =paginate @transaction
+          .right-panel
+            h5 Loyalty programs Details:
+            -if !@merchants.blank?
+              table.sorting border="0" cellpadding="0" cellspacing="0" width="100%" 
+                tr
+                  th scope="col" 
+                    | Loyalty programs 
+                    i.fa.fa-sort aria-hidden="true" 
+                  th scope="col" 
+                    | Action
+                    i.fa.fa-sort aria-hidden="true" 
+                - @merchants.each do |merchant|
+                  tr
+                    td =merchant.try(:name)
+                    td =render partial: "shared/join_loyalty_programs", locals: {merchant: merchant}
+            -else
+              h4
+                |Do not have any joined loyalty programs.
+            .container.pagination =paginate @merchants
+

@@ -1,0 +1,39 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/review_submitted_coupons'
+- content_for :main_column do
+  %h2 User Submitted Coupons List
+  %section.default-content
+  %table.default-table
+    %tr
+      %th
+        %span.txt
+          %span Full Name
+      %th
+        %span.txt
+          %span Merchant
+      %th
+        %span.txt
+          %span Coupon Code
+      %th
+        %span.txt
+          %span Discount Description
+      %th
+        %span.txt
+          %span Admin Approve
+      
+      %th
+      %th
+
+    - @user_coupons.each do |user_coupon|
+      %tr
+        %td= user_coupon.user.full_name
+        %td= user_coupon.advertiser.name
+        %td= user_coupon.code
+        %td= user_coupon.discount_description
+        %td= user_coupon.admin_approve ? 'yes' : 'no'
+        %td= link_to 'Edit', edit_admins_review_submitted_coupon_path(user_coupon)
+        /%td= link_to 'Delete', admins_store_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  = will_paginate @user_coupons
+
+%h2= stores_page_name(params[:type])
+= render 'layouts/application/one_column'

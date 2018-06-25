@@ -1,0 +1,68 @@
+%section.full-width.local-services
+  .container
+    .col-6.banner-img
+      \&nbsp;
+      = image_tag "services-img.jpg", class: "no-desktop", alt: "Our Services"
+    .col-6.content
+      %h2 Don’t forget about your local services!
+      %p Receive local deals and cash back for calling and transacting with your favorite local service providers.
+      %p Get cash deposited directly into your account for simply calling and transacting with a local plumber or electrician.
+      - if current_user.blank?
+        .button-wrapper.f-right
+          %a#join.btn{"data-animation" => "none", "data-reveal-id" => "signup_form", :href => "#"} Join for FREE
+          %span.already-joined
+            Already joined?
+            %a#login{"data-animation" => "none", "data-reveal-id" => "login_form", :href => "#"} Log in
+
+
+
+    #signup_form.reveal-modal.popup.submit-coupon
+      %header.header
+        %h2
+          Account Setup
+        %a.close-reveal-modal
+          = image_tag "close-btn.png"
+      .popup-content
+        %p
+          Set up Your Account
+        =form_tag(user_registration_path, :method => "post") do
+          .input-box
+            %label{:for => "first_name"} First Name
+            =text_field_tag("user[first_name]")
+          .input-box
+            %label{:for => "last_name"} Last Name
+            =text_field_tag("user[last_name]")
+          .input-box
+            %label{:for => "zip_code"} Zip Code
+            =text_field_tag("user[zip_code]")
+          .input-box
+            %label{:for => "email_address"} Email Address
+            =text_field_tag("user[email]")
+          .input-box
+            %label{:for => "password"} Password
+            =password_field_tag("user[password]")
+          .button-wrapper.align-center
+            %input.btn.submit#submit_tag{:type => "submit", :value => "Submit"}
+            = hidden_field :top_deal, value: params[:c]
+
+
+
+    #login_form.reveal-modal.popup.submit-coupon
+      %header.header
+        %h2
+          Login
+        %a.close-reveal-modal
+          = image_tag "close-btn.png"
+      .popup-content
+        %p
+          Login Form
+        =form_tag(user_session_path, :method => "post") do
+          .input-box
+            %label{:for => "email_address"} Email Address
+            =text_field_tag("user[email]")
+          .input-box
+            %label{:for => "password"} Password
+            =password_field_tag("user[password]")
+          .button-wrapper.align-center
+            %input.btn.submit#submit_tag{:type => "submit", :value => "Submit"}
+                          

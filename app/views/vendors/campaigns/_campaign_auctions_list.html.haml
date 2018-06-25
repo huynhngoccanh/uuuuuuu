@@ -1,0 +1,89 @@
+%table.default-table
+  %tr
+    -#%th{:class=>list_order_class(:auctions, 'auctions.id')}
+    -#  %a{:href=>list_order_url(:auctions, 'auctions.id')}
+    -#    %span Auction number
+    %th{:class=>list_order_class(:auctions, 'auctions.name')}
+      %a{:href=>list_order_url(:auctions, 'auctions.name')}
+        %span Auction name
+    %th
+      %span.txt
+        %span Status
+    %th{:class=>list_order_class(:auctions, 'auctions.end_time')}
+      %a{:href=>list_order_url(:auctions, 'auctions.end_time')}
+        %span Time Left
+    %th{:class=>list_order_class(:auctions, 'auctions.vendor_bid')}
+      %a{:href=>list_order_url(:auctions, 'auctions.vendor_bid')}
+        %span Your&nbsp;Current Bid
+    %th{:class=>list_order_class(:auctions, 'highest_bids_auctions.max_value')}
+      %a{:href=>list_order_url(:auctions, 'highest_bids_auctions.max_value')}
+        %span Current High&nbsp;Bid
+    %th{:class=>list_order_class(:auctions, 'auctions.max_vendors')}
+      %a{:href=>list_order_url(:auctions, 'auctions.max_vendors')}
+        %span Slots Available
+    %th
+      %span.txt
+        %span Bids
+    %th{:class=>list_order_class(:auctions, 'users.score')}
+      %a{:href=>list_order_url(:auctions, 'users.score')}
+        %span MuddleMe Score/Worth
+    %th
+      %span.txt
+        %span Actions
+
+  - if @auctions.blank?
+    %tr
+      %td.ctr{:colspan=>9}
+        = "No auctions to show"
+  - @auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      -#%td= link_to auction.number, auction
+      %td= link_to auction.name, auction
+      - bid_index = auction.bids.index{|b| b.vendor_id==current_vendor.id}
+      - warn = [:bid].include?(type) && bid_index && bid_index+1 > auction.max_vendors.to_i # TODO: something's wrong with this conds
+      %td{:class=>warn ? 'warn tip' :''}
+        = warn ? "Losing" : "Winning"
+        - tip = "Your current bid is too low to win this auction"
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip if warn
+      %td
+        - if auction.status == 'active' && auction.end_time < Time.now
+          = 'processing winners...'
+        - else
+          = auction.end_time < Time.now ? format_datetime(auction.end_time) : seconds_to_days_and_time((auction.end_time - Time.now).to_i, false)
+      %td{:class=>warn ? 'warn tip' :''}
+        =(bid_index ? format_currency(auction.bids[bid_index].max_value) : "-" )
+        - tip = "Your current bid is too low to win this auction"
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip if warn
+      %td
+        - if auction.highest_bid && auction.highest_bid.max_value
+          = format_currency(auction.highest_bid.max_value)
+        - else
+          = "-"
+      %td= auction.max_vendors
+      %td
+        = "(#{auction.bids.count})"
+      %td= auction.user.score
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View details', auction
+              -#= link_to('View profile', auction.user, :class=>'profile-link')
+
+              - if auction.saved_by_vendors.include? current_vendor
+                = link_to 'Remove from saved', unsave_auction_path(auction) , :remote=>true, :method => :post
+              - else
+                = link_to 'Save', save_auction_path(auction) , :remote=>true, :method => :post
+
+              - if auction.in_progress?
+                - @vendor_auctions ||= current_vendor.auctions
+                - if @vendor_auctions.include? auction
+                  = link_to 'Change bid', edit_bid_auction_path(auction) , :remote=>true, :class=>'change-bid-link'
+                - else
+                  = link_to 'BID!', new_bid_auction_path(auction), :remote=>true, :class=>'make-bid-link'
+.table-footer.table-info
+  .pages-info= page_entries_info @auctions
+  .right
+    = paginate @auctions, :params=>params, :param_name=>"campaign_auctions_page"

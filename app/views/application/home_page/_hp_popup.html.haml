@@ -1,0 +1,26 @@
+#hp_popup
+  .container-fluid
+    .row
+      .popup_window
+        .join-now-container
+          %h2 Why You Should Join Muddleme?
+          %h3.margin-top-10 Never Miss a Deal & You Get Cash
+
+          %p.justified-text.margin-top-20
+            You get real-time coupons and cash back at over 1,200 stores at any time you start your shopping at #{link_to 'Muddleme.com', root_path}
+            There are no points to redeem, no forms to mail in, and no fees. Stores pay Muddleme a sales commission for sending shoppers their way, and
+            Muddleme uses that money to pay you cash back directly to your PayPal account.
+          %p.justified-text
+            %b And the fun doesn't stop there!
+            %p.justified-text.justified-text-2
+              Local Service Providers (electricians, plumbers, HVAC etc) also pay us for every connected call placed (i.e. a qualified customer)
+              so if you need a local service, type in your zip code and let us help you make the best decision and pay you for your calls and service needs.
+            %p.justified-text
+              %b Wait there's more!
+              %p.justified-text.justified-text-2
+                You can also earn cash by recommending Service Providers not currently on our platform and submitting active coupons to our site.
+                If a Service Provider joins, you make money on every deal they win for one full year. If a submitted coupon is selected, you make money everytime
+                a user redeems that coupon.
+            %p.justified-text
+              %h4.join-today-label Join today, all we need is an email and a zip code!
+              = link_to 'Join', new_user_session_path, :class => 'btn btn-primary-custom pull-right'

@@ -1,0 +1,86 @@
+= form_tag '/rtest' do
+  = text_field_tag 'search', params[:search]
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b Search results for this search query:
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b Relevant Soleo 'RAW' category:
+  %br
+  = @soleo_cat ? @soleo_cat.name : 'Nothing found'
+  %br
+  %br
+  %b Relevant Soleo 'Condensed' category:
+  %br
+  = @soleo_parent_cat ? @soleo_parent_cat.name : 'Nothing found'
+  %br
+  %br
+  %b Relevant MM product category:
+- if @result
+  %br
+  = @result.html_safe
+  %br
+  %br
+  %b Associated advertisers for this and high level categories:
+  %br
+  %br
+  %b Avant (max 4 results):
+  %br
+  = @avant_advertisers.blank? ? 'Not associated' : @avant_advertisers
+  %br
+  %br
+  %b CJ (max 6 results):
+  %br
+  = @cj_advertisers.blank? ? 'Not associated' : @cj_advertisers
+  %br
+  %br
+  %b Linkshare (max 4 results):
+  %br
+  = @linkshare_advertisers.blank? ? 'Not associated' : @linkshare_advertisers
+- elsif !params[:search].nil?
+  = '<br/>Nothing Found'.html_safe
+%br
+%br
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b Avant merchants results by name (max 4):
+%br
+- if @avant_relevant && @avant_relevant.length > 0
+  = @avant_relevant
+- elsif !params[:search].nil?
+  = 'Nothing Found'.html_safe
+%br
+%br
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b CJ merchants results by name (max 6):
+%br
+- if @cj_relevant && @cj_relevant.length > 0
+  = @cj_relevant
+- elsif !params[:search].nil?
+  = 'Nothing Found'.html_safe
+%br
+%br
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b Linkshare merchants results by name (max 4):
+%br
+- if @linkshare_relevant && @linkshare_relevant.length > 0
+  = @linkshare_relevant
+- elsif !params[:search].nil?
+  = 'Nothing Found'.html_safe
+%br
+%br
+%br
+%br
+%br
+%span{:style => 'font-size: 16px;'}
+  %b Upload logo:
+= form_tag '/rupload', :multipart => true do
+  = file_field_tag 'mmsearchlogo', :accept => 'image/png,image/gif,image/jpeg'
+  = submit_tag 'Upload'

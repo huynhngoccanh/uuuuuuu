@@ -1,0 +1,16 @@
+- for_vendor = for_vendor ||= nil
+- admin_preview = admin_preview ||= nil
+
+- unless admin_preview
+  %html
+    %head
+      %title="MuddleMe"
+      %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %body{ :leftmargin => "0", :marginwidth => "0", :topmargin => "0", :marginheight => "0", :offset => "0", :bgcolor => "#FFFFFF", :style => "margin: 0, padding: 0"}
+      %style
+        :plain
+          a { color: #3399ff; text-decoration: underline }
+          a:hover { text-decoration: none }
+      = render "layouts/application/basic_email_table", :for_vendor => for_vendor, :admin_preview => admin_preview, :no_footer=>(no_footer ||= nil), :logo_link=>(logo_link ||=nil)
+- else
+  = render "layouts/application/basic_email_table", :for_vendor => for_vendor, :admin_preview => admin_preview, :no_footer=>(no_footer ||= nil), :logo_link=>(logo_link ||=nil)

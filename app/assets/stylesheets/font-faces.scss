@@ -1,0 +1,17 @@
+@include font-face("MuseoSlab", font-files("museo_slab_500-webfont.woff", 
+"museo_slab_500-webfont.ttf", 
+"museo_slab_500-webfont.svg"), 
+"museo_slab_500-webfont.eot" );
+
+@include font-face("Museo", font-files("museo500-regular-webfont.woff", 
+"museo500-regular-webfont.ttf", 
+"museo500-regular-webfont.svg"), 
+"museo500-regular-webfont.eot" );
+
+@include font-face("Museo", font-files("museo700-regular-webfont.woff", 
+"museo700-regular-webfont.ttf", 
+"museo700-regular-webfont.svg"), 
+"museo700-regular-webfont.eot", bold );
+
+@include font-face("NexaSlab", font-files("NexaSlab-Light.otf"));
+@include font-face("NexaSlabBold", font-files("NexaSlab-Bold.otf"));

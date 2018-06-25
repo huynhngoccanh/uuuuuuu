@@ -1,0 +1,7 @@
+(function(){
+  $('#flash').remove();
+  $('#main-content').prepend("<%= escape_javascript render('flashes') %>");
+  initFlashMessagesCloseButtons();
+  $(".ui-dialog-content").dialog("close"); //close all dialogs
+  $(document).scrollTop(0);
+})()

@@ -1,0 +1,51 @@
+= input_row f, :service_category_id, :collection=> ServiceCategory.all, :prompt => "choose category", :required=>true
+= input_row f, :name, :label=>'Project name', :placeholder=>'enter a project name', |
+    :hint=>'Some text describing what a project name is'
+= input_row f, :duration, :collection=>duration_options, :prompt => "choose a duration", |
+    :selected => (@auction.duration ? @auction.duration : '7')
+
+= inputs_grouped f, :budget do
+  .inpts-row.clearfix
+    = sub_input_row f, :budget, :label=>false, :collection=>Auction::BUDGET_OPTIONS, :include_blank=> false
+  #budget-custom.inpts-row.clearfix{:style=>'display: none'}
+    = sub_input_row f, :budget_min, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+    = sub_input_row f, :budget_max, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+
+= inputs_grouped f, :max_vendors, 'Number of service providers', |
+  'How many service providers can win your auction and get access to your contact information.' do
+  = sub_input_row f, :min_vendors, :collection=>vendors_count_options, :wrapper_html=>{:class=>"half-width"}, |
+    :input_html=>{:validate => false}, :selected => (@auction.min_vendors ? @auction.min_vendors : '1')
+  = sub_input_row f, :max_vendors, :collection=>vendors_count_options, :wrapper_html=>{:class=>"half-width"}, |
+    :selected => (@auction.max_vendors ? @auction.max_vendors : '4')
+
+-# set default values
+- if @auction.desired_time.blank? && @auction.desired_time_to.blank?
+  - @auction.desired_time = Date.today
+  - @auction.desired_time_to = Date.today + 2.weeks
+= inputs_grouped f, :desired_time, 'Desired time of service:', |
+  'What is your target start date. You may choose a specyfic day or a date range' do
+  .inpts-row.clearfix
+    = sub_input_row f, :desired_time, :as=>:datepicker, :label=>false, :input_html => { :id => 'desired-time-first', :validate=>false }
+    %span.beside-inpt= 'or choose a date range below'
+  .inpts-row.clearfix
+    = sub_input_row f, :desired_time, :as=>:datepicker, :label=>false, :input_html => { :id => 'desired-time-second', :validate=>false }
+    %span.beside-inpt='to'
+    = sub_input_row f, :desired_time_to, :as=>:datepicker, :label=>false, :input_html => { :id => 'desired-time-to', :validate=>false }
+
+=# input_row f, :claimed_score, :label=>"My MuddleMe Score for this auction (1-100):", :hint=>'This is my personal opinion of my probability to transact.', :input_html => {:class => :number}
+= input_row f, :extra_info, :hint=>'Describe any important or relevant details which will help the service provider in quoting your job.'
+
+-#= input_row f, :contact_way, :collection=>$contact_ways, :include_blank=> false
+-#= inputs_grouped f, :contact_time do
+-#  .inpts-row.clearfix
+-#    = sub_input_row f, :contact_time_of_day, :collection=>times_of_day_options, |
+-#      :label=>false, :input_html => { :id => 'contact-time-ofday' }, :include_blank=>false
+-#    %span.beside-inpt= 'on'
+-#    = sub_input_row f, :contact_time, :as=>:datepicker, :label=>false, :input_html => { :id => 'contact-time-first', :validate=>false }
+-#  .inpts-row.clearfix
+-#    %span.beside-inpt= 'or date range:'
+-#    = sub_input_row f, :contact_time, :as=>:datepicker, :label=>false, :input_html => { :id => 'contact-time-second', :validate=>false }
+-#    %span.beside-inpt='to'
+-#    = sub_input_row f, :contact_time_to, :as=>:datepicker, :label=>false, :input_html => { :id => 'contact-time-to', :validate=>false }
+
+

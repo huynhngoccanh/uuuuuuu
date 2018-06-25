@@ -1,0 +1,6 @@
+- joined = !merchant.loyalty_programs_users.where(user_id: current_user.try(:id)).blank?
+.handshake style="width: 25%;"
+  a.joined href=(loyalty_result_path) class=('hide' if !joined) data-loyalty_enabled=(merchant.loyalty_enabled.to_s)
+    = image_tag "ubitru/handshake01.png", class: "img-responsive"
+  a.joinModal href="/loyalty" class=('hide' if joined)
+    = image_tag "ubitru/handshake01.png" , class: "img-responsive grayscale"

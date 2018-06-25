@@ -1,0 +1,27 @@
+#TODO: The same credentials are available in social.yml file in custom format, This are used paypal sdk gem for mass payments. Can be shifted to one standalone file.
+
+test: &default
+  mode: sandbox
+  username: 4gambi_1337953814_biz_api1.gmail.com
+  password: 1337953855
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacA.YiSEypTMI7xcZezZIlEDF3TDcW
+  app_id: APP-80W284485P519543T
+development:
+  <<: *default
+production:
+  mode: sandbox
+  username: 4gambi_1337953814_biz_api1.gmail.com
+  password: 1337953855
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacA.YiSEypTMI7xcZezZIlEDF3TDcW
+  app_id: APP-80W284485P519543T
+#  mode: live
+#  username: kevin_api1.muddleme.com
+#  password: FJSUHS44CVCMT6KN
+#  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A6PbmCghMzJ3F-vAxF38niR-SXqv
+#  app_id: APP-0SJ2013117390122B
+staging:
+  mode: live
+  username: kevin_api1.muddleme.com
+  password: FJSUHS44CVCMT6KN
+  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A6PbmCghMzJ3F-vAxF38niR-SXqv
+  app_id: APP-0SJ2013117390122B

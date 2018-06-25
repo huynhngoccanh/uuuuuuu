@@ -1,0 +1,25 @@
+- if current_user
+  - @contact_message.name = current_user.full_name
+  - @contact_message.email = current_user.email
+- elsif current_vendor
+  - @contact_message.name = current_vendor.full_name
+  - @contact_message.email = current_vendor.email
+
+= simple_form_for(@contact_message, :url => contact_path, :validate => true, |
+  :wrapper=>:standard, :html=>{:class=>'with-label'}) do |f|
+  .field
+    = f.input :name, :label=> "NAME"
+  .field
+    = f.input :email, :label=> "EMAIL"
+  .field
+    %label MESSAGE
+    %textarea.ctr(cols="50" rows="8")
+
+    - unless signed_in?
+      %div.input
+        = recaptcha_tags(:display => 'blackglass')
+        - if @contact_message.errors.messages[:recaptcha]
+          %span.error= @contact_message.errors.messages[:recaptcha]
+
+  .actions
+    = f.submit "Send", :class=> "fixed-width-button margin-top"

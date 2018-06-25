@@ -1,0 +1,124 @@
+section.favorite-stores.ubitru-services.full-width
+  .container
+    .grid-row.services
+      figure.service-box.col-4
+        h2 UBITRU home services
+        a href="/services" class="feature-img"
+          = image_tag "ubitru/home-services.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="#"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 Pros that pay you for your business
+      figure.service-box.col-4
+        h2 RETAIL STORES
+        a href="/retail" class="feature-img"
+          = image_tag "ubitru/retail-stores.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="/retail"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 Coupons, cash back and loyalty made simple
+      figure.service-box.col-4
+        h2 LOYALTY & LOYALTY PROGRAMS
+        a href="/loyalty" class="feature-img"
+          = image_tag "ubitru/piggy.jpg"
+        figcaption.sponsor
+          .brand-logo
+            a href="#"= image_tag "ubitru/ubi-rounded-logo.png", class: "logo", alt: "brand logo"
+          .desc
+            h4 All your loyalty at your fingertips and saving in your wallet
+            
+section.full-width.browse-the-store
+  .container
+    h2.align-center Top trending stores with great offers and cash back!
+    .row
+      - @browse_stores.each do |placement|
+        - merchant = placement.merchant
+        figure.col-2.store-item
+          a href="#" onclick="CashbackModal.ShowCashbackModal(#{placement.attributes.merge(merchants_redirect_path: merchants_redirect_path(placement.merchant)).to_json});" class="store-logo"
+            = image_tag merchant.image.url(:medium), title: merchant.name
+            - if !merchant.advertisers.blank?
+              span.cash-back Cash Back   
+          figcaption.store-info= placement.header
+section.full-width.ubi-steps.align-center
+  .container
+    h2.align-center How to Earn Cash Back, Get Loyalty Points and Save Money
+    .row.steps
+      .col-4.step.step-1
+        figure.align-center
+          = image_tag "ubitru/browse-the-store.png"
+        .large-num.cf 1. Browse
+        .step-info.cf Find great deals at  your favorite stores 
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/buy.png"
+        .large-num.cf 2. Shop
+        .step-info.cf Click via our link and shop as usual.
+      .col-4.step.step-3
+        figure.align-center
+          = image_tag "ubitru/call-us.png"
+        .large-num.cf 3. Call
+        .step-info.cf Call service providers via our click-to-call
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/loyalty.png"
+        .large-num.cf 4. Join
+        .step-info.cf Join 100’s of loyalty programs with one click
+      .col-4.step.step-2
+        figure.align-center
+          = image_tag "ubitru/earn-cash-back.png"
+        .large-num.cf 5. Earn
+        .step-info.cf Sit back, relax and watch the cash roll in.
+    h2 One click registration for all your <a href="/loyalty">loyalty programs</a>
+
+#cashbackModal.modal.fade aria-hidden="true" role="dialog" tabindex="-1" 
+  .modal-dialog.modal-dialog-centered role="document"
+    .modal-content
+      span.modal-close
+        button.close-icon data-dismiss="modal" title=("Close") type="button" ×
+      .modal-body
+        .offer-redemption-wrapper
+          .offer-redemption-content
+            h3#placement_description.offer-title 
+              | Up to $25 off with minimum spend
+          .offer-redemption-block
+            .offer-redemption-code-section
+              .offer-code
+                p.offer-tip
+                  | Copy and paste this code
+                .code-attached-copy
+                  #placement_code.button-code
+                    | CRSAVEMORE
+                  button.clip_button.button.button-primary.js-copy
+                    | Copy
+            .offer-redemption-rebate-section
+              h6#placement_header.rebate-primary-text 
+                | +$5 Cash Back
+              .js-offer
+                a#placement_action.button-secondary target="_blank"
+                  | Get Reward      
+
+- content_for :js do
+  javascript:
+    var client = new ZeroClipboard($('.clip_button'));
+
+    client.on('ready', function(event) {
+
+      client.on('copy', function(event) {
+        event.clipboardData.setData('text/plain', $('#placement_code').text());
+      });
+
+      client.on('aftercopy', function(event) {
+        console.log("Copied!");
+      });
+    });
+
+    client.on('error', function(event) {
+      console.log('ZeroClipboard error of type "' + event.name + '": ' + event.message);
+      ZeroClipboard.destroy();
+    });
+
+= render "/application/home_page/top_deals_section"
+= render "/application/home_page/mobile_apps_banner"
+= render '/application/home_page/most_popular_stores'

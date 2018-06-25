@@ -1,0 +1,5 @@
+$('#test-tracker-form-wrap').html("<%= escape_javascript render("create_test_form") %>")
+initFormValidations('#test-tracker-form-wrap form');
+<% if @testOffer && @testOffer.valid? %>
+  <%= render :template => 'vendors/tracking_events/check_test' %>
+<% end %>

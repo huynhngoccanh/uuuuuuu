@@ -1,0 +1,37 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+	
+%h2 Product Categories List
+.span6{:style=>"width: 60%;float:left;"}
+  = link_to 'New Product category', new_admins_product_category_path, :class=>'orange-button fixed-width-button'
+.span6{:style=>"width: 40%;float:right;"}
+  %form
+    %input{:type => 'text' , :name => 'q' , :placeholder => 'search category'}
+    %input{:type => 'submit' , :name => 'search'}
+%br
+%br
+%section.default-content
+  %table.default-table
+    %tr
+      %th
+        %span.txt
+          %span Name
+      %th
+        %span.txt
+          %span popular
+      %th
+        %span.txt
+          %span Order
+      %th
+      %th
+
+    - @product_categories.each do |product_category|
+      %tr
+        %td= product_category.name
+        %td= product_category.popular ? 'yes' : 'no'
+        %td= product_category.order
+        %td= link_to 'Show', admins_product_category_path(product_category)
+        %td= link_to 'Edit', edit_admins_product_category_path(product_category)
+        /%td= link_to 'Delete', admins_store_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  = will_paginate @product_categories
+

@@ -1,0 +1,10 @@
+- unless @ctc_merchants.blank?
+  %h1.section_header Most Popular Click-to-Call Services
+  #ctc_services_section
+    .vertical_listings
+      - @ctc_merchants.sort_by { |k,v| k.to_s }.in_groups_of(6,false) do |group|
+        - group.each do |keyword, merchants|
+          %h3= keyword
+          - merchants.each do |merchant|
+            %p
+              = merchant["company_name"]

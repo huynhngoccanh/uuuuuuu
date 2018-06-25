@@ -1,0 +1,10 @@
+%h2 
+  Set up your account
+.column
+  = f.input :first_name, :label=>'First name:'
+  = f.input :last_name, :label=>'Last name:'
+  = f.input :zip_code, :label=>'ZIP code:'
+  = f.input :email, :label=>'E-mail address:', :input_html=>{:autocomplete=>:off}
+  = f.input :password, :label=>'Password:', :input_html=>{:autocomplete=>:off}
+.buttons-wrap
+  = button_tag "Next", :id=>'step-2-next', :class=>'fixed-width-button', :type=>:button

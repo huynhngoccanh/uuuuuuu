@@ -1,0 +1,66 @@
+- offer ||= nil
+.details-box.clearfix{:style => "display: none;", :id=>"offer-window-#{id}"}
+  .details-overlay
+  .details-wrap
+    .details-outer
+      %a.details-close.details-close-button
+      %section.content-details-box.company-details
+        %header.details-box-header
+          %h2= vendor.company_name
+          %p
+            Phone:
+            = vendor.phone
+          %p
+            Email:
+            = vendor.email
+        %article.offer-details
+          %h3 OFFER DETAILS
+          %hr
+          - if offer.blank?
+            %p
+              %span.label No offer was provided:
+              %span 
+                But
+                = @auction.product_auction ? 'seller' : 'service provider'
+                obtained contact information by winning tis Intent so he will most likely
+                contact customer directly via email or phone to present his offer
+          - else
+            %p
+              %span.label 
+                Offer:
+              %span.highlight= offer.name
+            - unless offer_images.blank?
+              %p
+                %span.label Vendor Image:
+              .image-window
+                - if offer_images.length > 1
+                  %a.prev-image-slide{:href=>'#'}
+                  %a.next-image-slide{:href=>'#'}
+                %ul
+                  - offer_images.each do |i|
+                    %li
+                      = image_tag i.image.url(:banner)
+            - unless offer.coupon_code.blank? 
+              %p
+                %span.label Coupon code:
+                %span.highlight= offer.coupon_code
+            - unless offer.offer_url.blank? 
+              %p
+                %span.label Offer url:
+                %span.highlight
+                  = link_to url_without_http(offer.offer_url),  url_with_http(offer.offer_url),  :target=>'_blank'
+            - unless vendor.review_url.blank?
+              %p
+                %span.label Review site url:
+                %span.highlight
+                  = link_to url_without_http(vendor.review_url), url_with_http(vendor.review_url),  :target=>'_blank'
+            - unless offer.expiration_time.blank?
+              %p
+                %span.label Expires:
+                %span.highlight= format_date offer.expiration_time
+            - unless offer.offer_description.blank?
+              %p
+                %span.label Info:
+                %span.highlight= offer.offer_description
+            .actions
+              %a.gray-button.fixed-width-button.details-close-button Close Window

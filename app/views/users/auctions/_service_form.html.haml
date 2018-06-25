@@ -1,0 +1,17 @@
+- content_for :javascripts do
+  = javascript_include_tag "#{params[:controller]}/multiselect"
+  :javascript
+    $('#submit_new_service_auction').click(function() {
+      $('#new_service_auction').submit();
+    });
+
+
+= simple_form_for(@auction, :url=>validate_new_auction_path, :validate=>true, |
+  :html => { :id => "new_service_auction", :class => "in-cols"}) do |f|
+  .inputs.clearfix
+    = f.input :product_auction, :as=>:hidden
+    = render "service_fields", :f=>f
+
+= render "image_form"
+.actions.clearfix
+  = submit_tag "Next", :id => "submit_new_service_auction"

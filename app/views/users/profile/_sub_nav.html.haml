@@ -1,0 +1,19 @@
+- active_action ||= ''
+- active_controller ||= ''
+
+- subnav_actions = []
+- subnav_actions << {:controller=>'profile', :action=>'contact_info', :label=>'Contact info'}
+- subnav_actions << {:controller=>'profile', :action=>'show', :label=>'Profile'}
+- subnav_actions << {:controller=>'funds_withdrawals', :action=>'index', :label=>'My Earnings'}
+- subnav_actions << {:controller=>'favorite_advertisers', :action=>'index', :label=>'Favorite Merchants'}
+- subnav_actions << {:controller=>'users/surveys', :action=>'list', :label=>'Questions'}
+- subnav_actions << {:controller=>'users/settings', :action=>'new', :label=>'Notifications'}
+- subnav_actions << {:controller=>'users/referred_visits', :action=>'index', :label=>'Referrals'}
+
+
+%ul{:style => "margin-top: -38px;"}
+  - subnav_actions.each do |action|
+    - cls = (action[:action]==active_action && action[:controller]==active_controller) ? 'active' : nil
+    %li{:class=>cls}
+      = link_to_unless(active_action==action[:action] && action[:controller]==active_controller, action[:label], {:controller=> action[:controller], :action=>action[:action]}) do
+        %span= action[:label]

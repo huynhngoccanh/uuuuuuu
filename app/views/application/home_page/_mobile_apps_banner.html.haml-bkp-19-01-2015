@@ -1,0 +1,22 @@
+%section.app-panel-area
+  .container-fluid
+    .row
+      .container
+        .col-sm-8
+          .app-content
+            %h3.title We’re an app, too!
+            %p
+              Now you can save and make money on the go! Our location based app will alert you of
+              participating stores, coupons and cash!
+            / <p><img class="img-responsive" src="assets/images/appstore.png"><img class="img-responsive" src="assets/images/googleplay.png"></p>
+            %p
+              = link_to image_tag("apps.jpg", :class => "img-responsive"), 'javascript: void(0);', :class => 'coming-soon-popup'
+              %p Or enter your phone number to text yourself the app!
+              .row
+                = render "/application/home_page/sms_module"
+
+        .col-sm-4
+          .app-image
+            = image_tag("mobile.jpg", :class => "img-responsive")
+
+= render 'application/home_page/coming_soon_popup'

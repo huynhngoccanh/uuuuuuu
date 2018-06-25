@@ -1,0 +1,11 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'product', :active_controller=>'campaigns'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    = render 'tabs_nav', :active_action=>'product'
+    %article.narrowed#new-campaign
+      = render 'form'
+
+%h2 Create New Campaign
+= render 'layouts/application/one_column'

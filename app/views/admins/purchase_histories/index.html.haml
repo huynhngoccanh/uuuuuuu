@@ -1,0 +1,54 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/purchase_histories'
+- content_for :main_column do
+  %section.default-content
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span User Email
+    %th
+      %span.txt
+        %span Store Address
+    %th
+      %span.txt
+        %span Customer Service Pin
+    %th
+      %span.txt
+        %span Total
+    %th
+      %span.txt
+        %span Product Total
+    %th
+      %span.txt
+        %span Sales Tax, Fees & Surcharges
+    %th
+      %span.txt
+        %span Items
+  - if @purchase_histories.blank?
+    %tr
+      %td.ctr{:colspan => 6}
+        = "No Purchase History"
+  - @purchase_histories.each do |purchase_history|
+    %tr{:class=>cycle(nil,'odd')}
+      %td
+        = purchase_history.loyalty_programs_user.user.email
+      %td
+        = purchase_history.store_address
+      %td
+        = purchase_history.customer_service_pin
+      %td
+        = purchase_history.total
+      %td
+        = purchase_history.product_total
+      %td
+        = purchase_history.sales_tax_fees_surcharges
+      %td
+        = link_to 'Details', admin_purchase_history_path(purchase_history)
+      %p
+      %p
+      %p
+      %p
+      %p
+      %p
+      %p

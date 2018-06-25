@@ -1,0 +1,23 @@
+<% if @bid_is_valid %>
+  location.reload()
+<% else %>
+  $('#new-bid-form').html("<%= escape_javascript render('new_bid_form') %>")
+  $('#bid_offer_id').multiselect({
+    header: false,
+    selectedList: 1,
+    height: "auto",
+    minWidth: "235",
+    multiple: false,
+    classes: "multiselect-button multiselect-dropdown",
+    position: {
+        my: 'left top',
+        at: 'left top'
+    }
+  });
+  initFormValidations('#new-bid-form form');
+
+  <% if @expand_form %>
+    $('#place-bid .to-show').show();
+    $('#place-bid input:disabled, #place-bid textarea:disabled').removeAttr('disabled');
+  <% end %>
+<% end %>

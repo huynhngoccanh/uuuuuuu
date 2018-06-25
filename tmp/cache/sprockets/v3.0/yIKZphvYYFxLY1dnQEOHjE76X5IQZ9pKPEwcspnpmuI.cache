@@ -1,0 +1,12 @@
+I"ò(function() {
+  $(document).ready(function() {
+    $('.share-btn').click(function() {
+      $(this).next('.share-form').show();
+    });
+    return $('.fa-close').click(function() {
+      $('.share-form').hide();
+    });
+  });
+
+}).call(this);
+:ET

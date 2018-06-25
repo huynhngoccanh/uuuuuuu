@@ -1,0 +1,12 @@
+- if @show_less == "true"
+  $('.hp_posts').html("");
+  $('#search_by_services_section').scrollTop($('#search_by_services_section').scrollTop() + 50);
+  $('a.load-more-posts').show();
+  $('a.load-less-posts').hide();
+
+$('.hp_posts').append('#{escape_javascript(render :partial => "/application/home_page/most_popular_stores_section", :locals => { :posts => @pcs, :last_alpha => @alphabet })}');
+$('a.load-more-posts').attr('href', "/load_more_posts?last_alpha=#{@alphabet}&page=#{@pcs.next_page}");
+
+- unless @pcs.next_page
+  $('a.load-more-posts').hide();
+  $('a.load-less-posts').show();

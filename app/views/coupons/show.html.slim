@@ -1,0 +1,131 @@
+- if params[:modal].present?
+  - coupon = @coupon
+  - merchant = coupon.merchant
+  a.close-reveal-modal data-dismiss="modal" X
+  .top
+    h2 Copy the Code
+    p Paste this code at checkout to save
+    .coupon-box
+      - if !coupon.code.blank?
+          p =coupon.code
+          span.coupon= coupon.code
+          button.btn.btn-orange.d_clip_button data-clipboard-text=(coupon.code) id='d_clip_button' title='Click me to copy to clipboard.' copy code
+      - else
+          span.coupon Deal Activated
+
+    p.small= "Go to <a href='#{merchants_redirect_path(merchant)}'>#{merchant.name}</a> and paste the code at checkout.".html_safe
+  .bottom
+    -if coupon.coupon_type == "printable"
+      figure class="logo" style=("box-shadow: 0 0px 5px 0 rgba(25,24,23,0.45);")
+        = image_tag coupon.try(:print).try(:url), class: "img-responsive"
+    h3= coupon.header
+    div class="shipping-info"
+      - if coupon.expires_at.nil?
+          span.expires
+            strong 
+             |Never Expires
+      - else       
+          span.expires= "<strong>Expiration Date:</strong> #{coupon.expires_at}</span>".html_safe
+    .cash-back
+      h4 Cash Back!
+      p= "Deposited directly into your account with any purchase from #{merchant.name}"
+
+  javascript:
+    $(function() {
+      $('#coupons_view').modal("show");
+      $('.scr').css({'display':'block'})
+      var clip = new ZeroClipboard($("#d_clip_button"));
+      clip.on("copy", function (event) {
+        $("#d_clip_button").text("Copied!")
+      });
+      $('.close-reveal-modal').click(function(){
+        $('.scr').css({'display':'none'})
+      });
+    });
+
+- else
+  section.search-results.full-width#search-results
+    .container
+      .row.page-title.align-center
+        h1= "#{@search} search-results"
+      .grid-row
+        article.col-9.coupons-list
+          / a href="javascript:void(0);" class="btn-coupon btn submit-coupon-btn"
+          /   i class="fa fa-tag"
+          /   | Submit a Coupon
+          .row.filter-nav
+            nav
+              ul.filters-block
+                li.filter: a data-filter="all" 
+                  |All
+                  | &nbsp;(
+                  = @taxons.count
+                  |)
+                / li.filter: a data-filter="cashbacks" Coupons <span class="count"></span>
+                / li.filter: a data-filter="cashbacks" Cashback <span class="count"></span>
+                / li.filter: a data-filter="couponsandcashbacks" Coupons + Cashback
+              .select-box
+                = form_tag " ", method: :get, id: "rFilter" do
+
+                  select.sort#radiusFilter name="q[filter]"
+                    option class="sort" value="1" 
+                      | -select-filter-
+                    option class="sort" value="Popularity" Popularity
+                    option class="sort" value="Expiring Soon" Expiring Soon
+                  i.fa.fa-sort-down
+          -if @taxons.blank?
+            .coupon.row style="border: 2px solid #494a5e;border-style: dashed;"
+              .offer-box
+                / .col-2
+                /   = image_tag "ubitru/left.jpg", class: "img-responsive"
+                .col-8
+                  h2.dashed style="margin-top: 4%;margin-left: 40%;" Sorry! No product  Found 
+                / .col-2
+                /   = image_tag "ubitru/right.jpg", class: "img-responsive"
+                  
+          -@taxons.each do |taxon, index|
+              = render partial: "/coupons/taxon_list_view", locals: {taxon: taxon}
+          / .merchants
+          /   - @merchants.each do |merchant|
+          /     .coupon.row
+          /       .offer-box.col-2
+          /         .offer
+          /           span.offer-big-font 
+          /           span.offer-small-font
+          /           .align-center.store-img 
+          /             = image_tag merchant.image.url(:thumb), class: "img-responsive"
+          /       .offer-box.col-10
+          /         .offer-content-top.row
+          /           span.coupon-verification
+          /           h1= "Get cashback on buying #{params[:q][:search]} from #{merchant.name}"
+          /           = link_to merchant.name, "#", class: "btn btn-red btn-primary merchant-popup", "data-merchant_id" => merchant.id
+          /         .offer-content-bottom.row
+        aside.leftbar.col-3
+          / .offer-range.cf
+          /   p.title 
+          /     strong Merchant List:
+          /   form.merchant-filters
+          /     = hidden_field_tag :q, params[:q][:search]
+          /     - @search.facet(:merchant_name).rows.each do |row|
+          /       .checkbox
+          /         label
+          /           = check_box_tag "merchants[]", row.value, (params[:merchants] || []).include?(row.value), class: "css-checkbox" , style:"bottom: 2px;"
+          /           = " #{row.value} (#{row.count})"
+          .join-loyalty.cf
+            h4 Earn a Bonus every time you Refer your Friends!
+            div.button-wrapper.align-center.cf
+              -if !user_signed_in?
+                a href="#" class="btn btn-red" Join &amp; Earn
+              a href=referred_visits_path class="btn btn-red" Refer a Friend
+          .signup-and-earn.cf
+            .title Sign-up to Start Earning Cashback &amp; Loyalty Points.
+            .steps.cf
+              ol
+                li Sign up for FREE
+                li Earn extra cashback on every purchase or service call
+                li One-click registration to thetop Loyalty Programs
+                li Access to money immediately
+            -if !user_signed_in?
+              .button-wrapper.align-center.cf: a href=new_user_registration_path class="btn btn-red" Sign up &amp; Earn
+            .button-wrapper.align-center.cf: a href="/loyalty" class="btn btn-red" Loyalty program
+

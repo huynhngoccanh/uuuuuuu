@@ -1,0 +1,25 @@
+.login-container
+  .section.default-content.signup-login.full-width
+    .container
+      .form.clearfix
+        .tab-content.clearfix
+          h1 Log In
+        = form_for(resource, {as: resource_name, url: session_path(resource_name)}) do |f|
+          .field-wrap
+            = f.email_field :email, :placeholder => "Email address", :class => " form-control"
+          .field-wrap
+            = f.password_field :password, :placeholder => "Password", :class => " form-control no-border-top"
+          .field-wrap
+            p.forgot
+              = link_to "Forgot your password?", new_password_path(resource_name), :class => 'lost-password'
+          .field-wrap
+            = f.submit "Login"
+          .field-wrap
+            - if devise_mapping.rememberable?
+                label.checkbox.label-wrap.light-font
+                  = f.check_box :remember_me
+                  |&nbsp; Remember me
+          .field-wrap
+            = link_to "log in with facebook", user_omniauth_authorize_path(:facebook)         
+            
+            i.fa.fa-facebook-official

@@ -1,0 +1,74 @@
+section.banner-section.full-width
+  = image_tag "ubitru/banner-loyalty.jpg" ,class: "img-responsive"
+section.round-section.full-width
+  .col-2
+    .box01
+      h3
+        span> EARN
+        | EASIER
+      p Cash with every purchase
+  .col-2
+    .box02
+      h3
+        span> EARN
+        | FASTER
+      p Immediate cash availability
+  .col-2
+    .box03
+      h3
+        span> MORE
+        | OFTEN
+      p Spend less earn more
+  .col-2
+    .box04
+      h3
+        span> YOUR
+        | REWARD
+      p Quick access to all rewards
+  .col-2
+    .box05
+      h3
+        span> YOUR
+        | CHOICE
+      p Cash, coupons, and points
+  .col-2
+    .box06
+      h3
+        span> YOUR
+        | STYLE
+      p New items with big savings
+section.rewards-section.full-width
+  .container
+    .grid-row
+      .col-6
+        = image_tag "ubitru/BE-rewarded.png" ,class: "img-responsive"
+      .col-6.bdr
+        h2
+          | NEW REWARDS PROGRAMS
+          strong ADDED DAILY
+section.programs-section.full-width
+  .container
+    .grid-row
+      h3 MY LOYALTY PROGRAMS
+      - if user_signed_in?
+        - if current_user.loyalty_programs_users.blank?
+          h4 At this point you have not added any loyalty programs to your profile, please proceed to add your first loyalty program to Ubitru Reward Program.
+        - else
+          ul
+            - current_user.loyalty_programs_users.each do |loyalty_programs_user|
+              - merchant = loyalty_programs_user.loyalty_program
+              li
+                = image_tag merchant.image.url(:iphone), class: "merchant-logo"
+                = render partial: "shared/join_loyalty", locals: {merchant: merchant}
+      - else 
+        h4 Please <a href="">Sign In</a> first
+
+section.programs-section.full-width
+  .container
+    .grid-row
+      h3 LOYALTY PROGRAMS
+      ul
+        - @merchants.each do |merchant|
+          li
+            = image_tag merchant.image.url(:iphone), class: "merchant-logo"
+            = render partial: "shared/join_loyalty", locals: {merchant: merchant}

@@ -1,0 +1,36 @@
+// MM Box
+
+
+#bing-container
+  #bing-top-bar
+    #bing-results-type WEB
+    #bing-arrow-up
+
+  #bing-search-box-form-wrapper
+    %form#bing-search-box-form{:action => params[:action]}
+      %table
+        %tr
+          %td#bing-logo-column
+          %td#bing-input-column
+            %input#bing-search-input-box-id-1{:type => 'text', :name => :search, :value => params[:search]}
+            .bing-mm-search-bar-icon-wrapper
+          %td#bing-submit-column
+            #bing-submit-button
+
+  #bing-results-container
+    - if @results && @results.length > 0
+      #bing-total-results= number_with_delimiter(session[params[:search]]['total_results'], :delimiter => ' ') + ' RESULTS'
+      %table#bing-results-table
+        - @results.each do |result|
+          %tr
+            %td#bing-results-header-column= link_to result['Title'], result['Url']
+          %tr
+            %td#bing-results-link-column= make_query_string_bold(result['DisplayUrl'], 'sears')
+          %tr
+            %td#bing-results-description-column= make_query_string_bold(result['Description'], 'sears')
+      = render :partial => 'bing_pager'
+    - else
+      = "No results found for #{params[:search]}."
+
+  #bing-bottom-bar
+

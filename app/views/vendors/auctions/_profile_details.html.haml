@@ -1,0 +1,80 @@
+#profile-details-box.details-box.clearfix{:style => "display: none;"}
+  .details-overlay
+  .details-wrap
+    .details-outer
+      %a.details-close.details-close-button
+      %section.content-details-box#profile-details
+        %header.details-box-header
+          .title.column
+            %h2 Auction ##{auction.number} - customer profile
+          .score.column
+            %span.score-text MuddleMe Score
+            .small-score-stamp= user.score
+        %article#consumer-details
+          %h3 CONSUMER DETAILS
+          %div.clearfix
+            .column.half-col
+              .table-wrap
+                %table.striped-table
+                  %tr
+                    %td.label Gender:
+                    %td= user.sex.blank? ? '--' : user.sex.to_s.humanize
+                  %tr.odd
+                    %td.label Age Range:
+                    %td= user.age_range.blank? ? '--' : user.age_range.to_s.humanize
+                  %tr
+                    %td.label Zip code:
+                    %td= user.zip_code.blank? ? '--' : user.zip_code.to_s.humanize
+                  %tr.odd
+                    %td.label Hometown:
+                    %td= user.city.blank? ? '--' : user.city.to_s.humanize
+                  %tr
+                    %td.label Education:
+                    %td= user.education.blank? ? '--' : user.education.to_s.humanize
+                  %tr.odd
+                    %td.label Occupation:
+                    %td= user.occupation.blank? ? '--' : user.occupation.to_s.humanize
+                  %tr
+                    %td.label Income Range:
+                    %td= user.income_range.blank? ? '--' : user.income_range.to_s.humanize
+                  %tr.odd
+                    %td.label Marital status:
+                    %td= user.marital_status.blank? ? '--' : user.marital_status.to_s.humanize
+            .column.half-col
+              .table-wrap
+                %table.striped-table
+                  %tr
+                    %td.label Family size:
+                    %td= user.family_size.blank? ? '--' : user.family_size.to_s.humanize
+                  %tr.odd
+                    %td.label Home owner:
+                    %td= user.home_owner ? "Yes" : "No"
+                  %tr
+                    %td.label Favourite web browser:
+                    %td= "#{user.favourite_browser_name} #{user.favourite_browser_major_version}"
+                  %tr.odd
+                    %td.label= Survey::QUESTIONS[:answer_job_num][:label]
+                    %td= (user.survey.blank? || user.survey.answer_job_num.blank?) ? '--' : Survey::QUESTIONS[:answer_job_num][:options][user.survey.answer_job_num]
+                  %tr
+                    %td.label= Survey::QUESTIONS[:answer_purchase_factor][:label]
+                    %td= (user.survey.blank? || user.survey.answer_purchase_factor.blank?) ? '--' : Survey::QUESTIONS[:answer_purchase_factor][:options][user.survey.answer_purchase_factor]
+                  %tr.odd
+                    %td.label= Survey::QUESTIONS[:answer_delivery_preference][:label]
+                    %td= (user.survey.blank? || user.survey.answer_delivery_preference.blank?) ? '--' : Survey::QUESTIONS[:answer_delivery_preference][:options][user.survey.answer_delivery_preference]
+                  %tr
+                    %td.label
+                      = Survey::QUESTIONS[:answer_how_many_offers][:label]
+                    %td= (user.survey.blank? || user.survey.answer_how_many_offers.blank?) ? '--' : Survey::QUESTIONS[:answer_how_many_offers][:options][user.survey.answer_how_many_offers]
+
+          .actions
+            - unless auction.bidding_finished?
+              - if current_vendor.auctions.include? auction
+                = link_to 'Change your bid', edit_bid_auction_path(auction) , :remote=>true, :class=>'change-bid-link orange-button fixed-width-button'
+              - else
+                = link_to 'Make a Bid!', new_bid_auction_path(auction), :remote=>true, :class=>'make-bid-link orange-button fixed-width-button'
+            %a.gray-button.fixed-width-button.details-close-button Close Window
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#user_auctions_wrap');

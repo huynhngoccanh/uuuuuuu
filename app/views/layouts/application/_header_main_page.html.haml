@@ -1,0 +1,9 @@
+- #deprecated for now use common header
+%header#header-main-page
+  %div.row
+    %div#logo-area
+      = link_to "Join free", new_user_registration_path, :class => "orange-button"
+      %a{:href => root_path}
+        %h1#logo.ir Muddle Me
+    %div#navigation-area
+      = render :partial => 'layouts/application/account_bar'

@@ -1,0 +1,28 @@
+// my profile
+
+article#customer-profile,
+article#customer-password,
+article#customer-additional-info,
+article#company-profile,
+article#company-password,
+article#company-additional-info {
+  width: 530px;
+  margin-right: 35px;
+  p, div.line {
+    span.label, div.label {
+      width:  230px;
+      margin-right: 15px;
+    }
+  }
+}
+
+// notifications (settings)
+
+article.customer-settings.details-preview,
+article#company-settings.details-preview {
+  p {
+    span.label {
+      width: 370px;
+    }
+  }
+}

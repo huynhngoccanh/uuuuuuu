@@ -1,0 +1,67 @@
+%section.default-content{:style=>'padding: 0; width: 1000px'}
+  %article.university-landing
+    %h1 Need a little extra cash this semester?
+    %p With MuddleMe you earn cash and get discounts from top retailers when shopping.
+    %ul.steps
+      %li
+        Search For What You
+        %br
+        Want on MuddleMe.com
+      %li
+        Get Instant Cash-Back Offers From Your Favorite Stores 
+      %li
+        Add a MuddleMe Coupon Code For More Savings 
+      %li
+        You Just Earned Cash and
+        %br
+        Got the Best Deal Out There!
+    %a.orange-button.try-button{:href=>root_path}
+      Register NOW
+%section.default-content{:style=>'padding: 0; width: 1000px;'}
+  %article.university-landing
+    %h1 Take the Best Deal Challenge
+    %p Compare the savings for typical supplies spending in one semester.* 
+    %table
+      %tr
+        %th{:style=>'padding-top: 24px'}
+          = image_tag 'amazon-logo.png'
+        %th
+          vs.
+        %th
+          = image_tag 'logo-clean.png'
+      %tr
+        %td $521.16
+        %td.mid
+          = image_tag 'textbooks.jpg'
+          %br
+          Semester Textbooks
+        %td.lst 
+          $445.20
+      %tr.sec
+        %td $449.00
+        %td.mid
+          = image_tag 'ipad3.jpg'
+          %br
+          iPad 3
+        %td.lst 
+          $410.75
+      %tr
+        %td $65.94
+        %td.mid
+          = image_tag 'backpack.jpg'
+          %br
+          North Face Backpack
+        %td.lst 
+          $52.65
+      %tr.lst
+        %td.lst{:colspan=>3, :style=>""}
+          $127.50
+          %p
+            in MuddleMe savings
+            %br
+            and instant cash back!
+    %a.orange-button.try-button{:href=>root_path}
+      Register NOW
+    %p.footnote
+      * MuddleMe savings reflect typical final prices when combined with cash back and coupon offers, the above items are only examples.
+

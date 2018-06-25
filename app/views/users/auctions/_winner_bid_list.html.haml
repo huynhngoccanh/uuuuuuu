@@ -1,0 +1,27 @@
+%table.default-table
+  %tr
+    %th.no-hvr
+      %span.txt 
+        %span Winning Bidders
+    %th.no-hvr
+      %span.txt 
+        %span Bid Amount
+    %th.no-hvr
+      %span.txt 
+        %span View Offer
+  - if @winning_bids.blank?
+    %tr
+      - if @auction.combined_affiliate_offers.blank?
+        %td.ctr{:colspan=>3} 
+          = "There were no participants in this auction"
+      - else
+        %td.no-bids-message{:colspan=>3} 
+          = "No bids? No problem! Find your item and related accessories below!"
+  - else
+    - @winning_bids.each do |bid|
+      %tr
+        %td
+          = bid.vendor.company_name || "#{bid.vendor.first_name} #{bid.vendor.last_name}"
+        %td.ctr= format_currency(bid.current_value)
+        %td.ctr
+          = link_to 'View offer', '#', :class=>'button view-offer', :id=>"offer-link-#{bid.id}"

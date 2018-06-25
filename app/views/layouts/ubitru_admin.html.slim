@@ -1,0 +1,30 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    /! Meta, title, CSS, favicons, etc.
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    title Ubitru Admin
+    = stylesheet_link_tag "ubitru-admin", :media => "all"
+  body.nav-md ng-app="ubitruAdmin" 
+    .container.body
+      .main_container
+        .col-md-3.left_col
+          = render partial: "layouts/admins/sidebar"
+        .top_nav
+          = render partial: "layouts/admins/top_navigation"
+        .right_col role="main" 
+          .x_panel
+            = yield
+        footer
+          .pull-right
+            | Copyright © 2016 - Ubitru
+          .clearfix
+    = javascript_include_tag "ubitru-admin"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-noty/2.3.8/packaged/jquery.noty.packaged.min.js"
+    script type="text/javascript"
+      | var noty_option =
+      = flash_message.to_json.html_safe
+      |;

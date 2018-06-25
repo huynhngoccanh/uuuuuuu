@@ -1,0 +1,89 @@
+#question-window
+  %ul
+    %li#question-num-1.question-wrap
+      .question-num 1
+      .question
+        %p How many merchant/service provider offers do you review before deciding to purchase?
+        -# answer_how_many_offers
+        = f.hidden_field :answer_how_many_offers, :value=>nil
+        = f.label :answer_how_many_offers_1, :class=>'radio' do
+          = f.radio_button :answer_how_many_offers, 1
+          1 Merchant (i.e. I know what I want)
+        = f.label :answer_how_many_offers_2, :class=>'radio' do
+          = f.radio_button :answer_how_many_offers, 2
+          2 – 4 Merchants (i.e. I review several vendors before purchasing)
+        = f.label :answer_how_many_offers_3, :class=>'radio' do
+          = f.radio_button :answer_how_many_offers, 3
+          5+ Merchants (i.e. I take forever)
+
+    %li#question-num-2.question-wrap
+      .question-num 2
+      .question
+        %p When purchasing a product, do you prefer local pickup or free shipping?
+        -# :answer_delivery_preference
+        = f.hidden_field :answer_delivery_preference, :value=>nil
+        = f.label :answer_delivery_preference_1, :class=>'radio' do
+          = f.radio_button :answer_delivery_preference, 1
+          Local Pick Up
+        = f.label :answer_delivery_preference_2, :class=>'radio' do
+          = f.radio_button :answer_delivery_preference, 2
+          Shipped to my home (arriving within 72 hours)
+
+    %li#question-num-3.question-wrap
+      .question-num 3
+      .question
+        %p What is the most important variable when deciding to make a purchase:
+        -# :answer_purchase_factor
+        = f.hidden_field :answer_purchase_factor, :value=>nil
+        = f.label :answer_purchase_factor_1, :class=>'radio' do
+          = f.radio_button :answer_purchase_factor, 1
+          Price
+        = f.label :answer_purchase_factor_2, :class=>'radio' do
+          = f.radio_button :answer_purchase_factor, 2
+          Brand/Quality
+        = f.label :answer_purchase_factor_3, :class=>'radio' do
+          = f.radio_button :answer_purchase_factor, 3
+          What is Hot at the Moment (i.e. Trending)
+        = f.label :answer_purchase_factor_4, :class=>'radio' do
+          = f.radio_button :answer_purchase_factor, 4
+          Customer Reviews
+
+    %li#question-num-4.question-wrap
+      .question-num 4
+      .question
+        %p How many jobs have you had in the last 10 years?
+        -# :answer_job_num
+        = f.hidden_field :answer_job_num, :value=>nil
+        = f.label :answer_job_num_1, :class=>'radio' do
+          = f.radio_button :answer_job_num, 1
+          Job, what job?
+        = f.label :answer_job_num_2, :class=>'radio' do
+          = f.radio_button :answer_job_num, 2
+          Just 1
+        = f.label :answer_job_num_3, :class=>'radio' do
+          = f.radio_button :answer_job_num, 3
+          3 or less
+        = f.label :answer_job_num_4, :class=>'radio' do
+          = f.radio_button :answer_job_num, 4
+          4 or more
+        = f.label :answer_job_num_5, :class=>'radio' do
+          = f.radio_button :answer_job_num, 5
+          I work two jobs now (so a lot)
+
+    %li#question-num-5.question-wrap.last
+      .question-num 5
+      .question
+        %p 
+          BONUS POINTS! Instantly boost your online value another 5 points by sharing
+          your deals with your Facebook, Google+ and Pintrest accounts.
+        %p#survey-save-no-social-wrap
+          = f.submit "Take me to account settings so I can share my deals!", :name=>:social, | 
+            :id=>'survey-save-social'
+.actions.clearfix
+  .right
+    = button_tag "Skip", :id=>'survey-skip', :class=>'gray-button', :type=>:button
+    = button_tag "Next >", :id=>'survey-next', :type=>:button
+    = f.submit "Save without linking to social network", :name=>:no_social, | 
+      :id=>'survey-save-no-social', :class=>'gray-button', :style=>'display: none'
+
+  = button_tag "< Back", :id=>'survey-back', :class=>'gray-button', :type=>:button, :style=>'display: none'

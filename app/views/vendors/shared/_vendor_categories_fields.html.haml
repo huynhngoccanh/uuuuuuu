@@ -1,0 +1,39 @@
+#provider-fields-wrap
+  = render "vendors/shared/provider_fields", :f=>f
+%hr.spaced
+#retailer-fields-wrap
+  = render "vendors/shared/retailer_fields", :f=>f
+
+- content_for :javascripts do
+  :javascript
+    $(document).ready(function () {
+        //hide show or slide categories selects
+        var fn = $('#vendor_service_provider').prop('checked') ? 'show' : 'hide'
+        $('#provider-fields-wrap .input.grouped')[fn]();
+        val = $('#vendor_retailer').prop('checked')
+        fn = $('#vendor_retailer').prop('checked') ? 'show' : 'hide'
+        $('#retailer-fields-wrap .input.grouped')[fn]();
+
+        $('#vendor_service_provider, #vendor_retailer').change(function(){
+          var fn = $('#vendor_service_provider').prop('checked') ? 'slideDown' : 'slideUp'
+          $('#provider-fields-wrap .input.grouped')[fn]('fast');
+          val = $('#vendor_retailer').prop('checked')
+          fn = $('#vendor_retailer').prop('checked') ? 'slideDown' : 'slideUp'
+          $('#retailer-fields-wrap .input.grouped')[fn]('fast');
+        });
+
+        var lockCheckboxes = function(){
+          var lock = $('input[name="vendor[service_category_ids][]"]').length > 1
+          $('#vendor_service_provider').attr('disabled', lock);
+          var lock = $('input[name="vendor[product_category_ids][]"]').length > 1
+          $('#vendor_retailer').attr('disabled', lock);
+        }
+        lockCheckboxes();
+        $(document.body).on('click','.categories-tags a.close, .add-category-button', lockCheckboxes);
+        $('#vendor_service_provider').closest('form').submit( function(e){
+          $('#vendor_service_provider').attr('disabled', false);
+        })
+        $('#vendor_retailer').closest('form').submit(function(e){
+          $('#vendor_retailer').attr('disabled', false);
+        })
+    });

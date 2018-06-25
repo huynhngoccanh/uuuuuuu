@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  keyword: MyString
+  user_id: 1
+  presented_link: MyText
+  completetion_number: MyString
+  completion_callback: MyText
+  cashback: 9.99
+
+two:
+  keyword: MyString
+  user_id: 1
+  presented_link: MyText
+  completetion_number: MyString
+  completion_callback: MyText
+  cashback: 9.99

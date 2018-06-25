@@ -1,0 +1,70 @@
+- content_for :sub_nav do
+  = render 'vendors/profile/sub_nav', :active_action=>'index', :active_controller=>'vendors/funds_transfers'
+
+- content_for :main_column do
+  %section.default-content.clearfix#funds
+    %article.details-preview#company-funds
+      %h3 ADD FUNDS
+      %hr
+      %p
+        %span.label
+          = 'TOTAL BALANCE: '
+        %span.dollars
+          = format_currency(current_vendor.balance || 0)
+      %p
+        %span.label
+          = 'Available: '
+        %span.dollars
+          = format_currency(current_vendor.available_balance)
+      %p
+        %span.label
+          = 'In campaign budgets: '
+        %span.dollars
+          = format_currency(current_vendor.balance_locked_in_campaigns )
+      %hr
+      %p
+        %span.label{:style=>'min-width: 0'}
+          = 'Add Funds: '
+        %span.important
+          ($20 minimum)
+      #paypal-form-wrap
+        = render "paypal_form"
+      %hr
+      %p
+        %span.label{:style=>'min-width: 0'}
+          = 'Add Funds from Credit Card: '
+      #credit-card-form-wrap
+        = render "credit_card_form"
+
+      - if !current_vendor.balance.nil? && current_vendor.balance > 0
+        %h3 REFUND FUNDS
+        %hr
+        #funds-refund-form-wrap
+          = render 'refund_form'
+
+    %article.column.half-col
+      %h3 TRANSFERS
+      %hr.for-table
+      #transfers_table_wrap
+        = render 'transfers_table'
+    %article.column.half-col.last-child
+      %h3 REFUNDS
+      %hr.for-table
+      #refunds_table_wrap
+        = render 'refunds_table'
+
+%h2 Billing & Funds
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      $('#funds-refund-form-wrap form:first').on('submit',function(){
+        showLoader($('#funds-refund-form-wrap'));
+      });
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#transfers_table_wrap');
+      simpleAjaxPagination('#refunds_table_wrap');

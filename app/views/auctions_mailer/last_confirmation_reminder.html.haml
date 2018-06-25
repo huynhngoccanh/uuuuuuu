@@ -1,0 +1,67 @@
+- admin_preview = admin_preview ||= nil
+
+- if admin_preview
+  - @user_first_name = "((user_first_name))"
+  - @search_number = "((search_number))"
+  - @search_intent = "((search_intent))"
+  - @auction_url = "#"
+  - @auction_product_auction = true
+  - @hello_sub_text = @email_content.hello_sub_text
+  - @user_earnings = "((user_earnings))"
+  - @days = "((days))"
+  - @outcome_users_auction_url = "#"
+  - @image_path = 'emails/provide-outcome-button.png'
+- else
+  - @user_first_name = @user.first_name
+  - @search_number = @auction.number
+  - @search_intent = @auction.name
+  - @auction_url = users_auction_url(@auction)
+  - @auction_product_auction = @auction.product_auction?
+  - @hello_sub_text = prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user)
+  - @user_earnings = format_currency(@auction.user_earnings)
+  - @days = ((Time.now - @auction.end_time)/(3600 * 24)).round
+  - @outcome_users_auction_url = outcome_users_auction_url(@auction)
+  - @image_path = attachments['emails/provide-outcome-button.png'].url
+
+
+- content_for :hello_text do
+  = "Hi #{@user_first_name}, confirm your auction!"
+
+- content_for :hello_sub_text do
+  - if @email_content.hello_sub_text.blank?
+    Your MuddleMe auction
+    = link_to "##{@search_number}", @auction_url
+    for
+    = @search_intent
+    = @auction_product_auction ? '' : 'project'
+    has ended and your earnings
+    are waiting to be claimed!
+  - else
+    = @hello_sub_text
+
+
+- content_for :main_content do
+  %table{:width => "100%", :border=> "0", :cellpadding => "0", :cellspacing => "0"}
+    %tr
+      %td{:align=>'left', :style => "font-size: 16px; color: #666666; font-family: helvetica;"}
+        Your worth for this auction was
+        %span{:style=>'color: #89bd07; font-size: 22px; font-family: helvetica; font-weight: bold'}
+          = @user_earnings
+          = '!'
+    %tr
+      %td{:height=>15, :style => "font-size: 1px;"}
+    %tr
+      %td{:align=>'left', :style => "font-size: 16px; color: #666666; font-family: helvetica;"}
+        You only have
+        %span{:style=>'color: #89bd07; font-size: 22px; font-family: helvetica; font-weight: bold'}
+          = "#{@days} days"
+        to claim your earnings!
+    %tr
+      %td{:height=>25, :style => "font-size: 1px;"}
+    %tr
+      %td{:align=>'center'}
+        %a{:href=> @outcome_users_auction_url}
+          = image_tag @image_path, :alt=>'Provide auction outcome!', :title=>'Provide auction outcome!', |
+            :style=>'border: none'
+
+= render 'layouts/application/basic_email', :admin_preview => admin_preview

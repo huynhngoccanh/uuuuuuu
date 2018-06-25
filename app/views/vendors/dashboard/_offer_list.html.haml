@@ -1,0 +1,55 @@
+%table.default-table.packed
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Offer
+    %th.no-hvr
+      %span.txt 
+        %span Impressions
+    %th.no-hvr{:style=>'white-space: nowrap'}
+      %span.txt
+        %span Conversion %
+    %th.no-hvr{:style=>'white-space: nowrap'}
+      %span.txt
+        %span Spent to date
+  - if @best_offers.blank?
+    %tr
+      %td.ctr{:colspan=>4} 
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "You have not created any offers yet"
+  - else
+    - @best_offers.each do |o|
+      %tr
+        %td= link_to o.name, preview_existing_offer_path(o), :class=>'preview-offer-link'
+        %td.ctr= o.impressions
+        %td.ctr= o.conversion_percent.nil? ? '-' : "#{(o.conversion_percent)*100.round.to_i}%"
+        %td= format_currency(o.total_spent)
+    
+.table-footer.table-info
+  .right
+    = link_to 'View All Offers', offers_path
+
+#offer-preview-wrap.existing
+
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      var pendingRequest;
+      var linkTxt = $('.preview-offer-link:first').text();
+      $('.preview-offer-link').on('click', function(e){
+        e.preventDefault();
+        var $this = $(this);
+        linkTxt = $this.text();
+        $this.text('Generating preview...');
+        if(pendingRequest) pendingRequest.abort();
+        $.ajax({
+          type: 'POST',
+          url: $this.attr('href'),
+          complete: function(){
+            $this.text(linkTxt);
+            showDetailsBox($('#offer-window-preview'));
+          },
+          dataType: 'script'
+        });
+      });
+    })

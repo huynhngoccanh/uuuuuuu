@@ -1,0 +1,8 @@
+I"ì(function() {
+  $(document).ready(function() {
+    $('.ajax-spinner').on('ajax:beforeSend', function(e, data, status, xhr) {});
+    return $('.ajax-spinner').on('ajax:complete', function(e, data, status, xhr) {});
+  });
+
+}).call(this);
+:ET

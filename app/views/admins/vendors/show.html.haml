@@ -1,0 +1,128 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/vendors'
+
+- content_for :main_column do
+  %section.default-content#admin-company
+    .clearfix
+      .column
+        %article.narrowed.details-preview#company-profile
+          %h3 COMPANY DETAILS
+          %hr
+          %div.line
+            %div.label Company name:
+            %div.value= @vendor.company_name
+
+          %div.line
+            %div.label First name:
+            %div.value= @vendor.first_name
+
+          %div.line
+            %div.label Last name:
+            %div.value= @vendor.last_name
+
+          %div.line
+            %div.label E-mail address:
+            %div.value= @vendor.email
+
+          %div.line
+            %div.label Address:
+            %div.value= @vendor.address
+
+          %div.line
+            %div.label City:
+            %div.value= @vendor.city
+
+          %div.line
+            %div.label Zip code:
+            %div.value= @vendor.zip_code
+
+          %div.line
+            %div.label Phone:
+            %div.value= @vendor.phone
+
+          %div.line
+            %div.label Website URL:
+            %div.value= @vendor.website_url
+
+        %article.narrowed.details-preview#company-additional-info
+          %h3 ADDITIONAL INFORMATION
+          %hr
+          %div.line
+            %div.label Service provider:
+            %div.value= @vendor.service_provider? ? "Yes":"No"
+          - if @vendor.service_provider?
+            %div.line
+              %div.label Service categories:
+              %div.value
+                - unless @vendor.service_categories.blank?
+                  - @vendor.service_categories.each do |c|
+                    = "#{c.name};"
+                - else
+                  = "--"
+          %br
+          %div.line
+            %div.label Retailer:
+            %div.value= @vendor.retailer? ? "Yes":"No"
+          - if @vendor.retailer?
+            %div.line
+              %div.label Retailer categories:
+              %div.value
+                - unless @vendor.product_categories.blank?
+                  - @vendor.product_categories.each do |c|
+                    = "#{c.name};"
+                - else
+                  = "--"
+      .column
+        %article.details-preview#admin-company-funds
+          %h3 COMPANY FUNDS
+          %hr
+          %p
+            %span.label
+              = 'TOTAL BALANCE: '
+            %span.dollars
+              = format_currency(@vendor.balance || 0)
+          %p
+            %span.label
+              = 'Available: '
+            %span.dollars
+              = format_currency(@vendor.available_balance)
+          %p
+            %span.label
+              = 'In campaign budgets: '
+            %span.dollars
+              = format_currency(@vendor.balance_locked_in_campaigns )
+          %hr
+          %p
+            %span.label{:style=>'min-width: 0'}
+              = 'Add Funds: '
+          #funds-grant-form-wrap
+            = simple_form_for @funds_grant, :validate=>true, :wrapper=>:standard,  |
+               :url=>create_funds_grant_admin_vendor_path(@vendor), |
+               :html=>{:class=>'with-label'} do |f|
+              .inputs{:style=>"float: left"}
+                = f.input :amount, :label => 'Amount:', :input_html=>{:style=>"width: 100px;", :value=>@funds_grant.amount && @funds_grant.amount.to_i}, |
+                  :wrapper_html=>{:style => 'width: 122px'}
+              .actions{:style=>"float: left; margin-top: 21px"}
+                = f.button :submit, 'Grant funds to company'
+
+
+    %article.column.half-col
+      %h3 TRANSFERS
+      %hr.for-table
+      #transfers_table_wrap
+        = render 'vendors/funds_transfers/transfers_table'
+    %article.column.half-col.last-child
+      %h3 REFUNDS
+      %hr.for-table
+      #refunds_table_wrap
+        = render 'vendors/funds_transfers/refunds_table'
+
+%h2 Company Profile
+= render 'layouts/application/one_column'
+
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#transfers_table_wrap');
+      simpleAjaxPagination('#refunds_table_wrap');

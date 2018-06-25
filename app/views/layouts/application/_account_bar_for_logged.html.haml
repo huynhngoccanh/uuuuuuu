@@ -1,0 +1,16 @@
+%div#account-bar.clearfix{ :style => "height:60px" }
+  %div.logged
+
+    - if session[:finished_auctions]
+      %a{:href => auctions_path}
+        Finished auctions:
+        %span.important= session[:finished_auctions]
+      %span.separator= "|"
+
+    %a{:href => funds_withdrawals_path}
+      Balance:
+      %span.dollars= format_currency(current_user.total_balance || 0)
+    %span.separator= "|"
+    = current_user.email
+    %span.separator= "|"
+    = link_to 'sign out', destroy_user_session_path, :method=>'delete', :id=>'logout-link'

@@ -1,0 +1,26 @@
+%table.default-table.packed
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Auction
+    %th.no-hvr
+      %span.txt 
+        %span Keywords
+    %th.no-hvr
+      %span.txt
+        %span Time
+  - if auctions.blank?
+    %tr
+      %td.ctr{:colspan=>3} 
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "No auctions yet"
+  - else
+    - auctions.each_with_index do |auction, idx|
+      %tr{:class=>cycle(nil,'odd')}
+        %td= link_to auction.number, auction
+        %td= auction.name
+        %td
+          - if type != :in_progress
+            = format_datetime(auction.end_time)
+          - else
+            = seconds_to_days_and_time(((auction.end_time) - Time.now).to_i, false)

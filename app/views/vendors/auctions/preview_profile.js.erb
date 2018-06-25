@@ -1,0 +1,3 @@
+$('#profile-details-wrap').html("<%= escape_javascript render 'vendors/auctions/profile_details',
+      :auction=>@auction,
+      :user=>@auction.user %>")

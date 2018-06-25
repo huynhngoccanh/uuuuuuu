@@ -1,0 +1,125 @@
+.services-search.full-width
+  /----------------- banner section -------------------------------
+  section.full-width.hero-banner.parallax-bg.services-banner
+    .container
+      a.btn.btn-orange data-animation="none" data-reveal-id="qualified_popup" href="#" id="qualified_popup_button" Are you a Qualified Pro &nbsp; 
+      / a.data-animation="none" data-reveal-id="qualified_popup" href="javascript:void(0);" class="btn btn-orange" Are you a Qualified Pro &nbsp; 
+      .banner-content
+        figure.align-center
+          = image_tag "ubitru/logo.png" , class: "img-responsive" , alt: "Ubitru Services"
+        h2 Find Trusted Service Provider Pros
+        form.services-keyword-search
+          .input-box
+            input id="services-autocomplete" name="keyword" placeholder=("What service do you need?") type="text" /
+          .submit-box
+            input.btn.btn-green id="" type="submit" value=("Find Pros") /
+        p The easiest and most reliable way to get your projects completed and make money
+  / -------------------- search section --------------------------------
+  section.full-width.fixed-search
+    .container
+      .grid-row
+        form.services-search
+          .col-6.form-label
+            h2 Compare Quotes and get Paid from up to 5 Pros
+          .col-6.form-fields
+            .select-box
+              i.fa.fa-caret-down
+              select.taxans-select name=""
+                option value=""  View All Projects
+                - @taxons.each do |taxon|
+                  option value=(taxon.id) = taxon.name
+            .submit-box
+              input.btn.btn-green id="" type="submit" value=("Find Pros") 
+/ -------------------- banner bottom section --------------------------
+section.full-width.banner-bottom
+  .container
+    .hero-text.cf.align-center
+      span
+        i.fa.fa-check-circle
+        | Always FREE
+      span
+        i.fa.fa-check-circle
+        | Over 1 Million Service Providers
+      span
+        i.fa.fa-check-circle
+        | Earn Cash Back For Every Call Made
+      i.fa.fa-caret-down
+section.full-width.service-cat
+  .container
+    h2.green-text Top Categories
+    .grid-row
+      - each_row = (@taxons.count/3).to_i
+      - [0,1,2].each do |i|
+        .col-4
+          ul.no-list.services-list
+            - @taxons[((i*each_row)..((i+1)*each_row - 1))].each do |taxon|
+              li style="padding-right:0px"
+                a.open-service-modal href="#" data-taxon_id=(taxon.id) data-taxon_name=(taxon.name)
+                  span.icon-container
+                    i.fa.fa-book
+                  = taxon.name
+         
+/ ------------------------- confidence section ------------------------
+section.full-width.call-with-confidence
+  .container
+    .grid-row
+      .col-6.left
+        .merchants-block.cf
+          figure
+            = image_tag "ubitru/logo.png" , class: "img-responsive" , alt: "Ubitru Services"
+          table
+            thead
+              tr
+                th.align-left Merchant
+                th.align-center Earn Cash
+                th.align-center Offer
+                th.align-center Code
+                th.align-center Call Now
+            tbody
+              tr
+                td.align-left A Plumber Near You
+                td.align-center $5.25
+                td.align-center 
+                td.align-center 
+                td.align-center <a href="#" class=" "><i class="fa fa-phone"></i>View Number</a>
+              tr
+                td.align-left ABC Plumbing Services
+                td.align-center $4.90
+                td.align-center 
+                td.align-center 
+                td.align-center <a href="#" class=" "><i class="fa fa-phone"></i>View Number</a>
+              tr
+                td.align-left Heritage Plumbing
+                td.align-center $4.90
+                td.align-center 
+                td.align-center 
+                td.align-center <a href="#" class=" "><i class="fa fa-phone"></i>View Number</a>
+          .total-cash.row
+            .left
+              h5 Your Total Cash: $15.05
+              p For every call made you receive the cash payout if you transact.
+            a.btn.btn-green href="#" more<br>details
+          .app-search.cf
+            p.align-center Enter your phone number to text yourself the app!
+            form action="" 
+              input#search placeholder=("Enter your mobile number") type="search" /
+              input#submit.btn.btn-green type="submit" value="send" /
+      .col-6.right
+        h2 Call with confidence
+        p
+          | With more than 1 million service providers on
+          | our platform and subject to a very comprehensive
+          | screening process UbiTru Home Services gives you
+          | peace of mind that comes from knowing you hired
+          | a professional you can trust.
+        p And you made a little money along the way!
+        .button-wrapper
+          a.btn.btn-blue data-animation="none" data-reveal-id="cash_call" href="#"  Call Today
+section.full-width.services-bottom
+  .container
+    .row.align-center
+      = image_tag "ubitru/service-bottom.png"
+      h2 Are You a Home Improvement or Service Pro?
+      p Find out how ubitru can help your business
+      .button-wrapper
+        a.btn.btn-blue href=learn_more_path  Learn More 

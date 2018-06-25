@@ -1,0 +1,30 @@
+!!!
+/[if lt IE 7]
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+/[if IE 7]
+  <html class="no-js lt-ie9 lt-ie8">
+/[if IE 8]
+  <html class="no-js lt-ie9">
+/ [if gt IE 8]><!
+%html.no-js{:xmlns => "http://www.w3.org/1999/html"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title
+    %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    / Place favicon.ico and apple-touch-icon.png in the root directory
+    //%link{:href => "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic", :rel => "stylesheet", :type => "text/css"}/
+    //%link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,600,700,800,800italic,700italic,600italic,400italic", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100&subset=latin,cyrillic-ext,latin-ext,greek-ext,cyrillic", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => 'http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900', :rel => 'stylesheet', :type => 'text/css'}
+    = csrf_meta_tag
+    = stylesheet_link_tag  "new_hp"
+    = javascript_include_tag "new_application"
+  %body.bodybckg
+    %header#header.header.headerHomeNew
+      = render "layouts/new_resp_header"
+    = yield
+    = render "layouts/new_resp_footer"

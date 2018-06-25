@@ -1,0 +1,58 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/auctions'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %nav.tabs-nav.for-table.with-search
+      = form_tag(admin_auctions_path, :method=>:get, :remote=>true, :id => "auctions-filters") do
+        %div.fields
+          = label_tag 'created_at_from', "Created at from:"
+          = text_field_tag 'created_at_from', params['created_at_from'], :class=>'datepicker'
+          = label_tag 'created_at_to', "to:"
+          = text_field_tag 'created_at_to', params['created_at_to'], :class=>'datepicker'
+        %div.fields
+          = label_tag 'ended_at_from', "Ended at from:"
+          = text_field_tag 'ended_at_from', params['ended_at_from'], :class=>'datepicker'
+          = label_tag 'ended_at_to', "to:"
+          = text_field_tag 'ended_at_to', params['ended_at_to'], :class=>'datepicker'
+        %div.fields
+          = text_field_tag 'search', params['search'], :class=>'search-field', |
+            :placeholder=>'Search Auctions'
+        = submit_tag "filter"
+      %ul
+        %li.active
+          %a#all-tab-link{:href=>'#'} All
+        %li
+          %a#in_progress-tab-link{:href=>'#'} In progress
+        %li
+          %a#finished-tab-link{:href=>'#'} Finished
+        %li
+          %a#confirmation_negative-tab-link{:href=>'#'} Confirmation negative
+    #all_auctions_wrap.tab-content
+      = render 'auction_list', :type=>:all, :single=>true, :no_top_pagination=>true
+    #in_progress_auctions_wrap.tab-content{:style=>'display: none'}
+      = render 'auction_list', :type=>:in_progress, :single=>true, :no_top_pagination=>true
+    #finished_auctions_wrap.tab-content{:style=>'display: none'}
+      = render 'auction_list', :type=>:finished, :single=>true, :no_top_pagination=>true
+    #confirmation_negative_auctions_wrap.tab-content{:style=>'display: none'}
+      = render 'auction_list', :type=>:confirmation_negative, :single=>true, :no_top_pagination=>true
+
+
+
+%h2 Intent
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  = javascript_include_tag "#{params[:controller]}/datepicker-filters"
+  %script
+    :plain
+      simpleAjaxPagination('#all_auctions_wrap');
+      simpleAjaxPagination('#in_progress_auctions_wrap');
+      simpleAjaxPagination('#finished_auctions_wrap');
+      simpleAjaxPagination('#confirmation_negative_auctions_wrap');
+
+      initTabsNav($('.tabs-nav ul:first'), '_auctions_wrap');
+
+      $('input.search-field').closest('form').submit(function(){
+          showLoader($('.tab-content:visible'));
+      });

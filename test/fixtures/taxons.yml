@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  position: 1
+  parent_id: 1
+  permalink: MyString
+  taxonomy_id: 1
+  description: MyText
+  meta_title: MyString
+  meta_description: MyText
+  meta_keywords: MyString
+  nested_name: MyString
+
+two:
+  name: MyString
+  position: 1
+  parent_id: 1
+  permalink: MyString
+  taxonomy_id: 1
+  description: MyText
+  meta_title: MyString
+  meta_description: MyText
+  meta_keywords: MyString
+  nested_name: MyString

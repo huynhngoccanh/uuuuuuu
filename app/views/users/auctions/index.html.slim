@@ -1,0 +1,36 @@
+.grey-section
+  .link-section
+    .container
+      nav
+        ul
+          li
+            a href="#"  Create a Service Auction
+          li
+            a href="#"  Create a Product Auction
+          li
+            a.active href="#"  View Auctions
+  .heading-section.clearfix
+    .container
+      h2 My Auctions
+      .score
+        span.left Your MuddleMe Score
+        span.right 78
+  .content-section
+    .container
+      .white-box.clearfix
+        .aution-section
+          h5
+            | ACTIVE RUNNING AUCTIONS
+          = render 'auction_list', :type=>:in_progress
+        .aution-section style=("margin-top:30px;")
+          h5
+            
+            | FINISHED AUCTIONS (FEEDBACK REQUIRED)
+          = render 'auction_list', :type=>:finished
+        
+        .aution-section style=("margin-top:30px;")
+          h5
+            
+            | PAST COMPLETED AUCTIONS
+          = render 'auction_list', :type=>:unconfirmed
+           

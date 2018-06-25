@@ -1,0 +1,31 @@
+%section.default-content#quick-stats
+  %h3 MY QUICK STATS
+  %hr.for-table
+  %table.striped-table
+    %tr
+      %td.label
+        My Online Worth (per&nbsp;auction)
+        - tip = "This is the average value of your contact information to vendors in Ubitru online auctions."
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+      %td.rgt
+        %span.dollars= format_currency(current_user.worth_per_auction)
+    %tr.odd
+      %td.label Questions Answered
+      %td.rgt= current_user.answered_questions_count
+    %tr
+      %td.label= link_to "Questions Unanswered", new_survey_path
+      %td.rgt= current_user.unanswered_questions_count
+    %tr.odd
+      %td.label Auctions Initiated
+      %td.rgt= current_user.auctions.count
+  %p.important-info.clearfix
+    %span Earnings to date:
+    %span.dollars= format_currency(current_user.earnings_with_unconfirmed)
+
+
+
+
+	    
+
+
+

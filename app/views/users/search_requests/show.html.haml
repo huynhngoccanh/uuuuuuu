@@ -1,0 +1,57 @@
+- content_for :main_column do
+  %section.default-content.clearfix
+    .columns-wrap
+      .column
+        %article
+          %h3
+            - if @search_request.ended?
+              = "THIS SEARCH REQUEST ENDED ON: #{format_datetime(@search_request.end_time)}"
+            - else
+              = "THIS SEARCH REQUEST ENDS IN: #{format_datetime(@search_request.end_time)}"
+        %article#auction-bids
+          %table.default-table
+            %tr
+              %th.no-hvr
+                %span.txt
+                  %span Merchant
+              %th.ctr.no-hvr
+                %span.txt
+                  %span Earn Cash
+              %th.ctr.no-hvr
+                %span.txt
+                  %span Offer
+              %th.no-hvr
+                %span.txt
+                  %span Coupon Code
+            - @search_merchants.each_with_index do |merchant, idx|
+              - cls = cycle(nil,'odd')
+              %tr{:class=>cls, :style => "#{merchant.active ? 'background-color: #cccccc;' : ''}"}
+                %td= merchant.company_name
+                %td= (merchant.is_a?(Search::SoleoMerchant) || merchant.is_a?(Search::LocalMerchant)) ? format_currency(merchant.user_money) : merchant.user_money
+                %td= merchant.offer_name
+                %td= merchant.coupon_code
+
+      .column.second
+        %article#auction-images
+          %h3
+            = @user_earnings > 0 ? 'Earnings' : 'Potential earnings'
+            %hr
+        %article#auction-value
+          .offwhite-box.details-preview
+            %h3
+              CONGRATULATIONS!
+              %br
+                = @user_earnings > 0 ? 'You have earned' : 'You have potentially earned'
+            .encircled-value= format_currency(@user_earnings > 0 ? @user_earnings : @user_pending_earnings)
+            - if @user_earnings > 0
+              %h4{:style => 'color: #888888;'} via instant offer from our affiliate: #{@advertiser_with_commission.name}
+            - else
+              %h3 FOR YOUR Search Request.
+            - if @search_request.unconfirmed?
+              = link_to 'Provide outcome to claim earnings', "/search_requests/#{@search_request.id}/outcome", :class=>'orange-button'
+
+%h2
+  = "SEARCH REQUEST ##{@search_request.id}"
+  - if @search_request.ended?
+    = 'has ended'
+= render 'layouts/application/one_column'

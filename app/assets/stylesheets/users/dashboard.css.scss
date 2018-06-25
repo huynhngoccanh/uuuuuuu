@@ -1,0 +1,68 @@
+section#dashboard {
+  margin-bottom: 20px;
+}
+
+section#dashboard-auctions {
+  div.half-col {
+    width:305px;
+    padding-right: 14px;
+  }
+  div.half-col.last-child {
+    padding-right: 0px;
+  }
+}
+
+section#sidebar-score,
+section#quick-stats,
+section#private-data,
+section#raise-score {
+  margin-bottom: 15px;
+}
+
+section#quick-stats {
+  table {
+    td.rgt {
+      width: 50px;
+    }
+  }
+  p.important-info {
+    span {
+      float:left;
+    }
+    span.dollars {
+      float: right;
+    }
+  }
+}
+
+section#private-data {
+  position: relative;
+  a#edit-profile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 11px;
+    float: right;
+    margin: 1em;
+  }
+}
+
+section#raise-score {
+  position: relative;
+}
+
+section#raise-score h3 {
+  a {
+    text-decoration: none;
+    margin: 0;
+  }
+  a:hover {
+    color: inherit;
+  }
+}
+
+section#raise-score a#go {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

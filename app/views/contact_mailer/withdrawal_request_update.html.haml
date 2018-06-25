@@ -1,0 +1,14 @@
+%p Hi, 
+%p 
+  A new withdrawal request from user
+  = @user.email 
+  for an amount of 
+  = format_currency(@user.withdrawal_request.amount)
+  was recorded.
+%p
+  = link_to "Click here", admin_withdrawal_request_url(@user.withdrawal_request)
+  to view details
+%p
+  Team Muddleme
+    
+

@@ -1,0 +1,46 @@
+:javascript
+  var _GSCE_CX = "#{$g_cse_cx}";
+  var _MM_USER_INFO = #{get_user_info(current_user).to_json};
+  var _UNIVERSITY_PAGE_VISITED = #{session[:university_page_visited].nil? ? false : true};
+
+// search form
+%form#cse-search-box-form-id
+  %table#cse-form-container
+    %tr
+      %td= image_tag 'search/glogo.png'
+      %td#cse-input-column
+        %input#cse-search-input-box-id-1{:autocomplete => 'off', :type => 'text'}
+        .cse-mm-search-bar-icon-wrapper
+      %td
+        = image_submit_tag 'search/g-submit-btn.png'
+
+  #cse-middle-search-container
+    #cse-search-logo
+      = image_tag get_logo
+    #cse-second-search-bar
+      %input#cse-search-input-box-id-2{:autocomplete => 'off', :type => 'text'}
+      .cse-mm-search-bar-icon-wrapper
+    #cse-g-brand
+      Powered by
+      %a{:href => '//www.google.com/cse/?hl=en'}
+        %img{:src => '//www.google.com/cse/images/google_custom_search_smwide.gif'}
+      %div
+        .pull-right
+          %a{:href => '/about'}Muddleme.com
+  #cse-slider-container
+    %ul.bxslider
+      - @advertisers.each do |advertiser|
+        - if advertiser.present? && ((advertiser.is_a?(LinkshareAdvertiser) && advertiser.logo_url.present?) || (!advertiser.is_a?(LinkshareAdvertiser) && advertiser.logo.url.index('missing.png').nil?))
+          %li
+            = link_to(image_tag(advertiser.is_a?(LinkshareAdvertiser) ? advertiser.logo_url : advertiser.logo.url, :title => advertiser.name), advertiser.advertiser_url, :target => :blank)
+    #cse-pick-merchants-link= link_to 'Pick Top 20 Merchants / Real Time Coupons', favorite_advertisers_path
+
+%script{:src => '//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id-1', :type => 'text/javascript'}
+%script{:src => '//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id-2', :type => 'text/javascript'}
+
+// results
+#gcse-container
+  %gcse:searchresults-only
+
+// MM Box
+= render :partial => 'mm_box'

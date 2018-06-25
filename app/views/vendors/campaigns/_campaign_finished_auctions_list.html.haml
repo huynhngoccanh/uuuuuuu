@@ -1,0 +1,61 @@
+%table.default-table
+  %tr
+    -#%th{:class=>list_order_class(:auctions, 'auctions.id')}
+    -#  %a{:href=>list_order_url(:auctions, 'auctions.id')}
+    -#    %span Auction number
+    %th{:class=>list_order_class(:auctions, 'auctions.name')}
+      %a{:href=>list_order_url(:auctions, 'auctions.name')}
+        %span Auction name
+    %th
+      %span.txt
+        %span Status
+    %th{:class=>list_order_class(:auctions, 'auctions.end_time')}
+      %a{:href=>list_order_url(:auctions, 'auctions.end_time')}
+        %span Ended at
+    %th{:class=>list_order_class(:auctions, 'auctions.vendor_bid')}
+      %a{:href=>list_order_url(:auctions, 'auctions.vendor_bid')}
+        %span Your Bid
+    %th{:class=>list_order_class(:auctions, 'highest_bids_auctions.max_value')}
+      %a{:href=>list_order_url(:auctions, 'highest_bids_auctions.max_value')}
+        %span High&nbsp;Bid
+    %th{:class=>list_order_class(:auctions, 'auctions.max_vendors')}
+      %a{:href=>list_order_url(:auctions, 'auctions.max_vendors')}
+        %span Slots Available
+    %th
+      %span.txt
+        %span Bids
+    %th{:class=>list_order_class(:auctions, 'users.score')}
+      %a{:href=>list_order_url(:auctions, 'users.score')}
+        %span MuddleMe Score/Worth
+
+  - if @auctions.blank?
+    %tr
+      %td.ctr{:colspan=>8}
+        = "No auctions to show"
+  - @auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      -#%td= link_to auction.number, auction
+      %td= auction.name
+      %td{:class=> (!auction.vendor_won.zero? ? '' : 'warn tip') }
+        = !auction.vendor_won.zero? ? "Won" : "Lost"
+      %td
+        - if auction.status == 'active' && auction.end_time < Time.now
+          = 'processing winners...'
+        - else
+          = auction.end_time < Time.now ? format_datetime(auction.end_time) : seconds_to_days_and_time((auction.end_time - Time.now).to_i, false)
+      %td
+        - bid_index = auction.bids.index{|b| b.vendor_id==current_vendor.id}
+        =(bid_index ? format_currency(auction.bids[bid_index].max_value) : "-" )
+      %td
+        - if auction.highest_bid && auction.highest_bid.max_value
+          = format_currency(auction.highest_bid.max_value)
+        - else
+          = "-"
+      %td= auction.max_vendors
+      %td
+        = "(#{auction.bids.count})"
+      %td= auction.user.score
+.table-footer.table-info
+  .pages-info= page_entries_info @auctions
+  .right
+    = paginate @auctions, :params=>params, :param_name=>"campaign_auctions_page"

@@ -1,0 +1,17 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'service'
+
+- content_for :main_column do
+  %section.default-content
+    %article
+      = render 'service_form'
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'
+    %section.orange-box
+      %h3 Hey, this is private!
+      %p This is an auction only for your contact information and the right for vendors to pitch you their best offers!
+
+%h2 Create an auction for a service
+= render 'layouts/application/two_columns'

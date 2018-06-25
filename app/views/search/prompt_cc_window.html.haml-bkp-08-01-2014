@@ -1,0 +1,191 @@
+-if @coupons.blank?
+  .container-fluid
+    .row
+      .popup_window
+        #coupons-popup
+          .spacer45
+          %p
+            %h2 No Coupon Codes Required
+          %p
+            %h4
+              Shop now to and make money at
+              = link_to @advertiser.name, (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "mpc_link"          
+          = link_to "Go to #{@advertiser.name}", (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "btn btn-primary-custom"
+- else
+  .container-fluid
+    .row
+      .popup_window
+        %p
+          %h2 Coupons and Cash
+  - if @coupons.length > 1
+    %a{:href => "javascript:void(0);", :class => "cp-back-btn off prev_pos_fixed"}
+      = image_tag("popup_left-arrow.png")
+      %p.arrows Prev
+    %a{:href => "javascript:void(0);", :class => "cp-next-btn next_pos_fixed"}
+      = image_tag("popup_right-arrow.png")
+      %p.arrows Next
+
+  .container-fluid
+    .row
+      .popup_window
+        #coupons-popup
+          - @coupons.each_with_index do |coupon, index|
+            .coupons_slider{:class => (index == 0) ? "first selectedDiv" :  (index == @coupons.length - 1) ?  "last" : "" }
+
+              #coupons
+                .coupon
+                  .coup-header
+                    =# coupon.header
+                  %br
+                  %p.text-center
+                    = image_tag('scissor.png', :class => 'coupon-cash-scissor')
+                    %span{:style => "border: 2px dashed #828282 ;padding: 5px 25px;width:100%", :id => "coupon-text-#{coupon.id}"}
+                      = coupon.code
+                  %p
+                    %a.click-to-copy{:href=>'', :class => "center-block", 'data-id' => "#{coupon.id}"}
+                      Click to copy and&nbsp;use coupon
+                  .spacer10
+                  %p
+                    %h3
+                      - if coupon.description.length > 101
+                        %span= coupon.description[0..100]
+                        %span.more
+                          \...
+                        %span.more_content{:style => "display:none;"}
+                          = coupon.description[101..coupon.description.length]
+                        = link_to "view more", "#", :class => "view_more", :style => "font-size:12px !important;"
+                      - else
+                        %span= coupon.description
+
+                  %br
+                  %p
+                    %h4
+                      - unless coupon.expires_at.nil?
+                        = "Expires #{coupon.expires_at.strftime('%m/%d/%Y')}"
+              .section_header
+                %p
+                  = link_to "Go to #{@advertiser.name} and paste code at checkout", (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "mpc_link"
+.spacer45
+.container-fluid
+  .row
+    .popup_window
+      .col-mid-4{:style => "margin-bottom:15px;"}
+        = link_to(image_tag(@advertiser.is_a?(LinkshareAdvertiser) ? @advertiser.logo_url : @advertiser.logo.url, :title => @advertiser.name),
+        (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => :blank, :class => "center-block")
+      - unless @coupon.blank?
+        %p
+          %h4 Never miss a great deal and cash
+        %p
+          Deposited directly in to your account with any purchase from
+          = @advertiser.name
+          %p
+            Combine with coupon codes for huge savings!
+      - else
+        .spacer5
+        %p
+          %b
+            Up to
+            = number_to_percentage(@advertiser.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})
+            Cash Back on all purchases from
+            = @advertiser.name
+    .container-fluid
+      .row
+        .popup_window
+          - if current_user.blank?
+            = form_tag('/hp_user_sign_up', :method => "post", :remote => true, :id => "coupon_window_signup", :class => "navbar-form") do
+              #processing-message
+              #cp-sign-up-form-errors.text-center.text-danger
+              = hidden_field_tag :go_to_url, (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url
+              %p
+                = text_field_tag :user_email, {}, :placeholder => "Email Address", :class => "form-control"
+                = submit_tag 'Sign up', :id => "submitBtn", :class => "btn btn-primary-custom"
+            = link_to 'Sign in', new_user_session_path, :class => 'btn btn-primary-custom'
+          - else
+            = link_to 'Submit a New Coupon to Muddleme and Get Paid!', "#", :class => 'user-submit-coupon-visible', :class => "inverse_general_theme_link user-submit-coupon-link"
+            = link_to 'Submit a New Coupon to Muddleme and Get Paid!', user_submit_coupon_profile_url(:advertiser_id => @advertiser.id, :advertiser_type => params[:type]), :class => 'user-submit-coupon-fb', :style => "display: none;"
+
+            .submit-coupon-user-section{:style => "display: none; "}
+              = render 'submit_coupon_user'
+
+= javascript_include_tag "zclip"
+:javascript
+
+    $(function(){
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })
+    })
+
+
+    $(".cp-back-btn").click(function(){
+      var prevElement=$('.selectedDiv').prev();
+      prevElement.show();
+      $(".selectedDiv").hide();
+      $(".selectedDiv").removeClass("selectedDiv");
+      prevElement.addClass("selectedDiv");
+
+      if($('div.first').css('display')=="block"){
+        $(".cp-back-btn").addClass("off");
+        if ($('.coupons_slider').length == 2){
+          $(".cp-next-btn").removeClass("off");
+        }
+      }
+      else{
+        $(".cp-next-btn").removeClass("off");
+      }
+
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })
+    });
+
+    $(".cp-next-btn").click(function(){
+      var nextElement= $('.selectedDiv').next();
+      nextElement.show();
+      $(".selectedDiv").hide();
+      $(".selectedDiv").removeClass("selectedDiv");
+      nextElement.addClass("selectedDiv");
+      if($('div.last').css('display')=="block"){
+        $(".cp-next-btn").addClass("off");
+        if ($('.coupons_slider').length == 2){
+          $(".cp-back-btn").removeClass("off");
+        }
+      }
+      else{
+        $(".cp-back-btn").removeClass("off");
+      }
+
+      $('.click-to-copy').each(function(i, obj){
+        $(obj).zclip({
+          path: '/ZeroClipboard.swf',
+          copy: $("#coupon-text-" + $(obj).data('id')).text()
+        })
+      })
+    });
+
+
+
+:css
+  .coupons_slider { display: none; }
+  .coupons_slider.first { display: block; }
+  .off{display:none;}
+  .next_pos_fixed {
+    position: relative;
+    top: 200px;
+    right: 5px;
+    color: red;
+    float: right;
+  }
+  .prev_pos_fixed{
+    position: relative;
+    top: 199px;
+    left: 5px;
+    color: red;
+    float: left;
+  }

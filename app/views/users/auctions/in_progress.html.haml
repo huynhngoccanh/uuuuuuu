@@ -1,0 +1,15 @@
+- content_for :sub_nav do
+  = render 'sub_nav'
+
+- content_for :main_column do
+  %section#in_progress_auctions_wrap.default-content.clearfix
+    = render 'auction_list', :type=>:in_progress, :single=>true
+
+= render 'users/shared/header_score'
+%h2 ACTIVE RUNNING AUCTIONS
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#in_progress_auctions_wrap');

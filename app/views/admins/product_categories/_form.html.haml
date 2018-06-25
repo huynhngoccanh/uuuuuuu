@@ -1,0 +1,12 @@
+= simple_form_for(@product_category,  :url => admins_product_category_path, :method => :put) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :order
+    = f.check_box :popular 
+    = "popular"
+
+  .form-actions
+    %br
+    = f.button :submit,:class=>'orange-button fixed-width-button'

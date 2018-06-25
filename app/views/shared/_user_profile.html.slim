@@ -1,0 +1,13 @@
+.ui-content data-role="main" 
+  a.ui-btn.ui-btn-inline.ui-corner-all.ui-icon-check.ui-btn-icon-left data-rel="popup" href="#myPopup"  Show Popup Form
+  #myPopup.ui-content data-role="popup" style="min-width:250px;" 
+    form action="demoform.asp" method="post" 
+      div
+        h3 Login information
+        label.ui-hidden-accessible for="usrnm"  Username:
+        input#usrnm name="user" placeholder="Username" type="text" /
+        label.ui-hidden-accessible for="pswd"  Password:
+        input#pswd name="passw" placeholder="Password" type="password" /
+        label for="log"  Keep me logged in
+        input#log data-mini="true" name="login" type="checkbox" value="1" /
+        input data-inline="true" type="submit" value=("Log in") /

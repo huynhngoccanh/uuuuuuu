@@ -1,0 +1,32 @@
+%p
+  %span.label Offer link:
+  %span= trackable_offer_link(-1, @testOffer)
+%p
+  %span.label Clicked link:
+  %span
+    - if (@clicked_count.blank? || @clicked_count.zero?)
+      = 'no'
+    - else
+      %strong= "YES #{@clicked_count>1?"(#{@clicked_count})":""}"
+%p
+  %span.label Visited offer page:
+  %span
+    - if (@visited_count.blank? || @visited_count.zero?)
+      = 'no'
+    - else
+      %strong= "YES #{@visited_count>1?"(#{@visited_count})":''}"
+%p
+  %span.label Converted on offer:
+  %span
+    - if (@converted_count.blank? || @converted_count.zero?)
+      = 'no'
+    - else
+      %strong= "YES #{@converted_count>1?"(#{@converted_count})":''}"
+
+- content_for :javascripts do
+  %script
+    :plain
+      //start polling for screen status change
+      check_test_timeout = window.setTimeout(function(){
+        $.getScript('#{check_test_tracking_events_path}');
+      }, 4000);

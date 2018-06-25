@@ -1,0 +1,35 @@
+%h1 Listing loyalty_program_offers
+
+%table
+  %thead
+    %tr
+      %th Loyalty program
+      %th Name
+      %th Coupon code
+      %th Offer url
+      %th Offer description
+      %th Expiration time
+      %th Product offer
+      %th Is deleted
+      %th
+      %th
+      %th
+
+  %tbody
+    - @loyalty_program_offers.each do |loyalty_program_offer|
+      %tr
+        %td= loyalty_program_offer.loyalty_program
+        %td= loyalty_program_offer.name
+        %td= loyalty_program_offer.coupon_code
+        %td= loyalty_program_offer.offer_url
+        %td= loyalty_program_offer.offer_description
+        %td= loyalty_program_offer.expiration_time
+        %td= loyalty_program_offer.product_offer
+        %td= loyalty_program_offer.is_deleted
+        %td= link_to 'Show', loyalty_program_offer
+        %td= link_to 'Edit', edit_loyalty_program_offer_path(loyalty_program_offer)
+        %td= link_to 'Destroy', loyalty_program_offer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Loyalty program offer', new_loyalty_program_offer_path

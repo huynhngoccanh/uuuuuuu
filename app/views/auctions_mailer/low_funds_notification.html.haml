@@ -1,0 +1,50 @@
+- admin_preview = admin_preview ||= nil
+
+- if admin_preview
+  - @vendor_first_name = "((vendor_first_name))"
+  - @campaign_name = "((campaign_name))"
+  - @hello_sub_text = @email_content.hello_sub_text
+  - @offer_name = "((offer_name))"
+- else
+  - @vendor_first_name = @vendor.first_name
+  - @campaign_name = @campaign ? @campaign.name : ''
+  - @hello_sub_text = prepare_email_content(@email_content.hello_sub_text, :campaign => @campaign, :vendor => @vendor)
+  - @offer_name = @campaign ? @campaign.offer.name : ''
+
+
+- content_for :hello_text do
+  = "Hi #{@vendor_first_name}!"
+
+- content_for :hello_sub_text do
+  - if @email_content.hello_sub_text.blank?
+    - if @email_content.name == "low_funds_notification_global"
+      Your MuddleMe balance is running low.
+    - else
+      Campaign funds for your campaign
+      = @campaign_name
+      are running low!
+  - else
+    = @hello_sub_text
+
+- content_for :main_content do
+  %table{:width => "100%", :border=> "0", :cellpadding => "0", :cellspacing => "0"}
+    %tr
+      %td{:align=>'left', :style => "font-size: 16px; color: #666666; font-family: helvetica;"}
+        Login to MuddleMe and 
+        - if @email_content.name == "low_funds_notification_global"
+          %span{:style=>'color: #dc6d2c; font-size: 22px; font-family: helvetica; font-weight: bold'}
+            transfer additional funds to MuddleMe
+          to keep getting quality leads.
+        - else
+          %span{:style=>'color: #dc6d2c; font-size: 22px; font-family: helvetica; font-weight: bold'}
+            increase campaign budget and resume the campaign
+          to keep presenting the offer
+          = @offer_name
+          to your customers.
+    %tr
+      %td{:height=>15, :style => "font-size: 1px;"}
+    %tr
+      %td{:height=>25, :style => "font-size: 1px;"}
+
+
+= render 'layouts/application/basic_email', :for_vendor=>true, :admin_preview => admin_preview

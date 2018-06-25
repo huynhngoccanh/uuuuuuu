@@ -1,0 +1,39 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/stores'
+
+- content_for :main_column do
+  %section.default-content
+    %h3 Add store details for affiliates
+    %hr
+    %p
+      Import store details for Avant affiliates
+      = form_tag({:action=>:avant_stores}, :multipart => :true, :method => :post) do
+        = file_field_tag :avant_stores_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import store details for CJ affiliates
+      = form_tag({:action=>:cj_stores}, :multipart => :true, :method => :post) do
+        = file_field_tag :cj_stores_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import store details for Linkshare affiliates
+      = form_tag({:action=>:ls_stores}, :multipart => :true, :method => :post) do
+        = file_field_tag :ls_stores_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import store details for PJ affiliates
+      = form_tag({:action=>:pj_stores}, :multipart => :true, :method => :post) do
+        = file_field_tag :pj_stores_csv
+        = submit_tag 'Upload'
+    %hr
+    %p
+      Import store details for IR affiliates
+      = form_tag({:action=>:ir_stores}, :multipart => :true, :method => :post) do
+        = file_field_tag :ir_stores_csv
+        = submit_tag 'Upload'
+
+%h2 Affiliate Stores
+= render 'layouts/application/one_column'

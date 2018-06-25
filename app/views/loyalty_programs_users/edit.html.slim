@@ -1,0 +1,44 @@
+.grey-section
+  .link-section
+  .heading-section.clearfix
+    .container
+      h2
+        b Loyalty Program User details
+      .score
+        span.left Your Ubitru Score
+        span.right = current_user.score
+  .content-section
+    .container
+      .white-box.clearfix
+        .profile-section
+          h4 
+            |Update Loyalty Progran User-
+            .pull-right
+              a href="/loyalty_result" 
+                |Back <<
+          table.normal border="0" cellpadding="0" cellspacing="0" width="100%" 
+            = simple_form_for @loyalty_programs_user, :url=>{:action=>:update},:wrapper=>:standard, :validate => true, :html=>{:class=>'no-label clearfix'} do |f|
+                tr
+                  -if !params[:manually_update].nil?            
+                     = f.hidden_field :status, :value => "success"
+                tr
+                  th scope="row" width="25%"  Email:
+                  td
+                    = f.input_field :account_id, class: "form-control"
+                tr
+                  th scope="row" width="25%"  Password:
+                  td
+                    = f.text_field :password, class: "form-control"
+                tr
+                  th scope="row" width="25%"  Account Number:
+                  td
+                    = f.input_field :account_number, class: "form-control", disabled:  !params[:manually_update]
+
+                tr
+                  th scope="row" width="25%"  Points:
+                  td
+                    = f.input_field :points, class: "form-control", disabled: !params[:manually_update]
+                tr
+                  th
+                  td
+                    = f.button :submit, :class => 'btn-primary '

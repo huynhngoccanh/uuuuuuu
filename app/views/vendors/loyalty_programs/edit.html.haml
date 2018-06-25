@@ -1,0 +1,10 @@
+
+= form_tag "/loyalty_program" do
+  %span
+  %p
+  %p
+    Associated Loyalty Program : 
+    = select_tag "loyalty_program", options_from_collection_for_select(LoyaltyProgram.all, "id", "name"), :prompt => "choose loyalty program", :id => "add-loyalty-program"
+    %div
+    %p
+    = submit_tag "Add" 

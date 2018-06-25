@@ -1,0 +1,8 @@
+- content_for :main_column do
+  %section.default-content#company-registration
+    %article#step1
+      = render :partial => 'social_nav'
+      = render :partial => 'step1_form'
+
+%h2 Company Account Setup
+= render 'layouts/application/two_columns'

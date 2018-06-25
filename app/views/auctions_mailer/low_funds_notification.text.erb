@@ -1,0 +1,15 @@
+Hi <%= @vendor.first_name %>!
+
+<% if @email_content.hello_sub_text.blank? %>
+    <% if @campaign.nil? %>
+        Your MuddleMe balance is running low.
+    <% else %>
+        Campaign funds for your campaign <%= @campaign.name %> are running low!
+    <%  end %>
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :campaign => @campaign, :vendor => @vendor) %>
+<% end %>
+
+
+Login to MuddleMe and <% if @campaign.nil? %> transfer additional funds to MuddleMe to keep getting quality leads. <% else %>  increase campaign budget and resume the campaign to keep presenting the offer <%= @campaign.offer.name %> to your customers.
+<% end %>

@@ -1,0 +1,25 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:refunds, 'created_at')}
+      %a{:href=>list_order_url(:refunds, 'created_at')}
+        %span Date
+    %th
+      %span.txt
+        %span Type
+    %th{:class=>list_order_class(:refunds, 'refunded_amount')}
+      %a{:href=>list_order_url(:refunds, 'refunded_amount')}
+        %span Amount
+  - if @refunds.blank?
+    %tr
+      %td.ctr{:colspan=>3}
+        = "No refunds to show"
+  - else
+    - @refunds.each do |refund|
+      %tr
+        %td= format_datetime(refund.created_at)
+        %td= "Refund"
+        %td.ctr= "(#{format_currency(refund.refunded_amount)})"
+.table-footer.table-info
+  .pages-info= page_entries_info @refunds
+  .right
+    = paginate @refunds, :param_name=>"refunds_page"

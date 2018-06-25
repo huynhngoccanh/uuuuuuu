@@ -1,0 +1,19 @@
+= simple_form_for @outcome, :as=>:outcome, :validate=>true, :url => update_outcome_auction_path(@auction), :wrapper=>:standard do |f|
+  - unless @preaccepted_vendor_outcome.blank?
+    %div.input
+      .text
+        Our data indicates that you have indeed followed through on one of the offers.
+        %span (the vendor that you have made a purchase at is pre-selected below)
+      .text If the information below is incorrect please modify the preselected values
+  = f.input :purchase_made, :as=>:radio_buttons, :wrapper_html=> {:id=>"purchase_made_wrap"}
+  %div.input
+    = label_tag nil, :class=>"radio_buttons", :id => "select_vendor" do
+      = "If yes, select the vendor/service provider you have chosen: "
+      %span (only one selection allowed)
+  = render "outcome_vendor_table"
+  - if @outcome.errors.include?(:vendor_ids)
+    %div.input
+      %span.error=  @outcome.errors.messages[:vendor_ids]
+  = f.input :comment
+  .actions
+    = f.button :submit, 'Submit outcome report', :class => "fixed-width-button"

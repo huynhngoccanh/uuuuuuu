@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Loyalty program:
+  = @loyalty_program_offer.loyalty_program
+%p
+  %b Name:
+  = @loyalty_program_offer.name
+%p
+  %b Coupon code:
+  = @loyalty_program_offer.coupon_code
+%p
+  %b Offer url:
+  = @loyalty_program_offer.offer_url
+%p
+  %b Offer description:
+  = @loyalty_program_offer.offer_description
+%p
+  %b Expiration time:
+  = @loyalty_program_offer.expiration_time
+%p
+  %b Product offer:
+  = @loyalty_program_offer.product_offer
+%p
+  %b Is deleted:
+  = @loyalty_program_offer.is_deleted
+
+= link_to 'Edit', edit_loyalty_program_offer_path(@loyalty_program_offer)
+\|
+= link_to 'Back', loyalty_program_offers_path

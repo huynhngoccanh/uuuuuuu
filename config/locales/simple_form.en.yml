@@ -1,0 +1,126 @@
+en:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Some errors were found, please take a look:"
+    labels:
+      admin:
+        email: 'e-mail'
+        password: 'password'
+      user:
+        email: 'e-mail'
+        secondary_email: 'secondary e-mail'
+        phone: 'phone number'
+        password_confirmation: 'retype password'
+      vendor:
+        password: 'password'
+        password_confirmation: 'retype password'
+        phone: 'phone number'
+        website_url: 'website URL'
+        review_url: 'review site URL'
+        service_category_ids: 'Categories:'
+        product_category_ids: 'Categories:'
+        service_provider_keywords: 'Keywords:'
+        retailer_keywords: 'Keywords:'
+      auction:
+        service_category_id: "Choose a service category:"
+        duration: "Auction duration:"
+        budget: "Approximate budget:"
+        budget_min: "Min:"
+        budget_max: "Max:"
+        min_vendors: "Min:"
+        max_vendors: "Max:"
+        contact_way: "Best way to contact you:"
+        contact_time: "Best time to contact you:"
+        extra_info: "Additional information:"
+      auction_image:
+        image: "Upload images:"
+      outcome:
+        purchase_made: "Did you follow through on one of the offers:"
+        comment: "Additional comments:"
+      vendor_outcome:
+        accepted: "You were a winner in this auction and the customer claims that he chose your offer and followed through with the transaction. Is this correct?"
+        comment: "Additional comments:"
+      campaign:
+        name: "Campaign Name:"
+        duration: "Stop campaign after:"
+        min_vendors: "Min:"
+        max_vendors: "Max:"
+        score_range: "Specify MuddleMe score"
+        score_min: "Min:"
+        score_max: "Max:"
+        budget: "Budget:"
+        keywords: "Keywords:"
+        adwords: "Import keywords from Adwords:"
+        product_category_ids: 'Product categories:'
+        service_category_ids: 'Service categories:'
+        stop_at: 'Stop campaign at'
+        offer_id: 'Link this campaign to an offer:'
+        zip_code: 'Only to customer with certain zip codes:'
+        zip_code_miles_radius: 'Miles radius:'
+      offer:
+        name: "Offer Name:"
+        coupon_code: "Coupon code:"
+        offer_url: "Offer URL:"
+        offer_description: 'Offer description:'
+        expiration_time: 'Expiration time:'
+      offer_image:
+        image: "Upload images:"
+    hints:
+      vendor:
+        service_category_ids: 'Add categories that describe your business. You can add multiple categories.'
+        product_category_ids: 'Add categories that describe your business. You can add multiple categories.'
+        service_provider_keywords: 'Add keywords that will help us serve you auctions matching your business.'
+        retailer_keywords: 'Add keywords that will help us serve you auctions matching your business.'
+        review_url: "This can be a link to your Yelp or Google reviews, or to your website's Testimonials page."
+      auction:
+        service_category_id: 'Select a category that best describes the service you are interested in.'
+        duration: 'How long do you want the auction to last.'
+        budget: "How much do you want to spend."
+        contact_way: "Please select your preferred mode of contact with the vendor."
+        contact_time: 'When is it most convenient for the vendor to contact you.'
+      auction_image:
+        image: "Upload any images that will help your vendor provide an accurate quote. To remove an image simply clock on it. JPG PNG and GIF images are allowed. (Max file size 300k)"
+      campaign:
+        name: 'This will be your campaign identifier.'
+        duration: 'How long do you want the campaign to last?'
+        limit_vendors: "Select whether you want to only bid on auctions with a specific number of winning bids."
+        score_range: "Define parameters on minimum and maximum MM score values."
+        budget: "Optionally set maximum budget for this campaign. The amount you specify here is the maximum you will spend for this campaign "
+        keywords: "Add keywords that will help us serve you auctions matching your business."
+        adwords: "You can import your data from Google Adwords or any other keyword campaign |
+          by uploading a CSV file. This will greatly increase your |
+          chances of finding relevant auctions."
+        product_category_ids: "Specify in which auctions will you bid automatically using this campaign"
+        service_category_ids: "Specify in which auctions will you bid automatically using this campaign"
+        stop_at: 'This campaign will be automatically stopped at the date given here. Leave blank if never want for this campaign to be stopped automatically '
+        zip_code: 'Provide a zip code and a radius in miles and only customers with the zip code provided and neighboring zip codes within provided miles radius will covered by this campaign'
+      offer:
+        name: "This will be your offer identifier."
+        coupon_url: 'This can be to a specific landing page
+          you want to use for a campaign, or you can lead
+          people to your ecommerce site in general.
+          <br/><br/>
+          <span class="important">NOTE:</span> in order to use offer URLs you need to
+          install a simple tracking script on your ecommerce
+          site. This script simply lets MuddleMe know that
+          a consumer actually purchased your product and thus
+          adjust MuddleMe scores accordingly.'
+        offer_description: 'Describe your offer here'
+      offer_image:
+        image: "You may upload a coupon, product pics or anything relevant to your offer. (3 max.). Suggested maximum image size is 620px X 400px"
+    placeholders:
+      auction:
+        name: 'project name'
+      campaign:
+        name: 'campaign name'
+      offer:
+        name: "offer name"
+        

@@ -1,0 +1,63 @@
+- model_class = ServiceRequest
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= form_for '', method: :get do |f|
+  .col-md-3 style="padding-right:0px;"
+    = f.text_field :search ,:class => 'form-control', :placeholder=>'Search: Email or Keyword'
+  .col-md-1 style="padding-left:0px;"
+    = f.submit 'Search', class: 'btn btn-primary'
+
+
+= form_tag ' /admins/service_request/download_csv_file', method: :get
+    .col-md-3 
+      input.form-control#datepicker1 name="start_date" placeholder="Start date" type="text" as="datepicker"
+      / = text_field_tag :start_date, " ", as: :datepicker, :class => 'form-control'
+    .col-md-3 style="padding-left:0px;"
+      input.form-control#datepicker2 name="end_date" placeholder="End date" type="text" as="datepicker"
+    .col-md-2 style="padding-left:0px;"
+      button.btn.btn-primary type="submit"
+        | Download csv
+
+
+
+table.table.table-striped
+  thead
+    tr
+      th Search id
+      th Keyword
+      th User id
+      th email
+      th Cashback
+      th Completetion number
+      th Date
+
+
+  tbody
+    - if @service_requests.blank?
+      tr
+        td colspan="3" No Requests
+
+    -else
+      - @service_requests.each do |service_request|
+        tr
+          td =service_request.id
+          td =service_request.keyword
+          td =service_request.user_id
+          td = service_request.user.try(:email)
+          td = service_request.cashback
+          td = service_request.completetion_number
+          td = service_request.created_at.strftime("%B-%d-%Y at- %T")
+          / td =user.email
+          / td =user.address
+          / td =user.zip_code
+          th.btn-fix
+            / = link_to "<span class='fa'>&#xf044;</span>".html_safe, "/admin/customers/#{user.id}/edit", class: "btn btn-info btn-sm", "data-no-turbolink" => true
+            
+            / = link_to "<span class='fa'>&#xf014;</span>".html_safe, "/admin/customers/#{user.id}", class: "btn btn-danger btn-sm", method: "delete"
+  / = will_paginate @payment_history, :param_name => 'search_page'
+
+div= will_paginate @service_requests
+
+  
+

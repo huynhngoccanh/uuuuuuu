@@ -1,0 +1,18 @@
+I" (function() {
+  this.CashbackModal = new (function() {
+    this.ShowCashbackModal = function(placement) {
+      $("#placement_header").text(placement.header.toUpperCase());
+      $("#placement_description").text(placement.description.toUpperCase());
+      $("#placement_action").attr("href", "/validate_session?return_to=" + placement.merchants_redirect_path);
+      if (placement.code === null || placement.code.toLowerCase() === "no code needed") {
+        $("#placement_code").text("No Code Needed");
+      } else {
+        $("#placement_code").text(placement.code);
+      }
+      return $("#cashbackModal").modal("show");
+    };
+    return this;
+  });
+
+}).call(this);
+:ET

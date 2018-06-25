@@ -1,0 +1,28 @@
+$('.affiliate-offers-wrap').html("<%= escape_javascript render('affiliate_offers') %>");
+
+$('.click-to-copy').each(function(){
+    $(this).click(function(e){
+        e.preventDefault();
+    });
+
+    $(this).zclip({
+        path: "http://<%= escape_javascript HOSTNAME_CONFIG['full_hostname'] %>/ZeroClipboard.swf",
+        copy: $(this).prev().text()
+    });
+});
+$('.details-box.affiliate-offer-window').hide();
+
+$('.actions.to-show').show();
+
+<% if @just_avant_fetched %>
+  $.ajax({
+    type: "POST",
+    url : '<%= check_sample_offers_cj_path %>',
+    dataType: "script",
+    data: {
+      name: '<%= params[:auction][:name] %>',
+      product_category_id: '<%= params[:auction][:product_category_id] %>'
+    }
+  })
+  showLoader($('.offers-spinner'))
+<% end %>

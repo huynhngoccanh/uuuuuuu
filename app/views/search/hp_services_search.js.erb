@@ -1,0 +1,33 @@
+<%if @results%>
+  $("#cash_call").html("<%= escape_javascript(render :partial => 'search/service_search_results', :results => @results) %>");
+  $("#cash_call").reveal();
+  $('.more-deals-link').on('click', function(){
+    if($('.more-deals-link').hasClass('hidden-deals')){
+      $('.hidden-more-deals').show();
+      $('.total-value').html("$" + $('.total-value').data('total'));
+      $('.more-deals-link').removeClass('hidden-deals');
+    }else{
+      $('.hidden-more-deals').hide();
+      $('.total-value').html("$" + $('.total-value').data('initial'));
+      $('.more-deals-link').addClass('hidden-deals');
+    }
+  });
+  
+  $('.view-number-results').click(function(){
+    var $this = $(this);
+    var $id = $this.data('id');
+    $("#result-company-phone-" + $id).show();
+    $("#view-number-results-" + $id).hide();
+  });
+
+  $('.result-company-phone').click(function(){
+    var $this = $(this);
+    var $id = $this.data('id');
+    $("#result-company-phone-" + $id).hide();
+    $("#view-number-results-" + $id).show();
+  });
+<%else%>
+  //show zipcode popup
+  $("#cash_call").html("<%= escape_javascript(render :partial => 'search/prompt_zipcode_window') %>");
+  $("#cash_call").reveal();
+<%end%>

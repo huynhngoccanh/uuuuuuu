@@ -1,0 +1,64 @@
+- auctions = instance_variable_get("@auctions_#{type}")
+- single ||= nil
+- no_top_pagination ||= nil
+- if single && !no_top_pagination
+  .table-header.table-info
+    .pages-info= page_entries_info auctions
+    .right
+      = paginate auctions, :param_name=>"#{type}_page", :params=>params
+%table.default-table
+  %tr
+    %th{:class=>check_order(:name, type)}
+      %a{:href=>order_url(:name, type)}
+        %span Auction name
+    %th{:class=>check_order(:product_auction, type)}
+      %a{:href=>order_url(:product_auction, type)}
+        %span Type
+    %th{:class=>check_order(:created_at, type)}
+      %a{:href=>order_url(:created_at, type)}
+        %span Date created
+    %th{:class=>check_order(:last_name, type)}
+      %a{:href=>order_url(:last_name, type)}
+        %span Customer
+    %th{:class=>check_order(:status, type)}
+      %a{:href=>order_url(:status, type)}
+        %span Status
+    %th
+      -# TODO: order by bids count
+      %span.txt
+        %span Bids
+    %th{:class=>check_order(:user_earnings, type)}
+      %a{:href=>order_url(:user_earnings, type)}
+        %span User earnings
+    %th{:class=>check_order(:user_earnings, type)}
+      %a{:href=>order_url(:user_earnings, type)}
+        %span MuddleMe earnings
+    %th
+      %span.txt
+        %span Action
+  - if auctions.blank?
+    %tr
+      %td.ctr{:colspan=>9}
+        = "No #{type.to_s.humanize.downcase} auctions to show"
+  - auctions.each do |auction|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to auction.name, admin_auction_path(auction)
+      %td= auction.product_auction? ? 'product' : 'service'
+      %td= format_datetime auction.created_at
+      %td= auction.user.full_name
+      %td= status_text(auction)
+      %td= auction.bids.count
+      %td= format_currency(auction.user_earnings.to_i)
+      %td= format_currency(auction.total_earnings.to_i - auction.user_earnings.to_i)
+      -#%td= auction.bids_count
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'View Details', admin_auction_path(auction)
+.table-footer.table-info
+  .pages-info= page_entries_info auctions
+  .right
+    = paginate auctions, :param_name=>"#{type}_page", :params=>params

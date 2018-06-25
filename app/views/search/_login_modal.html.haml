@@ -1,0 +1,49 @@
+/ Modal
+#mm-auth-modal.modal.hide.fade
+  .modal-header
+    %button.close{'data-dismiss' => 'modal'} ×
+  = form_for(User.new, :as => :user, :url => session_path(:user), :html => {:id => 'mm-auth-form'}, :format => :json, :remote => true) do |f|
+    .modal-body
+      .mm-auth-title.mm-auth-login-part
+        Log in
+        .mm-auth-title-small
+          Log in with your email below or &nbsp;
+          = link_to '', user_omniauth_authorize_path(:facebook), :id => 'facebook-small', :target => '_blank'
+          = link_to '', user_omniauth_authorize_path(:twitter), :id => 'twitter-small', :target => '_blank'
+          = link_to '', user_omniauth_authorize_path(:google_oauth2), :id => 'google-small', :target => '_blank'
+      .mm-auth-title.mm-auth-signup-part.hide
+        Sign up
+        .mm-auth-title-small
+          Sign up with your email below
+      .mm-auth-title.mm-auth-preset-part.hide
+        Log in
+        .mm-auth-title-small
+          Send me reset password instructions
+      %span.mm-modal-messages#mm-auth-errors
+      %span.mm-modal-messages#mm-auth-messages
+      %table
+        %tr
+          %td= f.email_field :email, :placeholder => 'Email'
+        %tbody.mm-auth-login-part.mm-auth-signup-part
+          %tr
+            %td= f.password_field :password, :placeholder => 'Password'
+        %tbody.mm-auth-signup-part.hide
+          %tr
+            %td= f.text_field :first_name, :placeholder => 'First name'
+          %tr
+            %td= f.text_field :last_name, :placeholder => 'Last name'
+          %tr
+            %td= f.text_field :zip_code, :placeholder => 'Zip code'
+
+      %button.mm-auth-button{:type => 'submit'} Log in
+      .mm-auth-action-container.mm-auth-login-part
+        No account?
+        %span.mm-auth-link.mm-signup-link Sign up
+      .mm-auth-action-container.mm-auth-signup-part.hide
+        Have account?
+        %span.mm-auth-link.mm-login-link Log in
+      .mm-auth-action-container.mm-auth-preset-part.hide
+        %span.mm-auth-link.mm-login-link Sign in &nbsp;&nbsp;
+        %span.mm-auth-link.mm-signup-link Sign up
+      .mm-forgot-password-container
+        %span.mm-auth-link.mm-forgot-password-link Forgot your password?

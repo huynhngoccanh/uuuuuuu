@@ -1,0 +1,11 @@
+%nav#main-nav.clearfix
+  %ul{ :style => "margin-top:-40px" }
+    - unless current_user.nil?
+      %li{:class=>"#{current_page?(root_path)?'active':''}"}
+        %a{:href => "/"} Home
+      %li{:class=>"#{current_page?('/search_requests')?'active':''}"}
+        %a{:href => '/search_requests'} My History
+      -#%li{:class=>"#{params[:controller]=='users/auctions' && ['new','product','service','confirm','create_success'].include?(params[:action])?'active':''}"}
+      -#  %a{:href => new_auction_path} Create Auction
+      %li{:class=>"#{['users/surveys', 'users/profile', 'users/funds_withdrawals', 'users/settings', 'users/referred_visits'].include?(params[:controller]) ?'active':''}"}
+        %a{:href => contact_info_profile_path} My Profile

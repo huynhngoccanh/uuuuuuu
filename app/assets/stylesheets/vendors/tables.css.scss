@@ -1,0 +1,71 @@
+.lt-ie8 {
+  table.default-table {
+    th {
+      a, span.txt {
+        span {
+          display: block;
+          height: 31px;
+          margin-top: 8px;
+          line-height: 14px;
+          overflow: visible;
+        }
+
+      }
+    }
+    th a span {
+      background-position: 100% -11px;
+    }
+    th.active a span {
+      background-position: 100% -91px;
+    }
+    th.active.up a span {
+      background-position: 100% -51px;
+    }
+  }
+}
+
+table.default-table {
+  
+  th {
+    background-image: image-url('gradients-vendor.png');
+    background-position: 0 0px;
+    a, span.txt {
+      height: 39px;
+      background: image-url('gradients-vendor.png') no-repeat 100% -43px;
+    }
+    a span {
+      background: image-url('table-arrows-vendor.png') no-repeat 100% 0px;
+    }
+  }
+
+  th:hover, th.active {
+    background-position: 0 -86px;
+  }
+
+  th.no-hvr:hover {
+    background-position: 0 0px;
+  }
+
+  th.active span {
+    background-position: 100% -80px;
+  }
+
+  th.active.up span {
+    background-position: 100% -40px;
+  }
+
+  tr.framed td {
+    border-color: #8ECC00;
+  }
+
+  .highlight {
+    background-color: #8ECC00;
+    @include box-shadow(#fff 0 -1px 7px 1px inset)
+  }
+}
+
+.pagination {
+  em {
+    background: #79ad00;
+  }
+}

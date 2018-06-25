@@ -1,0 +1,30 @@
+= simple_form_for [:admin, @custom_advertiser] do |f|
+  %table
+    %tr
+      %td
+        = f.label :name, 'Merchant/Store/Advertiser Name'
+      %td
+        = f.text_field :name
+    %tr
+      %td
+        = f.label :name, 'Merchant Website URL'
+      %td
+        = f.text_field :advertiser_url
+    %tr
+      %td
+        = f.label :max_commission_percent
+      %td
+        = f.text_field :max_commission_percent
+    %tr
+      %td
+        = f.label :max_commission_dollars
+      %td
+        = f.text_field :max_commission_dollars
+    %tr
+      %td
+        = f.label :logo
+      %td
+        = f.file_field :logo
+    %tr
+      %td
+        = f.button :submit, 'Create Merchant', :class => 'fixed-width-button'

@@ -1,0 +1,716 @@
+function showLoader($el, text) {
+var w = $el.width();var h = $el.height();
+var txtHtml = '';
+if(text) txtHtml = '<span class="mask-txt">' + text + '</span>'
+$el.find('.mask:first').remove();
+$el.css('position','relative').
+css('overflow','hidden').
+append('<div class="mask">' + txtHtml + '<img src="<%= asset_path('ajax-loader.gif') %>" alt="..."/></div>');
+$el.find('.mask:first').css({
+opacity: 0.8,
+width: w,
+height: h,
+lineHeight: h + 'px',
+top: $el.css('padding-top'),
+left: $el.css('padding-left')
+});
+}
+function hideLoader($el) {
+$el.find('.mask:first').remove();
+$el.css('position','').
+css('overflow','')
+}
+
+function reportError(msg) {
+// Show the error in the form:
+$('#all-form-errors').html(msg).addClass('alert alert-error');
+// re-enable the submit button:
+//$('#submitBtn').prop('disabled', false);
+return false;
+}
+
+
+// Open popup window
+function generate_popup(link_id, intent_id, coupons_check){
+console.log("in the generate popup")
+console.log(link_id);
+console.log(intent_id);
+console.log(coupons_check);
+$this = $("#"+ link_id)
+$second_coupon_window = $("#merchant_c_window_"+intent_id)
+console.log($second_coupon_window);
+var height = 1000;
+var left = $(window).width() + 100;
+var winParams = 'innerWidth=440,height=' + height + ',resizable=no,location=no,scrollbars=yes';
+winParams += ',left=' + left;
+//console.log($second_coupon_window.attr("href"));
+
+$second_coupon_window.fancybox({
+type: "ajax",
+width : 750, // or whatever
+height: 700,
+fitToView : false,
+autoSize : false,
+helpers     : {
+overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+}
+}).trigger("click");
+
+// if (coupons_check == false){
+//   window.open($this.attr("href"), 'couponsPopup', winParams);
+// }
+return false;
+}
+
+
+// Open popup window
+function generate_coupon_popup(link_id){
+$this = $("#"+ link_id)
+var height = 660;
+var left = $(window).width() + 100;
+var winParams = 'innerWidth=440,height=' + height + ',resizable=no,location=no,scrollbars=yes';
+winParams += ',left=' + left;
+window.open($this.attr("href"), 'couponsPopup', winParams);
+return false;
+}
+
+
+function generate_zip_code_popup(){
+var error = false;
+var error_messages = "";
+var keyword = $("#service_keyword").val();
+if (keyword.length == 0) {
+error = true;
+error_messages = error_messages + "* Please provide a search keyword to find services <br/><br/>"
+}
+if (!error) {
+$('#sbs-form-errors').html('');
+actual_url = $("#zip_code_popup").attr("href")
+new_url = encodeURI($("#zip_code_popup").attr("href") + "?search_by_services="+$.trim(keyword))
+$("#zip_code_popup").attr("href", new_url);
+console.log("cming here");
+$("#zip_code_popup").fancybox({
+type: "ajax",
+fitToView: false,
+width: 380,
+height: 380,
+helpers     : {
+overlay : {closeClick: true} // prevents closing when clicking OUTSIDE fancybox
+}
+}).trigger("click");
+$("#zip_code_popup").attr("href", actual_url);
+$("#service_keyword").val("");
+}
+else{
+$("#sbs-form-errors").html(error_messages);
+return false;
+}
+
+}
+
+$(document).ready(function() {
+$("a#cd_logo").fancybox();
+});
+
+function generate_direct_sign_up_form(){
+$("a#direct_user_sign_up").fancybox({
+type: "iframe",
+width :420, // or whatever
+height: 300,
+fitToView : false,
+autoSize : false,
+helpers     : {
+overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+}
+})
+}
+
+
+
+//Run Time validations for direct Sign up form
+// Assumes jQuery is loaded!
+// Watch for the document to be ready:
+$(document).ready(function() {
+// Watch for a form submission:
+$("#").submit(function(event) {
+// Flag variable:
+var error = false;
+var error_messages = "";
+// disable the submit button to prevent repeated clicks:
+//$('#submitBtn').attr("disabled", "disabled");
+// Get the values:
+var userEmail = $('#user_email').val(), userZipcode = $('#user_zip_code').val();
+
+// if (userEmail.length > 0) {
+//   error = check_user_email(userEmail).done();
+//   if(jQuery.parseJSON(error.responseText).status == "true"){
+//     error = true;
+//     error_messages = '* Email is invalid, you already have account registered with us. <br/>' + error_messages
+//   }
+//   else{
+//     error = false;
+//   }
+// }
+
+//validate Email presence:
+if (userEmail.length == 0) {
+error = true;
+error_messages = error_messages + "* Email can't be blank <br/>"
+//reportError('Email cannot be blank ');
+}
+
+//validate Email presence:
+if (userZipcode.length == 0) {
+error = true;
+error_messages = error_messages + "* Zip code can't be blank <br/>"
+//reportError('Email cannot be blank ');
+}
+
+if (userZipcode.length < 5) {
+error = true;
+error_messages = error_messages + '* Minimum 5 numeric characters should be present. <br/>'
+//reportError('Email cannot be blank ');
+}
+
+// Validate other form elements, if needed!
+// Check for errors:
+if (!error) {
+$('#all-form-errors').html('');
+var f = $("#direct_user_sign_up_form");
+$('#processing-message').show();
+$('#processing-message').html("* We are processing your request, please wait.<br/> Do not refresh the page.</p>");
+var dataSet = f.serialize();
+$.ajax({
+type: "POST",
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+url: f.attr("action"),
+data: dataSet,
+dataType: "script",
+complete: function(){
+f.get(0).reset();
+$('#processing-message').hide();
+},
+error: function(){
+//alert("Something went wrong!");
+}
+});
+}
+else{
+reportError(error_messages);
+}
+
+// Prevent the form from submitting:
+return false;
+
+}); // Form submission
+
+}); // Document ready.
+
+//Run Time validations for Coupon window sign up form
+$(document).ready(function() {
+$("form#coupon_window_signup").submit(function(event) {
+var error = false;
+var error_messages = "";
+//$('#submitBtn').attr("disabled", "disabled");
+var userEmail = $('#user_email').val(), userZipcode = $('#user_zip_code').val();
+if (userEmail.length > 0) {
+error = check_user_email(userEmail).done();
+if(jQuery.parseJSON(error.responseText).status == "true"){
+error = true;
+error_messages = '* Email is invalid, you already have account registered with us. <br/>' + error_messages
+}
+else{
+error = false;
+}
+}
+if (userEmail.length == 0) {
+error = true;
+error_messages = error_messages + '* Email cannot be blank <br/>'
+}
+
+if (!error) {
+$('#cp-sign-up-form-errors').html('');
+var f = $("#coupon_window_signup");
+$('#processing-message').show();
+$('#processing-message').html("* We are processing your request, please wait.<br/> Do not refresh the page.</p>");
+var dataSet = f.serialize();
+$.ajax({
+type: "POST",
+url: f.attr("action"),
+data: dataSet,
+dataType: "script",
+complete: function(){
+f.get(0).reset();
+$('#processing-message').hide();
+},
+error: function(){
+alert("Something went wrong!");
+}
+});
+}
+else{
+$("#cp-sign-up-form-errors").html(error_messages);
+}
+return false;
+});
+});
+
+//Run Time validations for SMS Form
+$(document).ready(function() {
+$("#hp_sms_form").submit(function(event) {
+var error = false;
+var error_messages = "";
+// $('#submitBtn').attr("disabled", "disabled");
+var userPhonenumber = $('#user_phone_number').val()
+if (userPhonenumber.length == 0) {
+error = true;
+error_messages = error_messages + '* Phone number cannot be blank <br/>'
+}
+if (userPhonenumber.length < 10) {
+error = true;
+error_messages = error_messages + '* Invalid Phone number, Phone number cannot be less than 10 digits. <br/>'
+}
+
+if (!error) {
+$('#sms-form-errors').html('');
+var f = $("#hp_sms_form");
+$('#sms-processing-message').show();
+$('#sms-processing-message').html('');
+$('#sms-processing-message').html("* We are processing your request, please wait.<br/> Do not refresh the page.</p>");
+var dataSet = f.serialize();
+$.ajax({
+type: "POST",
+url: f.attr("action"),
+data: dataSet,
+dataType: "script",
+complete: function(){
+f.get(0).reset();
+},
+error: function(){
+alert("Something went wrong!, please try after sometime.");
+}
+});
+}
+else{
+// reportError(error_messages);
+$("#sms-form-errors").html(error_messages);
+}
+return false;
+});
+});
+
+//Run Time validations for Add Service provider form
+$(document).ready(function() {
+$("#new_service_provider_form").submit(function(event) {
+$('#favorite-merchant-errors').html('');
+var error = false;
+var error_messages = "";
+var merchant_name = $('#merchant_name').val(),  merchant_address = $('#merchant_address').val();
+var $email = $('#email').val();
+var $phone = $('#phone').val();
+var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+if($.trim($phone) == ''){
+error = true;
+error_messages = error_messages + "* Merchant Phone can't be blank <br />"
+}
+if($.trim($email) == ''){
+error = true
+error_messages = error_messages + "* Merchant Email can't be blank <br />"
+}else{
+if(!pattern.test($.trim($email))){
+error = true;
+error_messages = error_messages + "* Merchant Email is not valid <br />"
+}
+}
+if (merchant_name.length == 0) {
+error = true;
+error_messages = error_messages + "* Merchant Name can't be blank <br/>"
+}
+if (merchant_address.length == 0) {
+error = true;
+error_messages = error_messages + "* Merchant Address can't be blank <br/>"
+}
+if (!error) {
+$('#all-form-errors').html('');
+var f = $("#new_service_provider_form");
+$('#sp-processing-message').show();
+$('#sp-processing-message').html('');
+$('#sp-processing-message').html("* We are processing your request, please wait.<br/> Do not refresh the page.</p>");
+var dataSet = f.serialize();
+$.ajax({
+type: "POST",
+url: f.attr("action"),
+data: dataSet,
+dataType: "script",
+complete: function(){
+f.get(0).reset();
+},
+error: function(){
+alert("Something went wrong!, please try after sometime.");
+}
+});
+}
+else{
+var $form_errors = $('#favorite-merchant-errors');
+$form_errors.html(error_messages);
+$form_errors.addClass('alert alert-error')
+}
+return false;
+});
+});
+
+//Run Time validations for Search by merchants form
+//$(document).ready(function() {
+// $("#sbm_search_bar").submit(function(event) {
+//   var error = false;
+//   var error_messages = "";
+//   var sbm_keyword = $('#search_by_merchants').val()
+//   if (sbm_keyword.length == 0) {
+//     error = true;
+//     error_messages = error_messages + "* Please provide a search keyword to find your favorite merchant <br/>"
+//   }
+//   console.log(error);
+//    if (!error) {
+//      $('#all-form-errors').html('');
+//     $("#sbm_search_bar").submit();
+//   }
+//   else{
+//     reportError(error_messages);
+//   }
+//  return false;
+// });
+//});
+
+//Run Time validations for Search by services form
+$(document).ready(function() {
+  $("#sbs_search_bar").submit(function(event) {
+    var error = false;
+    var error_messages = "";
+    var sbs_keyword = $('#service_keyword').val()
+    if (sbs_keyword.length == 0) {
+      error = true;
+      error_messages = error_messages + "* Please provide a search keyword to find services <br/><br/>"
+    }
+    if (!error) {
+      $('#sbs-form-errors').html('');
+    } else{
+      event.preventDefault();
+      $('#sbs-form-errors').html(error_messages);
+      reportError(error_messages);
+    }
+  });
+});
+
+//Run Time validations for zip code  form
+$(document).ready(function() {
+  $("#sbs_zip_code_form").submit(function(event) {
+    console.log("Click Function");
+    var error = false;
+    var error_messages = "";
+    var submitted_zip_code = $('#zip_code').val()
+    if (submitted_zip_code.length == 0) {
+      error = true;
+      error_messages = error_messages + "* Please provide a zip code<br/><br/>"
+    }
+    if (submitted_zip_code.length < 6) {
+      error = true;
+      error_messages = error_messages + "* Zip code should be of atleast 5 digits.<br/><br/>"
+    }
+    if ($.isNumeric(submitted_zip_code) == false) {
+      error = true;
+      error_messages = error_messages + "* Zip code is invalid, Should be 5 digits.<br/><br/>"
+    }
+    console.log(error);
+    if (!error) {
+      $('#zip-code-form-errors').html('');
+      
+      return ;
+    }
+    else{
+      $("#zip-code-form-errors").html(error_messages);
+    }
+    return false;
+  });
+});
+
+
+
+function check_user_email(user_email){
+return $.ajax({
+type: 'POST',
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+async: false,
+url: '/check_subscriber_email',
+data: 'email='+user_email,
+});
+}
+
+function generate_services_search_results_popup(){
+$('#sbs-form-errors').html('');
+keyword = $('.local-merchants.full-width').find('#service_keyword').val();
+if($.trim(keyword) == ''){
+keyword = $("input[type=hidden]#service_keyword").val();
+}
+if($.trim(keyword) == ''){
+$('#sbs-form-errors').html('* Please provide a search keyword to find services');
+return false;
+}
+zip_code = $("#ss_zip_code").val();
+var $user_id = $.trim($('.zip-user-id').val());
+if($.trim(zip_code) == '' && $user_id == ''){
+$('#zip-code-form-errors').html('* Please enter Zip code');
+return false;
+}
+if($.trim(zip_code) === undefined && $user_id === undefined){
+$('#zip-code-form-errors').html('* Please enter Zip code');
+return false;
+}
+if (zip_code === undefined){
+results_page_url = $("#services_results_popup").attr("href")
+new_url = encodeURI(results_page_url + "?search_by_services="+$.trim(keyword))
+$("#services_results_popup").attr("href", new_url);
+$.fancybox.close();
+$("#services_results_popup").fancybox({
+type: "ajax",
+width : 680, // or whatever
+height: 380,
+autosize: false,
+helpers     : {
+overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+}
+}).trigger("click");
+$("#services_results_popup").attr("href", results_page_url);
+$("#service_keyword").val("");
+}
+else{
+results_page_url = $("#services_results_popup_with_zc").attr("href")
+new_url = encodeURI(results_page_url + "?search_by_services="+$.trim(keyword)+"&zip_code="+zip_code)
+$("#services_results_popup_with_zc").attr("href", new_url);
+$("#services_results_popup_with_zc").fancybox({
+type: "ajax",
+width : 680,
+height: 380,
+helpers     : {
+overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+}
+}).trigger("click");
+$("#services_results_popup_with_zc").attr("href", results_page_url);
+$("#service_keyword").val("");
+}
+return false;
+}
+
+$(function() {
+var loading_posts;
+loading_posts = false;
+return $('a.load-more-posts', 'a.load-less-posts').on('click', function(e, visible) {
+if (loading_posts || !visible) {
+return;
+}
+loading_posts = true;
+return $.getScript($(this).attr('href'), function() {
+return loading_posts = false;
+});
+});
+});
+
+function createCookie(name, value, days){
+if(days){
+var date = new Date();
+date.setTime(date.getTime()+(days * 24 * 60 * 60 * 1000));
+var expires = "; expires=" + date.toGMTString();
+}
+else var expires = "";
+document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name){
+var nameEQ = name + "=";
+var ca = document.cookie.split(';');
+for(var i=0;i < ca.length; i++){
+var c = ca[i];
+while(c.charAt(0) == ' ') c = c.substring(1,c.length);
+if(c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+}
+return null;
+}
+
+function eraseCookie(name){
+createCookie(name, "", -1);
+}
+
+function generate_submit_coupon_fb(){
+$.fancybox.close();
+$(".user-submit-coupon-fb").fancybox({
+type: "iframe",
+width : 600,
+height: 350
+}).trigger("click");
+return false;
+}
+
+$(document).ready(function(){
+
+var $location = window.location.pathname;
+var $cvalue = readCookie('hp_popup');
+var $hp_popup = $('#hp_popup').length;
+if($location == '/' && $hp_popup && !$cvalue){
+createCookie('hp_popup', 'loaded');
+$.fancybox.open('#hp_popup');
+}
+
+
+
+
+
+$('.user-coupon-submit-btn').on('click', function(e){
+e.preventDefault();
+$('.user-coupon-submit-btn').attr("disabled", "disabled");
+var $errors = '';
+var $store_website = $('#store_website').val();
+var $offer_type = $('#offer_type').val();
+var $code = $('#code').val();
+var $discount_description = $('#discount_description').val();
+var $recaptcha_challenge_field = $('#recaptcha_challenge_field').val();
+var $recaptcha_response_field = $('#recaptcha_response_field').val();
+var $printable_coupon = $('#printable_coupon').val();
+var file_upload = false;
+if($.trim(store_website) == ''){ $errors = $errors + '* Store website is mandatory <br />'; }
+if($.trim($offer_type) == ''){ $errors = $errors + '* Offer type is mandatory <br />'; }
+if($.trim($code) == ''){ $errors = $errors + '* Coupon code is mandatory <br />'; }
+if($.trim($discount_description) == ''){ $errors = $errors + '* Discount description is mandatory <br />'; }
+if($.trim($recaptcha_response_field) == ''){ $errors = $errors + '* Recaptcha is mandatory <br />'; }
+if($.trim($offer_type) == 'Printable Coupon'){
+if($.trim($printable_coupon) == ''){
+$errors = $errors + '* Printable coupon file not attached <br />';
+}else{ file_upload = true; }
+}
+if($.trim($errors) == ''){
+var f = $(".user-coupon-form");
+$('#processing-message').show();
+$('#processing-message').html("* We are processing your request, please wait.<br/> Do not refresh the page.</p>");
+var dataSet = f.serialize();
+var url = f.attr('action');
+$.ajax({
+type: "POST",
+url: url,
+data: dataSet,
+dataType: "script",
+contentType: 'multipart/form-data',
+complete: function(){
+f.get(0).reset();
+},
+error: function(){
+$('.user-coupon-submit-btn').removeAttr("disabled");
+}
+});
+}else{
+$('.user-coupon-submit-btn').removeAttr("disabled");
+$('#processing-message').html("<p style=font-size:20px;>" + $errors + "</p>");
+}
+});
+
+$('.offer-type').on('click', function(){
+$('.printable-coupon-file-field').hide();
+var $this = $(this);
+$('.offer-type').each(function(i, obj){
+var $obj = $(obj);
+if($obj.hasClass('orange-button-link')){
+$obj.removeClass('orange-button-link');
+}
+});
+$this.addClass('orange-button-link');
+$('input[type=hidden].offer-type-hidden').val($this.text());
+if($this.text() == 'Printable Coupon'){
+$('.printable-coupon-file-field').show();
+}
+});
+
+$('.user-coupon-submit-btn-new').on('click', function(e){
+e.preventDefault();
+$('.user-coupon-submit-btn-new').attr("disabled", "disabled");
+var $errors = '';
+var $store_website = $('#store_website').val();
+var $offer_type = $('#offer_type').val();
+var $code = $('#code').val();
+var $discount_description = $('#discount_description').val();
+var $recaptcha_challenge_field = $('#recaptcha_challenge_field').val();
+var $recaptcha_response_field = $('#recaptcha_response_field').val();
+var $printable_coupon = $('#printable_coupon').val();
+var file_upload = false;
+if($.trim(store_website) == ''){ $errors = $errors + '* Store website is mandatory <br />'; }
+if($.trim($offer_type) == ''){ $errors = $errors + '* Offer type is mandatory <br />'; }
+if($.trim($code) == ''){ $errors = $errors + '* Coupon code is mandatory <br />'; }
+if($.trim($discount_description) == ''){ $errors = $errors + '* Discount description is mandatory <br />'; }
+if($.trim($recaptcha_response_field) == ''){ $errors = $errors + '* Recaptcha is mandatory <br />'; }
+if($.trim($offer_type) == 'Printable Coupon'){
+if($.trim($printable_coupon) == ''){
+$errors = $errors + '* Printable coupon file not attached <br />';
+}else{ file_upload = true; }
+}
+if($.trim($errors) == ''){
+$('#processing-message').html("Trying to submit the form");
+}else{
+$('.user-coupon-submit-btn-new').removeAttr("disabled");
+$('#processing-message').html("" + $errors + "</p>").show();
+}
+});
+
+$('.coming-soon-popup').click(function(){
+$.fancybox.open('#coming_soon_popup');
+});
+
+$('#get-money-box, #start-now, .browser-logo-enabled').click(function() {
+window.location.href = '/mm-extension';
+});
+
+$(".view_more").click(function() {
+$(".more_content").toggleClass('show_more');
+if ($(this).html() == "view more") {
+$('.more').hide();
+$(this).html("view less");
+}else {
+$('.more').show();
+$(this).html("view more");
+}
+});
+
+$('.user-service-provider-toggle-link').click(function(){
+$('.favorite-service-provider-form').toggle('slow');
+});
+
+$('.user-submit-coupon-link').click(function(){
+$('.submit-coupon-user-section').toggle('slow');
+});
+
+$(".view-more-coupon-description").click(function() {
+var id = $(this).attr('id');
+var content = $("#cdesc_"+ id);
+content.find(".more_content").toggleClass('show_more');
+if ($(this).html() == "view more") {
+content.find('.more').hide();
+$(this).html("view less");
+}else {
+content.find('.more').show();
+$(this).html("view more");
+}
+});
+});
+
+function generate_add_service_providers_popup(){
+$.fancybox.close();
+$("#service_providers_form").fancybox({
+type: "iframe",
+width : 580,
+height: 420,
+fitToView : false,
+autoSize : false,
+helpers     : {
+overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+}
+});
+}
+
+function closeIFrame(){
+setTimeout("parent.$.fancybox.close()", 5000);
+}

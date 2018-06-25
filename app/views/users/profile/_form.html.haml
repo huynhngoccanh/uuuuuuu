@@ -1,0 +1,54 @@
+= simple_form_for current_user, :url=>{:action=>:update}, |
+  :wrapper=>:standard, :validate => true, :html=>{:class=>'no-label clearfix'} do |f|
+
+  %div.line
+    %div.label Gender:
+    %div.value.to-hide= current_user.sex_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :sex, :collection => User::SEX.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Age range:
+    %div.value.to-hide= current_user.age_range_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :age_range, :collection => User::AGE_RANGE.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Education:
+    %div.value.to-hide= current_user.education_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :education, :collection => User::EDUCATION.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Occupation:
+    %div.value.to-hide= current_user.occupation_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :occupation, :collection => User::OCCUPATION.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Income range:
+    %div.value.to-hide= current_user.income_range_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :income_range, :collection => User::INCOME_RANGE.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Marital status:
+    %div.value.to-hide= current_user.marital_status_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :marital_status, :collection => User::MARITAL_STATUS.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Family size:
+    %div.value.to-hide= current_user.family_size_was.to_s.humanize
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :family_size, :collection => User::FAMILY_SIZE.map{ |s| [s.to_s.humanize, s]}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  %div.line
+    %div.label Home owner:
+    %div.value.to-hide= current_user.home_owner_was.nil? ? '' : (current_user.home_owner_was ? "Yes" : "No")
+    %div.to-show{:style=>"display: none;"}
+      = no_label_input f, :home_owner, :as=>:select, :collection=>{"Yes"=>true,"No"=>false}, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+  .actions{:style=>"display: none;"}
+    = f.button :submit, 'Save changes', :class => "fixed-width-button"
+    %a#cancel-edit-profile.fixed-width-button.gray-button Cancel Changes

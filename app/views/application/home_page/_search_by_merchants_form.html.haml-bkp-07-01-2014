@@ -1,0 +1,11 @@
+%section.main-search-area{:style => "margin-bottom:50px;"}
+  .move_left
+    .container-fluid
+      .row
+        = form_tag('/hp_mm_box_merchants_search', :method => "post", :id => "sbm_search_bar", :class => "search-form navbar-form") do
+          #all-form-errors.text-center.text-danger
+          .search-area
+            .input-group
+              = text_field_tag :search_by_merchants, {}, :placeholder => "Macy's, JCPenney, Target...", :autocomplete => "off", :class => "form-control search rb_medium", :style => "font-size: 18pt; font-family: Roboto-Regular;"
+              .input-group-btn{:style => "width:113px;"}
+                %button.btn.btn-primary.rb_bold{:type => "submit"} SEARCH

@@ -1,0 +1,14 @@
+Hi <%= @vendor.first_name %>, you have won an search!
+
+<% if @email_content.hello_sub_text.blank? %>
+    You were a winner in MuddleMe search #<%= @search.id %> for "<%= @search.name %>".
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :vendor => @vendor)  %>
+<% end %>
+
+
+Head on over to MuddleMe to contact your lead today!
+
+Click te link below:
+
+<%= company_auction_url(@auction)  %>

@@ -1,0 +1,18 @@
+.inputs.clearfix
+  %div.column.form-col
+    = no_label_input f, :age_range, :collection => User::AGE_RANGE.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :sex, :collection => User::SEX.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :education, :collection => User::EDUCATION.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :occupation, :collection => User::OCCUPATION.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    =# no_label_input f, :address
+    =# no_label_input f, :city
+  %div.column.form-col
+    =# no_label_input f, :phone
+    = no_label_input f, :income_range, :collection => User::INCOME_RANGE.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :marital_status, :collection => User::MARITAL_STATUS.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :family_size, :collection => User::FAMILY_SIZE.map{ |s| [s.to_s.humanize, s]}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+    = no_label_input f, :home_owner, :as=>:select, :collection=>{"Yes"=>true,"No"=>false}, :use_label=>true, :prompt => "Select", :input_html => { :"data-fade-error" => 'true' }
+
+
+.actions.clearfix
+  = f.button :submit, "Create Account", :class => "fixed-width-button"

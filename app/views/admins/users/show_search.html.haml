@@ -1,0 +1,50 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/users'
+
+- content_for :main_column do
+  %section.default-content#admin-customer
+    %article#show_search
+      %h3
+        SEARCH REQUEST #
+        = @search.id
+        \:
+        = @search.search
+      .to-right
+        = link_to 'Back', "/admin/customers/#{@user.id}"
+      %hr.for-table
+        %table.default-table
+          %tr
+            %th
+              %span.txt
+                %span
+                  Merchant
+            %th
+              %span.txt
+                %span
+                  Source
+            %th
+              %span.txt
+                %span
+                  Clicked
+            %th
+              %span.txt
+                %span
+                  Earnings
+            %th
+              %span.txt
+                %span
+                  Add pending earnings
+          - if @merchants.blank?
+            %tr
+              %td.ctr{:colspan => 5}
+                = 'No merchants to show'
+          - @merchants.each do |merchant|
+            %tr{:class=>cycle(nil,'odd')}
+              %td= merchant.company_name
+              %td= (merchant.type == 'Search::SoleoMerchant' ? 'Soleo' : (merchant.type == 'Search::LocalMerchant' ? 'MuddleMe' : (merchant.type == 'Search::CjMerchant' ? 'CJ' : (merchant.type == 'Search::AvantMerchant' ? 'Avant' : 'Linkshare'))))
+              %td= merchant.active ? 'Yes' : ''
+              %td= (merchant.type == 'Search::SoleoMerchant' ? (number_to_currency(merchant.user_money) if merchant.active): (merchant.type == 'Search::LocalMerchant' ? (number_to_currency(merchant.user_money) if merchant.active) : (number_to_currency(merchant.commission.commission_amount) if merchant.commission)))
+              %td= link_to 'Add', "/admin/customers/#{@user.id}/activate/#{merchant.id}" if ((merchant.type == 'Search::SoleoMerchant' || merchant.type == 'Search::LocalMerchant') && !merchant.active)
+
+%h2 Customer Profile
+= render 'layouts/application/one_column'

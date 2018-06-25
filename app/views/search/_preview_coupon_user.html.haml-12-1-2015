@@ -1,0 +1,45 @@
+.popup-window
+  .container-fluid
+    .row
+      .popup_window
+        %p
+          %h2 User Submitted
+  .spacer45
+  .container-fluid
+    .row
+      .popup_window
+        #coupons-popup
+          #coupons
+            .coupon
+              %p.text-center
+                = image_tag('scissor-1.png', :class => 'coupon-cash-scissor')
+                %span#preview_coupon_code{:style => "border: 3px dashed #505050;font-size: 20px;padding: 5px 8px 5px 28px;width:100%; font-weight:bold"} 
+              .spacer10
+              %p
+                %h3
+                  %span#preview_coupon_description
+              %br
+                %p
+                  %h4#preview_coupon_expire
+          .section_header
+            %p
+              = link_to "Go to #{@advertiser.name} and paste code at checkout", (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => "_blank", :class => "mpc_link"
+      
+.spacer45
+.container-fluid
+  .row
+    .popup_window
+      .col-mid-4{:style => "margin-bottom:15px;"}
+        = link_to(image_tag(@advertiser.is_a?(LinkshareAdvertiser) ? @advertiser.logo_url : @advertiser.logo.url, :title => @advertiser.name),
+        (@advertiser_url.blank?) ? @advertiser.advertiser_url : @advertiser_url, :target => :blank, :class => "center-block")
+.container-fluid
+  .row
+    .popup_window
+      .subBtn      
+        = button_tag 'Cancel', :class => 'orange-button user-coupon-preview-cancel btn btn-primary-custom' 
+:css
+  #recaptcha_area{ margin: 0 auto; }
+  a.orange-button-link { color: #000; text-decoration: none; }
+  a.orange-button-link:hover{ color: #000; text-decoration: none; }
+  .label-p{ text-align: left; width: 280px; font-weight: bold; }
+  .printable-coupon-file-field{ display: none; }

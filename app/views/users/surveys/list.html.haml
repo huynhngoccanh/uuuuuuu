@@ -1,0 +1,25 @@
+- content_for :sub_nav do
+  = render 'users/profile/sub_nav', :active_action=>'list', :active_controller=>'users/surveys'
+
+= render 'users/shared/header_score'
+- content_for :main_column do
+  %section.default-content
+    %article#increase-score
+      - if current_user.survey
+        - if current_user.survey.has_unanswered?
+          %p Increase your score and worth.
+          %p
+            You have skipped some questions in our
+            = link_to "questionnaire", edit_survey_path
+          %p
+            Complete it
+            = link_to "here", edit_survey_path
+      - else
+        %p Increase your score and worth.
+        %p
+          Complete our short
+          = link_to "questionnaire", new_survey_path
+
+
+%h2 Questions
+= render 'layouts/application/one_column'

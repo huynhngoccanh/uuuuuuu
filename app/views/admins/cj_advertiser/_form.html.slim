@@ -1,0 +1,26 @@
+= form_for  @advertiser ,url: {action: "update"}, html: {class: "form-horizontal"} do |f|
+  / .form-group
+  /   = f.label :id, class: "col-sm-2 control-label"
+  /   .col-sm-10
+  /     = f.text_field :id, class: "form-control"
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :commission_percent, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :commission_percent, class: "form-control"
+  .form-group
+    = f.label :max_commission_percent, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :max_commission_percent, class: "form-control"
+  .form-group
+    label.col-sm-2.control-label &nbsp;
+    .col-sm-4
+      = f.submit nil, class: "btn btn-primary"
+      = link_to "Back", admins_cj_advertiser_path
+  
+    label.col-sm-2.control-label &nbsp;
+    .col-sm-4
+      a href="/admins/merchants/#{@advertiser.merchant.id}/edit" class="btn btn-primary" Edit Merchant   

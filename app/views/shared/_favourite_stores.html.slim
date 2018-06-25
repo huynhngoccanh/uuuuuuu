@@ -1,0 +1,14 @@
+- unless @favorite_stores.blank?
+  - @favorite_stores.each do |placement|
+    - merchant = placement.merchant
+    figure.service-box.col-4
+      = render partial: "shared/join_loyalty", locals: {merchant: merchant}
+      a.favorite-store.feature-img.coupon-code style=("min-height:240px;") href=(merchants_redirect_path(merchant.id)) data-show_url=("#{request.env['PATH_INFO']}?placement=placement-#{placement.id}")
+        = image_tag(placement.image.url(:medium), :title => merchant.name, :class => "img-resize")
+      figcaption.sponsor
+        .brand-logo
+          a href="javascript:;"
+            = image_tag merchant.image.url(:medium), title: merchant.name, class: "ms-info-img logo"
+        .desc  
+          h4= truncate(placement.header, length: 22)
+          h4= placement.description

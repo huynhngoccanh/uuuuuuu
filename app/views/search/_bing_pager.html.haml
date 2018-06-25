@@ -1,0 +1,6 @@
+#bing-results-pager
+  %table#bing-pager-table
+    %tr
+      - @pages.each do |page|
+        - if page > 0
+          %td.page=link_to page, bing_search_path(:search => params[:search], :page => page)

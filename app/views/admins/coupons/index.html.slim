@@ -1,0 +1,66 @@
+- model_class = Coupon
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+ 
+.row
+  .col-sm-4  
+    = form_tag " ", method: :get, id: "rFilter" do
+        - filter_tag = params[:filter] ? params[:filter] : " "
+        select.form-control#filter name="filter" 
+          option selected= (filter_tag == " ") class="sort" value=" " 
+            | -select-filter-
+          option selected= (filter_tag == "printable") class="sort" value="printable"  Printable
+          option selected= (filter_tag == "with_code") class="sort" value="with_code"  With code
+  .col-md-3
+    = link_to t('.new', :default => t("helpers.links.new")), new_admins_coupon_path, :class => 'btn btn-primary'
+hr
+- if params[:manually_uploaded] == "true"
+  .row
+    = form_tag '/admins/coupons/download_csv_file_coupon', method: :get
+    .col-md-3 
+      input.form-control#datepicker1 name="start_date" placeholder="Start date" type="text" as="datepicker"
+      = hidden_field '' ,"csv" ,:value => "click"
+    .col-md-3 style="padding-left:0px;"
+      input.form-control#datepicker2 name="end_date" placeholder="End date" type="text" as="datepicker"
+    .col-md-2 style="padding-left:0px;"
+      button.btn.btn-primary type="submit"
+        | Download csv
+hr        
+
+       
+
+ul class="nav nav-tabs"
+  li role="presentation" class=('active' if params[:manually_uploaded].nil?) 
+    a href=(admins_coupons_path()) All
+  li role="presentation" class=('active' if params[:manually_uploaded] == "true")
+    a href=(admins_coupons_path(manually_uploaded: true)) Manually Uploaded
+  li role="presentation" class=('active' if params[:manually_uploaded] == "false")
+    a href=(admins_coupons_path(manually_uploaded: false)) Scrapped
+
+table class="table table-striped table-condensed" 
+  thead
+    tr
+      th= model_class.human_attribute_name(:id)
+      th= model_class.human_attribute_name(:header)
+      th Merchant
+      th= model_class.human_attribute_name(:code)
+      th= model_class.human_attribute_name(:created_at)
+      th=t '.actions', :default => t("helpers.actions")
+  tbody
+    - @coupons.each do |coupon|
+      tr class=('warning' if (coupon.updated_at.to_date == Date.today))
+        - if !coupon.merchant.blank?
+          td= link_to coupon.id, "/merchants/#{coupon.merchant.try(:slug)}/coupons?coupon=coupon-#{coupon.id}", target: "_blank"
+        -else
+          td= coupon.id
+        td align="left" = truncate(coupon.header, length: 60)
+        td= coupon.merchant.try(:name)
+        td= coupon.code
+        td= coupon.updated_at.to_s(:short)
+        td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_admins_coupon_path(coupon), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), admins_coupon_path(coupon), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+div= will_paginate @coupons
+

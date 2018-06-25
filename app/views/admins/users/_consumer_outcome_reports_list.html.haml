@@ -1,0 +1,38 @@
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span
+          Search
+    %th
+      %span.txt
+        %span
+          Report Date (EST)
+    %th
+      %span.txt
+        %span
+          Selected merchant
+    %th
+      %span.txt
+        %span
+          Customer comment
+    %th
+      %span.txt
+        %span Release Money
+  - if @outcome_reports.blank?
+    %tr
+      %td.ctr{:colspan => 5}
+        = 'No reports to show'
+  - @outcome_reports.each do |report|
+  - search = report.intent
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to search.search, "/admin/customers/#{@user.id}/searches/#{search.id}"
+      %td= report.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p')
+      %td= report.selected_merchant.company_name if report.selected_merchant
+      %td= report.comment
+      %td= link_to 'Release', "/admin/customers/#{@user.id}/release/#{report.id}"
+
+.table-footer.table-info
+  .pages-info= page_entries_info @outcome_reports
+  .right
+    = paginate @outcome_reports, :param_name => 'outcome_reports_page', :params => params

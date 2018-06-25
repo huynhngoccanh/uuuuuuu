@@ -1,0 +1,31 @@
+
+div class="page-header"
+  h1 Loyalty Programs user
+
+= form_tag '/admins/merchants/download_csv_file_loyalty_programs', method: :get
+      button.btn.btn-primary.pull-right type="submit"
+        | Download csv for Loyalty programs Users
+
+hr        
+table.table.table-striped
+  thead
+    tr
+      th Id
+      th Account Id
+      th Merchant
+      th Status
+      th Points
+      th Account Number
+  tbody
+    -if @programs.blank?
+      td colspan="4" No User for loyalty Programs
+    -else
+      - @programs.each do |program|
+        tr
+          td =program.id
+          td =program.account_id
+          td =program.loyalty_program.try(:name)
+          td =program.status.humanize
+          td =program.points
+          td =program.account_number
+

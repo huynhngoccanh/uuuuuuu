@@ -1,0 +1,72 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/email_contents'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column{:style => "margin-right:100px;"}
+      %h3 CUSTOMER ZONE
+      %nav.left-tabs-nav
+        %ul
+          %li= link_to "Email verification", edit_admin_email_content_path(@confirmation_instructions_user), :id => 'email-01-tab-link'
+          %li= link_to "Search finished - affiliate link", edit_admin_email_content_path(@auction_ended_from_affiliate), :id => 'email-14-tab-link'
+          %li= link_to "Search finished - soleo", edit_admin_email_content_path(@search_ended_from_soleo), :id => 'email-17-tab-link'
+          %li= link_to "Referrals email", edit_admin_email_content_path(@referrals_invite), :id => 'email-16-tab-link'
+
+      %h3 COMPANY ZONE
+      %nav.left-tabs-nav
+        %ul
+          %li= link_to "Email verification", edit_admin_email_content_path(@confirmation_instructions_vendor), :id => 'email-07-tab-link'
+          %li= link_to "Search won", edit_admin_email_content_path(@auction_won_vendor), :id => 'email-09-tab-link'
+          -#%li= link_to "Auctions lost", edit_admin_email_content_path('#'), :id => 'email-10-tab-link'
+          %li= link_to "Confirmation needed", edit_admin_email_content_path(@vendor_confirm_outcome), :id => 'email-13-tab-link'
+    .column
+      #email-00-form-wrap.tab-content
+        %p
+          Here you can customize email messages that are automatically sent by Ubitru.
+          %br
+          Choose a message from the list on the left to bring up the editor.
+      #email-01-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @confirmation_instructions_user
+      #email-02-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_initiated_user
+      #email-03-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_won_user
+      #email-04-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_ended_user
+      #email-05-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @first_confirmation_reminder
+      #email-06-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @last_confirmation_reminder
+      #email-07-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @confirmation_instructions_vendor
+      #email-08-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @recommended_auctions
+      #email-09-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_won_vendor
+      -##email-10-form-wrap.tab-content{:style=>'display: none'}
+      #email-11-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @low_funds_notification_global
+      #email-12-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @low_funds_notification_campaign
+      #email-13-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @vendor_confirm_outcome
+      #email-14-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_ended_from_affiliate
+      #email-15-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @auction_has_some_bids_user
+      #email-16-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @referrals_invite
+      #email-17-form-wrap.tab-content{:style=>'display: none'}
+        = render "form", :email_content => @search_ended_from_soleo
+
+%h2 System email messages
+= render 'layouts/application/one_column'
+
+#email-content-preview-wrap
+
+- content_for :javascripts do
+  = javascript_include_tag "admins/auctions/email_contents/preview"
+
+- content_for :javascripts do
+  :javascript
+    initTabsNav($('.left-tabs-nav ul'), '-form-wrap');

@@ -1,0 +1,19 @@
+- unless email_content.name == "confirmation_instructions_user" || email_content.name == "confirmation_instructions_vendor" || email_content.name == "referrals_invite"
+  - enable_state_changing = true
+
+= simple_form_for email_content, :url=>admin_email_content_path(email_content), |
+  :wrapper=>:standard, :validate => true, :html=>{:class=>'with-label clearfix'}, :remote=>true do |f|
+  .inputs
+    - if enable_state_changing
+      %p
+        %em
+          You can enable or disable that message from the system
+      = f.input :send_mail, :label => "State:", :collection=> [[true, 'On'] ,[false, 'Off']], :value_method => :first, :label_method => :last,  :as => :radio_buttons
+    = f.input :hello_sub_text, :label => "Text:", :placeholder => nil
+
+  .actions
+    = f.button :submit, 'Save changes', :class => "fixed-width-button"
+    = link_to('Preview', preview_admin_email_content_path(email_content), :class=>'preview-link fixed-width-button gray-button')
+    %a.fixed-width-button.gray-button{:href => admin_email_contents_path} Cancel Changes
+
+= render "variables_list"

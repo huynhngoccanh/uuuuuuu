@@ -1,0 +1,16 @@
+.vjs-default-skin .vjs-big-play-button {
+  display: none !important;
+}
+
+
+// ours elements
+#video_container {
+  padding-bottom: 34px;
+  background: image-url("video-shadow.png") no-repeat transparent center bottom;
+
+  #mm_consumer_video, #mm_consumer_video {
+    border: 5px solid white;
+    margin: 0 auto;
+  }
+}
+

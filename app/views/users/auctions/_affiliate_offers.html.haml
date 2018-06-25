@@ -1,0 +1,23 @@
+- unless @auction.combined_affiliate_offers.blank?
+  .affiliate-offers
+    - @auction.combined_affiliate_offers.each_with_index do |offer, idx|
+      - next if offer.advertiser.blank?
+      .offer-box{:class=> ((idx%4).zero? ? 'last-in-line': '')}
+        - if offer.is_a? CjOffer
+          = render 'users/auctions/cj_offer', :offer=>offer
+        - if offer.is_a? AvantOffer
+          = render 'users/auctions/avant_offer', :offer=>offer
+  .offers-disclaimer
+    %ul
+      %li You are eligible for cash-back on all purchases from the above merchants, not only your auctioned item
+      %li It normally takes 24-48 hours after your purchase for cash back to register in your MuddleMe account
+      %li Transactions completed from mobile phones and tablets will not register your cash back, please use your PC or MAC
+- else
+  .affiliate-offers-message
+    - if @auction.loading_affiliate_offers
+      .offers-spinner
+      We're matching instant offers for your auction. Please wait few seconds.
+    - else
+      Sorry, no instant offers found
+
+ 

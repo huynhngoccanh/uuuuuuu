@@ -1,0 +1,15 @@
+section.full-width.popular-stores
+  .container
+    h2.border-lr Most Popular Stores
+    .row.ordered-store
+      - max_item_per_row = (Taxon.total_items/6).to_i
+      - i = 0
+      - Taxon.most_popular.each do |char, taxons|
+        .col-2
+          .char-footer= char
+          - taxons.each do |taxon|
+            h5 
+              strong = taxon.name.titleize
+            ul
+              - taxon.merchants.each do |merchant|
+                li= link_to merchant.name, merchants_path(merchant.slug), class: "popular-store merchant-popup", "data-merchant_id" => merchant.id,"data-merchant_path" => merchant.redirection_link

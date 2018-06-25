@@ -1,0 +1,83 @@
+%h3
+  - if @auction.resolved? && current_vendor.won_auctions.include?(@auction)
+    REVEALED PROFILE
+  - else
+    ANONYMOUS PROFILE
+%hr
+
+- unless @bidding_campaign.nil?
+  - if @auction.resolved? && current_vendor.won_auctions.include?(@auction)
+    %article.offwhite-box.box-alert
+      %p
+        This auction was won by your
+        = link_to @bidding_campaign.name, edit_campaign_path(@bidding_campaign)
+        campaign.
+  - else
+    %article.offwhite-box.box-alert
+      %p
+        Your campaign
+        = link_to @bidding_campaign.name, edit_campaign_path(@bidding_campaign)
+        is already bidding in this
+        auction. All changes made here will override your campaign settings.
+
+
+%article.offwhite-box.details-preview
+  %h3
+    .person-icon
+    - if !@auction.score.nil? && @auction.score.to_i != @auction.user.score
+      MuddleMe Score: 
+      %span= @auction.score
+      %br
+      Current Score:
+    - else
+      MuddleMe Score: 
+    %span= @auction.user.score
+
+    %button#show-profile-button
+      View Profile Details
+  - contact_info = @auction.auction_address || @auction.user
+  - if @auction.resolved? && current_vendor.won_auctions.include?(@auction)
+    %p
+      %span.label Name:
+      %span= "#{contact_info.first_name} #{contact_info.last_name}"
+    %p
+      %span.label Email:
+      %span= @auction.user.email
+    %p
+      %span.label Address:
+      %span= contact_info.address
+    %p
+      %span.label Phone number:
+      %span= @auction.user.phone
+    %p
+      %span.label Gender:
+      %span= @auction.user.sex
+    %p
+      %span.label Age:
+      %span= @auction.user.age_range
+    %p
+      %span.label Zip code:
+      %span= contact_info.zip_code
+  - else
+    %p
+      %span.label Gender:
+      %span= @auction.user.sex
+    %p
+      %span.label Age:
+      %span= @auction.user.age_range
+    %p
+      %span.label Zip code:
+      %span= contact_info.zip_code
+    - if @auction.in_progress?
+      %p
+        - if current_vendor.auctions.include? @auction
+          = link_to 'Change your bid', edit_bid_auction_path(@auction) , :remote=>true, :class=>'change-bid-link orange-button fixed-width-button'
+        - else
+          = link_to 'Make a Bid!', new_bid_auction_path(@auction), :remote=>true, :class=>'make-bid-link orange-button fixed-width-button'
+        
+        - if @auction.saved_by_vendors.include? current_vendor
+          = link_to 'Remove from saved', unsave_auction_path(@auction) , :remote=>true, :method => :post, |
+            :class=>'gray-button fixed-width-button'
+        - else
+          = link_to 'Save auction', save_auction_path(@auction) , :remote=>true, :method => :post, |
+            :class=>'gray-button fixed-width-button'

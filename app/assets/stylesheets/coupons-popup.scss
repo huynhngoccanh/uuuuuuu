@@ -1,0 +1,183 @@
+body#popup-body {
+  min-width: 0;
+  background: #fff;
+}
+
+#coupons-popup {
+  min-width: 418px;
+  margin: 0;
+
+  header#header {
+    height: 57px;
+    text-align: right;
+    padding-right: 10px;
+    color: #999999;
+    font-family: MuseoSlab;
+    font-size: 17px;
+    line-height: 72px;
+  }
+
+  #logo {
+    margin: 0;
+    background: image-url("logo.png") transparent no-repeat -234px 0px;
+    width: 159px;
+    height: 43px;
+    margin: 10px 20px;
+    float: left;
+  }
+
+
+  #cash-back {
+    background-color: #e2e2e2;
+    -moz-box-shadow: inset -11px 7px 38px rgba(217, 219, 220, .85);
+    -webkit-box-shadow: inset -11px 7px 38px rgba(217, 219, 220, .85);
+    box-shadow: inset -11px 7px 38px rgba(217, 219, 220, .85);
+
+    .aff-advertiser {
+      padding: 16px 20px;
+      padding-bottom: 15px;
+      text-align: left;
+      img {
+        margin-right: 10px;
+        float: left;
+      }
+
+      a {
+        font-family: MuseoSlab;
+        @include ellipsis;
+        display: block;
+        padding-top: 10px;
+      }
+    }
+
+    .cash-back-info {
+      clear: both;
+      padding: 15px 20px 0;
+      font-family: Museo;
+      font-weight: bold;
+      font-size: 18px;
+      color: #999;
+
+      em {
+        font-decoration: none;
+        font-style: normal;
+        color: $light-orange;
+      }
+    }
+
+    .cash-back-tips {
+      padding: 0px 20px 10px;
+      padding-left: 105px;
+      position: relative;
+
+      .green-guy-icon {
+        background: image-url("icons.png") no-repeat 0px -1119px;
+        width: 72px;
+        height: 71px;
+        position: absolute;
+        left: 20px;
+        top: 0;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
+
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        padding-bottom: 8px;
+        margin-left: 15px;
+        color: #656565;
+      }
+    }
+  }
+
+  #social-links {
+    background: #fff;
+    padding: 10px 20px;
+    font-family: MuseoSlab;
+    font-weight: normal;
+    color: #637C85;
+    font-size: 13px;
+    position: relative;
+    padding-right: 250px;
+
+    .fb-like, .twitter-share-button {
+      position: absolute;
+      top: 8px;
+    }
+
+    .fb-like {
+      left: 180px;
+    }
+    .twitter-share-button {
+      right: 10px;
+    }
+  }
+}
+
+#coupons-popup, .details-box {
+  #coupons {
+    background: #fff;
+    .coupon {
+      padding: 25px 20px;
+      background: image-url("coupon-border.png") repeat-x -16px 0;
+
+      .coup-header {
+        font-family: Museo;
+        font-weight: bold;
+        font-size: 20px;
+        color: #4f6971;
+      }
+
+      .coup-box {
+        width: 238px;
+        height: 44px;
+        padding-left: 16px;
+        width: 222px;
+        background: image-url("coupon-box.png") no-repeat 0 0;
+        line-height: 44px;
+        white-space: nowrap;
+        overflow: auto;
+        float: left;
+        color: #656565;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+        text-align: left;
+      }
+
+      .coup-coupon-wrap {
+        padding-top: 20px;
+        overflow: hidden;
+        padding-bottom: 15px;
+        display: inline-block;
+        margin: 0 auto;
+      }
+
+      .click-to-copy {
+        margin-left: 8px;
+        float: left;
+        width: 110px;
+        height: 37px;
+        color: $light-orange;
+        padding-top: 4px;
+        font-family: MuseoSlab;
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .coup-desc {
+        font-size: 12px;
+        color: #656565;
+        padding-right: 35px;
+        font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+      }
+    }
+
+  }
+}

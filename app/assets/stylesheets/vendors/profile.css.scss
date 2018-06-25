@@ -1,0 +1,159 @@
+//company details
+article#company-details {
+  form #service_provider_wrap,
+  form #retailer_wrap {
+    margin-bottom: 30px;
+
+    label {
+      color: #797979;
+      //display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0.2em 0 0.4em;
+    }
+  }
+}
+
+// funds
+section#funds {
+  .half-col {
+    clear: none;
+    width: 450px;
+    padding-right: 44px;
+  }
+  .half-col.last-child {
+    padding-right: 0;
+  }
+
+  span.label {
+    min-width: 150px;
+  }
+
+  span.dollars, span.important {
+    line-height: 19px;
+  }
+
+  #credit-card-form-wrap .select button{
+    display: block;
+  }
+}
+
+article#company-funds {
+  form#new_funds_transfer,
+  form#new_funds_refund {
+    @extend .clearfix;
+
+    div.inputs {
+      @extend .clearfix;
+      float: left;
+    }
+    div.input {
+      float: left;
+    }
+    div.actions {
+      float: left;
+      margin-top: 22px;
+      margin-left: 10px;
+    }
+    div.input.integer, div.input.decimal {
+      label {
+        white-space: nowrap;
+      }
+
+      width: 122px;
+      input {
+        width: 100px;
+      }
+    }
+
+  }
+}
+
+#new-keyword-form-wrap, #test-tracker-form-wrap {
+  overflow: hidden;
+  float: left;
+  div.inputs {
+    float: left;
+  }
+
+  div.actions {
+    float: left;
+    margin-left: 0px;
+    margin-top: 5px;
+  }
+}
+
+#filter-keyword-input-wrap, 
+#import-keywords-form-wrap {
+  float: left;
+  margin-top: 5px;
+  margin-left: 15px;
+  label {
+    padding-right: 3px;
+  }
+}
+
+#import-keywords-form-wrap {
+  margin-left: 10px;
+}
+
+#delete-all-keywords-link-wrap {
+  float: right;
+  padding: 0 20px 10px 10px;
+}
+
+#provider-fields-wrap, #retailer-fields-wrap {
+  min-width: 617px;
+}
+
+#import-keywords-form-wrap {
+  width: 278px;
+  label {
+    margin-left: 10px;
+  }
+}
+
+#main-content table.keywords-table {
+  width: auto;  
+  td {
+    background: none;
+    border-left: 1px solid #D6D6D6;
+  }
+  td.action {
+    width: 14px;
+    opacity: 0;
+    @include single-transition(opacity, 150ms);
+  }
+  td.action.vis {
+    opacity: 1
+  }
+  td.empty, td.action, td:first-child {
+    border-left: none;
+  }
+  a.delete {
+    display: inline-block;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    width: 14px;
+    background: image-url("small-icons.png") no-repeat -48px -296px;
+  }
+}
+
+#test-tracker-form-wrap {
+  overflow: hidden;
+}
+
+#test-tracker-results-wrap {
+  clear: both;
+  min-height: 50px;
+  .label {
+    width: 155px;
+  }
+  span {
+    line-height: 19px;
+  }
+  strong {
+    color: $dark_orange;
+  }
+}

@@ -1,0 +1,43 @@
+%section.wrapper
+  = render "/application/home_page/search_by_merchants_form"
+  %br
+  = render "/application/home_page/favorite_stores_section"
+  = render "/application/home_page/browse_stores_section"
+  = render "/application/home_page/local_services_section"
+  = render "/application/home_page/search_by_services_form"
+  %section.call-to-action
+    .container
+      .row
+        .col-sm-12
+          %p.rb_light
+            Type in what you need (i.e. Dish TV) and see local service providers willing to PAY YOU for
+            the right to talk to you
+            and quote your project. If you call three, transact with ONE, you receive the payout from
+            ALL.Simple, right?
+          %p.click-call Click. Call . Hire . Get Paid
+  = render "/application/home_page/top_deals_section"
+  = render "/application/home_page/mobile_apps_banner"
+  =# render "/application/home_page/most_popular_stores_section"
+  = render '/application/home_page/most_popular_stores'
+  = render "/application/home_page/money_box_section"
+  %section.popular-stories
+    .container
+      .row
+        = render "/application/home_page/hp_click_to_call_services"
+        .subtitle.fancy3
+          %span
+            %h3.title
+              = link_to "+", "javascript:void(0);", :id => "pcs_plus", :class => "pcs_show_hide pcs_list_link"
+              Popular Categories
+        = render "/application/home_page/popular_categories"
+
+
+= render '/application/home_page/hp_popup'
+
+- if session[:user_sign_up_via_sbs]
+  - session.delete(:user_sign_up_via_sbs)
+  :javascript
+    document.location.hash="#search_by_services_section";
+- else
+  :javascript
+    document.location.hash="";

@@ -1,0 +1,24 @@
+%style
+  :plain
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+    table td {
+      border: 1px solid gray;
+      padding: 4px;
+      vertical-align: top;
+    }
+    table th {
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+%table
+  %tr
+    %th Merchant
+    %th Categories
+  - @advertisers.each do |adv|
+    %tr
+      %td=adv.name
+      %td=adv.params['primary_category']['parent'] + ' -> ' + adv.params['primary_category']['child']

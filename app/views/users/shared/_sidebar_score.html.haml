@@ -1,0 +1,40 @@
+- header_text = 'Extravagant millionaire'
+- header_text = 'All-star' if  current_user.score < 90
+- header_text = 'Pretty good' if  current_user.score < 70
+- header_text = 'Just average' if  current_user.score < 50
+- header_text = 'Rookie' if  current_user.score < 30
+
+
+%section#sidebar-score.green-box.box-with-stamp
+  %h3= header_text
+  %p
+    - if current_user.score <= 50
+      Your score is average, but
+      %br
+      the outlook is good. Want a 
+      %br
+      score of 65? Just complete the 
+      short questions 
+      = link_to 'wizard!', new_survey_path
+    - else
+      - if current_user.score < 62
+        But you can increase your
+        %br
+        score and increase 
+        %br
+        your worth! Head on over and
+        %br
+        = link_to 'answer some new questions!', edit_survey_path
+      - else
+        Your current Ubitru score is
+        %br
+        good and likely to attract 
+        %br
+        higher than average bid 
+        prices. 
+        = link_to 'Learn ways to raise your score!', how_it_works_path
+  %div.stamp#your-score-stamp
+    - base_score = current_user.score
+    - base_score -= current_user.survey.points_for_survey if current_user.survey
+    %span{:data=>{:score=>base_score}}
+      = current_user.score

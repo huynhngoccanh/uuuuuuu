@@ -1,0 +1,81 @@
+.invite-section01
+  .container
+    = image_tag "ubitru/friend-line.png" , class:"img-responsive" , style: 'margin: auto;'
+    h2 Invite your friends to UbiTru
+    p ”Get paid every time your friends make a call or purchase online”
+.invite-section02
+  .container
+    - if user_signed_in?
+      a.btn.btn-red href=referred_visits_path  Refer a Friend
+    -else
+      = simple_form_for(User.new, :url => session_path(:user), :wrapper=>:standard, :html=>{:class=>'no-label'}) do |f|
+        .box01
+          = image_tag "ubitru/icon01.png" , class:"img-responsive"
+          p Your friends are part of your network. We don’t share what they buy and from whom, we just pay you when they do.
+        .box02
+          = image_tag "ubitru/icon02.png" , class:"img-responsive"
+          p Whenever a friend calls or makes a purchase you receive 10% of their earned money for 1 year.
+        .clearfix
+        .box04
+          = no_label_input f, :email, :placeholder => 'E-mail address', :required => true
+        .box05
+          = no_label_input f, :password, :required => true
+        .clearfix
+        .box06
+          = f.button :submit, 'SignIn', :class => "fixed-width-button"
+.invite-section03
+  .container
+    h3 How the Ubitru Referral platform works:
+    h4 When you refer a friend...
+    p That’s not a current Ubitru user to register on the platform you get paid. You will get paid (cash) every time your referral calls a merchant, purchases a product, uses a coupon or requests a quote. You will receive 10% back on everything your referral does online for up to 1 year.
+    h4 Don’t worry
+    p Your friends will still receive 70% for everything they do.
+
+
+/ .home-main-section
+/   #referral-top
+/   #referral-header Invite Your Friends to Ubitru
+/   #referral-text1 "Get paid every time your friends make a call or purchase online"
+/   #referral-shadow
+/   #referral-content
+/     = simple_form_for(User.new, :url => session_path(:user), :wrapper=>:standard, :html=>{:class=>'no-label'}) do |f|
+/       %table
+/         %tr
+/           %td
+/             #referral-friends1
+/           %td
+/             #referral-friends2
+/         %tr
+/           %td.referral-content-text
+/             Your friends are part of your network.
+/             %br
+/             We don't share what they buy and from
+/             %br
+/             whom, we just pay you when they do.
+/           %td.referral-content-text
+/             Whenever a friend calls or makes
+/             %br
+/             a purchase you receive 10% of
+/             %br
+/             their earned money for 1 year.
+/         %tr
+/           %td.referral-content-sign-in{:colspan => 2}
+/             Sign In:
+/         %tr
+/           %td.referral-input1
+/             = no_label_input f, :email, :placeholder => 'email address', :required => true
+/           %td.referral-input2
+/             = no_label_input f, :password, :required => true
+/         %tr
+/           %td.referral-sign-in-btn{:colspan => 2}
+/             = f.button :submit, '', :class => "fixed-width-button"
+/   #referral-bottom
+/     #referral-bottom-container
+/       #referral-bottom-wrapper
+/         #referral-bottom-h1 How the Ubitru Referral Platform Works:
+/         #referral-bottom-h2 When you refer a friend...
+/         #referral-bottom-text1
+/           That's not a current Ubitru user to register on the platform you get paid. You will get paid (cash) every time your referral calls a merchant, purchases a product,
+/           uses a coupon or requests a quote. You will receive 10% back on everything your referral does online for up to 1 year.
+/         #referral-bottom-h3 Don't worry
+/         #referral-bottom-text2 Your friends will still receive 70% for everything they do.

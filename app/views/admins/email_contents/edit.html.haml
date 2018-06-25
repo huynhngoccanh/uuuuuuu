@@ -1,0 +1,11 @@
+- content_for :main_column do
+  %section.default-content
+    %article
+      %p
+        Email name:
+        = @email_content.name
+      = render 'form', :email_content => @email_content
+
+
+%h2 Edit content of mail
+= render 'layouts/application/one_column'

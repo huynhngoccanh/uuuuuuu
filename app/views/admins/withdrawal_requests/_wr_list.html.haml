@@ -1,0 +1,35 @@
+- unless @withdrawal_requests.blank?
+  %section.default-content.clearfix
+    %nav.with-search
+      %h3
+        Total amount to be funded on paypal account is
+        = format_currency(@total_pp_amount)
+        = link_to "Add Funds at Paypal", "https://www.paypal.com/us/webapps/mpp/home", :target => "_blank"
+      %table.default-table
+        %tr
+          %th
+            %span.txt
+              %span User Email
+          %th
+            %span.txt
+              %span Paypal Email
+          %th
+            %span.txt
+              %span Amount
+          %th
+            %span.txt
+              %span Requested on
+        - @withdrawal_requests.each do |withdrawal_request|
+          %tr{:class=>cycle(nil,'odd')}
+            %td= link_to withdrawal_request.user.email, admin_withdrawal_request_path(withdrawal_request)
+            %td= withdrawal_request.paypal_email
+            %td= format_currency(withdrawal_request.amount)
+            %td= withdrawal_request.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p')
+
+      .right
+        = will_paginate @withdrawal_requests
+
+- else
+  %section.default-content.clearfix
+    %nav.with-search
+      %h3 No requests where recorded at the moment.

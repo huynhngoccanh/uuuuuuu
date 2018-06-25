@@ -1,0 +1,2 @@
+module LoyaltyProgramCouponsHelper
+end

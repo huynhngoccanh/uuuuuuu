@@ -1,0 +1,118 @@
+#cashbackModal {
+  button.close-icon {
+    background: transparent;
+    color: #383333;
+    margin: 0px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    outline: 0;
+    padding: 0;
+    z-index: 1000;
+  }
+  .offer-title {
+    width: 80%;
+    margin: 15px auto;
+    padding-bottom: 50px;
+    color: #555;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .offer-tip {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .offer-redemption-block {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    padding-bottom: 1.5em;
+    justify-content: center;
+  }
+  .js-copy {
+    display: inline-block;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    height: 47px;
+    width: 75px;
+    padding: 0px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .button-code {
+    display: inline-block;
+    overflow-y: auto;
+    width: 200px !important;
+    float: left;
+    font-size: 26px;
+    white-space: nowrap;
+    padding: 1em .75em;
+    transition: background-color .5s ease,border-color .5s ease,color .5s ease,fill .5s ease;
+    background: #fff;
+    color: #222;
+    font-family: Avenir Next,Calibri,Helvetica,Roboto,sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+  .offer-redemption-rebate-section {
+    display: flex;
+    flex-direction: column;
+    flex: 2 1 0;
+    justify-content: flex-end;
+    align-items: center;
+    .rebate-primary-text {
+      margin-bottom: 4px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .rebate-secondary-text-item {
+      display: inline-block;
+      color: #555;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .button-secondary {
+      display: inline-block;
+      width: 200px;
+      margin: 8px 0;
+      transform: translateZ(0);
+      padding: 1em .75em;
+      transition: background-color .5s ease,border-color .5s ease,color .5s ease,fill .5s ease;
+      background: transparent;
+      color: #24b7e3;
+      font-family: Avenir Next,Calibri,Helvetica,Roboto,sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      border: 1px solid #24b7e3;
+      border-radius: 3px;
+    }
+  }
+}
+

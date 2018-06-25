@@ -1,0 +1,13 @@
+- active_action ||= ''
+- subnav_actions = []
+- subnav_actions << {:action=>'index', :label=>'All searches'}
+- subnav_actions << {:action=>'active', :label=>'My active searches'}
+- subnav_actions << {:action=>'lost', :label=>'Searches queries you have lost'}
+- subnav_actions << {:action=>'won', :label=>'Searches queries you have won'}
+
+%ul{:style => "margin-top: -38px;"}
+  - subnav_actions.each do |action|
+    - cls = action[:action] == active_action ? 'active' : nil
+    %li{:class=>cls}
+      = link_to_unless(active_action==action[:action], action[:label], {:action=>action[:action]}) do
+        %span= action[:label]

@@ -1,0 +1,34 @@
+- template = case @email_content.name
+  - when "confirmation_instructions_user" then "users/mailer/confirmation_instructions"
+  - when "auction_initiated_user" then "auctions_mailer/auction_initiated_user"
+  - when "auction_won_user" then "auctions_mailer/auction_won_user"
+  - when "auction_ended_user" then "auctions_mailer/auction_ended_user"
+  - when "auction_ended_from_affiliate" then "auctions_mailer/auction_ended_from_affiliate"
+  - when "search_ended_from_soleo" then "search_mailer/search_ended_from_soleo"
+  - when "auction_has_some_bids_user" then "auctions_mailer/auction_has_some_bids_user"
+  - when "first_confirmation_reminder" then "auctions_mailer/first_confirmation_reminder"
+  - when "last_confirmation_reminder" then "auctions_mailer/last_confirmation_reminder"
+  - when "referrals_invite" then "referrals_mailer/invite"
+  - when "confirmation_instructions_vendor" then "vendors/mailer/confirmation_instructions"
+  - when "recommended_auctions" then "auctions_mailer/recommended_auctions"
+  - when "auction_won_vendor" then "auctions_mailer/auction_won_vendor"
+  - when "low_funds_notification_global" then "auctions_mailer/low_funds_notification"
+  - when "low_funds_notification_campaign" then "auctions_mailer/low_funds_notification"
+  - when "vendor_confirm_outcome" then "auctions_mailer/vendor_confirm_outcome"
+  - else ""
+
+
+
+#email-content-details-box.details-box.clearfix{:style => "display: none;"}
+  .details-overlay
+  .details-wrap
+    .details-outer
+      %a.details-close.details-close-button
+      %section.content-details-box#profile-details
+        %header.details-box-header
+          .title.column
+            %h2 Email preview
+        %article#email-content-details
+          = render :template => template, :locals => { :admin_preview => true }
+          .actions
+            %a.gray-button.fixed-width-button.details-close-button Close Window

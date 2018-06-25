@@ -1,0 +1,135 @@
+// ========================= MM ======================
+.mm-affiliate-icon {
+  left: 2px;
+}
+
+#mm-box {
+  padding: 3px;
+  margin-left: -6px;
+  #mm-box-header {
+    #mm-logo {
+      width: 110px;
+      height: 38px;
+    }
+    td {
+      height: 70px;
+    }
+  }
+}
+
+#mm-box-container {
+  min-width: 300px;
+  width: 100%;
+  font-size: 10px;
+
+  .mm_data_company_name, .mm_data_company_address {
+    min-width: 65px;
+    width: auto;
+  }
+  .mm_data_user_money, .mm_data_coupon_code, .mm-action {
+    min-width: 45px;
+    width: auto;
+  }
+  .mm_data_user_money {
+    min-width: 55px;
+  }
+  #mm-user-score-label {
+    font-size: 12px;
+  }
+  .mm-listings th {
+    font-size: 10px;
+    height: 22px;
+  }
+
+  #mm-next-offers-btn, .mm-shop-now-btn, .mm-call-now-btn {
+    font-size: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .mm-shop-now-btn {
+    min-width: 58px;
+  }
+}
+
+// ========================= popups ======================
+#mm-auth-modal, #mm-offer-modal, #mm-merchant-modal {
+  width: auto;
+  max-width: 300px;
+  margin-left: -150px;
+  top: 50%;
+}
+
+#mm-offer-modal, #mm-merchant-modal {
+  .modal-header {
+    min-height: 50px;
+    padding: 14px 4px 0 14px;
+  }
+
+  .modal-body {
+    padding: 14px!important;
+  }
+
+  .mm_data_company_name {
+    font-size: 18px !important;
+  }
+
+  .mm_data_company_url {
+    font-size: 12px !important;
+  }
+  #mm-offer-details {
+    line-height: 30px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  #mm-offer-table {
+    td, .mm_data_company_name {
+      font-size: 10px!important;
+      &:first-child {
+        width: 80px;
+      }
+    }
+  }
+}
+
+#mm-auth-form {
+  input {
+    margin-top: 6px;
+    height: 26px;
+    width: auto;
+    max-width: 240px;
+  }
+  .mm-auth-title {
+    font-size: 30px;
+    padding-left: 20px;
+  }
+
+  .mm-auth-button {
+    margin: 10px 0 12px 0;
+    width: 140px;
+    font-size: 20px;
+    height: 30px;
+  }
+
+  .mm-auth-action-container, .mm-forgot-password-container {
+    height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+  }
+}
+
+.mm-popup-shop-now, .mm-popup-next-offer {
+  width: 100px;
+  height: 22px;
+  background-size: 100% 100%;
+  margin-top: 5px;
+}
+
+.mm-popup-next-offer {
+  margin-bottom: 10px;
+}
+
+#cse-pick-merchants-link {
+  display: none;
+}

@@ -1,0 +1,76 @@
+.container-fluid
+  .row
+    - css_classes = 'col-md-10 col-sm-10'
+    - css_classes = 'col-md-8 col-sm-8' if current_user.present?
+    .menu-bar{:class => css_classes}
+      %nav.main-nav{:role => "navigation"}
+        .container
+          .navbar-header
+            %button.navbar-toggle{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            / //nav-toggle
+            %a{:href => "/profiles"}
+              = image_tag("logo_new.png", :id => "logo", :class => "image-responsive")
+            / //navbar-header
+          #navbar-collapse.navbar-collapse.collapse
+            %ul.nav.navbar-nav
+              %li.active.nav-item.rbs_bold.text-transform-none
+                %a{:href => "/"} Home
+              %li.nav-item.dropdown.rbs_bold.text-transform-none
+                %a.dropdown-toggle{"data-close-others" => "false", "data-delay" => "0", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "#"}
+                  Products
+                  %i.fa.fa-sort-down{:style => "vertical-align: top;"}
+                %ul.dropdown-menu.rbs_bold.text-transform-none
+                  %li.rbs_bold.text-transform-none
+                    = link_to "Browser Extension", "/experience"
+                  %li.rbs_bold.text-transform-none
+                    = link_to "Muddleme Envy App", "#"
+                  %li.rbs_bold.text-transform-none
+                    = link_to "Muddleme Services App", "#"
+                  %li.rbs_bold.text-transform-none
+                    = link_to "Muddleme Mobile Coupon Book", "#"
+
+              %li.rbs_bold.text-transform-none{:class=>"nav-item #{current_page?('/referral') ? 'active' : ' '}"}
+                %a{:href => '/referral'} Referral
+              %li.rbs_bold.text-transform-none{:class=>"nav-item #{current_page?('/company')? 'active' : ' '}"}
+                %a{:href => '/company'} Business
+              %li.rbs_bold.text-transform-none{:class=>"nav-item #{current_page?(about_path)? 'active' : ' '}"}
+                %a{:href => about_path} About Us
+              %li.nav-item.rbs_bold.text-transform-none
+                %a{:href => 'http://muddleme.blog.com', :target => 'blank'} Blog
+
+              / //dropdown
+            / //nav
+          / //navabr-collapse
+          / //container
+        / //main-nav
+    - l_classes = 'col-md-2 col-sm-2'
+    - l_classes = 'col-md-4 col-sm-4 padding-top-5-imp' if current_user.present?
+    .signup{:class => l_classes}
+      - if current_user.blank?
+        %ul.menu-right.nav.nav-pills
+          %li.divider.rbs_regular.font-size-13
+            %a{:href => "/login"}
+              /%i.fa.fa-search
+              = image_tag('key.png', :class => 'header-auth-icon')
+              Sign In
+          %li.divider.rbs_regular.font-size-13
+            %a{:href => "/signup"}
+              /%i.fa.fa-lock
+              = image_tag('lock.png', :class => 'header-auth-icon')
+              Sign Up
+      - else
+        %ul.menu-right.nav.nav-pills.menu-top-right-links{:class => "#{current_user.present? ? 'pull-right margin-right-40' : ''}"}
+          %li.divider-right
+            %a{:href => funds_withdrawals_path}
+              %i.fa.fa-lock
+              Balance:
+              %span.dollars{:style => "color:#9dc700 !important;"}= format_currency(current_user.total_balance || 0)
+          %li.divider-right.menu-link-email
+            = current_user.email
+          %li.divider
+            = link_to 'Sign out', destroy_user_session_path, :method=>'delete', :id=>'logout-link'
+      / //menu-top

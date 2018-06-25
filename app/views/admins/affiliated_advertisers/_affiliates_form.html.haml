@@ -1,0 +1,95 @@
+%p
+  %span.label Selected category:
+  %span.highlight
+    - @product_category.ancestors.each do |c|
+      = c.name
+      &raquo;
+    = @product_category.name
+%hr
+%p
+  %span.label Commission Junction advertisers:
+%div.input
+  = select_tag "cj_advertiser", |
+    options_from_collection_for_select(CjAdvertiser.where('inactive != 1').order(:name).all.to_a, "id", "name"), |
+    :prompt => 'Select', :id => "cj_advertiser"
+  %a.add-advertiser-button.add-cj.green-button{:href=>'#'} Add
+
+%div.input.tags.advertisers-tags
+  - @cj_mappings.each do |mapping|
+    .tag{:title=>mapping.preferred ? 'fixed advertiser' : nil, :class=>"cj_#{mapping.cj_advertiser_id}"}<
+      %span
+        = mapping.cj_advertiser.name
+      - url_toggle = toggle_affiliate_mapping_preferred_admin_affiliated_advertisers_path('cj',mapping)
+      - url_delete = remove_affiliate_mapping_admin_affiliated_advertisers_path('cj',mapping)
+      = link_to('!', url_toggle, :remote=>true, :class=>"preferred#{mapping.preferred ? ' active' : ''}") + link_to('x', url_delete, :remote=>true, :class=>"close")
+
+%hr
+%p
+  %span.label Avant link advertisers:
+%div.input
+  = select_tag "avant_advertiser", |
+    options_from_collection_for_select(AvantAdvertiser.where('inactive != 1').order(:name).all.to_a, "id", "name"), |
+    :prompt => 'Select', :id => "avant_advertiser"
+  %a.add-advertiser-button.add-avant.green-button{:href=>'#'} Add
+%div.input.tags.advertisers-tags
+  - @avant_mappings.each do |mapping|
+    .tag{:title=>mapping.preferred ? 'fixed advertiser' : nil, :class=>"avant_#{mapping.avant_advertiser_id}"}<
+      %span
+        = mapping.avant_advertiser.name
+      - url_toggle = toggle_affiliate_mapping_preferred_admin_affiliated_advertisers_path('avant',mapping)
+      - url_delete = remove_affiliate_mapping_admin_affiliated_advertisers_path('avant',mapping)
+      = link_to('!', url_toggle, :remote=>true, :class=>"preferred#{mapping.preferred ? ' active' : ''}") + link_to('x', url_delete, :remote=>true, :class=>"close")
+
+%hr
+%p
+  %span.label Linkshare advertisers:
+%div.input
+  = select_tag "linkshare_advertiser", |
+    options_from_collection_for_select(LinkshareAdvertiser.where('inactive != 1').order(:name).all.to_a, 'id', 'name'), |
+    :prompt => 'Select', :id => "linkshare_advertiser"
+  %a.add-advertiser-button.add-linkshare.green-button{:href=>'#'} Add
+%div.input.tags.advertisers-tags
+  - @linkshare_mappings.each do |mapping|
+    .tag{:title=>mapping.preferred ? 'fixed advertiser' : nil, :class=>"linkshare_#{mapping.linkshare_advertiser_id}"}<
+      %span
+        = mapping.linkshare_advertiser.name
+      - url_toggle = toggle_affiliate_mapping_preferred_admin_affiliated_advertisers_path('linkshare',mapping)
+      - url_delete = remove_affiliate_mapping_admin_affiliated_advertisers_path('linkshare',mapping)
+      = link_to('!', url_toggle, :remote=>true, :class=>"preferred#{mapping.preferred ? ' active' : ''}") + link_to('x', url_delete, :remote=>true, :class=>"close")
+
+%hr
+%p
+  %span.label Pj advertisers:
+%div.input
+  = select_tag "pj_advertiser", |
+    options_from_collection_for_select(PjAdvertiser.where('inactive != 1').order(:name).all.to_a, 'id', 'name'), |
+    :prompt => 'Select', :id => "pj_advertiser"
+  %a.add-advertiser-button.add-pj.green-button{:href=>'#'} Add
+%div.input.tags.advertisers-tags
+  - @pj_mappings.each do |mapping|
+    .tag{:title=>mapping.preferred ? 'fixed advertiser' : nil, :class=>"pj_#{mapping.pj_advertiser_id}"}<
+      %span
+        = mapping.pj_advertiser.name
+      - url_toggle = toggle_affiliate_mapping_preferred_admin_affiliated_advertisers_path('pj',mapping)
+      - url_delete = remove_affiliate_mapping_admin_affiliated_advertisers_path('pj',mapping)
+      = link_to('!', url_toggle, :remote=>true, :class=>"preferred#{mapping.preferred ? ' active' : ''}") + link_to('x', url_delete, :remote=>true, :class=>"close")
+
+%hr
+%p
+  %span.label Ir advertisers:
+%div.input
+  = select_tag "ir_advertiser", |
+    options_from_collection_for_select(IrAdvertiser.where('inactive != 1').order(:name).all.to_a, 'id', 'name'), |
+    :prompt => 'Select', :id => "ir_advertiser"
+  %a.add-advertiser-button.add-ir.green-button{:href=>'#'} Add
+%div.input.tags.advertisers-tags
+  - @ir_mappings.each do |mapping|
+    .tag{:title=>mapping.preferred ? 'fixed advertiser' : nil, :class=>"ir_#{mapping.ir_advertiser_id}"}<
+      %span
+        = mapping.ir_advertiser.name
+      - url_toggle = toggle_affiliate_mapping_preferred_admin_affiliated_advertisers_path('ir',mapping)
+      - url_delete = remove_affiliate_mapping_admin_affiliated_advertisers_path('ir',mapping)
+      = link_to('!', url_toggle, :remote=>true, :class=>"preferred#{mapping.preferred ? ' active' : ''}") + link_to('x', url_delete, :remote=>true, :class=>"close")
+
+
+%div.input.tags.advertisers-tags

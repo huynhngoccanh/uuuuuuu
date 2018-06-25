@@ -1,0 +1,7 @@
+$('#keyword-list-wrap').html("<%= escape_javascript render('keyword_list') %>")
+.css('overflow','')
+<% if @reload_form %>
+  $('#new-keyword-form-wrap').html("<%= escape_javascript render('add_keyword_form') %>")
+  initFormValidations('#new-keyword-form-wrap form');
+  $('#new-keyword-form-wrap input:text').focus();
+<% end %>

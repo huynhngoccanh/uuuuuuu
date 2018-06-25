@@ -1,0 +1,13 @@
+- content_for :main_column do
+  %section.default-content
+    %article#sign-in
+      = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), |
+      :wrapper=>:standard, :html=>{:class=>'no-label', :method => :post}) do |f|
+        .inputs
+          = no_label_input f, :email, :required => true
+        .actions
+          = f.button :submit, "Send me reset password instructions"
+      = render "vendors/devise/links"
+
+%h2 Forgot your password?
+= render 'layouts/application/two_columns'

@@ -1,0 +1,65 @@
+%table.default-table
+  %tr
+    %th{:class=>list_order_class(:offers, 'name')}
+      %a{:href=>list_order_url(:offers, 'name')}
+        %span Offer
+    %th{:class=>list_order_class(:offers, 'coupon_code')}
+      %a{:href=>list_order_url(:offers, 'coupon_code')}
+        %span Coupon Code
+    %th{:class=>list_order_class(:offers, 'offer_url')}
+      %a{:href=>list_order_url(:offers, 'offer_url')}
+        %span Offer Url
+    %th{:class=>list_order_class(:offers, 'offer_description')}
+      %a{:href=>list_order_url(:offers, 'offer_description')}
+        %span Offer Description
+    %th
+      %span.txt
+        %span Actions
+  - if @offers.blank?
+    %tr
+      %td.ctr{:colspan=>7}
+        = "No offers to show"
+  - @offers.each do |o|
+    %tr{:class=>cycle(nil,'odd')}
+      %td= link_to o.name, preview_existing_offer_path(o), :class=>'preview-offer-link'
+      %td= o.coupon_code
+      %td= o.offer_url
+      %td= o.offer_description
+      %td.actns-cell
+        .actns-wrap
+          .actns
+            .handle
+            .label= 'Choose an action'
+            .links
+              = link_to 'Preview offer', preview_existing_offer_path(o), :class=>'preview-offer-link'
+              = link_to 'Edit offer', edit_offer_path(o)
+              = link_to('Delete offer', offer_path(o), :method => :delete, :confirm => 'Are you sure?')
+.table-footer.table-info
+  .pages-info= page_entries_info @offers
+  .right
+    = paginate @offers, :params=>params, :param_name=>"offers_page"
+
+#offer-preview-wrap.existing
+
+- content_for :javascripts do 
+  :javascript
+    $(function(){
+      var pendingRequest;
+      var linkTxt = $('.preview-offer-link:first').text();
+      $('.preview-offer-link').on('click', function(e){
+        e.preventDefault();
+        var $this = $(this);
+        linkTxt = $this.text();
+        $this.text('Generating preview...');
+        if(pendingRequest) pendingRequest.abort();
+        $.ajax({
+          type: 'POST',
+          url: $this.attr('href'),
+          complete: function(){
+            $this.text(linkTxt);
+            showDetailsBox($('#offer-window-preview'));
+          },
+          dataType: 'script'
+        });
+      });
+    })

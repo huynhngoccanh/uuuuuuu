@@ -1,0 +1,80 @@
+- content_for :javascripts do
+  = javascript_include_tag "users/auctions/product_categories"
+
+= input_row f, :name, :placeholder => 'Games 50% OFF'
+- if @campaign.new_record?
+  = input_row f, :duration, :collection=>duration_options, :prompt => "never"
+- else
+  = inputs_grouped f, :stop_at do
+    = sub_input_row f, :stop_at, :as=>:datepicker, :label=>false
+
+= inputs_grouped f, :score_range do
+  .inpts-row.clearfix
+    = sub_input_row f, :score_range, :label=>false, :collection => score_options, :prompt=>false
+  #score-range-custom.inpts-row.clearfix{:style=>'display: none'}
+    = sub_input_row f, :score_min, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+    = sub_input_row f, :score_max, :wrapper_html=>{:class=>"half-width"}, :input_html => {:class => :number}
+    
+= inputs_grouped f, :zip_code do
+  .inpts-row.clearfix.camp-zip-form-row
+    = sub_input_row f, :zip_code, :label=>'Zip code:', :input_html => {:class => 'number'}
+  .inpts-row.clearfix.camp-zip-form-row
+    = sub_input_row f, :zip_code_miles_radius, :input_html => {:class => :number}
+
+= inputs_grouped f, :min_bid, "Minimum bid per profile:", |
+  "Specify the lowest price you are willing to pay to win a search intent with your campaign settings." do
+  .inpts-row.clearfix
+    %span.beside-inpt= '$'
+    = sub_input_row f, :min_bid, :label=>false, :input_html => {:class => :cash}
+
+= inputs_grouped f, :max_bid, "Maximum bid per profile:", |
+  "Specify the highest price you are willing to pay to win a search intent with your campaign settings." do
+  .inpts-row.clearfix
+    %span.beside-inpt= '$'
+    = sub_input_row f, :max_bid, :label=>false, :input_html => {:class => :cash}
+
+= inputs_grouped f, :fixed_bid, "Fixed bid per profile:", |
+  "Specify the fixed price you are willing to pay to win a search intent with your campaign settings." do
+  .inpts-row.clearfix
+    %span.beside-inpt= '$'
+    = sub_input_row f, :fixed_bid, :label=>false, :input_html => {:class => :cash}
+
+= inputs_grouped f, :budget do
+  .inpts-row.clearfix
+    %span.beside-inpt= '$'
+    = sub_input_row f, :budget, :label=>false, :input_html => {:class => :cash}
+
+= inputs_grouped f, :product_category_ids, nil, nil, true do
+  .inpts-row.clearfix
+    = select_tag "root_category", |
+      options_from_collection_for_select(ProductCategory.roots.order('`order` ASC').to_a, "id", "name"), |
+      :prompt => 'Select', :id => "root_category"
+    %a.add-category-button.green-button{:href=>'#'} Add
+  .inpts-row.clearfix
+    = select_tag "first_level_category", |
+      options_for_select([]), |
+      :include_blank=> true, :id => "first_level_category"
+    %a.add-category-button.green-button{:href=>'#'} Add
+  .inpts-row.clearfix
+    = select_tag "second_level_category", |
+      options_for_select([]), |
+      :include_blank=> true, :id => "second_level_category"
+    %a.add-category-button.green-button{:href=>'#'} Add
+  %div.tags.categories-tags{:data=>{:input_name=>'campaign[product_category_ids][]'}}
+    = f.association :product_categories, :as=>:check_boxes, :collection=>@campaign.product_categories, |
+      :label=>false, :wrapper=>:standard, :wrapper_html=>{:class=>'hidden-inputs hidden-categories'}
+
+
+-# TODO: keywords and adwords keywords
+=# input_row f, :keywords
+-# inputs_grouped f, "adwords", 'Import keywords from Adwords:', 'You can import your data from Google Adwords and Analytics.' do
+  .input-file-wrap.fileupload-buttonbar
+    .fakeupload
+      %input.fakeupload{:type=>:text}
+      %a.green-button Browse
+    .div.file
+      %input{:type => "file"}
+
+- hint = "Choose the offer you want to display to customers when you win an auction."
+
+= input_row f, :offer_id, :as=>:select, :collection=>current_vendor.offers.where(service_type: "product"), :hint=>hint, :prompt => "choose an offer"

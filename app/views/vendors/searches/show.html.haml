@@ -1,0 +1,53 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action => params[:action]
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %article.details-preview#company-profile
+      %h3
+        Consumer
+        %hr
+      %div.line
+        %div.label Full name:
+        %div.value= @user.full_name
+      %div.line
+        %div.label Email:
+        %div.value= @user.email
+      %h3
+        Merchants
+        %hr
+      %table.default-table
+        %tr
+          %th.no-hvr
+            %span.txt
+              %span Merchant
+          %th.no-hvr
+            %span.txt
+              %span Type
+          %th.no-hvr
+            %span.txt
+              %span Campaign
+          %th.no-hvr
+            %span.txt
+              %span Offer
+          %th.no-hvr
+            %span.txt
+              %span Clicked
+          %th.no-hvr
+            %span.txt
+              %span Selected
+        - outcome = @search.intent_outcome
+        - @merchants.each_with_index do |merchant, idx|
+          %tr{:class=>cycle(nil,'odd')}
+            %td
+              = merchant.company_name
+              = '<b>(Me)</b>'.html_safe if merchant.type == Search::LocalMerchant.name && merchant.campaign.vendor_id == current_vendor.id
+            %td= merchant.type_humanized
+            %td= merchant.campaign.name if merchant.type == Search::LocalMerchant.name
+            %td= merchant.offer_name.html_safe if merchant.offer_name
+            %td= merchant.active ? 'YES' : ''
+            %td= (outcome.present? && merchant.id == outcome.merchant_id) ? 'YES' : ''
+%h2
+  Details for search query
+  = "\"#{@search.search}\""
+= render 'layouts/application/one_column'

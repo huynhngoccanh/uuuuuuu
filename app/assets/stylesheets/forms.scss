@@ -1,0 +1,444 @@
+//default forms
+
+.lt-ie8 {
+  form.simple_form {
+
+    div.input span.error {
+      display: block;
+    }
+  }
+}
+
+
+label {
+  color: #797979;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="password"] {
+  color: #797979;
+  color: #424242;
+  width: 260px;
+  padding: 6px 10px;
+  border: 1px solid #d6d6d6;
+  @include border-radius(6px, 6px);
+  @include box-shadow(inset 1px 1px 3px -2px black);
+}
+
+textarea {
+  color: $dark-turquoise;
+  background: #efeeee;
+  border: 1px solid #d6d6d6;
+  width: 260px;
+  height: 90px;
+  padding: 10px;
+}
+
+input:-webkit-input-placeholder {
+    color:    #797979;
+}
+input:-moz-placeholder {
+    color:    #797979;
+}
+input:-o-placeholder {
+    color:    #797979;
+}
+input:placeholder {
+    color:    #797979;
+}
+//class added by jquery placeholder plugin
+input.placeholder, form textarea.placeholder {
+    color:    #797979;
+}
+
+select {
+  margin: 5px 0;
+}
+
+.actions {
+  text-align: center;
+  margin: 25px auto 15px;
+}
+
+// big form labels & inputs
+
+form label.big-label {
+  @include museo-slab-heading;
+  color: $dark-turquoise;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+form input.big-input {
+  font-size: 13px;
+  line-height: 18px;
+  height: 18px;
+  width: 310px;
+  padding: 8px 10px;
+}
+
+form label.big-label,
+form input.big-input {
+  margin-right: 5px;
+}
+
+form label.radio {
+  display: block;
+  overflow: hidden;
+}
+
+//search field
+.search-field, form input[type="text"].search-field {
+  width: 215px;
+  padding-left: 30px;
+  padding-right: 12px;
+  background: #fff image-url('small-icons.png') no-repeat 8px -49px;
+  border: 1px solid #ccc;
+  @include border-radius(15px);
+  height: 27px - 6px - 8px;
+  padding-top: 8px;
+  padding-bottom: 6px;
+}
+
+//simple forms: with label
+
+form.simple_form.with-label label {
+  margin-right: 5px;
+}
+
+form.simple_form.no-label, form.simple_form.with-label {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="password"] {
+    width: 220px;
+  }
+}
+
+form.simple_form.thinner {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="password"] {
+    width: 170px;
+  }
+}
+
+form.simple_form.no-label, form.simple_form.with-label {
+  .input.integer, .input.decimal, .input.string, .input.email, .input.password, .input.url {
+    width: 242px;
+  }
+}
+form.simple_form.thinner {
+  .input.integer, .input.decimal, .input.string, .input.email, .input.password, .input.url {
+    width: 192px;
+  }
+}
+
+//datepicker field
+
+form, form.simple_form.thinner {
+  input.datepicker {
+    width: 50px;
+    padding: 6px 6px;
+  }
+
+  input.datetimepicker {
+    width: 120px;
+    padding: 6px 6px;
+  }
+
+  img.ui-datepicker-trigger {
+    margin: 5px 0 5px 4px;
+    cursor: pointer;
+  }
+}
+
+$div_input_height: 28px;
+//form.simple_form.no-label, form.simple_form.with-label {
+  div.input {
+    padding: $additional-padding;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: $div_input_height;
+    overflow: hidden;
+  }
+//}
+
+form.simple_form.no-label .num {
+  display: block;
+  float: left;
+  padding: 5px 0;
+  margin-right: 5px;
+  text-align: right;
+  width: 18px;
+  height: $div_input_height;
+  line-height: $div_input_height;
+  color: $dark-turquoise;
+}
+
+
+
+
+form.simple_form.no-label div.input.select label {
+  margin: 0 10px 0 0px;
+}
+
+
+form.simple_form.no-label .column.form-col {
+  width: 285px;
+}
+
+form.simple_form.no-label .column.form-col:last-child {
+  float:right;
+}
+
+form.simple_form .hidden-inputs, form.simple_form.thinner .hidden-inputs, {
+  input {display:none}
+  .checkbox {display:none}
+}
+
+form.simple_form.thinner .hidden-inputs {
+  displaY: none;
+}
+
+form.simple_form .input.field_with_hint {
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  color: #797979;
+  margin: 0.2em 0 0.2em;
+
+  input {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+form.simple_form div.input {
+  span.radio {
+    margin-bottom: 10px;
+    label {
+      margin-right: 20px;
+    }
+  }
+  caption {
+    $width: 320px;
+    $padding-right: 40px;
+    padding-right: $padding-right;
+    width: $width - $padding-right;
+  }
+}
+
+form.simple_form {
+
+  .field_with_errors input {
+    background-color: #F0DDDD;
+  }
+
+  div.input span.error {
+    @include default-error;
+    margin: 5px 10px;
+    float: none;
+    display: table;
+  }
+
+  div.datepicker {
+    width: 83px;
+  }
+
+  div.datepicker span.error {
+    margin-left: 0px;
+    margin-left: 0px;
+    padding: 2px 6px;
+  }
+
+  span.hint {
+    display: block;
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    color: #797979;
+    margin: 0.2em 0 0.2em;
+  }
+}
+
+
+
+
+form.simple_form hr:last-child {
+  display: none;
+}
+
+form.simple_form.in-cols, form.simple_form.big-fields {
+
+  div.input {
+    padding: $additional-padding;
+  }
+
+  div.col {
+    float: left;
+  }
+
+  .info {
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    color: #797979;
+    text-align: center;
+    margin: 20px;
+  }
+
+  div.col.desc {
+    width: 265px;
+    margin-right: 45px;
+    
+    label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 0.2em 0 0.4em;
+      color: #797979;
+    }
+    span.hint {
+      display: block;
+      font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+      color: #797979;
+      margin: 0.2em 0 0.2em;
+    }
+    
+  }
+
+  div.col.flds {
+    width: 292px;
+    min-height: 59px;
+
+    .inpts-row {
+      margin-bottom: 5px;
+    }
+    .inpts-row:last-child {
+      margin-bottom: 4px;
+    }
+    .sub_input {
+      float: left;
+      label {
+        font-weight: bold;
+        font-size: 14px;
+        margin: 0.2em 10px 0.4em 0;
+        color: #797979;
+      }
+    }
+    .sub_input.spaced {
+      margin-left: 20px;
+    }
+    .sub_input.half-width {
+      margin: 0;
+      width: 50%;
+    }
+    .sub_input.centered {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+form.simple_form.big-fields {
+  input {
+    font-size: 15px;
+    line-height: 18px;
+    height: 18px;
+    width: 267px;
+    padding: 8px 10px;
+  }
+
+  textarea {
+    width: 268px;
+  }
+
+  div.col {
+    float: none;
+  }
+
+  div.col.desc {
+    width: 290px;
+    span.hint {
+      margin-bottom: 0.6em;
+    }
+  }
+
+
+}
+
+form.simple_form {
+  .datepicker input {
+    float: left;
+  }
+
+  .datepicker img {
+    float: left;
+  }
+
+  input.cash, input.number {
+    width: 50px;
+  }
+
+  .beside-inpt {
+    float: left;
+    //like input plus border
+    padding: 7px 0px 7px 0px;
+    margin: 0 9px;
+    font-size: 11px;
+    font-family: MuseoSlab;
+  }
+
+  .beside-inpt:first-child {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+}
+
+
+.input-file-wrap {
+  position: relative;
+  width: 278px;
+  overflow: hidden;
+  div.fakeupload {
+    height: 33px;
+    overflow: hidden;
+  }
+
+  div.file {
+    width: 280px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    text-align: left;
+    margin: 0;
+    @include opacity(0);
+  }
+
+  div.file input {
+    font-size: 14px;
+    height: 27px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  input.fakeupload {
+    float: left;
+    width: 175px;
+    margin-right: 5px;
+  }
+  .fakeupload span {
+    @include default-button;
+    @include orange-button;
+    float: left;
+    margin-left: 4px;
+  }
+
+  .info.drop-msg {
+    margin: 0;
+    margin-right: 50px;
+  }
+}
+
+
+.hidden-submit {
+  position: absolute; 
+  left: -9999px; 
+  width: 1px; 
+  height: 1px;
+}

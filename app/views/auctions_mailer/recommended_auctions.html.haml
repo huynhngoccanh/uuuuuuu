@@ -1,0 +1,43 @@
+- admin_preview = admin_preview ||= nil
+
+- if admin_preview
+  - @vendor_first_name = "((vendor_first_name))"
+  - @recommended_auctions_number = "((recommended_auctions_number))"
+  - @hello_sub_text = @email_content.hello_sub_text
+  - @search_company_auctions_url = "#"
+  - @image_path = 'emails/view-recommendations-button.png'
+- else
+  - @vendor_first_name = @vendor.first_name
+  - @recommended_auctions_number = @auctions.length
+  - @hello_sub_text = prepare_email_content(@email_content.hello_sub_text, :auctions => @auctions, :vendor => @vendor)
+  - @search_company_auctions_url = search_company_auctions_url
+  - @image_path = attachments['emails/view-recommendations-button.png'].url
+
+
+- content_for :hello_text do
+  = "Hi #{@vendor_first_name}!"
+
+- content_for :hello_sub_text do
+  - if @email_content.hello_sub_text.blank?
+    = "today #{@recommended_auctions_number} auctions matching your criteria were initiated. "
+  - else
+    = @hello_sub_text
+
+
+- content_for :main_content do
+  %table{:width => "100%", :border=> "0", :cellpadding => "0", :cellspacing => "0"}
+    %tr
+      %td{:align=>'left', :style => "font-size: 16px; color: #666666; font-family: helvetica;"}
+        Visit Muddleme to view them: 
+    %tr
+      %td{:height=>15, :style => "font-size: 1px;"}
+    %tr
+      %td{:height=>25, :style => "font-size: 1px;"}
+    %tr
+      %td{:align=>'center'}
+        %a{:href=> @search_company_auctions_url}
+          = image_tag @image_path, :alt=>'View ecommendations!', :title=>'View ecommendations!', |
+            :style=>'border: none'
+
+
+= render 'layouts/application/basic_email', :for_vendor=>true, :admin_preview => admin_preview

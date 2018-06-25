@@ -1,0 +1,138 @@
+// Radio
+
+div.radio {
+  width: 22px;
+  height: 22px;
+}
+
+div.radio input {
+  width: 22px;
+  height: 22px;
+}
+
+div.radio span {
+  height: 22px;
+  width: 22px;
+  background-image: image-url("small-icons.png");
+  background-position: 0px -217px;
+}
+
+div.radio:active span,
+div.radio.active span {
+  background-position: 0px -217px;
+}
+
+div.radio.focus span,
+div.radio:hover span {
+  background-position: 0px -217px;
+}
+
+div.radio.focus:active span,
+div.radio:active:hover span,
+div.radio.active:hover span,
+div.radio.active.focus span {
+  background-position: 0px -217px;
+}
+
+div.radio span.checked {
+  background-position:0px -195px;
+}
+
+div.radio:active span.checked,
+div.radio.active span.checked {
+  background-position:0px -195px;
+}
+
+div.radio.focus span.checked,
+div.radio:hover span.checked {
+  background-position:0px -195px;
+}
+
+div.radio.focus:active span.checked,
+div.radio:hover:active span.checked,
+div.radio.focus.active span.checked,
+div.radio.active:hover span.checked {
+  background-position:0px -195px;
+}
+
+div.radio.disabled span,
+div.radio.disabled:active span,
+div.radio.disabled.active span {
+  background-position: 0px -217px;
+}
+
+div.radio.disabled span.checked,
+div.radio.disabled:active span.checked,
+div.radio.disabled.active span.checked {
+  background-position:0px -195px;
+}
+
+// Checkbox
+
+div.checker {
+  float: left; //probably to remove
+  width: 22px;
+  height: 22px;
+}
+
+div.checker input {
+  width: 22px;
+  height: 22px;
+}
+
+div.checker span {
+  background-image: image-url("small-icons.png");
+  background-position: -40px -242px;
+  height: 22px;
+  width: 22px;
+}
+
+div.checker:active span,
+div.checker.active span {
+  background-position: -40px -242px;
+}
+
+div.checker.focus span,
+div.checker:hover span {
+  background-position: -40px -242px;
+}
+
+div.checker.focus:active span,
+div.checker:active:hover span,
+div.checker.active:hover span,
+div.checker.focus.active span {
+  background-position: -40px -242px;
+}
+
+div.checker span.checked {
+  background-position: -40px -264px;
+}
+
+div.checker:active span.checked,
+div.checker.active span.checked {
+  background-position: -40px -264px;
+}
+
+div.checker.focus span.checked,
+div.checker:hover span.checked {
+  background-position: -40px -264px;
+}
+
+div.checker.focus:active span.checked,
+div.checker:hover:active span.checked,
+div.checker.active:hover span.checked,
+div.checker.active.focus span.checked {
+  background-position: -40px -264px;
+}
+
+div.checker.disabled span,
+div.checker.disabled:active span,
+div.checker.disabled.active span {
+  background-position: -40px -242px;
+}
+
+div.checker.disabled span.checked,
+div.checker.disabled:active span.checked,
+div.checker.disabled.active span.checked {
+  background-position: -40px -264px;
+}

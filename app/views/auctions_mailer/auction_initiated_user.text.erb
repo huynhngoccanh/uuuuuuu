@@ -1,0 +1,8 @@
+Hi <%= @user.first_name %>!
+
+<% if @email_content.hello_sub_text.blank? %>
+    You have just initiated the auction #<%= @auction.number %> on Muddleme for <%= @auction.name %>.
+    We've already informed all the companies about it, so you should get first bids for your contact information soon.
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user) %>
+<% end %>

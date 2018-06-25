@@ -1,0 +1,13 @@
+// Place all the styles related to the users/favorite_advertisers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+/* The CSS */
+select#advertiser_id_with_class_name, select#fav_id, select#replace_id, select#hp_adv_id {
+  font-size: 16px;
+  height: 24px;
+  line-height: 24px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #dddddd;
+}

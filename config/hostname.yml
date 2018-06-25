@@ -1,0 +1,25 @@
+production:
+  full_hostname: 'muddleme.com'
+  hostname: 'muddleme.com'
+  hostname_url: "http://muddleme.com"
+  return_url: "http://muddleme.com/funds_withdrawals"
+  cancel_url: "http://muddleme.com/funds_withdrawals"
+
+staging:
+  full_hostname: '166.78.107.196'
+  hostname: '166.78.107.196'
+  hostname_url: "http://166.78.107.196"
+  return_url: "http://166.78.107.196/funds_withdrawals"
+  cancel_url: "http://166.78.107.196/funds_withdrawals"
+
+development:
+  full_hostname: 'localhost:3000'
+  hostname: 'localhost'
+  hostname_url: "http://localhost:3000"
+  return_url: "http://localhost:3000/funds_withdrawals"
+  cancel_url: "http://localhost:3000/funds_withdrawals"
+
+test:
+  full_hostname: 'localhost:3000'
+  hostname: 'localhost'
+  hostname_url: "http://localhost:3000"

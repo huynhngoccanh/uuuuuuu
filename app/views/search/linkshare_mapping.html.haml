@@ -1,0 +1,32 @@
+%style
+  :plain
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+    table td {
+      border: 1px solid gray;
+      padding: 4px;
+      vertical-align: top;
+    }
+    table th {
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+%table
+  %tr
+    %th Merchant
+    %th Categories
+  - @advertisers.each do |adv|
+    %tr
+      %td=adv.name
+      %td
+        - @api_map.each do |key, val|
+          - if adv[:cats].include?(key)
+            %b=val[0]
+            %br
+          - val[1].each do |key2, subval|
+            - if adv[:cats].include?(key2)
+              = subval
+              %br

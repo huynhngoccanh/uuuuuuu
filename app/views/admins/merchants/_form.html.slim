@@ -1,0 +1,59 @@
+.col-md-8 style="border-right:1px solid;"
+  = form_for [:admins, @merchant], html: {class: "form-horizontal"} do |f|
+    .form-group
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :name, class: "form-control"
+    .form-group
+      = f.label :slug, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :slug, class: "form-control"
+    .form-group
+      = f.label :loyalty_class, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :loyalty_class, class: "form-control"
+    .form-group
+      = f.label :image, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.file_field :image, class: "form-control"
+        - unless @merchant.image.blank?
+          a href=(@merchant.image.url) target="_blank" Preview Image
+    .form-group
+      = f.label :icon, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.file_field :icon, class: "form-control"
+        - unless @merchant.icon.blank?
+          a href=(@merchant.icon.url(:phone)) target="_blank" Preview Image
+    .form-group
+      = f.label :color_palette, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :color_palette, class: "form-control"
+    .form-group
+      = f.label :loyalty_enabled, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.check_box :loyalty_enabled
+    .form-group
+      = f.label :mobile_enabled, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.check_box :mobile_enabled    
+    .form-group
+      = f.label :fallback_link, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :fallback_link, class: "form-control"
+    
+    .form-group
+      label.col-sm-2.control-label &nbsp;
+      .col-sm-10
+        = f.submit nil, class: "btn btn-primary"
+        = link_to "Back", admins_merchants_path
+
+.col-md-4 
+  span align="center"
+    b 
+      -if @merchant.advertisers_count > 0 
+        |Advertisers :
+      -else
+        |No Advertisers found for this merchant   
+  -@merchant.advertisers.each do |adv| 
+    = link_to adv.model_name.name, "/admins/#{adv.model_name.singular_route_key}/#{adv.id}" ,class:'btn btn-primary btn-block'
+  end

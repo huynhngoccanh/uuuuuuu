@@ -1,0 +1,6 @@
+%div#account-bar.clearfix{ :style => "height:60px" }
+  %div.logged
+
+    = current_admin.email
+    %span.separator= "|"
+    = link_to 'sign out', destroy_admin_session_path, :method=>'delete', :id=>'logout-link'

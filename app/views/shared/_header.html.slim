@@ -1,0 +1,210 @@
+header.main-header.cf
+  - if user_signed_in?
+    section.logged-in.full-width
+      .container
+        .grid-row
+          ul.no-list
+            - if current_user.admin?
+              li.email
+                a href="/admins/home"
+                  | Admin
+            li.email
+                = current_user.email_was
+            li.balance
+              a href="/profile/earning_info" 
+                | Balance:
+                | &nbsp;
+                = number_to_currency current_user.balance.to_f
+            li.email
+              a href= "/profile"
+                | My Account
+            li.logout
+              = link_to 'Sign out', destroy_user_session_path, :method => :delete
+
+  section.top-header
+    .container
+      .grid-row
+        .logo.col-2
+          a href= root_path
+            = image_tag "ubitru/logo.png" , class:"img-responsive"
+        .top-search.col-6
+          form.main-search action="/coupons" 
+            .input-box
+              input#search.input-search placeholder="So, what are you wishing for today?" type="search" name="q[search]"
+            .submit-box
+              button#submit.btn.btn-submit type="submit" value="" 
+                i.fa.fa-search
+        .header-right.col-4
+          nav.top-nav
+            ul.top-menu
+              li
+                a href=root_path
+                  |  Home
+              li
+                a href="javascript:void(0);" class="comingSoon"  Business
+              li
+                a href="#"  Download App
+              li.more-links
+                a.doticon href="javascript:void(0);" 
+                  i.fa.fa-circle
+                  i.fa.fa-circle
+                  i.fa.fa-circle
+                ul.dropdown
+                  li.no-desktop
+                    a href=root_path
+                      |  Home
+                  li.no-desktop
+                    a href="javascript:void(0);" class="comingSoon"  Business
+                  li.no-desktop
+                    a href="#"  Download App
+                  -if user_signed_in?
+                    li
+                      a href=referred_visits_path
+                        |  Referral
+                    li
+                      a href=loyalty_path
+                        |  Loyalty Programs
+                    li.text-left
+                      = link_to "Loyalty Result", loyalty_result_path 
+                    li.text-left
+                      = link_to 'Sign out', destroy_user_session_path, :method => :delete 
+                  - else
+                    li
+                      a href=loyalty_path
+                        |  Loyalty Programs
+                    li
+                      a href=new_user_registration_path
+                        |  Signup
+                    li
+                      a href=user_session_path
+                        |  Log In
+  section.full-width.main-nav-wrapper
+    .container
+      nav
+        a href="javascript:void(0);" id="cat-link" 
+          | Popular Categories
+          i.fa.fa-angle-down
+        .nav-scr 
+          ul.category-drop-down style="top:0;"
+            - Taxon.where(taxonomy_id: 1, parent_id: nil).each do |taxon|
+              li
+                a href="/products/#{taxon.nested_name}"
+                  = taxon.name  
+                  i.fa.fa-angle-right
+                .dropdown style="max-height:528px;min-height:100%; overflow-y:scroll;"
+                  .links.row style="max-height:510px;"
+                    - taxon.descendants.each do |child|
+                      ul.sub style="max-height:30%;"
+                        li.heading
+                          a href='/products/#{child.nested_name}' 
+                            = child.name
+                        - child.descendants.each do |sub_child|
+                          li
+                            a href="/products/#{sub_child.nested_name}"= sub_child.name
+        a class="nav-btn" id="close" href="javascript:void(0);"
+          i.fa.fa-navicon
+        ul.main-nav
+          li.more-links
+            a href="javascript:void(0);" 
+              | MEN
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+              .dropdown-a
+                - Taxon.where(taxonomy_id: 1, parent_id: 547).each do |taxon|
+                    ul.sub 
+                      li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                      hr
+                      - taxon.descendants.each do |child|
+                        li 
+                          a href="/products/#{child.nested_name}" = child.name 
+          li.more-links
+            a href="javascript:void(0);" 
+              | WOMEN
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+              .dropdown-a
+                - Taxon.where(taxonomy_id: 1, parent_id: 6).each do |taxon|
+                    ul.sub 
+                      li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                      hr
+                      - taxon.descendants.each do |child|
+                        li 
+                          a href="/products/#{child.nested_name}" = child.name 
+          li.more-links
+            a href="javascript:void(0);" 
+              | BABY & KIDS
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+              .dropdown-a
+                - Taxon.where(taxonomy_id: 1, parent_id: 102).each do |taxon|
+                  ul.sub
+                    li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                    hr
+                    - taxon.descendants.each do |child|
+                      li 
+                        a href="/products/#{child.nested_name}"= child.name 
+          li.more-links
+            a href="javascript:void(0);" 
+              | ELECTRONICS & Home Furniture
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+                 - @electronics = Taxon.where(taxonomy_id: 1, parent_id: 136)
+                 - @electronics += Taxon.where(taxonomy_id: 1, parent_id: 208)
+                 - @electronics.each do |taxon|
+                    ul.sub
+                      li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                      hr
+                      - taxon.descendants.each do |child|
+                        li 
+                          a href="/products/#{child.nested_name}"= child.name 
+          / li.more-links
+          /   a href="javascript:void(0);" 
+          /     | HOME & FURNITURE
+          /     i.fa.fa-angle-down
+          /   ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+          /        - Taxon.where(taxonomy_id: 1, parent_id: 208).each do |taxon|
+          /           ul.sub
+          /             li.heading= taxon.name
+          /             hr
+          /             - taxon.descendants.each do |child|
+          /               li 
+          /                 a href="/taxons/#{child.nested_name}"= child.name 
+          li.more-links
+            a href="javascript:void(0);" 
+              | SPORTS & AUTO
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;"
+                 - Taxon.where(taxonomy_id: 1, parent_id: 279).each do |taxon|
+                    ul.sub
+                      li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                      hr
+                      - taxon.descendants.each do |child|
+                        li 
+                          a href="/products/#{child.nested_name}"= child.name 
+          / li: a href="#" WOMEN 
+          / li: a href="#" BABY & KIDS 
+          / li: a href="#" SPORTS & AUTO 
+          li.more-links
+            a href="javascript:void(0);" 
+              | Book & Media
+              i.fa.fa-angle-down
+            ul.dropdown style="max-height:528px;overflow-y:scroll;top:initial;right:0"
+                 - Taxon.where(taxonomy_id: 1, parent_id: 558).each do |taxon|
+                    ul.sub
+                      li.heading
+                        a href='/products/#{taxon.nested_name}' 
+                          = taxon.name
+                      hr
+                      - taxon.descendants.each do |child|
+                        li 
+                          a href="/products/#{child.nested_name}"= child.name

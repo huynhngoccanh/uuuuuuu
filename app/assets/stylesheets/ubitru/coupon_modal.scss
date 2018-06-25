@@ -1,0 +1,94 @@
+.modal-backdrop {
+  background: #000 !important;
+}
+
+#couponModal {
+  button.close-icon {
+    background: transparent;
+    color: #383333;
+    margin: 0px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    outline: 0;
+    padding: 0;
+    z-index: 1000;
+  }
+  .offer-box-b {
+    margin: 0 auto;
+    margin: 40px 46px 35px;
+  }
+  .offer-bubble {
+    background-color: #ecfaff;
+    border: 1px solid #b6edff;
+    line-height: 2.8;
+    height: 42px;
+    position: relative;
+    text-align: center;
+    color: #666;
+    font-size: 11pt;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .offer-bubble-bottom {
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    border-color: #cdcdcd;
+    text-align: center;
+    color: #08b4df;
+    font-size: 24pt;
+    padding: 18px 26px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  .offer-action-b {
+    text-align: center;
+    margin-bottom: 35px;
+    a:hover {
+      color: #fff;
+      opacity: 0.75;
+    }
+  }
+  .offer-action-button-b {
+    background: none repeat scroll 0 0 #08b4df;
+    border: medium none;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    margin: 0 auto;
+    padding: 12px 20px;
+  }
+  .offer-details-b-sale {
+    margin: 0 auto;
+    padding: 20px 35px;
+    display: inline-block;
+    text-align: center;
+  }
+  .offer-info-b {
+    color: #333;
+    padding-bottom: 6px;
+    width: 481px;
+    span {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .offer-info-2-b {
+    font-size: 11px;
+    color: #777;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .offer-clock-sign {
+    background: url(//cdn.cpnscdn.com/static.coupons.com/Sites/img/couponscode/cc_top_sprites_11.png) no-repeat scroll -78px -16px #fff;
+    display: inline-block;
+    height: 16px;
+    width: 18px;
+    margin-bottom: -3px;
+  }
+}

@@ -1,0 +1,14 @@
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'product'
+
+- content_for :main_column do
+  %section.default-content
+    %article
+      = render 'product_form'
+
+- content_for :aside do
+  %aside
+    = render 'users/shared/sidebar_score'
+
+%h2 Create an auction for a product
+= render 'layouts/application/two_columns'

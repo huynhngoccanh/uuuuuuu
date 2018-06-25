@@ -1,0 +1,43 @@
+.popup_window
+  %p
+    %h2 Submit a New Coupon to Muddleme and Get Paid!
+  %p
+    %h4 Help millions of shoppers save and make money along the way!
+
+  = form_tag user_save_coupon_profile_url, :class => 'user-coupon-form navbar-form', :multipart => true, :remote => true, :id => 'user_coupon_form' do
+    #processing-message
+    #all-form-errors.text-center.text-danger
+    = hidden_field_tag :advertisable_id, @advertiser.id
+    = hidden_field_tag :advertisable_type, params[:type]
+    %p.label-p Store Website:
+    %p= text_field_tag :store_website, "#{@store_link}", :placeholder => 'storewebsite.com',  :class => "form-control"
+
+    %p.label-p Offer Type:
+    %p
+      = link_to 'Offer Code', 'javascript:void(0);', :class => 'offer-type orange-button-link btn btn-default'
+      = link_to 'Printable Coupon', 'javascript:void(0);', :class => 'offer-type btn btn-default'
+      = link_to 'Sales/Shopping Tip', 'javascript:void(0);', :class => 'offer-type btn btn-default'
+      = hidden_field_tag :offer_type, 'Offer Code', :class => 'offer-type-hidden btn btn-default'
+
+    %p.printable-coupon-file-field
+      = file_field_tag :printable_coupon
+
+    %p.label-p Code:
+    %p= text_field_tag :code, '', :placeholder => 'mm2014ab',  :class => "form-control"
+
+    %p.label-p Discount Description:
+    %p= text_area_tag :discount_description, '', :placeholder => 'eg: 10% off on all shoes, accessories at example.com. Excludes sales tax. Expires 2/12/2020',  :class => "form-control"
+
+    %p.label-p Expiration Date: (optional)
+    %p= text_field_tag :expiration_date, '', :style => "width: 250px;", :placeholder => 'mm/dd/yy',  :class => "form-control datepicker"
+
+    %p= recaptcha_tags :ajax => true
+
+    %p= submit_tag 'Submit', :class => 'orange-button user-coupon-submit-btn-new btn btn-primary-custom'
+
+:css
+  #recaptcha_area{ margin: 0 auto; }
+  a.orange-button-link { color: #000; text-decoration: none; }
+  a.orange-button-link:hover{ color: #000; text-decoration: none; }
+  .label-p{ text-align: left; width: 280px; font-weight: bold; }
+  .printable-coupon-file-field{ display: none; }

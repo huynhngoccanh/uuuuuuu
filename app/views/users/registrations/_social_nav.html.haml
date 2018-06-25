@@ -1,0 +1,8 @@
+%nav#sign-in-nav
+  %ul
+    %li
+      = link_to "sign in with Facebook", user_omniauth_authorize_path(:facebook), :id => "facebook", :class => "ir"
+    %li
+      = link_to "sign in with Twitter", user_omniauth_authorize_path(:twitter), :id => "twitter", :class => "ir"
+    %li.last-child
+      = link_to "sign in with Google", user_omniauth_authorize_path(:google_oauth2), :id => "google", :class => "ir"

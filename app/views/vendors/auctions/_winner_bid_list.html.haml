@@ -1,0 +1,31 @@
+%table.default-table
+  %tr
+    %th.no-hvr
+      %span.txt 
+        %span Winning Bidders
+    %th.no-hvr
+      %span.txt
+        %span Bid Amount
+    %th.no-hvr
+      %span.txt
+        %span View Offer
+  - if @winning_bids.blank?
+    %tr
+      %td.ctr{:colspan=>3}
+        -# !!!!!!!!!!!!!!!!!!!!!!!! COLSPAN
+        = "There were no participants in this auction"
+  - else
+    - @winning_bids.each_with_index do |bid, idx|
+      - cls = cycle(nil,'odd')
+      - cls = cls + (bid.vendor_id == current_vendor.id ? ' bold' : '')
+      %tr{:class=>cls}
+        - cls = (@auction.outcome_status_for_vendor(bid.vendor) == 'confirmed_positive') ? 'starred' : nil
+        %td{:class=>cls}
+          = bid.vendor.company_name || "#{bid.vendor.first_name} #{bid.vendor.last_name}"
+          - if @auction.outcome_status_for_vendor(bid.vendor) == 'confirmed_positive'
+            - tooltip = (bid.vendor == current_vendor) ? "Customer made transaction with you." : "Customer made transaction with this company."
+            = image_tag 'pixel.gif', :class=>'star', :title => tooltip
+        %td.ctr= format_currency(bid.current_value)
+        %td.ctr
+          - if bid.vendor == current_vendor
+            = link_to 'View my offer', '#', :class=>'button view-offer', :id=>"offer-link-#{bid.id}"

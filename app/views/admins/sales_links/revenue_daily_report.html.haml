@@ -1,0 +1,82 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action => 'index', :active_controller=>'admins/sales_links'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %nav.with-search
+      %table.default-table
+        %tr
+          %th
+            %span.txt
+              %span Date
+          %th
+            %span.txt
+              %span Users registered
+          %th
+            %span.txt
+              %span
+                Soleo (pending)
+          %th
+            %span.txt
+              %span
+                CJ
+          %th
+            %span.txt
+              %span
+                Avant
+          %th
+            %span.txt
+              %span
+                Linkshare
+          %th
+            %span.txt
+              %span
+                Total
+        - @intervals.each do |interval|
+          %tr
+            %td
+              %span.txt
+                = link_to interval[:period].strftime('%Y-%m-%d'), admin_revenue_day_report_path(@sales_owner, :day => interval[:period].day, :month => interval[:period].month, :year => interval[:period].year)
+            %td
+              %span.txt
+                = number_with_delimiter interval[:users_count]
+            %td
+              %span.txt
+                = number_to_currency interval[:soleo]
+            %td
+              %span.txt
+                = number_to_currency interval[:cj]
+            %td
+              %span.txt
+                = number_to_currency interval[:avant]
+            %td
+              %span.txt
+                = number_to_currency interval[:linkshare]
+            %td
+              %span.txt
+                = number_to_currency interval[:total]
+
+
+
+%h2
+  Revenue report for
+  = @sales_owner.full_name
+  [
+  = @date_start.strftime('%B %d')
+  \-
+  = @date_end.strftime('%B %d')
+  ]
+%div{:style => 'padding-left: 20px'}
+  %h3
+    Users registered:
+    = number_with_delimiter @users_total
+  %h3
+    Revenue:
+    = number_to_currency @revenue_total
+.to-right
+  = link_to 'Back to montly report', admin_revenue_report_path(@sales_owner)
+  &nbsp;&nbsp;&nbsp;
+  = link_to 'Back to Sales Owners', admin_sales_links_path
+  %br
+  %br
+= render 'layouts/application/one_column'

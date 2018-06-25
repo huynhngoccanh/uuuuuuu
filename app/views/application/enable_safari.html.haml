@@ -1,0 +1,46 @@
+.home-main-section
+  #enable-safari-header
+    Enabling
+    %span
+      Muddleme
+    for Safari
+    #enable-safari-header-logo
+  #enable-safari-download-text
+    Download didn't start?
+    = link_to 'Retry', @url
+  #enable-safari-block
+    #enable-safari-caption
+    #enable-safari-step1-text
+      RUN THE
+      %br
+      INSTALLER
+      %br
+      #enable-safari-check-folder
+        Check your
+        %br
+        %span
+          Downloads
+        %br
+        folder.
+      #enable-safari-prompt
+        When prompted,
+        %br
+        click
+        %span
+          Install.
+    #enable-safari-step1-image
+      safari-extension.safariextz
+    #enable-safari-step1-image2
+  #enable-safari-block2
+    #enable-safari-block2-image1
+    #enable-safari-block2-text1
+      THAT'S IT! JUST 1 STEP.
+      %br
+      %span
+        Start searching at your favorite search engine.
+  %script
+    :plain
+      window.addEventListener('load', onloaded, false );
+      function onloaded() {
+        window.location = "#{@url}";
+      };

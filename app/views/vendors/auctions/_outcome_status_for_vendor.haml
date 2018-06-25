@@ -1,0 +1,35 @@
+- case @auction.outcome_status_for_vendor(current_vendor)
+  - when 'no_outcome'
+    - headline = "NO OUTCOME"
+    - tooltip = "Customer hasn't submitted auction outcome yet."
+    - cls = "grey"
+  - when 'outcome_negative'
+    - headline = "OUTCOME NEGATIVE"
+    - tooltip = "Customer didn't make the purchase or chose other vendor."
+    - cls = "grey"
+  - when 'confirmation_needed'
+    - headline = "CONFIRMATION NEEDED"
+    - tooltip = "Customer claimed he transacted with you."
+    - cls = "red"
+  - when 'confirmed_negative'
+    - headline = "CONFIRMED NEGATIVE"
+    - tooltip = "Customer claimed he transacted with you, but you rejected this report."
+    - cls = "red"
+  - when 'confirmed_positive'
+    - headline = "CONFIRMED POSITIVE"
+    - tooltip = "You confirmed you transacted with this customer."
+    - cls = "green"
+  - when 'auto_confirmed_positive'
+    - headline = "AUTO-CONFIRMED POSITIVE"
+    - tooltip = "Outcome of this auction was automatically confirmed as positive by the script you've installed in your online store."
+    - cls = "green"
+  - else
+    - headline = nil
+    - tooltip = nil
+    - cls = nil
+
+
+- if headline
+  %h3.outcome_status_for_vendor{:class=>cls}
+    = headline
+    = image_tag 'pixel.gif', :class=>'qmark', :title=> tooltip

@@ -1,0 +1,20 @@
+%table.default-table
+  %tr
+    %th.no-hvr
+      %span.txt
+        %span Merchant
+    %th.no-hvr
+      %span.txt
+        %span Earn Cash
+    %th.no-hvr
+      %span.txt
+        %span Offer
+  - @search_merchants.each_with_index do |merchant, idx|
+    %tr{:class=>cycle(nil,'odd'), :style => "#{merchant.active ? 'background-color: #cccccc;' : ''}"}
+      %td
+        %span.radio
+          = radio_button_tag "outcome[merchant_id]", merchant.id
+          = label_tag "outcome_merchant_id_#{merchant.id}", "#{merchant.company_name}"
+      %td.ctr= (merchant.is_a?(Search::SoleoMerchant) || merchant.is_a?(Search::LocalMerchant)) ? format_currency(merchant.user_money) : merchant.user_money
+      %td.ctr
+        = merchant.offer_name

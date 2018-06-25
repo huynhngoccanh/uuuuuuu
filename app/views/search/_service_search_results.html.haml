@@ -1,0 +1,109 @@
+- more_deals_total = 0
+- total = 0
+%header.header
+  -if current_user.present?
+    %h2 
+      = "#{current_user.first_name}" 
+      's Cash Call
+.row{:style => "margin-bottom:20px;width:100%;"}
+  %a.close-reveal-modal
+    %img{:alt => "close", :src => "assets/close-btn.png"}
+  .popup-content
+    -if current_user.present?
+      .your-score
+        %h3.score 
+          ="#{current_user ? current_user.score : '--'}"
+        %span your score
+    - if @results.present?
+      .height-scroll
+        %table.row
+          %tr
+            %th.active.no_border Merchant
+            %th.active.no_border Earn Cash
+            %th.active.no_border Offer
+            %th.active.no_border Code
+            %th.active.no_border Call/ShopNow
+          %tbody
+            - if @results.length <= 3
+              - @results.each do |result|
+                - total = total + result['user_money'].to_f if result['user_money'].present?
+                - more_deals_total = more_deals_total + result['user_money'].to_f if result['user_money'].present?
+                %tr
+                  %td.no_border
+                    = result["company_name"]
+                  %td.no_border
+                    -num = result["user_money"].to_f
+                    - result_with_doller1 = "$" + number_with_precision(num, precision: 2).to_s
+                    = result_with_doller1
+                  %td.no_border= "-"
+                  %td.no_border= "-"
+                  %td.no_border
+                    %i.fa.fa-phone
+                    = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result['id']}", 'data-id' => "#{result['id']}"
+                    %span{:class => "result-company-phone", :id => "result-company-phone-#{result['id']}", :style => "display: none; cursor: pointer;", 'data-id' => "#{result['id']}"}
+                      = result['company_phone']
+            - else
+              - index = 0
+              - @results.in_groups_of(3) do |result_batch|
+                - if index == 0
+                  - index = index + 1
+                  - result_batch.each do |result|
+                    - if result.present?
+                      - total = total + result['user_money'].to_f if result['user_money'].present?
+                      %tr
+                        %td.no_border
+                          = result["company_name"]
+                        %td.no_border
+                          -num = result["user_money"].to_f
+                          - result_with_doller2 = "$" + number_with_precision(num, precision: 2).to_s
+                          = result_with_doller2
+                        %td.no_border= "-"
+                        %td.no_border= "-"
+                        %td.no_border
+                          %i.fa.fa-phone
+                          = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result['id']}", 'data-id' => "#{result['id']}"
+                          %span{:class => "result-company-phone", :id => "result-company-phone-#{result['id']}", :style => "display: none;", 'data-id' => "#{result['id']}"}
+                            = result['company_phone']
+                - else
+                  %tbody.hidden-more-deals.no_border{:style => "display: none;"}
+                    - result_batch.each do |result|
+                      - if result.present?
+                        - more_deals_total = more_deals_total + result['user_money'].to_f if result['user_money'].present?
+                        %tr.no_border
+                          %td.no_border
+                            = result["company_name"]
+                          %td.no_border
+                            -num = result["user_money"].to_f
+                            - result_with_doller3 = "$" + number_with_precision(num, precision: 2).to_s
+                            = result_with_doller3
+                          %td.no_border= "-"
+                          %td.no_border= "-"
+                          %td.no_border
+                            %i.fa.fa-phone
+                            = link_to 'view number', "javascript:void(0);", :class => "view-number-results general_theme_link", :id => "view-number-results-#{result['id']}", 'data-id' => "#{result['id']}"
+                            %span{:class => "result-company-phone", :id => "result-company-phone-#{result['id']}", :style => "display: none;", 'data-id' => "#{result['id']}"}
+                              = result['company_phone']
+      .total-cash.row
+        .left
+          %h5
+            -num = number_with_precision(@more_deals_total, precision: 2)
+            -num_initial = number_with_precision(total, precision: 2)
+            = "Your Total Cash: <span class='total-value' data-total='#{num}' data-initial='#{num_initial}'>$#{num_initial}</span>".html_safe
+          %p For every call made you receive the cash payout if you transact.
+        = link_to 'MORE<br>DEALS'.html_safe, "javascript:void(0);", :class => 'more-deals-link hidden-deals btn btn-primary-custom', :style => "font-size: 12px;font-weight: bold;"
+
+      %p Enter your phone number to text yourself the app!
+      .app-search.cf
+        %form{:action => ""}
+          %input#search{:placeholder => "Enter your mobile number", :type => "search"}
+            %input#submit{:type => "submit", :value => "send"}
+      %p.info
+        By  clicking “Send”, you authorize us to send you an automated text with a link to download the Muddleme app.
+        %br/
+        Receipt of text is not a condition of purchase.
+    - else
+      %p
+        No information found.
+
+.favorite-service-provider-form{:style => 'display: none; margin: 0 auto;'}
+  = render 'search/favorite_service_provider_form'

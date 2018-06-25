@@ -1,0 +1,64 @@
+%h2.spaced How MuddleMe works for buyers
+
+%div.column.width300
+  %section.default-content.ribboned.step-one
+    %article.text
+      .ribbon
+      %h3 STEP 1 – Create an&nbsp;anonymous MuddleMe profile
+      %div
+        = image_tag('pictures/v-card.png', :class=>'in-content')
+        %h4 ANONYMOUS PROFILE
+        %p
+          Your MuddleMe profile is devoid of all personally identifiable information, such as your email, name,
+          phone number, and address.
+      %div
+        = image_tag('pictures/great-deal-sticker.png', :class=>'in-content')
+        %h4 GET A MUDDLEME SCORE
+        %p
+          However, it does contain other information such as your age, personal preferences, purchase history and
+          your MuddleMe Score, a patented, algorithm-based numeric rating of your value to vendors.
+        %p
+          This information helps vendors decide if they wish to bid for your contact information and how much.
+
+%div.column.width300
+  %section.default-content.ribboned.step-two
+    %article.text
+      .ribbon
+      %h3 STEP 2 – Initiate an&nbsp;auction for your contact details
+      %div
+        = image_tag('pictures/megaphone.png', :class=>'in-content')
+        %h4 TELL THEM WHAT YOU WANT
+        %p
+          Once you’re ready to buy something, simply initiate an auction and describe what you want.
+          Vendors bid for access to you, and you choose from how many and from whom you wish to hear. You can be sure you’ll
+          get their best offer because they’ve now invested in you, and they want a return on their investment!
+  %section.green-box
+    %h3 Hey, this is private!
+    %p Rest assured, all of the information MuddleMe collects is private. No one can see it unless you sell it via your anonymous profile.
+  
+%div.column.width300.last-child
+  %section.default-content.ribboned.step-three
+    %article.text
+      .ribbon
+      %h3 STEP 3 – Count your cash, get a great deal!
+      %div
+        = image_tag('pictures/piggy.png', :class=>'in-content')
+        %h4 THE BEST PART
+        %p
+          With MuddleMe, you receive 70 percent of each bid for your information, every time! And the more you
+          use MuddleMe, the higher the market value is for your information. Plus, you get what you want for
+          a great price!
+        %p
+          %strong
+            = link_to "Sign up FREE", new_user_registration_path
+            and get paid for your contact information!
+  %section.milky-box.box-with-stamp
+    %h3
+      Are you a vendor 
+      %br
+      or service provider?
+    %p 
+      Head on over to the
+      %a{:href => company_path} Company Zone
+      and start growing your sales today!
+    %div.stamp#hot-leads-stamp

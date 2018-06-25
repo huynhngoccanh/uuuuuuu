@@ -1,0 +1,21 @@
+- content_for :sub_nav do
+  = render 'vendors/campaigns/sub_nav', :active_action=>'index', :active_controller=>'offers'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %h3
+      MANAGE AND CREATE OFFERS
+      - tip = "Manage your MuddleMe offers."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %hr.for-table
+    #offers_wrap
+      = render 'offer_list'
+
+
+%h2 Offer Manager
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do 
+  %script
+    :plain
+      simpleAjaxPagination('#offers_wrap');

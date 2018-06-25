@@ -1,0 +1,65 @@
+- unless @pc_hash.blank?
+  %section.popular-stories
+    .container
+      .row
+        .col-xs-12
+          .subtitle.fancy3
+            %span
+              %h3.title Most Popular Stores
+          %br
+          .vertical_listings.mps_less_listings
+            - @alphabet = ''
+            - @pc_hash.sort_by { |k,v| k.to_s }.first(10).in_groups_of(5,false) do |group|
+              - group.each do |category, merchants|
+                - if (@alphabet != category.first) && (@last_alphabet != category.first)
+                  %span.chapter
+                    = category.first
+                    - @alphabet = category.first
+                .store-title{:style => "font-size:13px;"}= category
+                - merchants.each do |merchant|
+                  %div..mps_merchants_section
+                    = link_to merchant.name, merchant.advertiser_url, :id => "merchant_popup_#{merchant.advertiser_id}", :class => "mpc_link", :onclick => "generate_popup(this.id, #{merchant.advertiser_id}, #{merchant.coupons.blank?}); return false;"
+                    = link_to "coupon_window", mm_prompt_cc_window_path(:ad => merchant.advertiser_id, :type => merchant.class.name, :offer_url => merchant.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{merchant.advertiser_id}"
+                %br
+
+          .vertical_listings.mps_full_listings{:style => "display:none;"}
+            - @alphabet = ''
+            - @pc_hash.sort_by { |k,v| k.to_s }.in_groups_of(5,false) do |group|
+              - group.each do |category, merchants|
+                - if (@alphabet != category.first) && (@last_alphabet != category.first)
+                  %span.chapter
+                    = category.first
+                    - @alphabet = category.first
+                .store-title{:style => "font-size:13px;"}= category
+
+                - merchants.each do |merchant|
+                  %div.mps_merchants_section
+                    = link_to merchant.name, merchant.advertiser_url, :id => "merchant_popup_#{merchant.advertiser_id}", :class => "mpc_link", :onclick => "generate_popup(this.id, #{merchant.advertiser_id}, #{merchant.coupons.blank?}); return false;"
+                    = link_to "coupon_window", mm_prompt_cc_window_path(:ad => merchant.advertiser_id, :type => merchant.class.name, :offer_url => merchant.advertiser_url), :style => "display:none;", :id => "merchant_c_window_#{merchant.advertiser_id}"
+                %br
+          %p
+            %div.text-center
+              = link_to "Show more", "javascript:void(0);", :id => "pc_link", :class => "btn btn-primary-custom"
+
+
+
+:javascript
+  var moreText = "Show more",
+  lessText = "Show less",
+  moreButton = $("#pc_link");
+  moreButton.click(function () {
+    var $this = $(this);
+    $this.text($this.text() == moreText ? lessText : moreText);
+    $(".mps_full_listings").slideToggle( "fast", function() {
+      if($(this).is(":hidden")) {
+        $(".mps_less_listings").show();
+        $(".mps_full_listings").hide("fast");
+      }
+      else{
+        $(".mps_less_listings").hide("fast");
+      }
+    });
+  });
+
+
+

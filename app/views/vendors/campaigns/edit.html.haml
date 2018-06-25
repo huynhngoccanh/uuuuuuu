@@ -1,0 +1,29 @@
+- content_for :javascripts do
+  :javascript
+    $(function () {
+      initFormToggler($('#edit-campaign'), $('#cancel-edit-campaign'), $('#campaign-details-preview'), #{action_name == "update" ? 1 : 0})
+    });
+
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>''
+
+- content_for :main_column do
+  %section#campaign.default-content.clearfix
+    %article#campaign-details-preview.details-preview.column.half-col
+      %h3
+        SETTINGS
+        %a.orange-link#edit-campaign edit
+      %hr
+      = render 'edit_form'
+    %article#campaign-performance-preview.details-preview.column.half-col.last-child
+      %h3 PERFORMANCE
+      %hr
+      = render 'performance'
+
+%h2 Campaign Details
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#campaign_auctions_wrap');

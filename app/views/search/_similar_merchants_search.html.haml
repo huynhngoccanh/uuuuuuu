@@ -1,0 +1,11 @@
+.deals.col-md-3{:style => "min-height: 210px; border: 1px solid grey;"}
+  .deals-logo.no-gray-border
+    = image_tag(similar_merchant.is_a?(LinkshareAdvertiser) ? similar_merchant.logo_url : similar_merchant.logo.url, :title => similar_merchant.name, :size => "150x110")
+  %div
+    %span{:class => "coupons rb_regular cursor-pointer col-md-6",:style => 'padding-left: 20px;'}
+      %img{:src => "assets/new_scissor_icon.png"}
+        - coupons = advertiser_coupons(similar_merchant)  
+        %span{:style => "font-size:12px;"} Get Coupons ( #{coupons.count} )
+    %span.col-md-6{:style => "padding: 5px;background-color:grey;"}
+      = number_to_percentage(similar_merchant.max_commission_percent, {:precision => 1, :strip_insignificant_zeros => true})
+      Cash Back 

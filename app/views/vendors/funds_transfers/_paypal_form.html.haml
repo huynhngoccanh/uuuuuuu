@@ -1,0 +1,6 @@
+= simple_form_for @transfer, :validate=>true, |
+  :wrapper=>:standard, :html=>{:class=>'with-label'} do |f|
+  .inputs
+    = f.input :amount, :label => 'Amount:', :input_html=>{:value=>@transfer.amount && @transfer.amount.to_i}
+  .actions
+    = f.button :submit, 'Deposit funds via PayPal'

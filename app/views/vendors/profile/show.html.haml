@@ -1,0 +1,28 @@
+- content_for :javascripts do
+  :javascript
+    $(function () {
+      initFormToggler($('#edit-profile'), $('#cancel-edit-profile'), $('#company-profile'), #{action_name == "update" ? 1 : 0})
+      initFormToggler($('#edit-password'), $('#cancel-edit-passowrd'), $('#company-password'), #{action_name == "update" ? 1 : 0})
+    });
+
+- content_for :sub_nav do
+  = render 'sub_nav', :active_action=>'show', :active_controller=>'vendors/profile'
+
+- content_for :main_column do
+  %section.default-content
+    %h3
+      PROFILE DETAILS
+      %a.orange-link#edit-profile edit
+    %hr
+    %article.narrowed.details-preview#company-profile
+      = render 'form'
+    %h3
+      PASSWORD
+      %a.orange-link#edit-password change password
+    %hr
+    %article.narrowed.details-preview#company-password
+      = render 'form_password'
+
+
+%h2 Profile Details
+= render 'layouts/application/one_column'

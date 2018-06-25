@@ -1,0 +1,101 @@
+// index
+
+section#referrals {
+  #referrals-picture {
+    width: 100%;
+    height: 127px;
+    background: image-url('pictures/referrals.png') no-repeat transparent;
+    margin-bottom: 22px;
+  }
+  article{
+    width: 300px;
+    float: left;
+    margin-right: 20px;
+  }
+
+  article#email-contacts {
+    form#get-contacts-form {
+      input[type="text"],
+      input[type="password"] {
+        width: 195px;
+        float: right;
+      }
+      input[type="submit"] {
+        margin-bottom: 5px;
+      }
+
+    }
+  }
+
+  article#direct-email{
+    clear: none;
+  }
+
+  article#referred-users {
+    width: 615px;
+
+    div#referred_users_table_wrap {
+      width: 388px;
+      float: left;
+      margin-right: 25px;
+    }
+    div#stats {
+      float: left;
+    }
+    p {
+      span {
+        font-size: 14px;
+        overflow: visible;
+      }
+      span.label {
+        width: 135px;
+      }
+      span.highlight {
+        color: $light-orange !important;
+      }
+    }
+  }
+
+  article#social-contacts,
+  article#direct-link {
+    margin-right: 0;
+  }
+
+  article#social-contacts {
+    a#post-to-facebook,
+    a#post-to-twitter {
+      padding: $additional-padding;
+      display: inline-block;
+      text-decoration: none;
+      span.txt {
+        margin-left: 5px;
+        vertical-align: top;
+        display: inline-block;
+        height: 28px;
+        line-height: 28px;
+      }
+    }
+    a#post-to-facebook {
+      float: left;
+    }
+    a#post-to-twitter {
+      float: right;
+    }
+  }
+
+  article#direct-link {
+    input[type="text"] {
+      color: $light-orange;
+    }
+  }
+}
+
+section#referrals{
+  .actions {
+    margin: 15px auto 30px;
+  }
+  textarea {
+    height: 50px;
+  }
+}
+

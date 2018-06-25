@@ -1,0 +1,17 @@
+Hi <%= @user.first_name %>, confirm your auction!
+
+<% if @email_content.hello_sub_text.blank? %>
+    Your MuddleMe auction #<%= @auction.number %>  for <%= @auction.name %>  <%= @auction.product_auction? ? '' : 'project'%> has ended and your earnings of are waiting to be claimed!
+<% else %>
+    <%= prepare_email_content(@email_content.hello_sub_text, :auction => @auction, :user => @user) %>
+<% end %>
+
+
+Your worth for this auction was  <%= format_currency(@auction.user_earnings) %> !
+
+
+Head on over to MuddleMe and provide feedback to calim your earnings!
+
+Click te link below:
+
+<%= outcome_users_auction_url(@auction)  %>

@@ -1,0 +1,27 @@
+%table.default-table
+  %tr
+    %th
+      %span.txt
+        %span
+          Search
+    %th
+      %span.txt
+        %span
+          Date (EST)
+    %th
+      %span.txt
+        %span Merchants
+  - if @searches.blank?
+    %tr
+      %td.ctr{:colspan => 3}
+        = 'No searches to show'
+  - @searches.each do |search|
+    %tr{:class=>cycle(nil,'odd'), :style => "#{search.commission.nil? ? '' : 'background-color: #cccccc;'}"}
+      %td= link_to search.search, "/admin/customers/#{@user.id}/searches/#{search.id}"
+      %td= search.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m-%d-%y %I-%M-%S %p')
+      %td= search.merchants.count
+
+.table-footer.table-info
+  .pages-info= page_entries_info @searches
+  .right
+    = paginate @searches, :param_name => 'search_page', :params => params

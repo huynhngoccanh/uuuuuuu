@@ -1,0 +1,40 @@
+.grey-section
+  = render partial:"shared/profile_header", locals: {current_tab: 'profile'}
+  .heading-section.clearfix
+    .container
+      h2
+        b My Profile
+      .score
+        span.left Your Ubitru Score
+        span.right = current_user.score
+  .content-section
+    .container
+      .white-box.clearfix
+        .profile-section
+          h5
+            | PROFILE DETAILS
+            .pull-right
+              a href=edit_profile_path Update Profile
+
+          table.normal border="0" cellpadding="0" cellspacing="0" width="100%" 
+              tr
+                th scope="row" width="25%"  First Name:
+                td=current_user.first_name
+              tr
+                th scope="row"  Last Name:
+                td=current_user.last_name
+              tr
+                th scope="row"  E-mail Address:
+                td=current_user.email
+              tr
+                th scope="row"  Address:
+                td=current_user.address
+              tr
+                th scope="row"  City:
+                td=current_user.city
+              tr
+                th scope="row"  Zip Code:
+                td=current_user.zip_code
+              tr
+                th scope="row"  Phone Number:
+                td=current_user.phone

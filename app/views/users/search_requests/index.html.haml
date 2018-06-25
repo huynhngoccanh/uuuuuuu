@@ -1,0 +1,36 @@
+- content_for :main_column do
+  %section.default-content.clearfix
+    %h3.icon.green-dot
+      ACTIVE RUNNING SEARCH REQUESTS
+      - tip = "Your currently active Ubitru search requests."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %hr.for-table
+    #in_progress_search_requests_wrap
+      = render 'search_requests_list', :type=>:in_progress
+    %br
+    - unless @search_requests_unconfirmed.blank?
+      %h3.icon.orange-dot
+        OUTCOME PENDING ON SEARCH REQUESTS
+        - tip = "Your Ubitru search requests currently pending outcome."
+        = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+      %hr.for-table
+      #unconfirmed_search_requests_wrap
+        =render 'search_requests_list', :type=>:unconfirmed
+    %br
+    %h3.icon.red-dot
+      FINISHED SEARCH REQUESTS
+      - tip = "Your completed Ubitru search requests."
+      = image_tag 'pixel.gif', :class=>'qmark', :title=>tip
+    %hr.for-table
+    #finished_search_requests_wrap
+      = render 'search_requests_list', :type=>:finished
+.grey-section
+  .heading-section.clearfix
+    .container
+      %h2 My History
+      .score
+        = render 'users/shared/header_score'
+  .content-section
+    .container
+      .white-box.clearfix 
+        = render 'layouts/application/one_column'

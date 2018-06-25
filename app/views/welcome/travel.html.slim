@@ -1,0 +1,36 @@
+
+  section.full-width.hero-banner.parallax-bg.travel-banner
+    .container
+      .banner-content
+        h2 Book Hotels and Travel.
+        h3 Earn Cash Back, Miles and Points.
+  section.full-width.banner-bottom
+    .container
+      .hero-text.cf.align-center.travel-hero-text
+        | Whether you’re taking a day trip to a nearby state, a week long beach escape or a month long safari, we’ve got a deal for you.
+        i.fa.fa-caret-down
+  section.full-width.travel-merchants
+    .container
+      h2.align-center Top Travel Merchants Offers and Cash Back
+      .grid-row.merchant-offers
+        / - if !@merchants.blank?
+        /   -@merchants.each do |merchant|     
+        /     .col-3
+        /       .merchant
+        /         a.hand-icon.active href="#" 
+        /            = image_tag "ubitru/hand-icon.png" ,class: "img-responsive"
+        /         figure.merchant-logo
+        /           a href="#"
+        /             = image_tag "ubitru/travel/priceline.png" ,class: "img-responsive" 
+        /         span.cash-back Cash Back
+  section.full-width.travel-reward-programs
+    .container
+      h2.align-center Earn With These Travel Reward Programs
+      .row
+        .travel-slider
+  section.full-width.travel-coupons
+    .container
+      h2.align-center Top Travel, Hospitality and Entertainment Deals
+      .coupons-list.cf 
+        -@coupons.each do |coupon|
+          = render partial: "/coupons/list_view", locals: {coupon: coupon}

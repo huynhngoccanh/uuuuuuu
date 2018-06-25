@@ -1,0 +1,17 @@
+.link-section
+    .container
+      nav
+        ul
+          li
+            a class=(current_tab == 'profile' ? 'active' : '') href=profile_path Profile
+          li
+            a class=(current_tab == 'earning' ? 'active' : '') href=earning_info_profile_path My Earnings
+          li
+            a class=(current_tab == 'activity' ? 'active' : '') href=user_activity_path My Activity
+          / li
+            a class=(current_tab == 'withdraw' ? 'active' : '') href=funds_withdrawals_path Withdraw Funds
+          li
+            a class=(current_tab == 'noty' ? 'active' : '') href=notification_profile_path Notifications
+          li
+            a class=(current_tab == 'referral' ? 'active' : '') href=referred_visits_path  
+              |Referrals   

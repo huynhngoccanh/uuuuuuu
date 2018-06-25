@@ -1,0 +1,17 @@
+%div
+%footer#small-footer
+  %div#copyright{:style => 'color: white!important;'}
+    %p Copyright #{ Date.today.year } Muddleme
+  %div.row
+    %nav#footer-nav.clearfix
+      %ul
+        %li
+          %a{:href => about_path, :style => 'color: white!important;'} About Us
+        %li
+          %a{:href => 'http://muddleme.blog.com', :target => :blank, :style => 'color: white!important;'} Blog
+        %li
+          %a{:href => contact_path, :style => 'color: white!important;'} Contact
+        %li
+          %a{:href => privacy_policy_path, :style => 'color: white!important;'} Privacy Policy
+        %li
+          %a{:href => faq_path, :style => 'color: white!important;'} FAQ

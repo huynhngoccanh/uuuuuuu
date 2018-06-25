@@ -1,0 +1,74 @@
+- model_class = Coupon
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+p
+  strong= model_class.human_attribute_name(:header) + ':'
+  br
+  = @coupon.header
+p
+  strong= model_class.human_attribute_name(:code) + ':'
+  br
+  = @coupon.code
+p
+  strong= model_class.human_attribute_name(:description) + ':'
+  br
+  = @coupon.description
+p
+  strong= model_class.human_attribute_name(:expires_at) + ':'
+  br
+  = @coupon.expires_at
+p
+  strong= model_class.human_attribute_name(:advertiser_id) + ':'
+  br
+  = @coupon.advertiser_id
+p
+  strong= model_class.human_attribute_name(:advertiser_type) + ':'
+  br
+  = @coupon.advertiser_type
+p
+  strong= model_class.human_attribute_name(:manually_uploaded) + ':'
+  br
+  = @coupon.manually_uploaded
+p
+  strong= model_class.human_attribute_name(:merchant_id) + ':'
+  br
+  = @coupon.merchant_id
+p
+  strong= model_class.human_attribute_name(:ad_url) + ':'
+  br
+  = @coupon.ad_url
+p
+  strong= model_class.human_attribute_name(:temp_website) + ':'
+  br
+  = @coupon.temp_website
+p
+  strong= model_class.human_attribute_name(:user_id) + ':'
+  br
+  = @coupon.user_id
+p
+  strong= model_class.human_attribute_name(:coupon_type) + ':'
+  br
+  = @coupon.coupon_type
+p
+  strong= model_class.human_attribute_name(:print_file_name) + ':'
+  br
+  = @coupon.print_file_name
+p
+  strong= model_class.human_attribute_name(:print_content_type) + ':'
+  br
+  = @coupon.print_content_type
+p
+  strong= model_class.human_attribute_name(:print_file_size) + ':'
+  br
+  = @coupon.print_file_size
+p
+  strong= model_class.human_attribute_name(:print_updated_at) + ':'
+  br
+  = @coupon.print_updated_at
+
+= link_to t('.back', :default => t("helpers.links.back")), coupons_path, :class => 'btn btn-default'
+'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_coupon_path(@coupon), :class => 'btn btn-default'
+'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), coupon_path(@coupon), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

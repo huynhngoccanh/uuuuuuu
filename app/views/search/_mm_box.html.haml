@@ -1,0 +1,86 @@
+#mm-box-container.hide
+  #mm-box-controls-logged-in{:class => ('hide' unless current_user)}
+    .mm-box-control
+      %a{:href => '/funds_withdrawals', :target => '_blank', :title => 'Your current MuddleMe earnings. You must earn at least $30 to make your first withdrawal. After that, you may withdrawal funds at any time.'}
+        #mm-balance-btn-icon
+        Balance:
+        %span#mm_user_balance= number_to_currency(current_user.total_balance) if current_user
+    .mm-box-control
+      %a{:href => '/profile', :target => '_blank'}
+        #mm-profile-btn-icon
+        Profile
+  #mm-box-controls-not-logged-in{:class => ('hide' if current_user)}
+    .mm-box-control
+      %a{'data-toggle' => 'modal', :href => '#mm-auth-modal'}
+        #mm-profile-btn-icon
+        Login
+  #mm-box
+    #mm-box-message-container
+      %button#mm-clear-message-button.close ×
+      #mm-current-message
+    %table#mm-box-header
+      %tr
+        %td
+          #mm-logo
+        %td
+          #mm_user_score= current_user ? current_user.score : '--'
+          #mm-user-score-label-after
+          #mm-user-score-label Your Score
+    %table.mm-listings.hide
+      %tr
+        %th Merchant
+        %th
+          %span{:title => 'The money you make from this merchant'} Earn Cash
+        %th
+          %span{:title => 'The current deal from the Merchant'} Offer
+        %th
+          %span{:title => 'Code used to redeem additional savings'} Coupon Code
+        %th
+          %span{:title => 'How you connect to the merchants to get paid'} Call / Shop Now
+      %tbody
+        %tr
+          %td{:colspan => 5}
+        %tr.hide{:id => 'mm-listing-template'}
+          %td
+            .mm_data_company_name
+            .mm_data_company_address
+          %td.mm_data_user_money
+          %td.mm_data_offer_name
+          %td.mm_data_coupon_code
+          %td.mm-action
+            %a.mm-call-now-btn.hide
+            %a.mm-shop-now-btn.hide
+              Shop
+      %tfoot
+        %tr
+          %td{:colspan => 5}
+            #mm-next-offers-btn
+              #mm-next-offers-btn-icon
+              %span#mm-next-offers-label
+                More Deals
+            %span#mm-total-money{:title => 'The total amount of money you make from all merchants in the MuddleMe Box'}
+
+- # Login js popup
+= render :partial => 'login_modal'
+
+- # View offer modal
+= render :partial => 'view_offer'
+
+- # View merchant modal
+= render :partial => 'view_merchant'
+
+- # View coupons modal
+= render :partial => 'view_coupons'
+
+- # Muddle me icons in search bar
+%a.mm-search-bar-icon.hide{'data-confirm' => ('Are you sure you want to sign out?' if current_user), :class => "mm-search-bar-icon-#{'not-' unless current_user}logged-in", 'data-toggle' => ('modal' unless current_user), 'data-method' => ('delete' if current_user), :href => current_user ? '/logout' : '#mm-auth-modal', :title => current_user ? 'Sign out' : 'Log in', 'data-remote' => 'true', :rel => 'nofollow'}
+- # Information box
+#mm-info-before-shopping
+  %span
+    Everything you buy from this Merchant will result in cash back to your MuddleMe account.
+  %br
+  .mm-center-content
+    %a.mm-continue-shopping-button Continue Shopping
+  %input{:type => 'checkbox', :id => 'mm-info-display'}
+  %label{:for => 'mm-info-display'} Do not show this again
+  %br

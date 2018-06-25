@@ -1,0 +1,14 @@
+- content_for :main_column do
+  %section.default-content.clearfix
+    .column
+      %article#auction-outcome-form
+        %h3= "PROJECT NAME: \"#{@search_request.search}\" "
+        %hr
+        = render 'outcome_form'
+
+= render 'users/shared/header_score'
+
+%h2
+  = "Search request ##{@search_request.id} outcome report"
+
+= render 'layouts/application/one_column'

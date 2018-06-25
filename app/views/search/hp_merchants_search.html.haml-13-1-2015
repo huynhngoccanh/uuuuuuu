@@ -1,0 +1,29 @@
+= render "/application/home_page/search_by_merchants_form"
+%section.deals-area
+  .container
+    .row
+      .search-result-title
+        .large-search-results-label Search Results -
+        .small-search-results-label Showing most trending stores
+        %hr.line= "&nbsp;".html_safe
+    .row.deals-content.clearfix
+      - if !@results.compact[0..9].blank?
+        %div.clearfix{:style => "display:table;width:100%;"}
+          - if @results.count < 3
+            - @results.each_with_index do |result, index|
+              .col-md-4.col-sm-6.padding-left-0{:style => "display:table-cell;float:none !important;"}
+                = render "/search/deals_section_new", :result => result, :index => index
+          - else
+            - @results.in_groups_of(3, false).each do |group|
+              %div{:style => "display:table-row;"}
+                - group.each_with_index do |result, index|
+                  .col-md-4.col-sm-6.padding-left-0
+                    = render "/search/deals_section_new", :result => result, :index => index
+      - else
+        %p
+          No Merchants found for your query.
+
+      .search-results-back-section
+        = image_tag('second-pattern-line.png', :class => 'search-results-bottom-line-img')
+        = link_to 'BACK', root_path, :class => 'back-from-search pull-right btn roboto-bold'
+        = link_to 'SEARCH AGAIN', hp_mm_box_merchants_search_url(:search_by_merchants => params[:search_by_merchants]), :class => 'btn btn-primary-custom pull-right roboto-bold search-again-merchants', :method => :post

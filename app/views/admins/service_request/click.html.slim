@@ -1,0 +1,58 @@
+- model_class = Click
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= form_for '', method: :get do |f|
+  .col-md-3 style="padding-right:0px;"
+    = f.text_field :search ,:class => 'form-control', :placeholder=>'Search'
+  .col-md-1 style="padding-left:0px;"
+    = f.submit 'Search', class: 'btn btn-primary'  
+
+
+= form_tag ' /admins/service_request/download_csv_file', method: :get
+  .col-md-3 
+    input.form-control#datepicker1 name="start_date" placeholder="Start date" type="text" as="datepicker"
+    = hidden_field '' ,"csv" ,:value => "click"
+  .col-md-3 style="padding-left:0px;"
+    input.form-control#datepicker2 name="end_date" placeholder="End date" type="text" as="datepicker"
+  .col-md-2 style="padding-left:0px;"
+    button.btn.btn-primary type="submit"
+      | Download csv
+
+table.table.table-striped
+  thead
+    tr
+      th  id
+      th User id
+      th email
+      th name
+      th cashback_amount
+      th Date
+
+
+  tbody
+    - if @clicks.blank?
+      tr
+        td colspan="3" No Requests
+
+    -else
+      - @clicks.each do |click|
+        tr
+          td = click.id
+          td = click.user_id
+          td = click.user.try(:email)
+          -if click.resource
+            td = click.advertiser.try(:name)
+          td = click.cashback_amount
+          td = click.created_at.strftime("%B-%d-%Y at- %T")
+          / td =user.email
+          / td =user.address
+          / td =user.zip_code
+          th.btn-fix
+            / = link_to "<span class='fa'>&#xf044;</span>".html_safe, "/admin/customers/#{user.id}/edit", class: "btn btn-info btn-sm", "data-no-turbolink" => true
+            
+            / = link_to "<span class='fa'>&#xf014;</span>".html_safe, "/admin/customers/#{user.id}", class: "btn btn-danger btn-sm", method: "delete"
+  / = will_paginate @payment_history, :param_name => 'search_page'
+
+div= will_paginate @clicks
+/ = link_to t('.new', :default => t("helpers.links.new")), new_admins_coupon_path, :class => 'btn btn-primary'

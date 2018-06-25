@@ -1,0 +1,21 @@
+- content_for :sub_nav do
+  = render 'admins/sub_nav', :active_action=>'index', :active_controller=>'admins/vendors'
+
+- content_for :main_column do
+  %section.default-content.clearfix
+    %nav.with-search
+      = link_to 'Create new Company', new_vendor_registration_path, :class=>'orange-button fixed-width-button'
+      = form_tag(admin_vendors_path, :method=>:get, :remote=>true, :id => "vendors-filters") do
+        %div.fields
+          = text_field_tag 'search', params['search'], :class=>'search-field', :placeholder=>'Search Companies'
+        = submit_tag "filter"
+    #all_vendors_wrap
+      = render 'vendor_list', :type=>:all, :single=>true
+
+%h2 Companies
+= render 'layouts/application/one_column'
+
+- content_for :javascripts do
+  %script
+    :plain
+      simpleAjaxPagination('#all_vendors_wrap');

@@ -1,0 +1,4 @@
+$('#recommended_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:recommended, :single=>true, :no_top_pagination=>true) %>")
+$('#all_unfinished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:all_unfinished, :single=>true, :no_top_pagination=>true) %>")
+$('#product_unfinished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:product_unfinished, :single=>true, :no_top_pagination=>true) %>")
+$('#service_unfinished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:service_unfinished, :single=>true, :no_top_pagination=>true) %>")

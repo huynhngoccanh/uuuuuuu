@@ -1,0 +1,30 @@
+- model_class = PurchaseHistory
+div class="page-header"
+  h1=t '.title', :default => "Purchase History"
+table.table.table-striped
+  thead
+    tr
+      th Sr no.
+      / th Merchant
+      th Date
+      th Url
+      th Cashback Amount
+
+  tbody
+    - if @purchases.blank?
+      tr
+        td colspan="5" No record forund
+    -else
+      - @purchases.each_with_index do |purchase, index|
+        tr
+          td= index+1    
+          td= purchase.created_at
+          td= purchase.url
+          td= purchase.cashback_amount
+hr          
+.row
+  .col-sm-12
+    span
+      |Total Cashback :
+      = @purchases.sum(:cashback_Amount)          
+    

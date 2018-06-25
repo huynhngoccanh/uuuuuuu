@@ -1,0 +1,7 @@
+
+$('#in_progress_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:in_progress) %>")
+.css('overflow','')
+$('#finished_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:finished) %>")
+.css('overflow','')
+$('#unconfirmed_auctions_wrap').html("<%= escape_javascript render('auction_list', :type=>:unconfirmed) %>")
+.css('overflow','')
